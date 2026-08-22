@@ -1,0 +1,343 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-fraunces);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* LCDE Brand Palette — inspired by the logo: white / black / metallic gold */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+
+  --primary: #0a0a0a;                             /* black */
+  --primary-foreground: #ffffff;
+
+  --secondary: #f6f4ef;                           /* warm off-white */
+  --secondary-foreground: #0a0a0a;
+
+  --muted: #f6f4ef;
+  --muted-foreground: #6b6b6b;
+
+  --accent: #c4a962;                              /* mid gold */
+  --accent-foreground: #0a0a0a;
+
+  --destructive: #8b1a1a;                         /* burgundy red */
+  --border: #e8e4dc;
+  --input: #e8e4dc;
+  --ring: #c4a962;
+
+  --success: #8b1a1a;                             /* burgundy as success accent */
+
+  --chart-1: #0a0a0a;
+  --chart-2: #c4a962;
+  --chart-3: #8b7325;
+  --chart-4: #e8d5a3;
+  --chart-5: #6b6b6b;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #0a0a0a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f6f4ef;
+  --sidebar-accent-foreground: #0a0a0a;
+  --sidebar-border: #e8e4dc;
+  --sidebar-ring: #c4a962;
+}
+
+.dark {
+  /* Brand palette stays the same — institutional luxury is intentionally light */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #ffffff;
+  --secondary: #f6f4ef;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f6f4ef;
+  --muted-foreground: #6b6b6b;
+  --accent: #c4a962;
+  --accent-foreground: #0a0a0a;
+  --destructive: #8b1a1a;
+  --border: #e8e4dc;
+  --input: #e8e4dc;
+  --ring: #c4a962;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* ===== LCDE Custom Utilities ===== */
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-fraunces), Georgia, serif;
+  }
+  .font-sans {
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  /* Brand color helpers — inspired by LCDE logo (black/white/gold) */
+  .text-navy { color: #0a0a0a; }                    /* black */
+  .bg-navy { background-color: #0a0a0a; }
+  .text-gold { color: #b89840; }                    /* deep gold */
+  .bg-gold { background: linear-gradient(135deg, #e8d5a3 0%, #c4a962 50%, #8b7325 100%); }
+  .text-emerald-brand { color: #8b1a1a; }           /* burgundy accent */
+  .bg-emerald-brand { background-color: #8b1a1a; }
+  .text-anthracite { color: #0a0a0a; }
+
+  /* Premium gradient backgrounds — institutional luxury */
+  .bg-navy-gradient {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 55%, #2a2a2a 100%);
+  }
+  .bg-hero-radial {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(196,169,98,0.15), transparent 60%),
+      radial-gradient(900px 500px at 0% 100%, rgba(139,26,26,0.08), transparent 55%),
+      linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 55%, #2a2a2a 100%);
+  }
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #e8d5a3 0%, #c4a962 50%, #8b7325 100%);
+  }
+  .bg-soft {
+    background-color: #f6f4ef;
+  }
+
+  /* Metallic gold gradient text for accents */
+  .text-gold-gradient {
+    background: linear-gradient(120deg, #e8d5a3 0%, #c4a962 50%, #8b7325 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Subtle grid / dot pattern */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(10,10,10,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10,10,10,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgba(196,169,98,0.3) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Glass card on dark */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Premium shadow */
+  .shadow-premium {
+    box-shadow: 0 1px 2px rgba(10,38,71,0.06), 0 8px 24px -8px rgba(10,38,71,0.18);
+  }
+  .shadow-gold-glow {
+    box-shadow: 0 10px 30px -8px rgba(201,162,39,0.45);
+  }
+  .shadow-navy-glow {
+    box-shadow: 0 10px 40px -8px rgba(10,38,71,0.55);
+  }
+
+  /* Custom scrollbar */
+  .scroll-lcde::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-lcde::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroll-lcde::-webkit-scrollbar-thumb {
+    background: rgba(201,162,39,0.5);
+    border-radius: 9999px;
+  }
+  .scroll-lcde::-webkit-scrollbar-thumb:hover {
+    background: rgba(201,162,39,0.8);
+  }
+
+  /* Hide scrollbar for carousels */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Animated underline link */
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 0;
+    background: #C9A227;
+    transition: width 0.3s ease;
+  }
+  .link-underline:hover::after { width: 100%; }
+}
+
+/* Marquee animation for tools band */
+@keyframes lcde-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: lcde-marquee 28s linear infinite;
+}
+
+/* Floating animation for WhatsApp button */
+@keyframes lcde-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float {
+  animation: lcde-float 3s ease-in-out infinite;
+}
+
+/* Animated hero orbs — slow drifting gradient blobs for premium feel */
+@keyframes lcde-orb-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+@keyframes lcde-orb-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-30px, 25px) scale(1.05); }
+  66% { transform: translate(25px, -15px) scale(0.9); }
+}
+@keyframes lcde-orb-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -40px) scale(1.15); }
+}
+.animate-orb-1 { animation: lcde-orb-1 18s ease-in-out infinite; }
+.animate-orb-2 { animation: lcde-orb-2 22s ease-in-out infinite; }
+.animate-orb-3 { animation: lcde-orb-3 16s ease-in-out infinite; }
+
+/* ===== Fluid breathing background keyframes ===== */
+@keyframes lcde-fluid-bg {
+  0%   { background-position: 0% 0%; transform: rotate(0deg) scale(1); }
+  25%  { background-position: 50% 30%; transform: rotate(3deg) scale(1.05); }
+  50%  { background-position: 80% 60%; transform: rotate(-2deg) scale(0.98); }
+  75%  { background-position: 30% 80%; transform: rotate(2deg) scale(1.03); }
+  100% { background-position: 0% 0%; transform: rotate(0deg) scale(1); }
+}
+@keyframes lcde-fluid-bg-2 {
+  0%   { background-position: 100% 100%; transform: scale(1); }
+  33%  { background-position: 20% 70%; transform: scale(1.08); }
+  66%  { background-position: 70% 20%; transform: scale(0.95); }
+  100% { background-position: 100% 100%; transform: scale(1); }
+}
+@keyframes lcde-text-shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-orb-1,
+  .animate-orb-2,
+  .animate-orb-3,
+  .animate-float,
+  .animate-marquee,
+  .shimmer-gold {
+    animation: none !important;
+  }
+  body::before,
+  body::after,
+  .text-gold-gradient {
+    animation: none !important;
+  }
+}
+
+/* Pulse ring for WhatsApp */
+@keyframes lcde-pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.pulse-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(37,211,102,0.55);
+  animation: lcde-pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  z-index: -1;
+}
+
+/* Shimmer for badges */
+@keyframes lcde-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer-gold {
+  background: linear-gradient(90deg, #8b7325 0%, #e8d5a3 50%, #8b7325 100%);
+  background-size: 200% 100%;
+  animation: lcde-shimmer 3s linear infinite;
+}
+
+/* ===== Institutional luxury theme — no overrides needed =====
+   The site uses the LCDE logo palette: white bg, black text, metallic gold accents.
+   Utility classes (.bg-white, .text-navy, etc.) use their standard Tailwind values
+   which now map to the brand palette via the CSS variables above. */
+
