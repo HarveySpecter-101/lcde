@@ -41,7 +41,6 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/logo-lcde.png", type: "image/png" },
-      { url: "/logo.svg", type: "image/svg+xml" },
     ],
     apple: "/logo-lcde.png",
   },
