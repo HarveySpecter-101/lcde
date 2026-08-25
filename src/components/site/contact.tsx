@@ -79,33 +79,66 @@ export function Contact() {
   const update = (k: keyof typeof form, v: string) =>
     setForm((p) => ({ ...p, [k]: v }));
 
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const canProceed = () => {
     if (step === 1) return !!form.profile;
-    if (step === 2) return !!form.name && !!form.email;
+    if (step === 2) return form.name.trim().length >= 1 && EMAIL_RE.test(form.email.trim());
     return true;
   };
 
-  const next = () => setStep((s) => Math.min(3, s + 1));
+  const next = () => {
+    if (step === 2) {
+      if (!form.name.trim()) {
+        toast.error("Veuillez entrer votre nom complet.");
+        return;
+      }
+      if (!EMAIL_RE.test(form.email.trim())) {
+        toast.error("Veuillez entrer une adresse email valide (ex: nom@exemple.com).");
+        return;
+      }
+    }
+    setStep((s) => Math.min(3, s + 1));
+  };
   const prev = () => setStep((s) => Math.max(1, s - 1));
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.name.trim() || !form.email.trim()) {
+      toast.error("Veuillez renseigner votre nom et votre adresse email.");
+      setStep(2);
+      return;
+    }
+    if (!EMAIL_RE.test(form.email.trim())) {
+      toast.error("Veuillez renseigner une adresse email valide.");
+      setStep(2);
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...form,
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          profile: form.profile,
+          message: form.message.trim() || "Je souhaite rejoindre la prochaine promotion.",
           objective: "Rejoindre la prochaine édition",
           source: "contact",
         }),
       });
-      if (!res.ok) throw new Error("Erreur réseau");
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Une erreur est survenue lors de l'envoi.");
+      }
       setDone(true);
       toast.success("Inscription envoyée ! Notre équipe vous recontacte sous 24 h.");
-    } catch {
-      toast.error("Une erreur est survenue. Réessayez ou écrivez-nous sur WhatsApp.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Une erreur est survenue. Réessayez ou écrivez-nous sur WhatsApp.";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

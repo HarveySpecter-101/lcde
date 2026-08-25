@@ -12,28 +12,40 @@ export function Newsletter() {
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
 
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    const cleanEmail = email.trim();
+    if (!cleanEmail) return;
+    if (!EMAIL_RE.test(cleanEmail)) {
+      toast.error("Veuillez saisir une adresse email valide.");
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: "Newsletter",
-          email,
+          name: "Abonné Newsletter",
+          email: cleanEmail,
           profile: "other",
           objective: "Recevoir la newsletter LCDE",
           message: "Inscription newsletter depuis le footer.",
           source: "newsletter",
         }),
       });
-      if (!res.ok) throw new Error("Erreur réseau");
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Une erreur est survenue.");
+      }
       setDone(true);
       toast.success("Inscription confirmée — bienvenue dans le Club !");
-    } catch {
-      toast.error("Une erreur est survenue. Réessayez plus tard.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Une erreur est survenue. Réessayez plus tard.";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

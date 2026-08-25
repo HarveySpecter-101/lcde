@@ -79,24 +79,43 @@ export function PricingModal({ open, onOpenChange }: Props) {
   const update = (k: keyof typeof form, v: string) =>
     setForm((p) => ({ ...p, [k]: v }));
 
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.name.trim() || !form.email.trim()) {
+      toast.error("Veuillez renseigner votre nom et votre adresse email.");
+      return;
+    }
+    if (!EMAIL_RE.test(form.email.trim())) {
+      toast.error("Veuillez renseigner une adresse email valide.");
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...form,
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          profile: form.profile,
+          message: form.message.trim() || "Demande de tarif pour la formation LCDE.",
           objective: "Demander le tarif",
           source: "pricing-modal",
         }),
       });
-      if (!res.ok) throw new Error("Erreur réseau");
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Une erreur est survenue lors de l'envoi.");
+      }
       setDone(true);
       toast.success("Demande de tarif envoyée ! Réponse sous 24 h.");
-    } catch {
-      toast.error("Une erreur est survenue. Réessayez ou écrivez-nous sur WhatsApp.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Une erreur est survenue. Réessayez ou écrivez-nous sur WhatsApp.";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
