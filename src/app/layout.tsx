@@ -80,7 +80,7 @@ export default function RootLayout({
       <body
         className={`${fraunces.variable} ${inter.variable} font-sans antialiased text-foreground`}
       >
-        <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
           {children}
           <SonnerToaster position="top-center" richColors closeButton />
         </ThemeProvider>

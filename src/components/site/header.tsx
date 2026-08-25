@@ -6,7 +6,6 @@ import { Menu, X, ArrowRight, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { NAV_LINKS, LCDE } from "@/lib/site-data";
-import { ThemeToggle } from "@/components/site/theme-toggle";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -97,8 +96,6 @@ export function Header() {
 
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-2">
-          <ThemeToggle scrolled={scrolled} />
-
           <Button
             asChild
             size="sm"
@@ -147,12 +144,6 @@ export function Header() {
                   ))}
                 </nav>
                 <div className="border-t border-navy/10 p-4">
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="text-xs font-medium uppercase tracking-wide text-anthracite/60">
-                      Thème
-                    </span>
-                    <ThemeToggle scrolled />
-                  </div>
                   <Button asChild className="w-full bg-gold text-navy font-semibold hover:bg-gold/90">
                     <a href="#contact">
                       Rejoindre la formation
