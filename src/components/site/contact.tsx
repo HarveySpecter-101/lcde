@@ -173,7 +173,7 @@ export function Contact() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center py-12 text-center"
                 >
-                  <span className="flex size-16 items-center justify-center rounded-full bg-emerald-brand text-white">
+                  <span className="flex size-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg">
                     <CheckCircle2 className="size-9" />
                   </span>
                   <h3 className="mt-5 font-serif text-2xl font-bold text-white">Bien reçu, {form.name || "à bientôt"} !</h3>
@@ -186,8 +186,7 @@ export function Contact() {
                       setForm({ name: "", email: "", phone: "", profile: "company", message: "" });
                       setStep(1);
                     }}
-                    variant="outline"
-                    className="mt-6 border-white/25 text-white hover:bg-white/10 hover:text-white"
+                    className="mt-6 bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow"
                   >
                     Envoyer une autre demande
                   </Button>
