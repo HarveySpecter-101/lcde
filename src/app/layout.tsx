@@ -40,6 +40,7 @@ export const metadata: Metadata = {
   creator: "Le Club Des Experts",
   icons: {
     icon: [
+      { url: "/favicon.png", type: "image/png" },
       { url: "/logo-lcde.png", type: "image/png" },
     ],
     apple: "/logo-lcde.png",

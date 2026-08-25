@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sendContactEmails } from "@/lib/email";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -16,13 +17,22 @@ export async function POST(req: Request) {
     const profile = typeof body.profile === "string" ? body.profile : "student";
     const objective =
       typeof body.objective === "string" ? body.objective.trim() : "";
-    const message =
-      typeof body.message === "string" ? body.message.trim() : "";
     const source = typeof body.source === "string" ? body.source : "contact";
 
-    if (!name || !email || !message) {
+    // For newsletter: message is pre-filled on the client, accept it as-is
+    const rawMessage = typeof body.message === "string" ? body.message.trim() : "";
+    const message =
+      rawMessage || (source === "newsletter" ? "Inscription newsletter depuis le footer." : "");
+
+    if (!name || !email) {
       return NextResponse.json(
-        { ok: false, error: "Champs obligatoires manquants" },
+        { ok: false, error: "Champs obligatoires manquants (nom, email)" },
+        { status: 422 }
+      );
+    }
+    if (!message) {
+      return NextResponse.json(
+        { ok: false, error: "Le message est requis" },
         { status: 422 }
       );
     }
@@ -33,6 +43,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // 1. Save to Supabase via Prisma
     const submission = await db.contactSubmission.create({
       data: {
         name,
@@ -44,6 +55,17 @@ export async function POST(req: Request) {
         source,
       },
     });
+
+    // 2. Send emails via Resend (non-blocking — DB record is always saved first)
+    sendContactEmails({ name, email, phone, profile, objective, message, source })
+      .then(({ errors }) => {
+        if (errors.length > 0) {
+          console.warn("[API /contact] Email warnings:", errors);
+        }
+      })
+      .catch((err) => {
+        console.error("[API /contact] Email send failed (non-critical):", err);
+      });
 
     return NextResponse.json({ ok: true, id: submission.id });
   } catch (err) {
