@@ -7,17 +7,17 @@ import { Reveal } from "@/components/site/reveal";
 const FOUNDERS = [
   {
     name: "Rachad GHALI",
-    role: "Fondateur & CEO",
-    bio: "Expert-comptable et visionnaire de la formation pratique en audit & finance à Casablanca. Pilote la stratégie pédagogique et le développement du Club depuis 2020.",
-    badge: "OEC",
+    role: 'Co-fondateur "Le Club Des Experts"',
+    bio: "Manager Audit & Financial Advisory, Consultant spécialisé dans l'Audit et le Métier du secteur Bancaire.",
+    badge: "Audit & Banking",
     photo: "/founders/rachad-ghali.jpg",
   },
   {
-    name: "Moutik Rida",
-    role: "Co-fondateur",
-    bio: "Consultant senior en Transaction Services & Due Diligence. Conçoit les modules M&A et Financial Advisory en lien direct avec la réalité des opérations de marché.",
-    badge: "TS / DD",
-    photo: "/founders/moutik-rida.jpg",
+    name: "Rida MOUTIK",
+    role: 'Co-fondateur "Le Club Des Experts"',
+    bio: "Expert Comptable Mémorialiste, Manager Audit & Financial Advisory, Spécialiste en Due Diligence (financière, fiscale, sociale et juridique).",
+    badge: "EC & Due Diligence",
+    photo: "/founders/rida-moutik.jpg",
   },
 ];
 

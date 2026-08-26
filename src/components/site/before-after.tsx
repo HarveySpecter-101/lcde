@@ -1,26 +1,29 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { X, Check, ArrowRight, GitCompareArrows, GraduationCap, Briefcase } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Check, GitCompareArrows, GraduationCap, Briefcase } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 
 const BEFORE = [
-  "Savoir académique théorique, peu confronté à la réalité des dossiers",
-  "Méconnaissance des outils réels (Sage, SAP, Odoo, Power BI)",
-  "Pas de méthodologie d'audit structurée",
-  "Difficulté à tenir en entretien PFE et en mission",
-  "Écart ressenti entre la fac et les attentes des cabinets",
+  <>Savoir académique <strong className="font-bold text-red-600">théorique</strong>, peu confronté à la réalité des dossiers</>,
+  <><strong className="font-bold text-red-600">Méconnaissance</strong> des outils réels (Sage, SAP, Odoo, Power BI)</>,
+  <>Pas de <strong className="font-bold text-red-600">méthodologie d'audit</strong> structurée</>,
+  <><strong className="font-bold text-red-600">Difficulté</strong> à tenir en entretien PFE et en mission</>,
+  <><strong className="font-bold text-red-600">Écart</strong> ressenti entre la fac et les attentes des cabinets</>,
 ];
 
 const AFTER = [
-  "Raisonner comme un praticien sur des cas réels",
-  "Maîtriser les outils utilisés en cabinet et en entreprise",
-  "Appliquer une démarche d'audit (ISA / CNCC) de bout en bout",
-  "Arriver opérationnel dès le premier jour en stage ou en poste",
-  "Parler le même langage que les seniors des Big Four",
+  <><strong className="font-bold text-green-600">Raisonner</strong> comme un praticien sur des cas réels</>,
+  <><strong className="font-bold text-green-600">Maîtriser</strong> les outils utilisés en cabinet et en entreprise</>,
+  <>Appliquer une <strong className="font-bold text-green-600">démarche d'audit</strong> (ISA / CNCC) de bout en bout</>,
+  <>Arriver <strong className="font-bold text-green-600">opérationnel</strong> dès le premier jour en stage ou en poste</>,
+  <>Parler le même <strong className="font-bold text-green-600">langage</strong> que les seniors des Big Four</>,
 ];
 
 export function BeforeAfter() {
+  const [activeTab, setActiveTab] = useState<"avant" | "apres">("avant");
+
   return (
     <section className="relative overflow-hidden bg-white py-20 md:py-28">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.04]" aria-hidden />
@@ -40,88 +43,105 @@ export function BeforeAfter() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid items-stretch gap-5 lg:grid-cols-[1fr_auto_1fr] lg:gap-4">
-          {/* Before */}
-          <Reveal direction="right">
-            <div className="relative h-full overflow-hidden rounded-3xl border border-navy/10 bg-soft p-6 md:p-8">
-              <div className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-anthracite/5 blur-2xl" />
-              <div className="relative flex items-center gap-3">
-                <span className="flex size-12 items-center justify-center rounded-2xl bg-anthracite/10 text-anthracite">
-                  <GraduationCap className="size-6" />
-                </span>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-anthracite/50">Avant</p>
-                  <p className="font-serif text-xl font-bold text-anthracite">Le profil académique</p>
-                </div>
-              </div>
-              <ul className="relative mt-6 space-y-3">
-                {BEFORE.map((t, i) => (
-                  <motion.li
-                    key={t}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ delay: i * 0.06, duration: 0.4 }}
-                    className="flex items-start gap-3 text-sm leading-relaxed text-anthracite/75"
-                  >
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-anthracite/10 text-anthracite">
-                      <X className="size-3.5" strokeWidth={2.5} />
-                    </span>
-                    {t}
-                  </motion.li>
-                ))}
-              </ul>
+        <div className="mx-auto mt-14 max-w-3xl">
+          {/* Toggle Buttons */}
+          <Reveal delay={0.1}>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setActiveTab("avant")}
+                className={`flex flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-4 py-3 sm:py-4 transition-all duration-300 ${
+                  activeTab === "avant"
+                    ? "border-[#dc2626] bg-[#dc2626] text-white shadow-lg"
+                    : "border-gray-200 bg-transparent text-gray-500 hover:border-[#dc2626]/50 hover:text-[#dc2626]"
+                }`}
+              >
+                <GraduationCap className="size-5" />
+                <span className="font-semibold">Avant</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("apres")}
+                className={`flex flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-4 py-3 sm:py-4 transition-all duration-300 ${
+                  activeTab === "apres"
+                    ? "border-[#16a34a] bg-[#16a34a] text-white shadow-lg"
+                    : "border-gray-200 bg-transparent text-gray-500 hover:border-[#16a34a]/50 hover:text-[#16a34a]"
+                }`}
+              >
+                <Briefcase className="size-5" />
+                <span className="font-semibold">Après</span>
+              </button>
             </div>
           </Reveal>
 
-          {/* Arrow divider */}
-          <Reveal delay={0.15} className="flex items-center justify-center">
-            <div className="flex items-center justify-center lg:flex-col">
-              <span className="hidden lg:block lg:h-16 lg:w-px lg:bg-gradient-to-b lg:from-transparent lg:via-gold lg:to-transparent" />
-              <span className="flex size-14 items-center justify-center rounded-full bg-gold-gradient text-navy shadow-gold-glow lg:my-2">
-                <ArrowRight className="size-6 lg:rotate-90" strokeWidth={2.5} />
-              </span>
-              <span className="hidden lg:block lg:h-16 lg:w-px lg:bg-gradient-to-b lg:from-transparent lg:via-gold lg:to-transparent" />
-              <span className="lg:hidden lg:mx-2 block h-px w-12 bg-gradient-to-r from-transparent via-gold to-transparent" />
-            </div>
-          </Reveal>
-
-          {/* After */}
-          <Reveal direction="left" delay={0.1}>
-            <div className="relative h-full overflow-hidden rounded-3xl border border-emerald-brand/30 bg-emerald-brand/[0.06] p-6 shadow-premium md:p-8">
-              <div className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-emerald-brand/15 blur-2xl" />
-              <div className="relative flex items-center gap-3">
-                <span className="flex size-12 items-center justify-center rounded-2xl bg-emerald-brand text-white">
-                  <Briefcase className="size-6" />
-                </span>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-emerald-brand">Après</p>
-                  <p className="font-serif text-xl font-bold text-navy">Le profil opérationnel</p>
-                </div>
-              </div>
-              <ul className="relative mt-6 space-y-3">
-                {AFTER.map((t, i) => (
-                  <motion.li
-                    key={t}
-                    initial={{ opacity: 0, x: 10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ delay: i * 0.06, duration: 0.4 }}
-                    className="flex items-start gap-3 text-sm font-medium leading-relaxed text-navy"
-                  >
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-brand text-white">
-                      <Check className="size-3.5" strokeWidth={3} />
+          {/* Content Area */}
+          <div className="mt-6">
+            <AnimatePresence mode="wait">
+              {activeTab === "avant" && (
+                <motion.div
+                  key="avant"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3 }}
+                  className="rounded-3xl border border-red-200 bg-red-50 p-6 shadow-sm md:p-8"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-red-100 text-red-600">
+                      <GraduationCap className="size-7" />
                     </span>
-                    {t}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
+                    <div>
+                      <h3 className="font-serif text-2xl font-bold text-red-950">Le profil académique</h3>
+                      <p className="text-sm font-medium text-red-600/80">Avant la formation LCDE</p>
+                    </div>
+                  </div>
+                  <ul className="mt-8 space-y-4">
+                    {BEFORE.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-base text-red-900/80">
+                        <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-600">
+                          <X className="size-4" strokeWidth={2.5} />
+                        </span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+
+              {activeTab === "apres" && (
+                <motion.div
+                  key="apres"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3 }}
+                  className="rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm md:p-8"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-green-100 text-green-600">
+                      <Briefcase className="size-7" />
+                    </span>
+                    <div>
+                      <h3 className="font-serif text-2xl font-bold text-green-950">Le profil opérationnel</h3>
+                      <p className="text-sm font-medium text-green-600/80">Après la formation LCDE</p>
+                    </div>
+                  </div>
+                  <ul className="mt-8 space-y-4">
+                    {AFTER.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-base text-green-900/80">
+                        <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-600">
+                          <Check className="size-4" strokeWidth={3} />
+                        </span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Bottom takeaway */}
-        <Reveal delay={0.2} className="mt-10">
+        <Reveal delay={0.2} className="mt-12">
           <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 rounded-2xl bg-navy-gradient p-6 text-center text-white shadow-navy-glow sm:flex-row sm:text-left">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gold text-navy">
               <Check className="size-6" strokeWidth={3} />

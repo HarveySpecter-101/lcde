@@ -50,7 +50,7 @@ export function Modules() {
             <Layers className="size-3.5" /> Nos formations
           </span>
           <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl dark:text-white">
-            10 modules en 1 formation
+            13 métiers en 1 formation
           </h2>
           <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg dark:text-white/70">
             Un parcours complet de <strong className="font-semibold text-navy dark:text-white">12 mois</strong> (janvier → décembre),
@@ -291,7 +291,7 @@ export function Modules() {
                     {/* Module indicator */}
                     <div className="flex flex-col items-center px-2">
                       <p className="text-[10px] font-semibold uppercase tracking-wide text-anthracite/50 dark:text-white/50">
-                        {String(selected.id).padStart(2, "0")} / 10
+                        {String(selected.id).padStart(2, "0")} / 13
                       </p>
                       <div className="mt-1.5 flex gap-1">
                         {MODULES.map((_, i) => (

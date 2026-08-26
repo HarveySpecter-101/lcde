@@ -4,11 +4,14 @@ import {
   Landmark,
   Scale,
   ShieldCheck,
-  BadgeCheck,
   ClipboardCheck,
-  Leaf,
   SearchCheck,
-  Handshake,
+  Building2,
+  ShieldAlert,
+  GitMerge,
+  FileCheck2,
+  Monitor,
+  MonitorSmartphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -39,14 +42,14 @@ export const WHATSAPP_LINK = `https://wa.me/${LCDE.whatsappRaw}?text=${encodeURI
 
 /* ===== Animated stats ===== */
 export const STATS = [
-  { value: 1500, suffix: "+", label: "Profils accompagnés", sub: "depuis 2020" },
+  { value: 4500, suffix: "+", label: "Personnes formées", sub: "depuis 2020" },
   { value: 96, suffix: "%", label: "Taux d'insertion professionnelle", sub: "jusqu'à" },
   { value: 100, suffix: "%", label: "Taux de satisfaction", sub: "revendiqué" },
   { value: 7, suffix: "ᵉ", label: "Édition en cours", sub: "2026" },
 ] as const;
 
-/* ===== 10 modules (pôles) ===== */
-export type Module = {
+/* ===== 13 Métiers ===== */
+export type Metier = {
   id: number;
   icon: LucideIcon;
   title: string;
@@ -57,199 +60,271 @@ export type Module = {
   duration: string;
 };
 
-export const MODULES: Module[] = [
+export const METIERS: Metier[] = [
   {
     id: 1,
     icon: BookOpenCheck,
-    title: "Comptabilité Générale & Consolidation",
-    short: "Du bilan individuel aux comptes consolidés.",
+    title: "Consultant en Expertise comptable",
+    short: "Tenue, clôture et révision des comptes selon les normes marocaines.",
     bullets: [
       "Tenue et clôture des comptes",
-      "Conversion & consolidation (méthode intégration globale)",
-      "Éliminations des opérations intra-groupe",
+      "Travaux d'inventaire et provisions",
+      "Révision des comptes et production des états financiers",
+      "Déclarations fiscales (IS, IR, TVA)"
     ],
-    description:
-      "Le socle du métier d'expert-comptable : de la tenue courante des comptes jusqu'à l'établissement de bilans consolidés pour les groupes. Vous apprenez à produire des états financiers conformes au CGNC et à présenter des comptes consolidés selon le référentiel marocain.",
+    description: "Le socle du métier d'expert-comptable. Vous apprenez la tenue courante, les travaux d'inventaire, la révision des comptes, la déclaration fiscale, et la production d'états financiers conformes au CGNC. Des cas pratiques issus de dossiers réels de cabinets d'expertise comptable.",
     skills: [
-      "Bilan & compte de résultat",
-      "Tableau de flux de trésorerie",
-      "Périmètre de consolidation",
-      "Éliminations intra-groupe",
+      "Comptabilité générale",
+      "Révision comptable",
+      "États financiers CGNC",
+      "Déclarations fiscales"
     ],
     duration: "6 semaines",
   },
   {
     id: 2,
-    icon: FileBarChart,
-    title: "Normes IFRS",
-    short: "Référentiel international des états financiers.",
-    bullets: [
-      "IFRS 15 (revenus), IFRS 16 (contrats de location)",
-      "IFRS 9 (instruments financiers)",
-      "Présentation de l'IFRS consolidé",
-    ],
-    description:
-      "Maîtrisez le référentiel IFRS utilisé par les groupes cotés et les multinationales. Vous êtes capable de passer les écritures complexes (reconnaissance des revenus, contrats de location, instruments financiers) et de présenter des états financiers IFRS consolidés.",
-    skills: [
-      "IFRS 15 — revenus",
-      "IFRS 16 — contrats de location",
-      "IFRS 9 — instruments financiers",
-      "Présentation IFRS consolidé",
-    ],
-    duration: "5 semaines",
-  },
-  {
-    id: 3,
     icon: Landmark,
-    title: "Fiscalité Marocaine & Internationale",
-    short: "Tax advisory : du CGI aux conventions fiscales.",
+    title: "Consultant en Tax",
+    short: "Tax advisory : du CGI aux conventions fiscales internationales.",
     bullets: [
       "IS, IR, TVA et retenues à la source",
       "Contrôle & contentieux fiscal",
       "Fiscalité internationale & prix de transfert",
+      "Optimisation fiscale et due diligence fiscale"
     ],
-    description:
-      "Le pôle Tax Advisory : vous apprenez à calculer et optimiser l'IS, l'IR et la TVA au Maroc, à gérer un contrôle fiscal, et à structurer des opérations internationales en maîtrisant les conventions fiscales et les prix de transfert.",
+    description: "Le pôle Tax Advisory complet. Vous maîtrisez l'IS, l'IR et la TVA au Maroc, gérez un contrôle fiscal, et structurez des opérations internationales en maîtrisant les conventions fiscales et les prix de transfert. Simulation de contrôles fiscaux et cas de contentieux.",
     skills: [
       "IS / IR / TVA",
-      "Retenues à la source",
-      "Contrôle & contentieux",
+      "Contrôle fiscal",
       "Prix de transfert",
+      "Due diligence fiscale"
     ],
     duration: "6 semaines",
   },
   {
-    id: 4,
+    id: 3,
     icon: Scale,
-    title: "Droit des Affaires",
-    short: "Cadre juridique de l'entreprise et des contrats.",
+    title: "Consultant Juridique",
+    short: "Cadre juridique de l'entreprise, contrats et restructurations.",
     bullets: [
       "Droit des sociétés (SA, SARL, SCA)",
       "Contrats commerciaux & sûretés",
       "Fusions, scissions et transformations",
+      "Due diligence juridique"
     ],
-    description:
-      "Le cadre juridique indispensable à tout praticien de la finance d'entreprise. Vous comprenez les statuts juridiques, rédigez et analysez des contrats commerciaux, et maîtrisez les opérations de restructuration (fusions, scissions, apports).",
+    description: "Le cadre juridique indispensable à tout praticien. Vous comprenez les statuts juridiques (SA, SARL, SCA), rédigez et analysez des contrats commerciaux, et maîtrisez les opérations de restructuration (fusions, scissions, apports partiels d'actifs).",
     skills: [
       "Droit des sociétés",
       "Contrats commerciaux",
       "Sûretés & garanties",
-      "Restructurations",
+      "Restructurations"
     ],
     duration: "4 semaines",
   },
   {
-    id: 5,
+    id: 4,
     icon: ShieldCheck,
-    title: "Audit des États Financiers",
-    short: "Démarche d'audit des comptes individuels et consolidés.",
+    title: "Auditeur Financier des états de synthèse",
+    short: "Démarche d'audit et certification des comptes individuels.",
     bullets: [
       "Planification & risques d'audit",
       "Tests de procédures & substantifs",
       "Rapport d'audit (CNCC / ISA)",
+      "Mission de Certification des comptes"
     ],
-    description:
-      "Le cœur du métier d'auditeur. Vous apprenez à planifier une mission, identifier et évaluer les risques, concevoir des tests de procédures et substantifs, et rédiger un rapport d'audit conforme aux normes ISA et CNCC.",
+    description: "Le cœur du métier d'auditeur. Planification, identification et évaluation des risques, tests de procédures et substantifs, et rédaction d'un rapport d'audit conforme aux normes ISA et CNCC. Simulation complète d'une mission de commissariat aux comptes.",
     skills: [
       "Planification d'audit",
       "Évaluation des risques",
       "Tests de procédures",
-      "Rapport ISA / CNCC",
+      "Certification ISA/CNCC"
     ],
     duration: "6 semaines",
   },
   {
-    id: 6,
-    icon: BadgeCheck,
-    title: "Commissariat aux Comptes",
-    short: "Missions légales du commissaire aux comptes.",
+    id: 5,
+    icon: Building2,
+    title: "Auditeur Financier spécialisé dans le secteur Bancaire",
+    short: "Audit et contrôle spécifiques aux établissements bancaires.",
     bullets: [
-      "Mission de Certification des comptes",
-      "SEF & examens limités",
-      "Obligations légales & déclarations de fraude",
+      "Comptabilité bancaire et PCEC",
+      "Réglementation prudentielle (Bâle III/IV)",
+      "Audit des opérations de crédit et de marché",
+      "Contrôle interne des établissements bancaires"
     ],
-    description:
-      "La mission légale par excellence. Vous maîtrisez la certification des comptes, les interventions prévues par la loi (SEF, examens limités), et vos obligations de déclaration de fraude et de vigilance.",
+    description: "L'audit financier appliqué au secteur bancaire. Vous maîtrisez les spécificités comptables des établissements de crédit, le contrôle interne bancaire, la réglementation prudentielle (Bâle III/IV), et l'audit des opérations de crédit, de marché et de trésorerie.",
     skills: [
-      "Certification des comptes",
-      "SEF",
-      "Examens limités",
-      "Alerte & déclaration de fraude",
+      "PCEC",
+      "Réglementation Bâle",
+      "Audit bancaire",
+      "Contrôle interne"
+    ],
+    duration: "5 semaines",
+  },
+  {
+    id: 6,
+    icon: ShieldAlert,
+    title: "Auditeur Financier spécialisé dans le secteur des Assurances",
+    short: "Audit et contrôle des compagnies d'assurance et de réassurance.",
+    bullets: [
+      "Comptabilité des assurances",
+      "Provisionnement technique",
+      "Réglementation Solvabilité II",
+      "Audit des engagements et réassurance"
+    ],
+    description: "L'audit financier du secteur assurantiel. Vous apprenez les spécificités comptables des compagnies d'assurance, le provisionnement technique, la réglementation Solvabilité II, et l'audit des engagements techniques et de la réassurance.",
+    skills: [
+      "Comptabilité assurance",
+      "Provisions techniques",
+      "Solvabilité II",
+      "Audit engagements"
     ],
     duration: "4 semaines",
   },
   {
     id: 7,
-    icon: ClipboardCheck,
-    title: "Audit Interne & Contrôle de Gestion",
-    short: "Pilotage des risques et de la performance.",
+    icon: FileBarChart,
+    title: "Consultant spécialisé en Normes Comptables IFRS",
+    short: "Référentiel international des états financiers.",
     bullets: [
-      "Cadre COSO & cartographie des risques",
-      "Cycle d'audit interne",
-      "Tableaux de bord & contrôle budgétaire",
+      "IFRS 15 (revenus)",
+      "IFRS 16 (contrats de location)",
+      "IFRS 9 (instruments financiers)",
+      "Présentation de l'IFRS consolidé"
     ],
-    description:
-      "Le pilotage de l'entreprise par les risques et la performance. Vous apprenez à cartographier les risques (COSO), à conduire un cycle d'audit interne, et à concevoir des tableaux de bord de pilotage budgétaire et opérationnel.",
+    description: "Maîtrisez le référentiel IFRS utilisé par les groupes cotés et les multinationales. Écritures complexes (IFRS 15 revenus, IFRS 16 contrats de location, IFRS 9 instruments financiers) et présentation d'états financiers IFRS consolidés.",
     skills: [
-      "Cadre COSO",
-      "Cartographie des risques",
-      "Cycle d'audit interne",
-      "Tableaux de bord",
+      "IFRS 15 — revenus",
+      "IFRS 16 — contrats de location",
+      "IFRS 9 — instruments financiers",
+      "Présentation IFRS consolidé"
     ],
     duration: "5 semaines",
   },
   {
     id: 8,
-    icon: Leaf,
-    title: "Responsabilité Sociétale (RSE)",
-    short: "Reporting extra-financiel & développement durable.",
+    icon: GitMerge,
+    title: "Consultant spécialisé en Consolidation des Comptes",
+    short: "Du bilan individuel aux comptes consolidés de groupe.",
     bullets: [
-      "Cadre GRI & CSRD",
-      "Bilan carbone & démarche RSE",
-      "Reporting de durabilité",
+      "Périmètre de consolidation",
+      "Méthodes de consolidation (IG, IP, MEE)",
+      "Éliminations intra-groupe",
+      "Retraitements de consolidation"
     ],
-    description:
-      "Le reporting extra-financier devenu incontournable. Vous maîtrisez les cadres GRI et CSRD, conduisez un bilan carbone, et êtes capable de produire un rapport de durabilité conforme aux nouvelles exigences réglementaires européennes.",
+    description: "L'expertise en consolidation comptable. Vous apprenez à établir un périmètre de consolidation, effectuer les retraitements de consolidation, éliminer les opérations intra-groupe, et produire des comptes consolidés selon le référentiel marocain et IFRS.",
     skills: [
-      "Cadre GRI",
-      "CSRD",
-      "Bilan carbone",
-      "Reporting de durabilité",
-    ],
-    duration: "3 semaines",
-  },
-  {
-    id: 9,
-    icon: SearchCheck,
-    title: "Transaction Services & Due Diligence",
-    short: "Analyses financières pré-acquisition.",
-    bullets: [
-      "Due Diligence financière (vendeur / acheteur)",
-      "Quality of Earnings (QoE)",
-      "Net debt & working capital analysis",
-    ],
-  },
-  {
-    id: 10,
-    icon: Handshake,
-    title: "M&A, Financial Advisory & Investment Banking",
-    short: "Ingénierie financière et opérations de rapprochement.",
-    bullets: [
-      "Valorisation (DCF, comparables)",
-      "Structuration d'opérations M&A",
-      "Financial modeling & pitching",
-    ],
-    description:
-      "Le sommet de l'ingénierie financière. Vous apprenez à valoriser une entreprise (DCF, comparables), à structurer une opération de M&A de bout en bout, et à construire des modèles financiers prêts pour le pitch auprès d'investisseurs.",
-    skills: [
-      "Valorisation DCF",
-      "Méthode des comparables",
-      "Structuration M&A",
-      "Financial modeling",
+      "Périmètre de consolidation",
+      "Intégration globale",
+      "Éliminations intra-groupe",
+      "Retraitements"
     ],
     duration: "5 semaines",
   },
+  {
+    id: 9,
+    icon: FileCheck2,
+    title: "Auditeur des états financiers Consolidés en Normes IFRS",
+    short: "Audit des comptes consolidés selon le référentiel IFRS.",
+    bullets: [
+      "Audit des packages de consolidation",
+      "Revue des retraitements IFRS",
+      "Tests substantifs sur les comptes consolidés",
+      "Certification des états financiers consolidés"
+    ],
+    description: "La combinaison audit + consolidation + IFRS. Vous menez une mission d'audit de comptes consolidés en normes IFRS de bout en bout : planification, revue des packages de consolidation, tests sur les retraitements IFRS, et certification des états financiers consolidés.",
+    skills: [
+      "Audit consolidé",
+      "Packages IFRS",
+      "Tests substantifs consolidés",
+      "Rapport de certification"
+    ],
+    duration: "5 semaines",
+  },
+  {
+    id: 10,
+    icon: SearchCheck,
+    title: "Consultant Financier",
+    short: "Analyses financières, M&A et ingénierie financière.",
+    bullets: [
+      "Due Diligence financière (vendeur / acheteur)",
+      "Quality of Earnings (QoE)",
+      "Valorisation (DCF, comparables)",
+      "Financial modeling & structuration M&A"
+    ],
+    description: "Le sommet de l'ingénierie financière. Due diligence financière (vendeur/acheteur), Quality of Earnings, valorisation d'entreprises (DCF, comparables), structuration M&A, financial modeling et pitching auprès d'investisseurs.",
+    skills: [
+      "Due Diligence",
+      "QoE",
+      "Valorisation DCF",
+      "Financial modeling"
+    ],
+    duration: "6 semaines",
+  },
+  {
+    id: 11,
+    icon: Monitor,
+    title: "Consultant SAP FI/CO",
+    short: "Paramétrage et consulting sur le module Finance de SAP.",
+    bullets: [
+      "Paramétrage SAP FI (Financial Accounting)",
+      "Paramétrage SAP CO (Controlling)",
+      "Centres de coûts et comptabilité analytique",
+      "Intégration inter-modules"
+    ],
+    description: "La maîtrise du module SAP FI/CO, le plus demandé sur le marché. Vous apprenez le paramétrage des modules Financial Accounting (FI) et Controlling (CO), la gestion des centres de coûts, la comptabilité analytique SAP, et l'intégration avec les autres modules.",
+    skills: [
+      "SAP FI",
+      "SAP CO",
+      "Centres de coûts",
+      "Intégration ERP"
+    ],
+    duration: "5 semaines",
+  },
+  {
+    id: 12,
+    icon: MonitorSmartphone,
+    title: "Auditeur IT",
+    short: "Audit des systèmes d'information et cybersécurité.",
+    bullets: [
+      "Contrôles IT généraux (ITGC)",
+      "Audit de la sécurité des SI",
+      "Référentiels COBIT & ISO 27001",
+      "Évaluation des risques cyber"
+    ],
+    description: "L'audit des systèmes d'information. Vous apprenez à évaluer les contrôles IT généraux (ITGC), auditer la sécurité des SI, évaluer les risques cyber, et mener des missions d'audit IT selon les référentiels COBIT et ISO 27001.",
+    skills: [
+      "ITGC",
+      "Sécurité SI",
+      "COBIT",
+      "ISO 27001"
+    ],
+    duration: "4 semaines",
+  },
+  {
+    id: 13,
+    icon: ClipboardCheck,
+    title: "Contrôleur de gestion",
+    short: "Pilotage de la performance et contrôle budgétaire.",
+    bullets: [
+      "Contrôle budgétaire et analyse des écarts",
+      "Tableaux de bord et reporting",
+      "Calcul des coûts (ABC, coûts complets)",
+      "Power BI et Excel/VBA pour le pilotage"
+    ],
+    description: "Le pilotage de l'entreprise par la performance. Vous apprenez le contrôle budgétaire, la construction de tableaux de bord, l'analyse des écarts, le calcul des coûts (ABC, coûts complets), et l'utilisation d'outils BI (Power BI, Excel/VBA) pour le reporting de gestion.",
+    skills: [
+      "Contrôle budgétaire",
+      "Tableaux de bord",
+      "Méthode ABC",
+      "Power BI"
+    ],
+    duration: "5 semaines",
+  }
 ];
+
+export type Module = Metier;
+export const MODULES = METIERS;
 
 /* ===== Tools / software taught ===== */
 export const TOOLS = [
@@ -259,6 +334,117 @@ export const TOOLS = [
   { name: "Excel / VBA", tag: "Modélisation" },
   { name: "Power BI", tag: "Data Viz" },
 ] as const;
+
+/* ===== Intervenants data ===== */
+export type Intervenant = {
+  name: string;
+  company?: string;
+  experience: string;
+  role: string;
+  specialties: string[];
+  initials: string;
+  photo?: string;
+};
+
+export const INTERVENANTS: Intervenant[] = [
+  {
+    name: "Mr. Amine Hassanain",
+    experience: "+15 ans d'expérience",
+    role: "Founding Partner, Commissaire aux comptes et Expert comptable",
+    specialties: [
+      "Membre du Conseil National de la Comptabilité",
+      "Consultant en Normes IFRS (INTEC Paris)",
+      "Consultant en Consolidation des Comptes",
+      "Consultant en Dissolution et Liquidation",
+      "Docteur en Sciences de Gestion",
+      "Enseignant MBA et Cycle d'Expertise Comptable",
+    ],
+    initials: "AH",
+  },
+  {
+    name: "Mr. Naoufal El Khatib",
+    company: "Forvis Mazars",
+    experience: "+25 ans d'expérience",
+    role: "Partner & Head of Financial Advisory",
+    specialties: [
+      "Consulting Financier",
+      "Audit d'Acquisition",
+      "Due Diligence Financière",
+      "Valorisation des Entreprises",
+    ],
+    initials: "NK",
+  },
+  {
+    name: "Mr. Mehdi Zaher",
+    company: "Forvis Mazars",
+    experience: "+12 ans d'expérience",
+    role: "Senior Manager Transaction Services",
+    specialties: [
+      "Audit d'Acquisition",
+      "Due Diligence Financière",
+      "Valorisation des Entreprises",
+    ],
+    initials: "MZ",
+  },
+  {
+    name: "Mme. Sarah Dchieche",
+    company: "Deloitte",
+    experience: "+12 ans d'expérience",
+    role: "Directrice Tax",
+    specialties: [
+      "Fiscalité Internationale",
+      "Due Diligence Fiscale et Juridique",
+      "Contrôle Fiscal",
+      "Optimisation Fiscale",
+    ],
+    initials: "SD",
+  },
+  {
+    name: "Mr. Reda Latrach",
+    experience: "+8 ans d'expérience",
+    role: "Founding Partner, Commissaire aux comptes et Expert comptable",
+    specialties: [
+      "Consultant en Optimisation Fiscale",
+      "Consultant en Contrôle Fiscal",
+      "Consultant en Audit Fiscal",
+      "Consultant en Finance Islamique & Audit Sharia",
+    ],
+    initials: "RL",
+  },
+];
+
+export type AnonymousIntervenant = {
+  role: string;
+  experience: string;
+  specialty: string;
+};
+
+export const ANONYMOUS_INTERVENANTS: AnonymousIntervenant[] = [
+  { role: "Contrôleur de Gestion Senior Industriel", experience: "+8 ans", specialty: "Finance Informatique & Data Analytics (SAP FI/CO, Power BI, VBA, SQL)" },
+  { role: "Auditrice Senior IT & Cybersécurité", experience: "+5 ans", specialty: "Diplômée de l'Université Sorbonne Paris Nord" },
+  { role: "HR Business Partner", experience: "+5 ans", specialty: "Consultant en Talent Acquisition" },
+  { role: "Auditeur Senior (Cabinet Big4)", experience: "+5 ans", specialty: "Spécialisé dans le secteur des Assurances" },
+  { role: "Auditrice Senior (Cabinet Big4)", experience: "+7 ans", specialty: "Consolidation des Comptes et Normes IFRS" },
+  { role: "Consultante Senior (Cabinet Big4)", experience: "+5 ans", specialty: "Transaction Services et M&A" },
+];
+
+/* ===== Founders data ===== */
+export const FOUNDERS_DATA = [
+  {
+    name: "Rachad GHALI",
+    role: 'Co-fondateur "Le Club Des Experts"',
+    bio: "Manager Audit & Financial Advisory, Consultant spécialisé dans l'Audit et le Métier du secteur Bancaire.",
+    badge: "Audit & Banking",
+    photo: "/founders/rachad-ghali.jpg",
+  },
+  {
+    name: "Rida MOUTIK",
+    role: 'Co-fondateur "Le Club Des Experts"',
+    bio: "Expert Comptable Mémorialiste, Manager Audit & Financial Advisory, Spécialiste en Due Diligence (financière, fiscale, sociale et juridique).",
+    badge: "EC & Due Diligence",
+    photo: "/founders/rida-moutik.jpg",
+  },
+];
 
 /* ===== Trainers profile ===== */
 export type Trainer = {
@@ -397,7 +583,7 @@ export const FAQ = [
 export const NAV_LINKS = [
   { href: "#accueil", label: "Accueil" },
   { href: "#formations", label: "Nos Formations" },
-  { href: "#apropos", label: "À propos" },
+  { href: "#intervenants", label: "Intervenants" },
   { href: "#temoignages", label: "Témoignages" },
   { href: "#entreprises", label: "Entreprises" },
   { href: "#contact", label: "Contact" },

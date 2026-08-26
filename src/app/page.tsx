@@ -4,19 +4,18 @@ import { Stats } from "@/components/site/stats";
 import { TrustBadges } from "@/components/site/trust-badges";
 import { Modules } from "@/components/site/modules";
 import { FormationStats } from "@/components/site/formation-stats";
+import { Intervenants } from "@/components/site/intervenants";
 import { Founders } from "@/components/site/founders";
-import { About } from "@/components/site/about";
 import { BeforeAfter } from "@/components/site/before-after";
 import { Testimonials } from "@/components/site/testimonials";
 import { Companies } from "@/components/site/companies";
 import { Resources } from "@/components/site/resources";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
-import { WhatsAppButton } from "@/components/site/whatsapp-button";
 import { ScrollProgress } from "@/components/site/scroll-progress";
 import { SectionDivider } from "@/components/site/section-divider";
 import { BackToTop } from "@/components/site/back-to-top";
-import { MobileCtaBar } from "@/components/site/mobile-cta-bar";
+import { PersistentCtaBar } from "@/components/site/persistent-cta-bar";
 import { CookieConsent } from "@/components/site/cookie-consent";
 
 export default function Home() {
@@ -31,9 +30,9 @@ export default function Home() {
         <Modules />
         <FormationStats />
         <SectionDivider variant="light-to-soft" />
-        <Founders />
+        <Intervenants />
         <SectionDivider variant="soft-to-light" />
-        <About />
+        <Founders />
         <SectionDivider variant="light-to-soft" />
         <BeforeAfter />
         <SectionDivider variant="soft-to-light" />
@@ -43,9 +42,8 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-      <WhatsAppButton />
+      <PersistentCtaBar />
       <BackToTop />
-      <MobileCtaBar />
       <CookieConsent />
     </div>
   );

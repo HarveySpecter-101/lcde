@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Download, MessageCircle, Sparkles, CheckCircle2, BadgeCheck } from "lucide-react";
+import { ArrowRight, Download, MessageCircle, CheckCircle2, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LCDE, WHATSAPP_LINK } from "@/lib/site-data";
 
@@ -17,6 +17,21 @@ const item = {
     transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
+
+const PROMO_ITEMS = [
+  {
+    emoji: "💯",
+    text: "Une formation certifiée et reconnue, 100% pratique et complète, destinée à toutes les filières. On te prépare pour 13 métiers différents et liés entre eux, et pour toute la carrière : bien au-delà des entretiens PFE et CDI.",
+  },
+  {
+    emoji: "✅",
+    text: "+4 500 personnes formées dont +95% font leur carrière dans des postes à haute responsabilité, et les métiers les plus rémunérés sur le marché d'emploi marocain et international.",
+  },
+  {
+    emoji: "💼",
+    text: "Chaque métier est assuré par un spécialiste ; nos intervenants sont des experts comptables diplômés, des directeurs en audit, des managers au sein des cabinets Big4, des consultants financiers et des docteurs en sciences de gestion.",
+  },
+];
 
 export function Hero() {
   return (
@@ -35,15 +50,9 @@ export function Hero() {
           initial="hidden"
           animate="show"
         >
-          <motion.div variants={item} className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3.5 py-1.5 text-xs font-medium text-gold backdrop-blur-sm">
-            <Sparkles className="size-3.5" />
-            Formation « 10 en 1 » · 12 mois · 100 % pratique
-            <span className="hidden sm:inline">· {LCDE.edition}</span>
-          </motion.div>
-
           <motion.h1
             variants={item}
-            className="mt-5 font-serif text-3xl font-bold leading-[1.15] tracking-tight text-navy sm:text-4xl md:text-5xl lg:text-[3.5rem]"
+            className="font-serif text-3xl font-bold leading-[1.15] tracking-tight text-navy sm:text-4xl md:text-5xl lg:text-[3.5rem]"
           >
             Rejoignez{" "}
             <span className="text-gold-gradient font-extrabold drop-shadow-sm">
@@ -55,6 +64,21 @@ export function Hero() {
           <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-anthracite/70 sm:text-lg">
             La formation 100 % pratique en <strong className="font-semibold text-navy">Audit, Finance, Fiscalité et Comptabilité</strong> qui rend chaque candidat opérationnel dès le premier jour.
           </motion.p>
+
+          {/* Promotional info block */}
+          <motion.div variants={item} className="mt-6 space-y-3">
+            {PROMO_ITEMS.map((p, i) => (
+              <div
+                key={i}
+                className="flex gap-3 rounded-2xl border border-gold/20 bg-gold/[0.04] p-4"
+              >
+                <span className="shrink-0 text-xl leading-none">{p.emoji}</span>
+                <p className="text-sm leading-relaxed text-anthracite/80 sm:text-[15px]">
+                  {p.text}
+                </p>
+              </div>
+            ))}
+          </motion.div>
 
           <motion.div variants={item} className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild size="lg" className="bg-gold-gradient text-navy font-semibold hover:opacity-90 hover:shadow-gold-glow">
@@ -94,9 +118,9 @@ export function Hero() {
           </motion.ul>
         </motion.div>
 
-        {/* Right visual */}
+        {/* Right visual — hidden on mobile to prioritize content */}
         <motion.div
-          className="lg:col-span-5"
+          className="hidden lg:block lg:col-span-5"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -132,7 +156,7 @@ export function Hero() {
                     L'avantage LCDE
                   </p>
                   <p className="mt-2 font-serif text-2xl font-bold leading-tight text-navy">
-                    Un parcours. Dix métiers du chiffre.
+                    Un parcours. Treize métiers du chiffre.
                   </p>
                   <p className="mt-2 text-xs leading-relaxed text-anthracite/70">
                     Du socle comptable aux opérations de M&A — tout le spectre en une seule formation.
@@ -146,8 +170,8 @@ export function Hero() {
                     <p className="mt-0.5 text-xs font-medium text-anthracite/70">Janvier → Décembre</p>
                   </div>
                   <div className="rounded-2xl border border-navy/10 bg-soft p-4">
-                    <p className="font-serif text-2xl font-bold text-navy">5 outils</p>
-                    <p className="mt-0.5 text-xs font-medium text-anthracite/70">Sage · SAP · Odoo · BI</p>
+                    <p className="font-serif text-2xl font-bold text-navy">13 métiers</p>
+                    <p className="mt-0.5 text-xs font-medium text-anthracite/70">Complémentaires</p>
                   </div>
                 </div>
               </div>
