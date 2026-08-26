@@ -481,48 +481,36 @@ export const TRAINERS: Trainer[] = [
   },
 ];
 
-/* ===== Testimonials ===== */
-export type Testimonial = {
-  quote: string;
+/* ===== Success Stories ===== */
+export type SuccessStory = {
   name: string;
-  role: string;
-  initials: string;
-  tags: string[];
+  school: string;
+  admissions: string[];
 };
 
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    quote:
-      "Formation suivie sur 12 mois avec des cas pratiques réels : audit bancaire, fiscalité marocaine et internationale, IFRS et due diligence. Un grand merci aux fondateurs pour la qualité et le concret du programme — j'ai été recruté en cabinet avec des compétences directement opérationnelles.",
-    name: "Yassine B.",
-    role: "Consultant — Audit & Finance",
-    initials: "YB",
-    tags: ["Audit bancaire", "IFRS", "Due Diligence"],
-  },
-  {
-    quote:
-      "Formation intensive animée par des praticiens : experts-comptables et consultants seniors. Approche très concrète qui a renforcé mes compétences en audit financier, fiscalité, contrôle de gestion et due diligence. Merci aux intervenants et aux cofondateurs pour leur accompagnement.",
-    name: "Salma E.",
-    role: "Cabinet d'expertise comptable & d'audit",
-    initials: "SE",
-    tags: ["Audit financier", "Fiscalité", "Contrôle de gestion"],
-  },
-  {
-    quote:
-      "L'écart entre la théorie de la fac et la réalité des dossiers a disparu. Les cas traités sont ceux qu'on retrouve en mission. Opérationnel dès le premier jour, c'est exactement ça.",
-    name: "Anas T.",
-    role: "Junior — Transaction Services",
-    initials: "AT",
-    tags: ["M&A", "Modeling", "QoE"],
-  },
-  {
-    quote:
-      "Je suis arrivée en cherchant un complément et je suis repartie avec une vraie méthodologie d'auditeur. Les retours des intervenants sur mes travaux étaient d'un niveau exigeant.",
-    name: "Imane K.",
-    role: "Auditrice interne",
-    initials: "IK",
-    tags: ["Audit interne", "COSO", "Reporting"],
-  },
+export const SUCCESS_STORIES: SuccessStory[] = [
+  { name: "Abdelghafour Louah", school: "ENCG Meknès", admissions: ["Saaidi & Associés", "Pricewaterhouse"] },
+  { name: "Abdelhafid El Hassani", school: "ENCG Casablanca", admissions: ["Deloitte France", "RSM Morocco", "Hdid & Associés"] },
+  { name: "Abdelkader Benataya", school: "ENCG Oujda", admissions: ["Deloitte France", "AD Associés"] },
+  { name: "Abdellah Moujtahid", school: "ENCG Casablanca", admissions: ["Fidaroc Grant Thornton", "Deloitte Maroc"] },
+  { name: "Abderrahmane Khal", school: "ENCG El Jadida", admissions: ["Mazars France"] },
+  { name: "Abdessamad Zoumhane", school: "ENCG Casablanca", admissions: ["Pricewaterhouse"] },
+  { name: "Achraf Hakim", school: "ENCG El Jadida", admissions: ["PWC Rtm", "Accor (Audit Interne)", "Crédit Du Maroc (Audit)", "Airbus (Contrôle de gestion)"] },
+  { name: "Adam Idriss Zamzami", school: "ENCG Casablanca", admissions: ["Mazars Maroc", "Deloitte France"] },
+  { name: "Ahlam Wakrim", school: "ENCG Casablanca", admissions: ["Deloitte France", "Fidaroc Grant Thornton", "Coopers & Lybrand"] },
+  { name: "Akram Erraysse", school: "ENCG Béni Mellal", admissions: ["Fidaroc Grant Thornton"] },
+  { name: "Akram Makhlouk", school: "ENCG Casablanca", admissions: ["Deloitte Maroc", "Coopers & Lybrand", "AD Associés", "Pricewaterhouse", "Mazars France"] },
+  { name: "Alae Ajdid", school: "ENCG Casablanca", admissions: ["Deloitte Maroc (Tax)", "Maphar (Contrôle de gestion)"] },
+  { name: "Amina Abbassi", school: "ISCAE Rabat", admissions: ["Mazars France", "KPMG Tax", "Fidaroc Grant Thornton"] },
+  { name: "Amina Elassali", school: "ENCG Kénitra", admissions: ["SM South Capital", "Mazars France", "Upsilon Consulting"] },
+  { name: "Amine Dahmoun", school: "ENCG Settat", admissions: ["EY Maroc"] },
+  { name: "Amine Dardikh", school: "ENCG Kénitra", admissions: ["Mazars France", "Mazars Luxembourg"] },
+  { name: "Amjad Tarriko", school: "ENCG Kénitra", admissions: ["E2B Consulting", "Fizazi & Associés", "CIH (Audit et Inspection)"] },
+  { name: "Anas Belkharraz", school: "ENCG El Jadida", admissions: ["Hdid & Associés", "Fizazi & Associés"] },
+  { name: "Anass Touzani", school: "ENCG Settat", admissions: ["Deloitte Maroc", "PWC France"] },
+  { name: "Arwa Oudouche", school: "ENCG Agadir", admissions: ["PWC France"] },
+  { name: "Asmae Adnane", school: "ENCG Settat", admissions: ["PWC France"] },
+  { name: "Asmae Bennis", school: "ENCG Fès", admissions: ["PWC Rtm", "Fidaroc Grant Thornton", "Mazars France"] },
 ];
 
 /* ===== Employer sectors (generic categories, no real logos) ===== */
