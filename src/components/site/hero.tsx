@@ -43,11 +43,13 @@ export function Hero() {
 
           <motion.h1
             variants={item}
-            className="mt-5 font-serif text-4xl font-bold leading-[1.05] tracking-tight text-navy sm:text-5xl md:text-6xl lg:text-[4.25rem]"
+            className="mt-5 font-serif text-3xl font-bold leading-[1.15] tracking-tight text-navy sm:text-4xl md:text-5xl lg:text-[3.5rem]"
           >
-            Créons les experts
-            <br />
-            de <span className="text-gold-gradient">demain.</span>
+            Rejoignez{" "}
+            <span className="text-gold-gradient font-extrabold drop-shadow-sm">
+              la 7ème édition (2026)
+            </span>{" "}
+            de la formation qui vous prépare pour 13 métiers différents et complémentaires.
           </motion.h1>
 
           <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-anthracite/70 sm:text-lg">

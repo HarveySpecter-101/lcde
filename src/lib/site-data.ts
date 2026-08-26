@@ -20,7 +20,7 @@ export const LCDE = {
   city: "Casablanca",
   country: "Maroc",
   activeSince: 2020,
-  edition: "5ᵉ / 6ᵉ édition en cours",
+  edition: "7ᵉ édition (2026)",
   whatsappNumber: "+212777293083",
   whatsappDisplay: "+212 777-293083",
   whatsappRaw: "212777293083",
@@ -42,7 +42,7 @@ export const STATS = [
   { value: 1500, suffix: "+", label: "Profils accompagnés", sub: "depuis 2020" },
   { value: 96, suffix: "%", label: "Taux d'insertion professionnelle", sub: "jusqu'à" },
   { value: 100, suffix: "%", label: "Taux de satisfaction", sub: "revendiqué" },
-  { value: 5, suffix: "ᵉ/6ᵉ", label: "Édition en cours", sub: "formation annuelle" },
+  { value: 7, suffix: "ᵉ", label: "Édition en cours", sub: "2026" },
 ] as const;
 
 /* ===== 10 modules (pôles) ===== */
