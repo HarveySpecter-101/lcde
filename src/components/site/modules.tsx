@@ -11,12 +11,11 @@ import {
   X,
   CheckCircle2,
   Sparkles,
-  ArrowRight,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
-import { Button } from "@/components/ui/button";
+
 import { MODULES, TOOLS, type Module } from "@/lib/site-data";
 import { PricingModal } from "@/components/site/pricing-modal";
 
@@ -518,17 +517,27 @@ export function Modules() {
                   </div>
                 </div>
 
-                {/* CTA */}
-                <div className="mt-8">
-                  <Button
-                    asChild
-                    className="w-full bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow"
+                {/* Navigation between métiers */}
+                <div className="mt-8 flex items-center justify-between gap-3 border-t border-navy/10 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setPopupIndex((popupIndex! - 1 + MODULES.length) % MODULES.length)}
+                    aria-label="Métier précédent"
+                    className="flex size-10 items-center justify-center rounded-xl border border-navy/10 bg-soft text-navy transition-colors hover:bg-navy hover:text-white"
                   >
-                    <a href="#contact" onClick={() => setPopupIndex(null)}>
-                      Je m'inscris à la formation
-                      <ArrowRight className="size-4" />
-                    </a>
-                  </Button>
+                    <ChevronLeft className="size-5" />
+                  </button>
+                  <p className="text-xs font-semibold text-anthracite/50">
+                    {String(popupModule.id).padStart(2, "0")} / {String(MODULES.length).padStart(2, "0")}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setPopupIndex((popupIndex! + 1) % MODULES.length)}
+                    aria-label="Métier suivant"
+                    className="flex size-10 items-center justify-center rounded-xl border border-navy/10 bg-soft text-navy transition-colors hover:bg-navy hover:text-white"
+                  >
+                    <ChevronRight className="size-5" />
+                  </button>
                 </div>
               </div>
             </motion.div>

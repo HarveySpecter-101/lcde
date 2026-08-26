@@ -16,7 +16,7 @@ import { ScrollProgress } from "@/components/site/scroll-progress";
 import { SectionDivider } from "@/components/site/section-divider";
 import { BackToTop } from "@/components/site/back-to-top";
 import { PersistentCtaBar } from "@/components/site/persistent-cta-bar";
-import { CookieConsent } from "@/components/site/cookie-consent";
+
 
 export default function Home() {
   return (
@@ -44,7 +44,6 @@ export default function Home() {
       <Footer />
       <PersistentCtaBar />
       <BackToTop />
-      <CookieConsent />
     </div>
   );
 }
