@@ -272,40 +272,6 @@ export function Modules() {
           </div>
         </Reveal>
 
-        {/* ───────── CTA card below carousel ───────── */}
-        <Reveal delay={0.18} className="mt-10">
-          <div className="mx-auto max-w-2xl overflow-hidden rounded-3xl bg-navy-gradient p-6 text-white shadow-navy-glow sm:p-8">
-            <div className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-gold/20 blur-2xl" />
-            <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.08]" />
-            <div className="relative flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left">
-              <div className="flex-1">
-                <h3 className="font-serif text-xl font-bold leading-tight">
-                  Le programme <span className="text-gold-gradient">complet</span>
-                </h3>
-                <p className="mt-2 text-sm text-white/75">
-                  Calendrier, détails des modules, témoignages — et tarifs sur
-                  demande.
-                </p>
-              </div>
-              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                <button
-                  type="button"
-                  onClick={() => setPricingOpen(true)}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-semibold text-navy transition-transform hover:scale-[1.02]"
-                >
-                  Demander le tarif
-                  <ArrowUpRight className="size-4" />
-                </button>
-                <a
-                  href="#contact"
-                  className="flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-5 py-2.5 text-xs font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                >
-                  Ou rejoindre la formation
-                </a>
-              </div>
-            </div>
-          </div>
-        </Reveal>
 
         {/* ───────── Tools band ───────── */}
         <Reveal className="mt-16">
