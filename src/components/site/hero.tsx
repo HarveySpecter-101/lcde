@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Download, MessageCircle, CheckCircle2, BadgeCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LCDE, WHATSAPP_LINK } from "@/lib/site-data";
+import { LCDE } from "@/lib/site-data";
 
 const container = {
   hidden: {},
@@ -87,35 +87,7 @@ export function Hero() {
                 <ArrowRight className="size-4" />
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-gold/50 text-gold hover:bg-gold/10 hover:text-gold hover:border-gold">
-              <a href="#ressources">
-                <Download className="size-4" />
-                Télécharger le programme complet
-              </a>
-            </Button>
-            <Button asChild size="lg" variant="ghost" className="text-navy hover:bg-gold/10 hover:text-navy">
-              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="size-4 text-[#25D366]" />
-                WhatsApp
-              </a>
-            </Button>
           </motion.div>
-
-          {/* Trust line */}
-          <motion.ul variants={item} className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-anthracite/75">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-emerald-brand" />
-              Experts-comptables OEC
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-emerald-brand" />
-              Seniors issus des Big Four
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-emerald-brand" />
-              Docteurs en gestion
-            </li>
-          </motion.ul>
         </motion.div>
 
         {/* Right visual — hidden on mobile to prioritize content */}
