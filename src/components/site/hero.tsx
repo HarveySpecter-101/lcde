@@ -56,14 +56,10 @@ export function Hero() {
           >
             Rejoignez{" "}
             <span className="text-gold-gradient font-extrabold drop-shadow-sm">
-              la 7ème édition (2026)
+              la 8ème édition (2027)
             </span>{" "}
             de la formation qui vous prépare pour 13 métiers différents et complémentaires.
           </motion.h1>
-
-          <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-anthracite/70 sm:text-lg">
-            La formation 100 % pratique en <strong className="font-semibold text-navy">Audit, Finance, Fiscalité et Comptabilité</strong> qui rend chaque candidat opérationnel dès le premier jour.
-          </motion.p>
 
           {/* Promotional info block */}
           <motion.div variants={item} className="mt-6 space-y-3">

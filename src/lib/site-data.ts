@@ -23,7 +23,7 @@ export const LCDE = {
   city: "Casablanca",
   country: "Maroc",
   activeSince: 2020,
-  edition: "8ᵉ édition (2026)",
+  edition: "8ᵉ édition (2027)",
   whatsappNumber: "+212777293083",
   whatsappDisplay: "+212 777-293083",
   whatsappRaw: "212777293083",
@@ -45,7 +45,7 @@ export const STATS = [
   { value: 4500, suffix: "+", label: "Personnes formées", sub: "depuis 2020" },
   { value: 96, suffix: "%", label: "Taux d'insertion professionnelle", sub: "jusqu'à" },
   { value: 100, suffix: "%", label: "Taux de satisfaction", sub: "revendiqué" },
-  { value: 7, suffix: "ᵉ", label: "Édition en cours", sub: "2026" },
+  { value: 8, suffix: "ᵉ", label: "Édition en cours", sub: "2027" },
 ] as const;
 
 /* ===== 13 Métiers ===== */

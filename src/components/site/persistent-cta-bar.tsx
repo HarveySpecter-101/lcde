@@ -8,8 +8,8 @@ import { WHATSAPP_LINK } from "@/lib/site-data";
 /**
  * Persistent CTA bar — replaces the floating WhatsApp circle.
  * Two buttons always visible at the bottom of the screen:
- * 1. WhatsApp — opens WhatsApp chat
- * 2. "Rejoins la 7ème édition" — scrolls to contact form
+ * 1. "Télécharger le programme" — triggers download
+ * 2. "Rejoins la 8ème édition" — scrolls to contact form
  *
  * Features a subtle pulse/glow animation every ~4 seconds.
  * Hides when the contact section is in view (to avoid redundancy).
@@ -62,7 +62,7 @@ export function PersistentCtaBar() {
                 href="#contact"
                 className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gold-gradient text-sm font-semibold text-navy shadow-gold-glow transition-transform active:scale-[0.98] hover:scale-[1.01] cta-pulse-gold"
               >
-                Rejoins la 7ème édition
+                Rejoins la 8ème édition
                 <ArrowRight className="size-4" />
               </a>
             </div>
