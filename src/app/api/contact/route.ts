@@ -104,13 +104,9 @@ export async function POST(req: Request) {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              name,
-              email,
-              phone,
-              profile,
-              objective,
-              message,
-              source,
+              "Nom Complet": name,
+              "Email": email,
+              "Téléphone": phone,
             }),
           }
         );
