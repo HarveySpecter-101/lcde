@@ -224,7 +224,7 @@ export const METIERS: Metier[] = [
   {
     id: 9,
     icon: FileCheck2,
-    title: "Auditeur des états financiers Consolidés en Normes IFRS",
+    title: "Audit des états financiers Consolidés en Normes IFRS",
     short: "Audit des comptes consolidés selon le référentiel IFRS.",
     bullets: [
       "Audit des packages de consolidation",
@@ -349,6 +349,7 @@ export type Intervenant = {
 export const INTERVENANTS: Intervenant[] = [
   {
     name: "Mr. Amine Hassanain",
+    company: "Topium Advisory",
     experience: "+15 ans d'expérience",
     role: "Founding Partner, Commissaire aux comptes et Expert comptable",
     specialties: [
@@ -360,19 +361,6 @@ export const INTERVENANTS: Intervenant[] = [
       "Enseignant MBA et Cycle d'Expertise Comptable",
     ],
     initials: "AH",
-  },
-  {
-    name: "Mr. Naoufal El Khatib",
-    company: "Forvis Mazars",
-    experience: "+25 ans d'expérience",
-    role: "Partner & Head of Financial Advisory",
-    specialties: [
-      "Consulting Financier",
-      "Audit d'Acquisition",
-      "Due Diligence Financière",
-      "Valorisation des Entreprises",
-    ],
-    initials: "NK",
   },
   {
     name: "Mr. Mehdi Zaher",
@@ -388,7 +376,7 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Mme. Sarah Dchieche",
-    company: "Deloitte",
+    company: "Deloitte Maroc",
     experience: "+12 ans d'expérience",
     role: "Directrice Tax",
     specialties: [
@@ -401,12 +389,11 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Mr. Reda Latrach",
+    company: "Auditus",
     experience: "+8 ans d'expérience",
     role: "Founding Partner, Commissaire aux comptes et Expert comptable",
     specialties: [
-      "Consultant en Optimisation Fiscale",
-      "Consultant en Contrôle Fiscal",
-      "Consultant en Audit Fiscal",
+      "Spécialiste en Fiscalité",
       "Consultant en Finance Islamique & Audit Sharia",
     ],
     initials: "RL",
@@ -420,12 +407,12 @@ export type AnonymousIntervenant = {
 };
 
 export const ANONYMOUS_INTERVENANTS: AnonymousIntervenant[] = [
-  { role: "Contrôleur de Gestion Senior Industriel", experience: "+8 ans", specialty: "Finance Informatique & Data Analytics (SAP FI/CO, Power BI, VBA, SQL)" },
-  { role: "Auditrice Senior IT & Cybersécurité", experience: "+5 ans", specialty: "Diplômée de l'Université Sorbonne Paris Nord" },
-  { role: "HR Business Partner", experience: "+5 ans", specialty: "Consultant en Talent Acquisition" },
-  { role: "Auditeur Senior (Cabinet Big4)", experience: "+5 ans", specialty: "Spécialisé dans le secteur des Assurances" },
-  { role: "Auditrice Senior (Cabinet Big4)", experience: "+7 ans", specialty: "Consolidation des Comptes et Normes IFRS" },
-  { role: "Consultante Senior (Cabinet Big4)", experience: "+5 ans", specialty: "Transaction Services et M&A" },
+  { role: "Contrôleur de Gestion Senior Industriel (Multinationale Pharmaceutique)", experience: "+8 ans", specialty: "Consultant en Finance Informatique & Data Analytics (SAP FI/CO, Microsoft Office, Power BI, VBA, SQL, SPSS, ...)" },
+  { role: "Auditrice Senior IT & Cybersécurité (Cabinet Big4)", experience: "+5 ans", specialty: "Diplômée de l'Université Sorbonne Paris Nord" },
+  { role: "HR Business Partner (Multinationale)", experience: "+5 ans", specialty: "Consultant en Talent Acquisition" },
+  { role: "Auditeur Senior (Cabinet Big4)", experience: "+5 ans", specialty: "Expert Comptable en Formation, Auditeur et Consultant spécialisé dans le métier du secteur des Assurances" },
+  { role: "Auditrice Senior (Cabinet Big4)", experience: "+7 ans", specialty: "spécialisée en Consolidation des Comptes et Normes IFRS, Expert Comptable Mémorialiste" },
+  { role: "Consultante Senior (Cabinet Big4)", experience: "+5 ans", specialty: "Consultante en Transaction Services et M&A" },
 ];
 
 /* ===== Founders data ===== */
@@ -440,7 +427,7 @@ export const FOUNDERS_DATA = [
   {
     name: "Rida MOUTIK",
     role: 'Co-fondateur "Le Club Des Experts"',
-    bio: "Expert Comptable Mémorialiste, Manager Audit & Financial Advisory, Spécialiste en Due Diligence (financière, fiscale, sociale et juridique).",
+    bio: "Expert Comptable Mémorialiste, Manager Audit & Consulting Financier.",
     badge: "EC & Due Diligence",
     photo: "/founders/rida-moutik.jpg",
   },
