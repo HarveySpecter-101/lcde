@@ -93,7 +93,7 @@ export async function POST(req: Request) {
       });
 
     // 3. Send the form data to n8n
-    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || "https://d7c72ee585ba62.lhr.life/webhook/aa39b0fe-2db6-429e-bf02-3cd36c4a8933";
+    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || "https://76ab979d7242c2.lhr.life/webhook/aa39b0fe-2db6-429e-bf02-3cd36c4a8933";
     if (n8nWebhookUrl) {
       try {
         await fetch(
