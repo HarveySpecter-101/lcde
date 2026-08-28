@@ -328,7 +328,7 @@ export function Modules() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-x-4 top-[8%] bottom-[8%] z-50 mx-auto max-w-xl overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-2xl sm:inset-x-auto sm:w-full"
+              className="fixed inset-x-4 top-[8%] bottom-[8%] z-50 mx-auto max-w-xl overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-2xl sm:inset-x-0 sm:w-full"
             >
               {/* Header — navy gradient */}
               <div className="relative overflow-hidden bg-navy-gradient p-5 text-white sm:p-6">
