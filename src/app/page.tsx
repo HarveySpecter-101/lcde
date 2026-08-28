@@ -8,7 +8,6 @@ import { Intervenants } from "@/components/site/intervenants";
 import { Founders } from "@/components/site/founders";
 import { BeforeAfter } from "@/components/site/before-after";
 import { SuccessStories } from "@/components/site/success-stories";
-import { Companies } from "@/components/site/companies";
 import { Resources } from "@/components/site/resources";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
@@ -37,7 +36,6 @@ export default function Home() {
         <BeforeAfter />
         <SectionDivider variant="soft-to-light" />
         <SuccessStories />
-        <Companies />
         <Resources />
         <Contact />
       </main>
