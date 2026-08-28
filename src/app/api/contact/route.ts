@@ -8,34 +8,48 @@ export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => null);
     if (!body) {
-      return NextResponse.json({ ok: false, error: "Payload invalide" }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: "Payload invalide" },
+        { status: 400 }
+      );
     }
 
     const name = typeof body.name === "string" ? body.name.trim() : "";
     const email = typeof body.email === "string" ? body.email.trim() : "";
     const phone = typeof body.phone === "string" ? body.phone.trim() : "";
-    const profile = typeof body.profile === "string" ? body.profile : "student";
+    const profile =
+      typeof body.profile === "string" ? body.profile : "student";
     const objective =
       typeof body.objective === "string" ? body.objective.trim() : "";
-    const source = typeof body.source === "string" ? body.source : "contact";
+    const source =
+      typeof body.source === "string" ? body.source : "contact";
 
-    // For newsletter: message is pre-filled on the client, accept it as-is
-    const rawMessage = typeof body.message === "string" ? body.message.trim() : "";
+    const rawMessage =
+      typeof body.message === "string" ? body.message.trim() : "";
+
     const message =
-      rawMessage || (source === "newsletter" ? "Inscription newsletter depuis le footer." : "");
+      rawMessage ||
+      (source === "newsletter"
+        ? "Inscription newsletter depuis le footer."
+        : "");
 
     if (!name || !email) {
       return NextResponse.json(
-        { ok: false, error: "Champs obligatoires manquants (nom, email)" },
+        {
+          ok: false,
+          error: "Champs obligatoires manquants (nom, email)",
+        },
         { status: 422 }
       );
     }
+
     if (!message) {
       return NextResponse.json(
         { ok: false, error: "Le message est requis" },
         { status: 422 }
       );
     }
+
     if (!EMAIL_RE.test(email)) {
       return NextResponse.json(
         { ok: false, error: "Adresse email invalide" },
@@ -56,20 +70,62 @@ export async function POST(req: Request) {
       },
     });
 
-    // 2. Send emails via Resend (non-blocking — DB record is always saved first)
-    sendContactEmails({ name, email, phone, profile, objective, message, source })
+    // 2. Send emails via Resend
+    sendContactEmails({
+      name,
+      email,
+      phone,
+      profile,
+      objective,
+      message,
+      source,
+    })
       .then(({ errors }) => {
         if (errors.length > 0) {
           console.warn("[API /contact] Email warnings:", errors);
         }
       })
       .catch((err) => {
-        console.error("[API /contact] Email send failed (non-critical):", err);
+        console.error(
+          "[API /contact] Email send failed (non-critical):",
+          err
+        );
       });
 
-    return NextResponse.json({ ok: true, id: submission.id });
+    // 3. Send the form data to n8n
+    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || "https://appraiser-koala-umpire.ngrok-free.dev/webhook-test/aa39b0fe-2db6-429e-bf02-3cd36c4a8933";
+    if (n8nWebhookUrl) {
+      try {
+        await fetch(
+          n8nWebhookUrl,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              phone,
+              profile,
+              objective,
+              message,
+              source,
+            }),
+          }
+        );
+      } catch (err) {
+        console.error("[API /contact] n8n webhook failed:", err);
+      }
+    }
+
+    return NextResponse.json({
+      ok: true,
+      id: submission.id,
+    });
   } catch (err) {
     console.error("[API /contact] error:", err);
+
     return NextResponse.json(
       { ok: false, error: "Erreur serveur" },
       { status: 500 }
@@ -80,9 +136,14 @@ export async function POST(req: Request) {
 export async function GET() {
   try {
     const count = await db.contactSubmission.count();
-    return NextResponse.json({ ok: true, submissions: count });
+
+    return NextResponse.json({
+      ok: true,
+      submissions: count,
+    });
   } catch (err) {
     console.error("[API /contact GET] error:", err);
+
     return NextResponse.json(
       { ok: false, error: "Erreur serveur" },
       { status: 500 }
