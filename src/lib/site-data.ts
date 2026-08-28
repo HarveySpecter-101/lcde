@@ -23,7 +23,7 @@ export const LCDE = {
   city: "Casablanca",
   country: "Maroc",
   activeSince: 2020,
-  edition: "7ᵉ édition (2026)",
+  edition: "8ᵉ édition (2026)",
   whatsappNumber: "+212777293083",
   whatsappDisplay: "+212 777-293083",
   whatsappRaw: "212777293083",
