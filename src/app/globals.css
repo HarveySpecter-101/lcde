@@ -369,3 +369,11 @@
    Utility classes (.bg-white, .text-navy, etc.) use their standard Tailwind values
    which now map to the brand palette via the CSS variables above. */
 
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}

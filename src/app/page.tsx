@@ -1,7 +1,7 @@
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
 import { Stats } from "@/components/site/stats";
-import { TrustBadges } from "@/components/site/trust-badges";
+import { HiringCompanies } from "@/components/site/hiring-companies";
 import { Modules } from "@/components/site/modules";
 import { FormationStats } from "@/components/site/formation-stats";
 import { Intervenants } from "@/components/site/intervenants";
@@ -25,7 +25,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Stats />
-        <TrustBadges />
+        <HiringCompanies />
         <Modules />
         <FormationStats />
         <Intervenants />
