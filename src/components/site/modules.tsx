@@ -152,7 +152,7 @@ export function Modules() {
                 >
                   <div className="relative flex flex-col overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-premium">
                     {/* Number watermark */}
-                    <span className="pointer-events-none absolute right-6 top-4 font-serif text-7xl font-bold text-navy/[0.05]">
+                    <span className="pointer-events-none absolute right-4 top-4 sm:right-6 sm:top-4 font-serif text-5xl sm:text-7xl font-bold text-navy opacity-10">
                       {String(m.id).padStart(2, "0")}
                     </span>
 
@@ -162,7 +162,7 @@ export function Modules() {
                         <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
                           <m.icon className="size-7" strokeWidth={1.9} />
                         </span>
-                        <div className="flex-1 pr-16 sm:pr-24">
+                        <div className="flex-1 pr-14 sm:pr-24">
                           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
                             Métier {String(m.id).padStart(2, "0")}
                           </p>
