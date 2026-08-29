@@ -85,50 +85,23 @@ export function Modules() {
   return (
     <section
       id="formations"
-      className="relative scroll-mt-20 overflow-hidden bg-soft py-20 md:py-28"
+      className="relative scroll-mt-20 overflow-hidden bg-navy py-20 md:py-28"
     >
       {/* Decorative top line */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-navy/15 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ───────── Header ───────── */}
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
-            <Layers className="size-3.5" /> Nos formations
-          </span>
-          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
-            13 métiers en 1 formation
+        <Reveal className="mx-auto max-w-4xl text-center">
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2">
+            Nos formations
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg">
-            Un parcours complet de{" "}
-            <strong className="font-semibold text-navy">12 mois</strong>{" "}
-            (janvier → décembre), 100 % pratique, couvrant tout le spectre de
-            l'audit, de la finance, de la fiscalité et de la comptabilité.
+          <h3 className="mt-2 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+            13 métiers en 1 formation
+          </h3>
+          <p className="mt-5 text-base font-medium leading-relaxed text-white/80 sm:text-xl">
+            13 métiers en une seule formation, un seul prix pour tout le programme, sans frais cachés.
           </p>
-        </Reveal>
-
-        {/* ───────── Key facts strip ───────── */}
-        <Reveal delay={0.1} className="mt-10">
-          <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-3">
-            {[
-              { icon: Clock, label: "12 mois", sub: "Janvier → Décembre" },
-              { icon: Wrench, label: "100 % pratique", sub: "Cas réels & dossiers" },
-              { icon: GraduationCap, label: "Experts OEC", sub: "& seniors Big Four" },
-            ].map((f) => (
-              <div
-                key={f.label}
-                className="flex items-center gap-3 rounded-2xl border border-navy/10 bg-soft px-4 py-3"
-              >
-                <span className="flex size-9 items-center justify-center rounded-lg bg-navy text-gold">
-                  <f.icon className="size-4.5" />
-                </span>
-                <div className="leading-tight">
-                  <p className="text-sm font-bold text-navy">{f.label}</p>
-                  <p className="text-[11px] text-anthracite/60">{f.sub}</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </Reveal>
 
         {/* ═══════════ CAROUSEL ═══════════ */}
@@ -185,13 +158,13 @@ export function Modules() {
 
                     <div className="p-6 sm:p-8">
                       {/* Icon + title */}
-                      <div className="flex items-start gap-4">
+                      <div className="relative z-10 flex items-start gap-4">
                         <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
                           <m.icon className="size-7" strokeWidth={1.9} />
                         </span>
-                        <div className="flex-1 pr-12">
+                        <div className="flex-1 pr-16 sm:pr-24">
                           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
-                            Métier {String(m.id).padStart(2, "0")} · {m.duration}
+                            Métier {String(m.id).padStart(2, "0")}
                           </p>
                           <h3 className="mt-1 font-serif text-xl font-bold leading-snug text-navy sm:text-2xl">
                             {m.title}
@@ -275,13 +248,13 @@ export function Modules() {
 
         {/* ───────── Tools band ───────── */}
         <Reveal className="mt-16">
-          <div className="rounded-3xl border border-navy/10 bg-soft p-6 md:p-8">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md">
             <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
               <div className="text-center md:text-left">
                 <p className="text-xs font-semibold uppercase tracking-wider text-gold">
                   Outils & logiciels enseignés
                 </p>
-                <h3 className="mt-1 font-serif text-xl font-bold text-navy">
+                <h3 className="mt-1 font-serif text-xl font-bold text-white">
                   Maîtrisez les outils réellement utilisés en cabinet
                 </h3>
               </div>
@@ -349,8 +322,7 @@ export function Modules() {
                   </span>
                   <div className="flex-1 pr-10">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
-                      Métier {String(popupModule.id).padStart(2, "0")} ·{" "}
-                      {popupModule.duration}
+                      Métier {String(popupModule.id).padStart(2, "0")}
                     </p>
                     <h3 className="mt-1.5 font-serif text-xl font-bold leading-tight md:text-2xl">
                       {popupModule.title}
@@ -457,27 +429,6 @@ export function Modules() {
                       <p className="text-sm font-semibold text-navy">💻 100 % à distance, en direct</p>
                       <p className="mt-1 text-xs leading-relaxed text-anthracite/70">
                         Les séances sont tenues en direct et enregistrées pour vous permettre de rattraper et revoir le contenu à votre rythme.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Durée & format */}
-                <div className="mt-6">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gold">
-                    Durée & format
-                  </p>
-                  <div className="mt-3 grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-navy/10 bg-soft p-4 text-center">
-                      <p className="font-serif text-2xl font-bold text-navy">
-                        {popupModule.duration}
-                      </p>
-                      <p className="mt-1 text-[11px] text-anthracite/60">Durée du module</p>
-                    </div>
-                    <div className="rounded-2xl border border-navy/10 bg-soft p-4 text-center">
-                      <p className="font-serif text-2xl font-bold text-navy">En direct</p>
-                      <p className="mt-1 text-[11px] text-anthracite/60">
-                        + replay disponible
                       </p>
                     </div>
                   </div>

@@ -26,6 +26,7 @@ export default function Home() {
         <Hero />
         <Stats />
         <HiringCompanies />
+        <SectionDivider variant="light-to-navy" />
         <Modules />
         <FormationStats />
         <Intervenants />

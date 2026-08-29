@@ -35,7 +35,7 @@ const PROMO_ITEMS = [
 
 export function Hero() {
   return (
-    <section id="accueil" className="relative overflow-hidden bg-white pt-28 pb-20 md:pt-36 md:pb-28">
+    <section id="accueil" className="relative overflow-hidden bg-soft pt-28 pb-20 md:pt-36 md:pb-28">
       {/* Decorative gold accents */}
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.04]" aria-hidden />
       <div className="pointer-events-none absolute -left-32 top-24 size-72 rounded-full bg-gold/15 blur-3xl animate-orb-1" aria-hidden />
