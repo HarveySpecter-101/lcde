@@ -106,7 +106,7 @@ export function ProgramTimeline() {
           <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy">
             <CalendarRange className="size-3.5 text-gold" /> Programme sur 12 mois
           </span>
-          <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
+          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
             Une année, quatre phases, dix modules.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg">

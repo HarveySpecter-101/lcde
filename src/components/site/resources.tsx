@@ -342,7 +342,7 @@ export function Resources() {
             <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
               <Gift className="size-3.5" /> Ressources gratuites
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
+            <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
               Préparez vos entretiens PFE avec nos guides offerts par nos experts.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg">

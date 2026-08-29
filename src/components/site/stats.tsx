@@ -22,7 +22,7 @@ export function Stats() {
               >
                 {/* Gold accent bar */}
                 <span className="absolute inset-x-8 top-0 h-0.5 origin-left scale-x-0 bg-gold transition-transform duration-300 group-hover:scale-x-100" />
-                <p className="font-serif text-3xl font-bold text-navy sm:text-4xl md:text-5xl">
+                <p className="font-serif text-4xl font-bold text-navy sm:text-5xl md:text-6xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={(stat as any).prefix} />
                 </p>
                 <p className="mt-2 text-sm font-semibold text-anthracite sm:text-base">

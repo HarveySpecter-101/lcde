@@ -28,15 +28,16 @@ export default function Home() {
         <TrustBadges />
         <Modules />
         <FormationStats />
-        <SectionDivider variant="light-to-soft" />
         <Intervenants />
-        <SectionDivider variant="soft-to-light" />
-        <Founders />
         <SectionDivider variant="light-to-soft" />
-        <BeforeAfter />
+        <Founders />
         <SectionDivider variant="soft-to-light" />
+        <BeforeAfter />
+        <SectionDivider className="text-[#e6f2ff] dark:text-[#14182a]" />
         <SuccessStories />
+        <SectionDivider variant="light-to-soft" className="bg-[#ffebf0] dark:bg-transparent" />
         <Resources />
+        <SectionDivider variant="soft-to-navy" />
         <Contact />
       </main>
       <Footer />

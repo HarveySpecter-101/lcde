@@ -52,7 +52,7 @@ export function Hero() {
         >
           <motion.h1
             variants={item}
-            className="text-center font-serif text-3xl font-bold leading-[1.15] tracking-tight text-navy sm:text-4xl md:text-5xl lg:text-[3.5rem]"
+            className="text-center font-serif text-4xl font-bold leading-[1.15] tracking-tight text-navy sm:text-5xl md:text-6xl lg:text-[3.5rem]"
           >
             Rejoignez{" "}
             <span className="text-gold-gradient font-extrabold drop-shadow-sm">

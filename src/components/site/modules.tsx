@@ -85,7 +85,7 @@ export function Modules() {
   return (
     <section
       id="formations"
-      className="relative scroll-mt-20 overflow-hidden bg-white py-20 md:py-28"
+      className="relative scroll-mt-20 overflow-hidden bg-soft py-20 md:py-28"
     >
       {/* Decorative top line */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-navy/15 to-transparent" />
@@ -96,7 +96,7 @@ export function Modules() {
           <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
             <Layers className="size-3.5" /> Nos formations
           </span>
-          <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
+          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
             13 métiers en 1 formation
           </h2>
           <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg">

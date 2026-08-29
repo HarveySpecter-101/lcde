@@ -1,7 +1,7 @@
 "use client";
 
 type Props = {
-  variant?: "light-to-navy" | "navy-to-light" | "light-to-soft" | "soft-to-light";
+  variant?: "light-to-navy" | "navy-to-light" | "light-to-soft" | "soft-to-light" | "soft-to-navy";
   className?: string;
 };
 
@@ -12,17 +12,34 @@ type Props = {
  * - "light-to-soft" / "soft-to-light": transitions between light/soft sections (adapt to dark mode)
  */
 export function SectionDivider({ variant = "light-to-soft", className }: Props) {
-  // In dark mode, bg-white and bg-soft both become dark navy, so dividers between
-  // them should be dark too. Only dividers to/from intentionally-dark sections stay navy.
-  const isDarkTransition = variant === "light-to-navy" || variant === "navy-to-light";
+  let colorClasses = "";
+
+  switch (variant) {
+    case "light-to-soft":
+      // top is light (transparent bg), bottom is soft (svg fill)
+      colorClasses = "text-[#F5F6F8] dark:text-[#14182a]";
+      break;
+    case "soft-to-light":
+      // top is soft (bg), bottom is light (svg fill)
+      colorClasses = "bg-[#F5F6F8] text-white dark:bg-[#14182a] dark:text-background";
+      break;
+    case "light-to-navy":
+      // top is light (transparent bg), bottom is navy (svg fill)
+      colorClasses = "text-[#0A2647]";
+      break;
+    case "soft-to-navy":
+      // top is soft (bg), bottom is navy (svg fill)
+      colorClasses = "bg-[#F5F6F8] text-[#0A2647] dark:bg-[#14182a]";
+      break;
+    case "navy-to-light":
+      // top is navy (bg), bottom is light (svg fill)
+      colorClasses = "bg-[#0A2647] text-white dark:text-background";
+      break;
+  }
 
   return (
     <div
-      className={`pointer-events-none -mt-px w-full leading-none ${
-        isDarkTransition
-          ? "text-[#0A2647]"
-          : "text-[#F5F6F8] dark:text-[#14182a]"
-      } ${className ?? ""}`}
+      className={`pointer-events-none -mt-px w-full leading-none ${colorClasses} ${className ?? ""}`}
       aria-hidden
     >
       <svg

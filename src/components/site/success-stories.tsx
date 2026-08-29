@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -43,20 +43,20 @@ export function SuccessStories() {
       </div>
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-        <FloatingEmoji emoji="❤️" className="top-[15%] left-[5%] sm:left-[15%]" delay={0} duration={6} />
-        <FloatingEmoji emoji="👍" className="top-[40%] left-[2%] sm:left-[10%]" delay={1.5} duration={7} />
-        <FloatingEmoji emoji="❤️" className="top-[70%] left-[8%] sm:left-[20%]" delay={3} duration={5} />
-        <FloatingEmoji emoji="👍" className="top-[20%] right-[5%] sm:right-[15%]" delay={0.5} duration={6} />
-        <FloatingEmoji emoji="❤️" className="top-[50%] right-[2%] sm:right-[10%]" delay={2} duration={5} />
-        <FloatingEmoji emoji="👍" className="top-[80%] right-[8%] sm:right-[20%]" delay={1} duration={7} />
+        <FloatingEmoji emoji="??" className="top-[15%] left-[5%] sm:left-[15%]" delay={0} duration={6} />
+        <FloatingEmoji emoji="??" className="top-[40%] left-[2%] sm:left-[10%]" delay={1.5} duration={7} />
+        <FloatingEmoji emoji="??" className="top-[70%] left-[8%] sm:left-[20%]" delay={3} duration={5} />
+        <FloatingEmoji emoji="??" className="top-[20%] right-[5%] sm:right-[15%]" delay={0.5} duration={6} />
+        <FloatingEmoji emoji="??" className="top-[50%] right-[2%] sm:right-[10%]" delay={2} duration={5} />
+        <FloatingEmoji emoji="??" className="top-[80%] right-[8%] sm:right-[20%]" delay={1} duration={7} />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 z-10">
         <Reveal className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wider text-navy shadow-sm">
-            <Star className="size-4 text-gold fill-gold" /> Résultats
+            <Star className="size-4 text-gold fill-gold" /> R�sultats
           </span>
-          <h2 className="mt-6 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">Où sont les participants des anciennes éditions ?</h2>
+          <h2 className="mt-6 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">O� sont les participants des anciennes �ditions ?</h2>
           <div className="mt-6 flex items-center justify-center gap-1.5">
             {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-8 fill-gold text-gold" />)}
           </div>
@@ -73,7 +73,7 @@ export function SuccessStories() {
                   <div className="text-center">
                     <h3 className="text-2xl font-bold text-navy">{active.name}</h3>
                     <p className="mt-1.5 text-lg font-medium text-anthracite/80">{active.school}</p>
-                    <p className="mt-1 text-sm font-bold text-navy">Participant(e) à la formation</p>
+                    <p className="mt-1 text-sm font-bold text-navy">Participant(e) � la formation</p>
                     
                     <div className="mt-8 text-left">
                       <p className="text-xl font-bold text-navy mb-4">Admis(e) chez :</p>
@@ -92,10 +92,10 @@ export function SuccessStories() {
               </AnimatePresence>
             </div>
             <div className="mt-12 flex items-center justify-center gap-6 relative z-20">
-              <Button variant="outline" size="icon" onClick={() => go(-1)} aria-label="Précédent" className="size-12 rounded-full border-navy/20 bg-white text-navy hover:bg-navy hover:text-white shadow-md"><ChevronLeft className="size-6" /></Button>
+              <Button variant="outline" size="icon" onClick={() => go(-1)} aria-label="Pr�c�dent" className="size-12 rounded-full border-navy/20 bg-white text-navy hover:bg-navy hover:text-white shadow-md"><ChevronLeft className="size-6" /></Button>
               <div className="flex items-center gap-2">
                 {SUCCESS_STORIES.map((_, i) => (
-                  <button key={i} onClick={() => setIndex(i)} aria-label={`Aller à la slide ${i + 1}`} className={cn("h-2.5 rounded-full transition-all", i === index ? "w-8 bg-gold" : "w-2.5 bg-navy/20 hover:bg-navy/40")} />
+                  <button key={i} onClick={() => setIndex(i)} aria-label={`Aller � la slide ${i + 1}`} className={cn("h-2.5 rounded-full transition-all", i === index ? "w-8 bg-gold" : "w-2.5 bg-navy/20 hover:bg-navy/40")} />
                 ))}
               </div>
               <Button variant="outline" size="icon" onClick={() => go(1)} aria-label="Suivant" className="size-12 rounded-full border-navy/20 bg-white text-navy hover:bg-navy hover:text-white shadow-md"><ChevronRight className="size-6" /></Button>

@@ -46,7 +46,7 @@ export function About() {
             <Eye className="size-3.5 text-gold" />
             À propos de LCDE
           </span>
-          <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
+          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
             Une école née du terrain, pensée pour le terrain.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg">

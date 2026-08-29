@@ -80,7 +80,7 @@ export function Contact() {
           <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
             <Sparkles className="size-3.5" /> Contact & inscription
           </span>
-          <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
             Rejoignez la prochaine édition
           </h2>
           <p className="mt-5 text-base leading-relaxed text-white/75 sm:text-lg">
