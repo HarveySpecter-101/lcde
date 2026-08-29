@@ -24,6 +24,22 @@ const SECTORS = [
 ];
 
 const LOGOS = [
+  // Banques
+  { name: "Attijariwafa bank", src: "/logos/attijariwafa.svg" },
+  { name: "Bank of Africa", src: "/logos/bank-of-africa.svg" },
+  { name: "Banque Populaire", src: "/logos/banque-populaire.svg" },
+  { name: "Bank Al-Maghrib", src: "/logos/bank-al-maghrib.svg" },
+  { name: "CIH Bank", src: "/logos/cih-bank.svg" },
+  { name: "CDG", src: "/logos/cdg.svg" },
+  // Ministères
+  { name: "CNSS", src: "/logos/cnss.svg" },
+  { name: "Direction Générale des Impôts", src: "/logos/dgi.svg" },
+  { name: "Ministère de l'Économie", src: "/logos/mef.svg" },
+  { name: "Cour des comptes", src: "/logos/cour-des-comptes.svg" },
+  { name: "Trésorerie Générale", src: "/logos/tgr.svg" },
+  // Autres / Consulting
+  { name: "Danone", src: "/logos/danone.svg" },
+  { name: "OCP", src: "/logos/ocp.svg" },
   { name: "PwC", src: "/logos/pwc.svg" },
   { name: "Deloitte", src: "/logos/deloitte.svg" },
   { name: "EY", src: "/logos/ey.svg" },
@@ -31,12 +47,10 @@ const LOGOS = [
   { name: "Mazars", src: "/logos/mazars.svg" },
   { name: "BDO", src: "/logos/bdo.svg" },
   { name: "Grant Thornton", src: "/logos/grant-thornton.svg" },
-  { name: "OCP", src: "/logos/ocp.svg" },
+  // Fin
   { name: "Renault", src: "/logos/renault.svg" },
-  { name: "Danone", src: "/logos/danone.svg" },
-  { name: "BMCE Bank of Africa", src: "/logos/bmce.svg" },
-  { name: "Attijariwafa bank", src: "/logos/attijariwafa.svg" },
-  { name: "Royal Air Maroc", src: "/logos/ram.svg" },
+  { name: "Royal Air Maroc", src: "/logos/royal-air-maroc.svg" },
+  { name: "Coca-Cola", src: "/logos/coca-cola.svg" },
 ];
 
 export function HiringCompanies() {

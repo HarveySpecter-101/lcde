@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80">
-  <text x="200" y="55" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold" fill="#5C2D91">Grant Thornton</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100"><circle cx="50" cy="50" r="30" fill="#6b2c91"/><circle cx="50" cy="50" r="15" fill="#fff"/><path d="M50 20 A30 30 0 0 1 80 50 L65 50 A15 15 0 0 0 50 35 Z" fill="#a872bc"/><text x="95" y="60" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#000">Grant Thornton</text></svg>

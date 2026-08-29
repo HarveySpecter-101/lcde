@@ -30,9 +30,9 @@ export default function Home() {
         <Modules />
         <FormationStats />
         <Intervenants />
-        <SectionDivider variant="light-to-soft" />
+        <SectionDivider variant="light-to-navy" />
         <Founders />
-        <SectionDivider variant="soft-to-light" />
+        <SectionDivider variant="navy-to-light" />
         <BeforeAfter />
         <SectionDivider className="text-[#e6f2ff] dark:text-[#14182a]" />
         <SuccessStories />

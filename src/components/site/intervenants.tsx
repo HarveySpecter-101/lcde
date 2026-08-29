@@ -64,7 +64,7 @@ export function Intervenants() {
               <Users className="w-4 h-4 text-gold" />
               <span className="text-sm font-medium text-navy uppercase tracking-wider">Nos intervenants</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-navy mb-6">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold text-navy mb-6">
               Des experts de <span className="text-gold-gradient">terrain</span>
             </h2>
             <p className="text-lg text-gray-600">

@@ -242,7 +242,7 @@
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: lcde-marquee 28s linear infinite;
+  animation: lcde-marquee 40s linear infinite;
 }
 
 /* Floating animation for WhatsApp button */
@@ -370,10 +370,4 @@
    which now map to the brand palette via the CSS variables above. */
 
 
-@keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 20s linear infinite;
-}
+

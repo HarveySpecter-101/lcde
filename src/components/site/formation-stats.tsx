@@ -19,10 +19,13 @@ export function FormationStats() {
       <div className="pointer-events-none absolute -left-20 top-0 size-72 rounded-full bg-gold/10 blur-3xl" aria-hidden />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="mb-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+        <Reveal className="mb-12 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-sm font-medium text-navy mb-4 border border-navy/10">
+            <Layers className="size-4 text-gold" /> En résumé
+          </span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-navy">
             La formation en chiffres
-          </p>
+          </h2>
         </Reveal>
 
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">

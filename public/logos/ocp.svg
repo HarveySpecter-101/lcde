@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
-  <text x="100" y="55" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="bold" fill="#009A44">OCP</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100"><path d="M50 20 L80 80 L20 80 Z" fill="#006400"/><path d="M50 35 L65 70 L35 70 Z" fill="#90EE90"/><text x="90" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="#006400">OCP</text></svg>

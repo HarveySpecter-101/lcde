@@ -1,4 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
-  <text x="200" y="65" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#E37222">Attijariwafa</text>
-  <text x="200" y="95" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="normal" fill="#003DA5">bank</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100"><path d="M30 30 h 40 v 40 h -40 z" fill="#e89311"/><path d="M30 50 l 40 -20 v 40 l -40 -20" fill="#951b1e"/><text x="80" y="60" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#000">Attijariwafa bank</text></svg>

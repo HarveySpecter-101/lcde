@@ -23,18 +23,15 @@ const FOUNDERS = [
 
 export function Founders() {
   return (
-    <section id="fondateurs" className="relative scroll-mt-20 overflow-hidden bg-soft py-20 md:py-28">
+    <section id="fondateurs" className="relative scroll-mt-20 overflow-hidden bg-navy py-20 md:py-28">
       <div className="pointer-events-none absolute -left-20 top-10 size-72 rounded-full bg-gold/10 blur-3xl" aria-hidden />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy">
-            <Users className="size-3.5 text-gold" /> Les fondateurs
-          </span>
-          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
-            À l'initiative du Club
+          <h2 className="font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl uppercase">
+            Les fondateurs
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg">
+          <p className="mt-4 text-base leading-relaxed text-white/80 sm:text-lg">
             Deux praticiens complémentaires qui ont bâti LCDE sur une conviction : la formation
             doit se confronter à la réalité des dossiers.
           </p>
