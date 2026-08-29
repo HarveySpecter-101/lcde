@@ -43,9 +43,9 @@ export const WHATSAPP_LINK = `https://wa.me/${LCDE.whatsappRaw}?text=${encodeURI
 /* ===== Animated stats ===== */
 export const STATS = [
   { prefix: "+ ", value: 4500, suffix: "", label: "Personnes formées", sub: "depuis 2020" },
-  { prefix: "+ ", value: 95, suffix: " %", label: "Entre 10K et 15K DH / mois", sub: "dès la sortie d'école" },
+  { prefix: "+ ", value: 95, suffix: " %", label: "Des participants touchent entre 10K et 15K DH", sub: "dès la sortie d'école" },
   { value: 100, suffix: " %", label: "Taux de satisfaction", sub: "" },
-  { value: 8, suffix: "ᵉ édition", label: "2027", sub: "Édition en cours" },
+  { value: 8, suffix: "ᵉ édition", label: "2027", sub: "En cours" },
 ] as const;
 
 /* ===== 13 Métiers ===== */
