@@ -76,7 +76,7 @@ export function Hero() {
             ))}
           </motion.div>
 
-          <motion.div variants={item} className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <motion.div variants={item} className="mt-6 hidden flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap">
             <Button asChild size="lg" className="bg-gold-gradient text-navy font-semibold hover:opacity-90 hover:shadow-gold-glow">
               <a href="#contact">
                 Je rejoins la prochaine édition

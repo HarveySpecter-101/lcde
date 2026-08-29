@@ -52,9 +52,10 @@ export function PersistentCtaBar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Contacter LCDE sur WhatsApp"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#25D366] text-white shadow-sm transition-transform active:scale-95 hover:scale-105 cta-pulse-whatsapp"
+                className="flex h-11 flex-1 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#25D366] text-sm font-semibold text-white shadow-sm transition-transform active:scale-95 hover:scale-105 cta-pulse-whatsapp"
               >
                 <MessageCircle className="size-5" strokeWidth={2.2} />
+                WhatsApp
               </a>
 
               {/* Main CTA button */}
@@ -62,7 +63,7 @@ export function PersistentCtaBar() {
                 href="#contact"
                 className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gold-gradient text-sm font-semibold text-navy shadow-gold-glow transition-transform active:scale-[0.98] hover:scale-[1.01] cta-pulse-gold"
               >
-                Rejoins la 8ème édition
+                Je suis intéressé
                 <ArrowRight className="size-4" />
               </a>
             </div>
