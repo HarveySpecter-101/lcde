@@ -30,7 +30,13 @@ const LOGOS = [
   { name: "KPMG", src: "/logos/kpmg.svg" },
   { name: "Mazars", src: "/logos/mazars.svg" },
   { name: "BDO", src: "/logos/bdo.svg" },
+  { name: "Grant Thornton", src: "/logos/grant-thornton.svg" },
+  { name: "OCP", src: "/logos/ocp.svg" },
   { name: "Renault", src: "/logos/renault.svg" },
+  { name: "Danone", src: "/logos/danone.svg" },
+  { name: "BMCE Bank of Africa", src: "/logos/bmce.svg" },
+  { name: "Attijariwafa bank", src: "/logos/attijariwafa.svg" },
+  { name: "Royal Air Maroc", src: "/logos/ram.svg" },
 ];
 
 export function HiringCompanies() {
@@ -42,12 +48,12 @@ export function HiringCompanies() {
             <Landmark className="size-7" />
           </div>
           <h2 className="font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
-            Où vous serez embauché ?
+            Où vous serez <span className="text-gold">embauché</span> ?
           </h2>
         </Reveal>
 
         {/* Premium Sectors Grid */}
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="mt-14 grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           {SECTORS.map((sector, i) => (
             <Reveal key={i} delay={i * 0.1}>
               <div className="relative flex h-full flex-col items-center rounded-[2rem] border-2 border-transparent bg-soft p-6 shadow-sm transition-all hover:border-gold/20 hover:shadow-gold-glow">
@@ -76,7 +82,7 @@ export function HiringCompanies() {
               key={i}
               className="flex shrink-0 items-center justify-center px-10 sm:px-16"
             >
-              <div className="relative h-12 w-32 grayscale transition-all duration-300 hover:grayscale-0 sm:h-16 sm:w-40 opacity-70 hover:opacity-100">
+              <div className="relative h-12 w-32 transition-all duration-300 hover:scale-105 sm:h-16 sm:w-40">
                 <Image
                   src={logo.src}
                   alt={logo.name}
