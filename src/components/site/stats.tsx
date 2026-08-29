@@ -23,14 +23,16 @@ export function Stats() {
                 {/* Gold accent bar */}
                 <span className="absolute inset-x-8 top-0 h-0.5 origin-left scale-x-0 bg-gold transition-transform duration-300 group-hover:scale-x-100" />
                 <p className="font-serif text-3xl font-bold text-navy sm:text-4xl md:text-5xl">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={(stat as any).prefix} />
                 </p>
-                <p className="mt-2 text-xs font-medium uppercase tracking-wide text-anthracite/50">
-                  {stat.sub}
-                </p>
-                <p className="mt-1 text-sm font-semibold text-anthracite sm:text-base">
+                <p className="mt-2 text-sm font-semibold text-anthracite sm:text-base">
                   {stat.label}
                 </p>
+                {stat.sub && (
+                  <p className="mt-1 text-xs font-medium uppercase tracking-wide text-anthracite/50">
+                    {stat.sub}
+                  </p>
+                )}
               </motion.div>
             ))}
           </div>
