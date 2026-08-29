@@ -1,9 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { Landmark, Globe2, Building2, Building } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
-import { cn } from "@/lib/utils";
 
 const SECTORS = [
   {
@@ -25,26 +24,13 @@ const SECTORS = [
 ];
 
 const LOGOS = [
-  "PwC",
-  "Deloitte",
-  "EY",
-  "KPMG",
-  "Mazars",
-  "BDO",
-  "Grant Thornton",
-  "Ministère des Finances",
-  "Direction Générale des Impôts",
-  "Cour des Comptes",
-  "Bank Al-Maghrib",
-  "Banque Populaire",
-  "Attijariwafa bank",
-  "BMCE Bank of Africa",
-  "CNSS",
-  "CDG",
-  "OCP",
-  "Royal Air Maroc",
-  "Renault",
-  "Danone",
+  { name: "PwC", src: "/logos/pwc.svg" },
+  { name: "Deloitte", src: "/logos/deloitte.svg" },
+  { name: "EY", src: "/logos/ey.svg" },
+  { name: "KPMG", src: "/logos/kpmg.svg" },
+  { name: "Mazars", src: "/logos/mazars.svg" },
+  { name: "BDO", src: "/logos/bdo.svg" },
+  { name: "Renault", src: "/logos/renault.svg" },
 ];
 
 export function HiringCompanies() {
@@ -60,17 +46,17 @@ export function HiringCompanies() {
           </h2>
         </Reveal>
 
-        {/* Sectors Grid */}
-        <div className="mt-12 grid grid-cols-2 gap-6 md:gap-8 lg:grid-cols-4">
+        {/* Premium Sectors Grid */}
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {SECTORS.map((sector, i) => (
             <Reveal key={i} delay={i * 0.1}>
-              <div className="flex h-full flex-col items-center justify-start text-center">
-                <div className="flex h-16 w-16 items-center justify-center text-navy mb-4">
-                  <sector.icon className="size-10 opacity-80" strokeWidth={1.5} />
+              <div className="relative flex h-full flex-col items-center rounded-[2rem] border-2 border-transparent bg-soft p-6 shadow-sm transition-all hover:border-gold/20 hover:shadow-gold-glow">
+                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-lg ring-4 ring-gold/10">
+                  <sector.icon className="size-10" strokeWidth={1.5} />
                 </div>
-                <p className="text-sm font-bold leading-tight text-navy uppercase md:text-base">
+                <h3 className="text-center font-sans text-sm font-bold leading-relaxed tracking-wide text-navy sm:text-base">
                   {sector.title}
-                </p>
+                </h3>
               </div>
             </Reveal>
           ))}
@@ -84,15 +70,20 @@ export function HiringCompanies() {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-soft to-transparent z-10 sm:w-32" />
         
         <div className="flex w-max animate-marquee items-center">
-          {/* Double the logos to make the infinite loop seamless */}
-          {[...LOGOS, ...LOGOS].map((logo, i) => (
+          {/* Use 4 copies so translateX(-50%) shifts exactly by 2 copies seamlessly */}
+          {[...LOGOS, ...LOGOS, ...LOGOS, ...LOGOS].map((logo, i) => (
             <div
               key={i}
-              className="flex shrink-0 items-center justify-center px-8 sm:px-12"
+              className="flex shrink-0 items-center justify-center px-10 sm:px-16"
             >
-              <span className="font-serif text-3xl font-bold text-anthracite/40 tracking-tight transition-colors hover:text-navy/80 cursor-default">
-                {logo}
-              </span>
+              <div className="relative h-12 w-32 grayscale transition-all duration-300 hover:grayscale-0 sm:h-16 sm:w-40 opacity-70 hover:opacity-100">
+                <Image
+                  src={logo.src}
+                  alt={logo.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </div>
           ))}
         </div>
