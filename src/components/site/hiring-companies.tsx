@@ -51,7 +51,7 @@ export function HiringCompanies() {
             <Landmark className="size-7" />
           </div>
           <h2 className="font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
-            Où vous serez <span className="text-gold">embauché</span> ?
+            Où vous serez <span className="text-gold">acceptés</span> ?
           </h2>
         </Reveal>
 
