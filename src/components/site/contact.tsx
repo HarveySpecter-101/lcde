@@ -41,6 +41,20 @@ export function Contact() {
 
     setLoading(true);
     try {
+      // Direct client-side backup to Google Sheet
+      const googleSheetUrl = "https://script.google.com/macros/s/AKfycbx8eVWRPqIs0Q-mPst-4mV6oDeh_m1eAEdBv8FocLzYhyb6bQtKpWz8IV2p4946f4Zp/exec";
+      fetch(googleSheetUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "Date": new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" }),
+          "Nom Complet": form.name.trim(),
+          "Email": form.email.trim(),
+          "WhatsApp": form.phone.trim(),
+        }),
+      }).catch(() => null);
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

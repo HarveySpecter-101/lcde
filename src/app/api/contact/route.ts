@@ -93,8 +93,12 @@ export async function POST(req: Request) {
       });
 
     // 3. Send the form data to Google Sheet / n8n Webhook
+    const googleSheetUrl =
+      process.env.GOOGLE_SHEET_WEBHOOK_URL ||
+      "https://script.google.com/macros/s/AKfycbx8eVWRPqIs0Q-mPst-4mV6oDeh_m1eAEdBv8FocLzYhyb6bQtKpWz8IV2p4946f4Zp/exec";
+
     const webhookUrls = [
-      process.env.GOOGLE_SHEET_WEBHOOK_URL,
+      googleSheetUrl,
       process.env.N8N_WEBHOOK_URL,
     ].filter(Boolean) as string[];
 
