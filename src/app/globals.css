@@ -138,6 +138,7 @@
   .text-navy { color: #0a0a0a; }                    /* black */
   .bg-navy { background-color: #0a0a0a; }
   .text-gold { color: #b89840; }                    /* deep gold */
+  .fill-gold { fill: #b89840; }                    /* deep gold fill for SVGs */
   .bg-gold { background: linear-gradient(135deg, #e8d5a3 0%, #c4a962 50%, #8b7325 100%); }
   .text-emerald-brand { color: #8b1a1a; }           /* burgundy accent */
   .bg-emerald-brand { background-color: #8b1a1a; }

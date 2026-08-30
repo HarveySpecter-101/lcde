@@ -60,9 +60,13 @@ export function SuccessStories() {
           <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wider text-navy shadow-sm">
             <Star className="size-4 text-gold fill-gold" /> Résultats
           </span>
-          <h2 className="mt-6 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">Où sont les participants des anciennes éditions ?</h2>
-          <div className="mt-6 flex items-center justify-center gap-1.5">
-            {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-8 fill-gold text-gold" />)}
+          <h2 className="mt-6 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
+            Où sont les participants des anciennes éditions ?
+          </h2>
+          <div className="mt-6 flex items-center justify-center gap-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="size-7 sm:size-8 fill-gold text-gold drop-shadow-sm" />
+            ))}
           </div>
         </Reveal>
 
