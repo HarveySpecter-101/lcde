@@ -23,7 +23,6 @@ const GAIN_ITEMS = [
   {
     id: 1,
     icon: CreditCard,
-    badge: "Facilités de paiement",
     title: "Réductions et Paiements en tranches",
     sub: "N'hésites pas à nous en parler, nous sommes à ton écoute 🙏",
     points: [
@@ -35,7 +34,6 @@ const GAIN_ITEMS = [
   {
     id: 2,
     icon: Target,
-    badge: "100% Pratique",
     title: "Compétences réellement opérationnelles",
     sub: "Apprises par la pratique et non la théorie.",
     points: [
@@ -47,7 +45,6 @@ const GAIN_ITEMS = [
   {
     id: 3,
     icon: Users,
-    badge: "Technique & RH",
     title: "Accompagnement à vie par nos intervenants",
     sub: "Un soutien continu même après la fin de la formation.",
     points: [
@@ -59,7 +56,6 @@ const GAIN_ITEMS = [
   {
     id: 4,
     icon: FileText,
-    badge: "CV & Entretiens",
     title: "Préparation complète au marché du travail",
     sub: "CV (Classique & ATS), entretiens et soft skills.",
     points: [
@@ -71,7 +67,6 @@ const GAIN_ITEMS = [
   {
     id: 5,
     icon: Send,
-    badge: "Accès Exclusif",
     title: "Candidatures intelligentes & Base d'adresses vérifiées",
     sub: "Méthodes efficaces et exclusives pour postuler intelligemment.",
     points: [
@@ -83,7 +78,6 @@ const GAIN_ITEMS = [
   {
     id: 6,
     icon: Briefcase,
-    badge: "Insertion Pro",
     title: "Réseau de partenaires & Aide aux stages et emplois",
     sub: "Priorité absolue aux offres auprès de nos partenaires professionnels.",
     points: [
@@ -95,7 +89,6 @@ const GAIN_ITEMS = [
   {
     id: 7,
     icon: Award,
-    badge: "Recommandation LCDE",
     title: "Recommandations exclusives “Le Club Des Experts”",
     sub: "Recommandations officielles et réseautage ciblé.",
     points: [
@@ -107,7 +100,6 @@ const GAIN_ITEMS = [
   {
     id: 8,
     icon: GraduationCap,
-    badge: "+15 ans d'expérience",
     title: "Experts et intervenants de très haut niveau",
     sub: "+10 intervenants avec un minimum de 15 ans d'expérience.",
     points: [
@@ -119,7 +111,6 @@ const GAIN_ITEMS = [
   {
     id: 9,
     icon: Laptop,
-    badge: "Flexibilité Totale",
     title: "100% à distance, En Direct & Replays disponibles",
     sub: "Séances interactives en direct et simultanément enregistrées.",
     points: [
@@ -266,14 +257,10 @@ export function WhatYouGain() {
                         <currentItem.icon className="size-8" strokeWidth={1.9} />
                       </span>
                       <div className="flex-1 pr-12 sm:pr-20">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-soft px-3 py-1 text-xs font-semibold text-navy border border-navy/10">
-                          <Sparkles className="size-3 text-gold" />
-                          {currentItem.badge}
-                        </span>
-                        <h3 className="mt-2 font-serif text-2xl font-bold leading-tight text-navy sm:text-3xl">
+                        <h3 className="font-serif text-2xl font-bold leading-tight text-navy sm:text-3xl">
                           {currentItem.title}
                         </h3>
-                        <p className="mt-1 text-sm sm:text-base font-semibold text-gold font-sans">
+                        <p className="mt-1.5 text-sm sm:text-base font-semibold text-gold font-sans">
                           {currentItem.sub}
                         </p>
                       </div>

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, CheckCircle2, Star, Quote } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/reveal";
 import { SUCCESS_STORIES } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
@@ -35,7 +34,12 @@ export function SuccessStories() {
   const active = SUCCESS_STORIES[index];
 
   return (
-    <section id="resultats" className="relative scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-20 md:py-28" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <section
+      id="resultats"
+      className="relative scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-20 md:py-28"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center opacity-10 overflow-hidden z-0" aria-hidden>
         <div className="font-sans text-[15vw] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12">CONGRATS</div>
         <div className="font-sans text-[15vw] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12 mt-4">CONGRATS</div>
@@ -64,9 +68,36 @@ export function SuccessStories() {
 
         <Reveal delay={0.15} className="mt-16">
           <div className="relative mx-auto max-w-2xl">
+            {/* Side Navigation Button: Left */}
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Résultat précédent"
+              className="absolute -left-3 sm:-left-16 top-1/2 z-30 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-navy/15 bg-white text-navy shadow-lg transition-all hover:bg-navy hover:text-white hover:scale-110 active:scale-95"
+            >
+              <ChevronLeft className="size-6" />
+            </button>
+
+            {/* Side Navigation Button: Right */}
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Résultat suivant"
+              className="absolute -right-3 sm:-right-16 top-1/2 z-30 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-navy/15 bg-white text-navy shadow-lg transition-all hover:bg-navy hover:text-white hover:scale-110 active:scale-95"
+            >
+              <ChevronRight className="size-6" />
+            </button>
+
             <div className="relative min-h-[22rem] sm:min-h-[20rem]">
               <AnimatePresence mode="wait">
-                <motion.div key={index} initial={{ opacity: 0, x: 50, scale: 0.95 }} animate={{ opacity: 1, x: 0, scale: 1 }} exit={{ opacity: 0, x: -50, scale: 0.95 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }} className="relative mx-auto max-w-lg rounded-[2rem] border-2 border-gold/40 bg-white p-8 shadow-2xl md:p-10">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -50, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative mx-auto max-w-lg rounded-[2rem] border-2 border-gold/40 bg-white p-8 shadow-2xl md:p-10"
+                >
                   <div className="absolute -left-4 -top-4 flex size-12 items-center justify-center rounded-full bg-navy text-white shadow-lg"><Quote className="size-5 fill-white" /></div>
                   <div className="absolute -bottom-4 -right-4 flex size-12 items-center justify-center rounded-full bg-navy text-white shadow-lg rotate-180"><Quote className="size-5 fill-white" /></div>
                   
@@ -91,14 +122,25 @@ export function SuccessStories() {
                 </motion.div>
               </AnimatePresence>
             </div>
-            <div className="mt-12 flex items-center justify-center gap-6 relative z-20">
-              <Button variant="outline" size="icon" onClick={() => go(-1)} aria-label="Précédent" className="size-12 rounded-full border-navy/20 bg-white text-navy hover:bg-navy hover:text-white shadow-md"><ChevronLeft className="size-6" /></Button>
+
+            {/* Bottom dots & counter */}
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 relative z-20">
               <div className="flex items-center gap-2">
                 {SUCCESS_STORIES.map((_, i) => (
-                  <button key={i} onClick={() => setIndex(i)} aria-label={`Aller à la slide ${i + 1}`} className={cn("h-2.5 rounded-full transition-all", i === index ? "w-8 bg-gold" : "w-2.5 bg-navy/20 hover:bg-navy/40")} />
+                  <button
+                    key={i}
+                    onClick={() => setIndex(i)}
+                    aria-label={`Aller à la slide ${i + 1}`}
+                    className={cn(
+                      "h-2.5 rounded-full transition-all duration-300",
+                      i === index ? "w-8 bg-gold" : "w-2.5 bg-navy/25 hover:bg-navy/50"
+                    )}
+                  />
                 ))}
               </div>
-              <Button variant="outline" size="icon" onClick={() => go(1)} aria-label="Suivant" className="size-12 rounded-full border-navy/20 bg-white text-navy hover:bg-navy hover:text-white shadow-md"><ChevronRight className="size-6" /></Button>
+              <p className="text-xs font-semibold text-navy/60">
+                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+              </p>
             </div>
           </div>
         </Reveal>
