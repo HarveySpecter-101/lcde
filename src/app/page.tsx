@@ -3,7 +3,7 @@ import { Hero } from "@/components/site/hero";
 import { Stats } from "@/components/site/stats";
 import { HiringCompanies } from "@/components/site/hiring-companies";
 import { Modules } from "@/components/site/modules";
-import { FormationStats } from "@/components/site/formation-stats";
+import { WhatYouGain } from "@/components/site/what-you-gain";
 import { Intervenants } from "@/components/site/intervenants";
 import { Founders } from "@/components/site/founders";
 import { BeforeAfter } from "@/components/site/before-after";
@@ -28,7 +28,8 @@ export default function Home() {
         <HiringCompanies />
         <SectionDivider variant="light-to-navy" />
         <Modules />
-        <FormationStats />
+        <SectionDivider variant="navy-to-light" />
+        <WhatYouGain />
         <Intervenants />
         <SectionDivider variant="light-to-navy" />
         <Founders />

@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 const logos = {
   'grant-thornton.svg': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100"><circle cx="50" cy="50" r="30" fill="#6b2c91"/><circle cx="50" cy="50" r="15" fill="#fff"/><path d="M50 20 A30 30 0 0 1 80 50 L65 50 A15 15 0 0 0 50 35 Z" fill="#a872bc"/><text x="95" y="60" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#000">Grant Thornton</text></svg>',
   'ocp.svg': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100"><path d="M50 20 L80 80 L20 80 Z" fill="#006400"/><path d="M50 35 L65 70 L35 70 Z" fill="#90EE90"/><text x="90" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="#006400">OCP</text></svg>',
