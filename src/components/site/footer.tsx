@@ -4,22 +4,12 @@ import {
   MapPin,
   Mail,
   MessageCircle,
-  Phone,
   Instagram,
   Facebook,
   Linkedin,
   Heart,
 } from "lucide-react";
-import { LCDE, NAV_LINKS, WHATSAPP_LINK } from "@/lib/site-data";
-
-const MODULE_LINKS = [
-  "Comptabilité & Consolidation",
-  "Normes IFRS",
-  "Fiscalité Marocaine",
-  "Droit des Affaires",
-  "Audit des États Financiers",
-  "Commissariat aux Comptes",
-];
+import { LCDE, WHATSAPP_LINK } from "@/lib/site-data";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -40,9 +30,9 @@ export function Footer() {
 
       {/* Main footer */}
       <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16 lg:gap-24">
           {/* Brand */}
-          <div className="lg:col-span-1">
+          <div>
             <a href="#accueil" className="flex items-center gap-2.5" aria-label="LCDE - Accueil">
               <span className="relative flex size-11 items-center justify-center overflow-hidden rounded-full bg-white/5 ring-2 ring-gold/30">
                 <img
@@ -58,7 +48,7 @@ export function Footer() {
                 </span>
               </span>
             </a>
-            <p className="mt-4 text-sm leading-relaxed text-white/65">
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-white/65">
               Formation 100 % pratique en Audit, Finance, Fiscalité et Comptabilité à Casablanca.
               Opérationnel dès le premier jour.
             </p>
@@ -82,67 +72,35 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-gold">Navigation</h3>
-            <ul className="mt-4 space-y-2.5">
-              {NAV_LINKS.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className="text-sm text-white/65 transition-colors hover:text-gold">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <a href="#faq" className="text-sm text-white/65 transition-colors hover:text-gold">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#programme" className="text-sm text-white/65 transition-colors hover:text-gold">
-                  Programme 12 mois
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Modules */}
-          <div>
-            <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-gold">Formations</h3>
-            <ul className="mt-4 space-y-2.5">
-              {MODULE_LINKS.map((m) => (
-                <li key={m}>
-                  <a href="#formations" className="text-sm text-white/65 transition-colors hover:text-gold">
-                    {m}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Contact */}
           <div>
-            <h3 className="font-serif text-sm font-bold uppercase tracking-wider text-gold">Contact</h3>
-            <ul className="mt-4 space-y-3">
+            <h3 className="font-serif text-base font-bold uppercase tracking-wider text-gold">Contact</h3>
+            <ul className="mt-4 space-y-3.5">
               <li className="flex items-start gap-2.5 text-sm text-white/70">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
-                <span>{LCDE.city}, {LCDE.country}</span>
+                <span>Casablanca, Maroc</span>
               </li>
               <li>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2.5 text-sm text-white/70 transition-colors hover:text-gold">
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Contacter LCDE sur WhatsApp"
+                  className="flex items-start gap-2.5 text-sm text-white/70 transition-colors hover:text-gold"
+                >
                   <MessageCircle className="mt-0.5 size-4 shrink-0 text-gold" />
                   <span>{LCDE.whatsappDisplay}</span>
                 </a>
               </li>
               <li>
-                <a href={`mailto:${LCDE.email}`} className="flex items-start gap-2.5 text-sm text-white/70 transition-colors hover:text-gold">
+                <a
+                  href="mailto:contact@leclubdesexperts.com"
+                  aria-label="Envoyer un email à LCDE"
+                  className="flex items-start gap-2.5 text-sm text-white/70 transition-colors hover:text-gold"
+                >
                   <Mail className="mt-0.5 size-4 shrink-0 text-gold" />
-                  <span className="break-all">{LCDE.email}</span>
+                  <span className="break-all">contact@leclubdesexperts.com</span>
                 </a>
-              </li>
-              <li className="flex items-start gap-2.5 text-sm text-white/70">
-                <Phone className="mt-0.5 size-4 shrink-0 text-gold" />
-                <span>Actif depuis {LCDE.activeSince} · {LCDE.edition}</span>
               </li>
             </ul>
           </div>
