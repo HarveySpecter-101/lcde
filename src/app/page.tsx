@@ -1,7 +1,6 @@
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
 import { Stats } from "@/components/site/stats";
-import { HiringCompanies } from "@/components/site/hiring-companies";
 import { Modules } from "@/components/site/modules";
 import { WhatYouGain } from "@/components/site/what-you-gain";
 import { Intervenants } from "@/components/site/intervenants";
@@ -9,7 +8,7 @@ import { Founders } from "@/components/site/founders";
 import { BeforeAfter } from "@/components/site/before-after";
 import { SuccessStories } from "@/components/site/success-stories";
 import { Resources } from "@/components/site/resources";
-import { Contact } from "@/components/site/contact";
+import { Faq } from "@/components/site/faq";
 import { Footer } from "@/components/site/footer";
 import { ScrollProgress } from "@/components/site/scroll-progress";
 import { SectionDivider } from "@/components/site/section-divider";
@@ -25,7 +24,6 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Stats />
-        <HiringCompanies />
         <SectionDivider variant="light-to-navy" />
         <Modules />
         <SectionDivider variant="navy-to-light" />
@@ -38,8 +36,9 @@ export default function Home() {
         <SuccessStories />
         <SectionDivider variant="light-to-soft" className="bg-[#ffebf0] dark:bg-transparent" />
         <Resources />
-        <SectionDivider variant="soft-to-navy" />
-        <Contact />
+        <SectionDivider variant="soft-to-light" />
+        <Faq />
+        <SectionDivider variant="light-to-navy" />
       </main>
       <Footer />
       <PersistentCtaBar />

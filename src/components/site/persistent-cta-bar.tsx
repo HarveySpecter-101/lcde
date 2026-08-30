@@ -60,7 +60,9 @@ export function PersistentCtaBar() {
 
               {/* Main CTA button */}
               <a
-                href="#contact"
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gold-gradient text-sm font-semibold text-navy shadow-gold-glow transition-transform active:scale-[0.98] hover:scale-[1.01] cta-pulse-gold"
               >
                 Je souhaite m'inscrire

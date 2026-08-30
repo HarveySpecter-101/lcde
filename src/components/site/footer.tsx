@@ -39,7 +39,9 @@ export function Footer() {
             « Créons les experts de demain… »
           </p>
           <a
-            href="#contact"
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-semibold text-navy transition-transform hover:scale-[1.02]"
           >
             Rejoindre la formation

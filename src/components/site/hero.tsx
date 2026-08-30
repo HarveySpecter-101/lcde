@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LCDE } from "@/lib/site-data";
+import { LCDE, WHATSAPP_LINK } from "@/lib/site-data";
 
 const container = {
   hidden: {},
@@ -78,7 +78,7 @@ export function Hero() {
 
           <motion.div variants={item} className="mt-6 hidden flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap">
             <Button asChild size="lg" className="bg-gold-gradient text-navy font-semibold hover:opacity-90 hover:shadow-gold-glow">
-              <a href="#contact">
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                 Je rejoins la prochaine édition
                 <ArrowRight className="size-4" />
               </a>

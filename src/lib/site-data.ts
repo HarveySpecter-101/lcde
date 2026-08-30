@@ -560,7 +560,7 @@ export const NAV_LINKS = [
   { href: "#formations", label: "Nos Formations" },
   { href: "#ce-que-vous-gagnez", label: "Ce que vous gagnez" },
   { href: "#intervenants", label: "Intervenants" },
-  { href: "#temoignages", label: "Témoignages" },
-  { href: "#entreprises", label: "Entreprises" },
-  { href: "#contact", label: "Contact" },
+  { href: "#resultats", label: "Résultats" },
+  { href: "#ressources", label: "Ressources gratuites" },
+  { href: "#faq", label: "FAQ" },
 ];

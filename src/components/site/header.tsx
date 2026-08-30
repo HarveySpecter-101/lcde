@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { NAV_LINKS, LCDE } from "@/lib/site-data";
+import { NAV_LINKS, LCDE, WHATSAPP_LINK } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -101,7 +101,7 @@ export function Header() {
             size="sm"
             className="hidden md:inline-flex bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow"
           >
-            <a href="#contact">
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
               Rejoindre la formation
               <ArrowRight className="size-4" />
             </a>
@@ -124,11 +124,6 @@ export function Header() {
               <div className="flex h-full flex-col bg-white">
                 <div className="flex items-center justify-between border-b border-navy/10 px-5 py-4">
                   <span className="font-serif text-lg font-bold text-navy">LCDE</span>
-                  <SheetClose asChild>
-                    <Button variant="ghost" size="icon" aria-label="Fermer le menu">
-                      <X className="size-5" />
-                    </Button>
-                  </SheetClose>
                 </div>
                 <nav className="flex flex-1 flex-col gap-1 p-4">
                   {NAV_LINKS.map((link) => (
@@ -145,14 +140,11 @@ export function Header() {
                 </nav>
                 <div className="border-t border-navy/10 p-4">
                   <Button asChild className="w-full bg-gold text-navy font-semibold hover:bg-gold/90">
-                    <a href="#contact">
+                    <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                       Rejoindre la formation
                       <ArrowRight className="size-4" />
                     </a>
                   </Button>
-                  <p className="mt-3 text-center text-xs text-anthracite/60">
-                    {LCDE.city}, {LCDE.country} · Actif depuis {LCDE.activeSince}
-                  </p>
                 </div>
               </div>
             </SheetContent>

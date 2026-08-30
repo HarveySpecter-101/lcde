@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
+import { WHATSAPP_LINK } from "@/lib/site-data";
 
 const GAIN_ITEMS = [
   {
@@ -369,8 +370,8 @@ export function WhatYouGain() {
                   size="lg"
                   className="bg-gold text-navy font-semibold hover:bg-gold/90 shadow-gold-glow transition-all"
                 >
-                  <a href="#contact" className="inline-flex items-center justify-center gap-2">
-                    Nous contacter
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2">
+                    Rejoindre la formation
                     <ArrowRight className="size-4" />
                   </a>
                 </Button>
