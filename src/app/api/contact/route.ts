@@ -92,26 +92,34 @@ export async function POST(req: Request) {
         );
       });
 
-    // 3. Send the form data to n8n
-    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL || "https://76ab979d7242c2.lhr.life/webhook/aa39b0fe-2db6-429e-bf02-3cd36c4a8933";
-    if (n8nWebhookUrl) {
+    // 3. Send the form data to Google Sheet / n8n Webhook
+    const webhookUrls = [
+      process.env.GOOGLE_SHEET_WEBHOOK_URL,
+      process.env.N8N_WEBHOOK_URL,
+    ].filter(Boolean) as string[];
+
+    const webhookPayload = {
+      "Date": new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" }),
+      "Nom Complet": name,
+      "Email": email,
+      "WhatsApp": phone,
+      name,
+      email,
+      phone,
+      source,
+    };
+
+    for (const url of webhookUrls) {
       try {
-        await fetch(
-          n8nWebhookUrl,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              "Nom Complet": name,
-              "Email": email,
-              "Téléphone": phone,
-            }),
-          }
-        );
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(webhookPayload),
+        });
       } catch (err) {
-        console.error("[API /contact] n8n webhook failed:", err);
+        console.error(`[API /contact] Webhook failed (${url}):`, err);
       }
     }
 

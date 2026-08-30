@@ -101,18 +101,9 @@ export function Contact() {
                     <CheckCircle2 className="size-8" />
                   </span>
                   <h3 className="mt-4 font-serif text-xl font-bold text-white">Merci {submittedName}</h3>
-                  <p className="mt-1.5 max-w-sm text-xs sm:text-sm text-white/80">
-                    Vous allez être contacté sous 24 heures pour lancer votre démarche d'inscription.
+                  <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/90">
+                    Vous allez être recontacté sous 24 heures pour lancer votre démarche d'inscription.
                   </p>
-                  <Button
-                    onClick={() => {
-                      setDone(false);
-                      setForm({ name: "", email: "", phone: "" });
-                    }}
-                    className="mt-5 bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow"
-                  >
-                    Envoyer une autre demande
-                  </Button>
                 </motion.div>
               ) : (
                 <form onSubmit={submit} className="space-y-3.5 sm:space-y-4">
