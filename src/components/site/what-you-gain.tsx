@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import {
+  CreditCard,
   Target,
   Users,
   FileText,
@@ -13,22 +14,17 @@ import {
   Laptop,
   CheckCircle2,
   Sparkles,
-  MessageCircle,
-  ArrowRight,
-  Heart,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
-import { Button } from "@/components/ui/button";
-import { WHATSAPP_LINK } from "@/lib/site-data";
 
 const GAIN_ITEMS = [
   {
     id: 1,
-    icon: Heart,
+    icon: CreditCard,
     badge: "Facilités de paiement",
-    title: "❤️ Réductions et Paiements en tranches",
+    title: "Réductions et Paiements en tranches",
     sub: "N'hésites pas à nous en parler, nous sommes à ton écoute 🙏",
     points: [
       "Paiements échelonnés en plusieurs tranches sans frais adaptés à votre situation",
@@ -184,10 +180,6 @@ export function WhatYouGain() {
 
   const currentItem = GAIN_ITEMS[current];
 
-  const whatsappPaymentLink = `https://wa.me/212777293083?text=${encodeURIComponent(
-    "Bonjour Le Club Des Experts, je souhaite avoir des informations sur les réductions et facilités de paiements en tranches pour la formation."
-  )}`;
-
   return (
     <section
       id="ce-que-vous-gagnez"
@@ -332,63 +324,6 @@ export function WhatYouGain() {
             <p className="mt-2 text-center text-xs font-semibold text-anthracite/50">
               {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
             </p>
-          </div>
-        </Reveal>
-
-        {/* Highlight Card: Réductions et Paiements en tranches */}
-        <Reveal delay={0.2} className="mt-14">
-          <div className="relative overflow-hidden rounded-3xl border-2 border-gold/30 bg-navy-gradient p-8 text-white shadow-navy-glow md:p-10">
-            {/* Ambient gold glow */}
-            <div className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-gold/20 blur-3xl" />
-            <div className="pointer-events-none absolute inset-0 bg-dots opacity-10" />
-
-            <div className="relative z-10 flex flex-col items-center justify-between gap-8 text-center lg:flex-row lg:text-left">
-              <div className="max-w-3xl">
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold backdrop-blur-sm border border-white/10 mb-4">
-                  <Heart className="size-3.5 fill-red-500 text-red-500" /> Facilités de paiement
-                </div>
-                <h3 className="font-serif text-2xl font-bold sm:text-3xl md:text-4xl text-white">
-                  ❤️ Réductions et Paiements en tranches
-                </h3>
-                <p className="mt-2 text-base sm:text-lg font-medium text-gold">
-                  N'hésites pas à nous en parler, nous sommes à ton écoute 🙏
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-white/80 sm:text-base">
-                  Nous croyons fermement que l'aspect financier ne doit jamais être un obstacle à votre insertion
-                  et votre progression. Des facilités de paiement échelonné adaptées à votre profil ainsi que des réductions
-                  personnalisées sont mises à votre disposition.
-                </p>
-              </div>
-
-              {/* Call to action buttons */}
-              <div className="flex flex-col sm:flex-row shrink-0 gap-3 w-full sm:w-auto">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-emerald-600 text-white font-semibold hover:bg-emerald-500 shadow-md hover:shadow-lg transition-all"
-                >
-                  <a
-                    href={whatsappPaymentLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2"
-                  >
-                    <MessageCircle className="size-5" />
-                    Échanger sur WhatsApp
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-gold text-navy font-semibold hover:bg-gold/90 shadow-gold-glow transition-all"
-                >
-                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2">
-                    Rejoindre la formation
-                    <ArrowRight className="size-4" />
-                  </a>
-                </Button>
-              </div>
-            </div>
           </div>
         </Reveal>
       </div>
