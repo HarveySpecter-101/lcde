@@ -101,7 +101,7 @@ export function Header() {
             size="sm"
             className="hidden md:inline-flex bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow"
           >
-            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+            <a href="#contact">
               Rejoindre la formation
               <ArrowRight className="size-4" />
             </a>
@@ -139,12 +139,14 @@ export function Header() {
                   ))}
                 </nav>
                 <div className="border-t border-navy/10 p-4">
-                  <Button asChild className="w-full bg-gold text-navy font-semibold hover:bg-gold/90">
-                    <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                      Rejoindre la formation
-                      <ArrowRight className="size-4" />
-                    </a>
-                  </Button>
+                  <SheetClose asChild>
+                    <Button asChild className="w-full bg-gold text-navy font-semibold hover:bg-gold/90">
+                      <a href="#contact">
+                        Rejoindre la formation
+                        <ArrowRight className="size-4" />
+                      </a>
+                    </Button>
+                  </SheetClose>
                 </div>
               </div>
             </SheetContent>

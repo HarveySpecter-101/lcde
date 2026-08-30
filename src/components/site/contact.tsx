@@ -70,35 +70,38 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-20 overflow-hidden bg-navy-gradient py-20 text-white md:py-28">
+    <section
+      id="contact"
+      className="relative scroll-mt-14 sm:scroll-mt-20 overflow-hidden bg-navy-gradient py-10 sm:py-16 md:py-20 text-white"
+    >
       <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.08]" aria-hidden />
       <div className="pointer-events-none absolute -left-24 top-0 size-80 rounded-full bg-gold/15 blur-3xl" aria-hidden />
       <div className="pointer-events-none absolute -right-24 bottom-0 size-96 rounded-full bg-emerald-brand/10 blur-3xl" aria-hidden />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
+      <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold">
             <Sparkles className="size-3.5" /> Contact & inscription
           </span>
-          <h2 className="mt-5 font-serif text-2xl font-bold leading-snug tracking-tight text-white sm:text-3xl md:text-4xl">
+          <h2 className="mt-2.5 font-serif text-lg font-bold leading-snug tracking-tight text-white sm:text-2xl md:text-3xl">
             Laissez vos coordonnées, un conseiller LCDE vous recontacte sous 24h pour lancer la démarche d'inscription.
           </h2>
         </Reveal>
 
-        <div className="mt-12 flex justify-center">
-          <Reveal className="w-full max-w-xl">
-            <div className="rounded-3xl border border-white/12 bg-white/[0.04] p-6 backdrop-blur-md md:p-8">
+        <div className="mt-5 sm:mt-8 flex justify-center">
+          <Reveal className="w-full max-w-lg">
+            <div className="rounded-2xl sm:rounded-3xl border border-white/12 bg-white/[0.05] p-5 sm:p-7 backdrop-blur-md shadow-2xl">
               {done ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center py-12 text-center"
+                  className="flex flex-col items-center py-8 text-center"
                 >
-                  <span className="flex size-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg">
-                    <CheckCircle2 className="size-9" />
+                  <span className="flex size-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg">
+                    <CheckCircle2 className="size-8" />
                   </span>
-                  <h3 className="mt-5 font-serif text-2xl font-bold text-white">Merci {submittedName}</h3>
-                  <p className="mt-2 max-w-sm text-sm text-white/75">
+                  <h3 className="mt-4 font-serif text-xl font-bold text-white">Merci {submittedName}</h3>
+                  <p className="mt-1.5 max-w-sm text-xs sm:text-sm text-white/80">
                     Vous allez être contacté sous 24 heures pour lancer votre démarche d'inscription.
                   </p>
                   <Button
@@ -106,15 +109,15 @@ export function Contact() {
                       setDone(false);
                       setForm({ name: "", email: "", phone: "" });
                     }}
-                    className="mt-6 bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow"
+                    className="mt-5 bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow"
                   >
                     Envoyer une autre demande
                   </Button>
                 </motion.div>
               ) : (
-                <form onSubmit={submit} className="space-y-6">
+                <form onSubmit={submit} className="space-y-3.5 sm:space-y-4">
                   <div>
-                    <Label htmlFor="c-name" className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-white/70">
+                    <Label htmlFor="c-name" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
                       Nom complet *
                     </Label>
                     <Input
@@ -123,11 +126,11 @@ export function Contact() {
                       value={form.name}
                       onChange={(e) => update("name", e.target.value)}
                       placeholder="Votre nom complet"
-                      className="h-11 border-white/20 bg-white/[0.1] text-white placeholder:text-white/50 focus-visible:border-gold focus-visible:ring-gold/30"
+                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="c-email" className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-white/70">
+                    <Label htmlFor="c-email" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
                       Email *
                     </Label>
                     <Input
@@ -137,11 +140,11 @@ export function Contact() {
                       value={form.email}
                       onChange={(e) => update("email", e.target.value)}
                       placeholder="vous@exemple.com"
-                      className="h-11 border-white/20 bg-white/[0.1] text-white placeholder:text-white/50 focus-visible:border-gold focus-visible:ring-gold/30"
+                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="c-phone" className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-white/70">
+                    <Label htmlFor="c-phone" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
                       WhatsApp *
                     </Label>
                     <Input
@@ -151,14 +154,14 @@ export function Contact() {
                       value={form.phone}
                       onChange={(e) => update("phone", e.target.value)}
                       placeholder="+212 6 00 00 00 00"
-                      className="h-11 border-white/20 bg-white/[0.1] text-white placeholder:text-white/50 focus-visible:border-gold focus-visible:ring-gold/30"
+                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30"
                     />
                   </div>
                   <Button
                     type="submit"
                     size="lg"
                     disabled={loading}
-                    className="w-full bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow flex items-center justify-center gap-2"
+                    className="mt-1 h-11 sm:h-12 w-full rounded-xl bg-gold text-navy font-bold text-sm sm:text-base hover:bg-gold/90 hover:shadow-gold-glow flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-[0.98]"
                   >
                     {loading ? "Envoi en cours…" : "J'envoie ma demande"}
                     {!loading && <Send className="size-4" />}
