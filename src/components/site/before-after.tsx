@@ -139,20 +139,6 @@ export function BeforeAfter() {
             </AnimatePresence>
           </div>
         </div>
-
-        {/* Bottom takeaway */}
-        <Reveal delay={0.2} className="mt-12">
-          <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 rounded-2xl bg-navy-gradient p-6 text-center text-white shadow-navy-glow sm:flex-row sm:text-left">
-            <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gold text-navy">
-              <Check className="size-6" strokeWidth={3} />
-            </span>
-            <p className="text-sm leading-relaxed sm:text-base">
-              <strong className="font-semibold text-gold">Résultat :</strong> un candidat recherché
-              par les Big Four, banques, assurances et multinationales — avec un taux d'insertion
-              allant jusqu'à <strong className="font-semibold text-gold">96 %</strong>.
-            </p>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
