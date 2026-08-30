@@ -30,8 +30,8 @@ export function Contact() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim()) {
-      toast.error("Veuillez renseigner votre nom et votre adresse email.");
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim()) {
+      toast.error("Veuillez renseigner les trois champs : Nom complet, Email et WhatsApp.");
       return;
     }
     if (!EMAIL_RE.test(form.email.trim())) {
@@ -60,7 +60,7 @@ export function Contact() {
       }
       setSubmittedName(form.name.trim());
       setDone(true);
-      toast.success("Inscription envoyée ! Notre équipe vous recontacte sous 24 h.");
+      toast.success("Demande envoyée ! Notre équipe vous recontacte sous 24 h.");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Une erreur est survenue. Réessayez ou écrivez-nous sur WhatsApp.";
       toast.error(msg);
@@ -80,12 +80,9 @@ export function Contact() {
           <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
             <Sparkles className="size-3.5" /> Contact & inscription
           </span>
-          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            Rejoignez la prochaine édition
+          <h2 className="mt-5 font-serif text-2xl font-bold leading-snug tracking-tight text-white sm:text-3xl md:text-4xl">
+            Laissez vos coordonnées, un conseiller LCDE vous recontacte sous 24h pour lancer la démarche d'inscription.
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-white/75 sm:text-lg">
-            Laissez vos coordonnées : un conseiller LCDE vous recontacte sous 24 h pour étudier votre projet.
-          </p>
         </Reveal>
 
         <div className="mt-12 flex justify-center">
@@ -102,7 +99,7 @@ export function Contact() {
                   </span>
                   <h3 className="mt-5 font-serif text-2xl font-bold text-white">Merci {submittedName}</h3>
                   <p className="mt-2 max-w-sm text-sm text-white/75">
-                    Vous allez être contacté sous 24 heures.
+                    Vous allez être contacté sous 24 heures pour lancer votre démarche d'inscription.
                   </p>
                   <Button
                     onClick={() => {
@@ -125,7 +122,7 @@ export function Contact() {
                       required
                       value={form.name}
                       onChange={(e) => update("name", e.target.value)}
-                      placeholder="Votre nom"
+                      placeholder="Votre nom complet"
                       className="h-11 border-white/20 bg-white/[0.1] text-white placeholder:text-white/50 focus-visible:border-gold focus-visible:ring-gold/30"
                     />
                   </div>
@@ -145,11 +142,12 @@ export function Contact() {
                   </div>
                   <div>
                     <Label htmlFor="c-phone" className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-white/70">
-                      Téléphone
+                      WhatsApp *
                     </Label>
                     <Input
                       id="c-phone"
                       type="tel"
+                      required
                       value={form.phone}
                       onChange={(e) => update("phone", e.target.value)}
                       placeholder="+212 6 00 00 00 00"
@@ -162,13 +160,9 @@ export function Contact() {
                     disabled={loading}
                     className="w-full bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow flex items-center justify-center gap-2"
                   >
-                    {loading ? "Envoi en cours…" : "Je m'inscris"}
+                    {loading ? "Envoi en cours…" : "J'envoie ma demande"}
                     {!loading && <Send className="size-4" />}
                   </Button>
-                  
-                  <p className="text-center text-[11px] text-white/50 mt-4">
-                    En soumettant ce formulaire, vous acceptez d'être recontacté par LCDE.
-                  </p>
                 </form>
               )}
             </div>

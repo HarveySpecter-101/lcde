@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  GraduationCap,
   MapPin,
   Mail,
   MessageCircle,
@@ -9,11 +8,9 @@ import {
   Instagram,
   Facebook,
   Linkedin,
-  ArrowUpRight,
   Heart,
 } from "lucide-react";
 import { LCDE, NAV_LINKS, WHATSAPP_LINK } from "@/lib/site-data";
-import { Newsletter } from "@/components/site/newsletter";
 
 const MODULE_LINKS = [
   "Comptabilité & Consolidation",
@@ -32,21 +29,12 @@ export function Footer() {
       <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.05]" aria-hidden />
       <div className="pointer-events-none absolute -left-20 -top-20 size-72 rounded-full bg-gold/10 blur-3xl" aria-hidden />
 
-      {/* Top CTA strip */}
+      {/* Top quote strip */}
       <div className="relative border-b border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-7 sm:px-6 md:flex-row lg:px-8">
-          <p className="font-serif text-center text-xl font-bold text-white md:text-left md:text-2xl">
+        <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 lg:px-8 text-center">
+          <p className="font-serif text-xl font-bold text-white md:text-2xl">
             « Créons les experts de demain… »
           </p>
-          <a
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-semibold text-navy transition-transform hover:scale-[1.02]"
-          >
-            Rejoindre la formation
-            <ArrowUpRight className="size-4" />
-          </a>
         </div>
       </div>
 
@@ -91,9 +79,6 @@ export function Footer() {
                   <s.icon className="size-5" />
                 </a>
               ))}
-            </div>
-            <div className="mt-5">
-              <Newsletter />
             </div>
           </div>
 
