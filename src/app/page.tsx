@@ -29,13 +29,12 @@ export default function Home() {
         <SectionDivider variant="light-to-navy" />
         <Modules />
         <SectionDivider variant="navy-to-light" />
+        <BeforeAfter />
         <WhatYouGain />
         <Intervenants />
         <SectionDivider variant="light-to-navy" />
         <Founders />
         <SectionDivider variant="navy-to-light" />
-        <BeforeAfter />
-        <SectionDivider className="text-[#e6f2ff] dark:text-[#14182a]" />
         <SuccessStories />
         <SectionDivider variant="light-to-soft" className="bg-[#ffebf0] dark:bg-transparent" />
         <Resources />
