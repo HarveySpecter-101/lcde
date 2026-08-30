@@ -117,6 +117,7 @@ export async function POST(req: Request) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(webhookPayload),
+          redirect: "follow",
         });
       } catch (err) {
         console.error(`[API /contact] Webhook failed (${url}):`, err);
