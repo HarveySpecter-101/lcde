@@ -26,6 +26,18 @@ import { WHATSAPP_LINK } from "@/lib/site-data";
 const GAIN_ITEMS = [
   {
     id: 1,
+    icon: Heart,
+    badge: "Facilités de paiement",
+    title: "❤️ Réductions et Paiements en tranches",
+    sub: "N'hésites pas à nous en parler, nous sommes à ton écoute 🙏",
+    points: [
+      "Paiements échelonnés en plusieurs tranches sans frais adaptés à votre situation",
+      "Réductions personnalisées et tarifs préférentiels selon votre profil",
+      "Facilités d'accès immédiat à l'ensemble du programme d'élite et de son réseau",
+    ],
+  },
+  {
+    id: 2,
     icon: Target,
     badge: "100% Pratique",
     title: "Compétences réellement opérationnelles",
@@ -37,7 +49,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     icon: Users,
     badge: "Technique & RH",
     title: "Accompagnement à vie par nos intervenants",
@@ -49,7 +61,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     icon: FileText,
     badge: "CV & Entretiens",
     title: "Préparation complète au marché du travail",
@@ -61,7 +73,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     icon: Send,
     badge: "Accès Exclusif",
     title: "Candidatures intelligentes & Base d'adresses vérifiées",
@@ -73,7 +85,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     icon: Briefcase,
     badge: "Insertion Pro",
     title: "Réseau de partenaires & Aide aux stages et emplois",
@@ -85,7 +97,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     icon: Award,
     badge: "Recommandation LCDE",
     title: "Recommandations exclusives “Le Club Des Experts”",
@@ -97,7 +109,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     icon: GraduationCap,
     badge: "+15 ans d'expérience",
     title: "Experts et intervenants de très haut niveau",
@@ -109,7 +121,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
-    id: 8,
+    id: 9,
     icon: Laptop,
     badge: "Flexibilité Totale",
     title: "100% à distance, En Direct & Replays disponibles",

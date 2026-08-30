@@ -563,4 +563,5 @@ export const NAV_LINKS = [
   { href: "#resultats", label: "Résultats" },
   { href: "#ressources", label: "Ressources gratuites" },
   { href: "#faq", label: "FAQ" },
+  { href: "#contact", label: "Contact" },
 ];

@@ -9,6 +9,7 @@ import { BeforeAfter } from "@/components/site/before-after";
 import { SuccessStories } from "@/components/site/success-stories";
 import { Resources } from "@/components/site/resources";
 import { Faq } from "@/components/site/faq";
+import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
 import { ScrollProgress } from "@/components/site/scroll-progress";
 import { SectionDivider } from "@/components/site/section-divider";
@@ -39,6 +40,7 @@ export default function Home() {
         <SectionDivider variant="soft-to-light" />
         <Faq />
         <SectionDivider variant="light-to-navy" />
+        <Contact />
       </main>
       <Footer />
       <PersistentCtaBar />
