@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { HelpCircle } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import {
   Accordion,
@@ -36,14 +36,13 @@ export function Faq() {
                   value={`item-${i}`}
                   className="border-b border-navy/8 last:border-b-0"
                 >
-                  <AccordionTrigger className="group px-5 py-5 text-left font-serif text-base font-semibold text-navy hover:no-underline hover:text-gold [&[data-state=open]>svg]:rotate-180">
+                  <AccordionTrigger className="group px-5 py-5 text-left font-serif text-base font-semibold text-navy hover:no-underline hover:text-gold">
                     <span className="flex items-center gap-3 pr-2">
                       <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-navy text-xs font-bold text-gold">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {item.q}
                     </span>
-                    <ChevronDown className="size-5 shrink-0 text-gold transition-transform duration-300" />
                   </AccordionTrigger>
                   <AccordionContent className="px-5 pb-5 text-sm leading-relaxed text-anthracite/75 sm:pl-[3.85rem]">
                     <motion.div

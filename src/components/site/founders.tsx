@@ -1,22 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 
 const FOUNDERS = [
   {
     name: "Rachad GHALI",
-    role: 'Co-fondateur "Le Club Des Experts"',
     bio: "Manager Audit & Financial Advisory, Consultant spécialisé dans l'Audit et le Métier du secteur Bancaire.",
-    badge: "Audit & Banking",
     photo: "/founders/rachad-ghali.jpg",
   },
   {
     name: "Rida MOUTIK",
-    role: 'Co-fondateur "Le Club Des Experts"',
     bio: "Expert Comptable Mémorialiste, Manager Audit & Financial Advisory, Spécialiste en Due Diligence (financière, fiscale, sociale et juridique).",
-    badge: "EC & Due Diligence",
     photo: "/founders/rida-moutik.jpg",
   },
 ];
@@ -51,20 +46,16 @@ export function Founders() {
                     <div className="relative size-28 overflow-hidden rounded-2xl shadow-premium sm:size-32">
                       <img
                         src={f.photo}
-                        alt={`Photo de ${f.name}, ${f.role} au LCDE`}
+                        alt={`Photo de ${f.name}`}
                         className="size-full object-cover"
                       />
                       {/* Gradient overlay for premium effect */}
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                     </div>
-                    <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold-gradient px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-gold-glow">
-                      {f.badge}
-                    </span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-serif text-xl font-bold text-navy">{f.name}</h3>
-                    <p className="text-sm font-medium text-gold">{f.role}</p>
-                    <p className="mt-3 text-sm leading-relaxed text-anthracite/70">{f.bio}</p>
+                    <h3 className="font-serif text-2xl font-bold text-navy">{f.name}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-anthracite/75">{f.bio}</p>
                   </div>
                 </div>
               </motion.article>

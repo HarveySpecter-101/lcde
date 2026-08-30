@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { FileText, Wrench, Download, Mail, Gift, CheckCircle2, ArrowRight } from "lucide-react";
+import { FileText, Wrench, Download, Gift } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 const RES = [
@@ -13,7 +10,6 @@ const RES = [
     icon: FileText,
     title: "Guide d'entretiens PFE",
     desc: "Questions types, méthodologie de réponse et erreurs à éviter pour réussir vos entretiens en audit & finance.",
-    format: "PDF — 24 pages",
     filename: "LCDE-Guide-Entretiens-PFE.txt",
     content: `LE CLUB DES EXPERTS (LCDE)
 =========================================
@@ -78,7 +74,7 @@ Q7. Questions techniques types :
 - Critiquer un ancien employeur.
 - Répondre trop longuement (> 2 min par réponse).
 - Ne pas poser de questions à la fin.
-- Menthir sur une compétence (vérification systématique).
+- Mentir sur une compétence (vérification systématique).
 - Oublier de remercier le recruteur à la fin.
 
 -----------------------------------------
@@ -94,7 +90,7 @@ Q7. Questions techniques types :
 [ ] Réveil avec marge
 
 -----------------------------------------
-5. QUESTIONS À POSER AU RECRRUTEUR
+5. QUESTIONS À POSER AU RECRUTEUR
 -----------------------------------------
 - "Quels sont les défis actuels de l'équipe ?"
 - "Comment se déroule l'intégration des nouveaux collaborateurs ?"
@@ -104,7 +100,7 @@ Q7. Questions techniques types :
 
 =========================================
 Document confidentiel — Le Club Des Experts (LCDE)
-Casablanca, Maroc — contact@leclubdesexperts1.com
+Casablanca, Maroc — contact@leclubdesexperts.com
 =========================================
 `,
   },
@@ -112,7 +108,6 @@ Casablanca, Maroc — contact@leclubdesexperts1.com
     icon: Wrench,
     title: "Boîte à outils de l'auditeur financier",
     desc: "Check-list d'audit, programmes de travail modèles et trames de due diligence prêtes à l'emploi.",
-    format: "Pack — Excel + PDF",
     filename: "LCDE-Boite-a-Outils-Auditeur.txt",
     content: `LE CLUB DES EXPERTS (LCDE)
 =========================================
@@ -137,7 +132,7 @@ PHASE 1 — PLANIFICATION
 [ ] Évaluation du contrôle interne
 [ ] Seuil de signification défini
 [ ] Approche d'audit (substantive vs tests de procédures)
-[ ] Plan de travail validé par le associé
+[ ] Plan de travail validé par l'associé
 
 PHASE 2 — TRAVAUX DE FIN D'EXERCICE
 [ ] Rapprochement comptable ↔ fiscal
@@ -271,7 +266,7 @@ sociales) du calcul de la dette nette.
 
 =========================================
 Document confidentiel — Le Club Des Experts (LCDE)
-Casablanca, Maroc — contact@leclubdesexperts1.com
+Casablanca, Maroc — contact@leclubdesexperts.com
 =========================================
 `,
   },
@@ -290,170 +285,64 @@ function downloadFile(filename: string, content: string) {
 }
 
 export function Resources() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
-
   const handleDownload = (r: (typeof RES)[number]) => {
     downloadFile(r.filename, r.content);
     toast.success(`${r.title} téléchargé !`);
-  };
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setLoading(true);
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: "Ressource gratuite",
-          email,
-          profile: "other",
-          objective: "Télécharger les ressources gratuites (PFE + boîte à outils)",
-          message: "Demande automatique via la section ressources gratuites.",
-          source: "ressources",
-        }),
-      });
-      if (!res.ok) throw new Error("Erreur réseau");
-      setDone(true);
-      // Auto-download both resources after email capture
-      RES.forEach((r, i) => {
-        setTimeout(() => downloadFile(r.filename, r.content), i * 800);
-      });
-      toast.success("Merci ! Téléchargement des guides en cours...");
-    } catch {
-      toast.error("Une erreur est survenue. Réessayez ou écrivez-nous sur WhatsApp.");
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
     <section id="ressources" className="relative scroll-mt-20 overflow-hidden bg-soft py-20 md:py-28">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.05]" aria-hidden />
       <div className="pointer-events-none absolute -left-20 bottom-0 size-80 rounded-full bg-gold/10 blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute -right-20 top-0 size-80 rounded-full bg-navy/5 blur-3xl" aria-hidden />
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-          {/* Left content */}
-          <Reveal direction="right">
-            <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
-              <Gift className="size-3.5" /> Ressources gratuites
-            </span>
-            <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
-              Préparez vos entretiens PFE avec nos guides offerts par nos experts.
-            </h2>
-            <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg">
-              Deux ressources premium à télécharger gratuitement, conçues par nos formateurs pour
-              vous donner une longueur d'avance dès les premiers entretiens.
-            </p>
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold border border-gold/20">
+            <Gift className="size-3.5" /> Ressources gratuites
+          </span>
+          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
+            Préparez vos entretiens avec nos guides offerts par nos experts
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-anthracite/75 sm:text-lg">
+            Des ressources conçues par nos experts pour vous donner une longueur d'avance et réussir vos démarches.
+          </p>
+        </Reveal>
 
-            <div className="mt-8 space-y-3">
-              {RES.map((r) => (
-                <motion.div
-                  key={r.title}
-                  whileHover={{ y: -3 }}
-                  className="group flex items-center gap-4 rounded-2xl border border-navy/10 bg-white p-5 shadow-premium transition-colors hover:border-gold/30"
-                >
-                  <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gold-gradient text-white shadow-gold-glow">
-                    <r.icon className="size-6" />
-                  </span>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-serif text-base font-bold text-navy">{r.title}</h3>
-                      <span className="rounded-full bg-soft px-2 py-0.5 text-[10px] font-medium text-anthracite/60">
-                        {r.format}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-sm text-anthracite/70">{r.desc}</p>
-                    <button
-                      type="button"
-                      onClick={() => handleDownload(r)}
-                      className="mt-3 inline-flex items-center gap-2 rounded-lg bg-gold-gradient px-3 py-2 text-xs font-semibold text-white transition-transform hover:scale-[1.02] shadow-gold-glow"
-                    >
-                      <Download className="size-3.5" />
-                      Télécharger maintenant
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </Reveal>
-
-          {/* Right — form card */}
-          <Reveal direction="left" delay={0.1}>
-            <div className="relative overflow-hidden rounded-3xl border border-navy/10 bg-white p-8 shadow-premium md:p-10">
-              <div className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-gold/15 blur-3xl" />
-              <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.06]" />
-
-              <div className="relative">
-                {done ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center py-10 text-center"
-                  >
-                    <span className="flex size-16 items-center justify-center rounded-full bg-emerald-brand text-white">
-                      <CheckCircle2 className="size-9" />
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+          {RES.map((r, idx) => (
+            <Reveal key={r.title} delay={idx * 0.1}>
+              <motion.div
+                whileHover={{ y: -4 }}
+                className="group flex h-full flex-col justify-between rounded-3xl border border-navy/10 bg-white p-7 shadow-premium transition-all hover:border-gold/40 hover:shadow-xl"
+              >
+                <div>
+                  <div className="flex items-center gap-4">
+                    <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
+                      <r.icon className="size-7" />
                     </span>
-                    <h3 className="mt-5 font-serif text-2xl font-bold text-navy">Demande enregistrée !</h3>
-                    <p className="mt-2 text-sm text-anthracite/70">
-                      Vos guides sont en cours de téléchargement. Bonne préparation !
-                    </p>
-                  </motion.div>
-                ) : (
-                  <>
-                    <div className="flex items-center gap-3">
-                      <span className="flex size-12 items-center justify-center rounded-xl bg-gold-gradient text-white shadow-gold-glow">
-                        <Download className="size-6" />
-                      </span>
-                      <div>
-                        <h3 className="font-serif text-xl font-bold text-navy">Recevoir les 2 guides</h3>
-                        <p className="text-xs text-anthracite/60">Téléchargement immédiat après envoi</p>
-                      </div>
-                    </div>
+                    <h3 className="font-serif text-xl font-bold leading-snug text-navy">
+                      {r.title}
+                    </h3>
+                  </div>
+                  <p className="mt-4 text-sm leading-relaxed text-anthracite/75">
+                    {r.desc}
+                  </p>
+                </div>
 
-                    <form onSubmit={submit} className="mt-8 space-y-5">
-                      <div>
-                        <label htmlFor="res-email" className="mb-2 block text-xs font-medium uppercase tracking-wide text-anthracite/60">
-                          Votre adresse email
-                        </label>
-                        <div className="relative">
-                          <Mail className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-anthracite/40" />
-                          <Input
-                            id="res-email"
-                            type="email"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="vous@exemple.com"
-                            className="h-12 border-navy/15 bg-soft pl-11 text-navy placeholder:text-anthracite/40 focus-visible:border-gold focus-visible:ring-gold/30"
-                          />
-                        </div>
-                      </div>
-
-                      <Button
-                        type="submit"
-                        size="lg"
-                        disabled={loading}
-                        className="h-12 w-full bg-gold-gradient text-white font-semibold hover:opacity-90 hover:shadow-gold-glow"
-                      >
-                        {loading ? "Envoi en cours…" : "Télécharger les 2 guides"}
-                        {!loading && <ArrowRight className="size-4" />}
-                      </Button>
-
-                      <p className="text-center text-[11px] leading-relaxed text-anthracite/55">
-                        En téléchargeant, vous acceptez d'être recontacté par LCDE.
-                        <br />Vos données restent confidentielles et ne sont jamais revendues.
-                      </p>
-                    </form>
-                  </>
-                )}
-              </div>
-            </div>
-          </Reveal>
+                <div className="mt-8 border-t border-navy/8 pt-5">
+                  <button
+                    type="button"
+                    onClick={() => handleDownload(r)}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gold-gradient px-4 py-3 text-sm font-semibold text-navy transition-transform hover:scale-[1.02] shadow-gold-glow active:scale-95"
+                  >
+                    <Download className="size-4" />
+                    Télécharger maintenant
+                  </button>
+                </div>
+              </motion.div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
