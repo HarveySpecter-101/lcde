@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import {
   Target,
   Users,
@@ -15,12 +16,15 @@ import {
   MessageCircle,
   ArrowRight,
   Heart,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 
 const GAIN_ITEMS = [
   {
+    id: 1,
     icon: Target,
     badge: "100% Pratique",
     title: "Compétences réellement opérationnelles",
@@ -32,6 +36,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
+    id: 2,
     icon: Users,
     badge: "Technique & RH",
     title: "Accompagnement à vie par nos intervenants",
@@ -43,6 +48,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
+    id: 3,
     icon: FileText,
     badge: "CV & Entretiens",
     title: "Préparation complète au marché du travail",
@@ -54,6 +60,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
+    id: 4,
     icon: Send,
     badge: "Accès Exclusif",
     title: "Candidatures intelligentes & Base d'adresses vérifiées",
@@ -65,6 +72,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
+    id: 5,
     icon: Briefcase,
     badge: "Insertion Pro",
     title: "Réseau de partenaires & Aide aux stages et emplois",
@@ -76,6 +84,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
+    id: 6,
     icon: Award,
     badge: "Recommandation LCDE",
     title: "Recommandations exclusives “Le Club Des Experts”",
@@ -87,6 +96,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
+    id: 7,
     icon: GraduationCap,
     badge: "+15 ans d'expérience",
     title: "Experts et intervenants de très haut niveau",
@@ -98,6 +108,7 @@ const GAIN_ITEMS = [
     ],
   },
   {
+    id: 8,
     icon: Laptop,
     badge: "Flexibilité Totale",
     title: "100% à distance, En Direct & Replays disponibles",
@@ -110,7 +121,56 @@ const GAIN_ITEMS = [
   },
 ];
 
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0,
+  }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -300 : 300,
+    opacity: 0,
+  }),
+};
+
+const SWIPE_THRESHOLD = 50;
+
 export function WhatYouGain() {
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const total = GAIN_ITEMS.length;
+
+  const paginate = useCallback(
+    (dir: number) => {
+      setDirection(dir);
+      setCurrent((prev) => {
+        let next = prev + dir;
+        if (next < 0) next = total - 1;
+        if (next >= total) next = 0;
+        return next;
+      });
+    },
+    [total]
+  );
+
+  // Auto-advance every 6 seconds
+  useEffect(() => {
+    if (paused) return;
+    const timer = setInterval(() => {
+      setDirection(1);
+      setCurrent((prev) => (prev + 1) % total);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [paused, total]);
+
+  const handleDragEnd = (_: unknown, info: PanInfo) => {
+    if (info.offset.x < -SWIPE_THRESHOLD) paginate(1);
+    else if (info.offset.x > SWIPE_THRESHOLD) paginate(-1);
+  };
+
+  const currentItem = GAIN_ITEMS[current];
+
   const whatsappPaymentLink = `https://wa.me/212777293083?text=${encodeURIComponent(
     "Bonjour Le Club Des Experts, je souhaite avoir des informations sur les réductions et facilités de paiements en tranches pour la formation."
   )}`;
@@ -135,59 +195,135 @@ export function WhatYouGain() {
             Ce que vous <span className="text-gold-gradient">gagnez</span>
           </h2>
           <p className="mt-4 text-base leading-relaxed text-anthracite/75 sm:text-lg">
-            Bien plus qu'un programme de cours : un accompagnement complet, des opportunités d'exception
-            et des compétences directement opérationnelles pour garantir votre réussite professionnelle.
+            Bien plus qu'un programme de cours : découvrez vos avantages exclusifs et votre accompagnement
+            complet conçus pour propulser votre carrière.
           </p>
         </Reveal>
 
-        {/* 8 Main Advantages Grid */}
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:gap-8">
-          {GAIN_ITEMS.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.06}>
-              <motion.div
-                whileHover={{ y: -4 }}
-                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-navy/10 bg-white p-6 shadow-premium transition-all duration-300 hover:border-gold/40 hover:shadow-gold-glow md:p-8"
-              >
-                {/* Gold accent line at top on hover */}
-                <span className="absolute inset-x-8 top-0 h-1 origin-left scale-x-0 bg-gold transition-transform duration-300 group-hover:scale-x-100" />
+        {/* ═══════════ SLIDER / CAROUSEL ═══════════ */}
+        <Reveal delay={0.15} className="mt-14">
+          <div
+            className="relative mx-auto max-w-3xl"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onTouchStart={() => setPaused(true)}
+            onTouchEnd={() => setPaused(false)}
+          >
+            {/* ← Previous button */}
+            <button
+              type="button"
+              onClick={() => paginate(-1)}
+              aria-label="Avantage précédent"
+              className="absolute -left-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white hover:scale-105 sm:-left-16"
+            >
+              <ChevronLeft className="size-6" />
+            </button>
 
-                <div>
-                  {/* Top row: Icon + Badge */}
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow transition-transform duration-300 group-hover:scale-105">
-                      <item.icon className="size-7" strokeWidth={1.9} />
+            {/* → Next button */}
+            <button
+              type="button"
+              onClick={() => paginate(1)}
+              aria-label="Avantage suivant"
+              className="absolute -right-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white hover:scale-105 sm:-right-16"
+            >
+              <ChevronRight className="size-6" />
+            </button>
+
+            {/* Slide container */}
+            <div className="overflow-hidden rounded-3xl">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={current}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.12}
+                  onDragEnd={handleDragEnd}
+                  className="cursor-grab active:cursor-grabbing"
+                >
+                  <div className="relative overflow-hidden rounded-3xl border border-navy/10 bg-white p-7 sm:p-10 shadow-premium">
+                    {/* Number watermark */}
+                    <span className="pointer-events-none absolute right-6 top-4 font-serif text-6xl sm:text-8xl font-bold text-navy opacity-5">
+                      {String(currentItem.id).padStart(2, "0")}
                     </span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-soft px-3 py-1 text-xs font-semibold text-navy border border-navy/10">
-                      <Sparkles className="size-3 text-gold" />
-                      {item.badge}
-                    </span>
+
+                    {/* Gold accent top bar */}
+                    <span className="absolute inset-x-0 top-0 h-1.5 bg-gold" />
+
+                    {/* Header of slide */}
+                    <div className="relative z-10 flex items-start gap-4 sm:gap-6">
+                      <span className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
+                        <currentItem.icon className="size-8" strokeWidth={1.9} />
+                      </span>
+                      <div className="flex-1 pr-12 sm:pr-20">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-soft px-3 py-1 text-xs font-semibold text-navy border border-navy/10">
+                          <Sparkles className="size-3 text-gold" />
+                          {currentItem.badge}
+                        </span>
+                        <h3 className="mt-2 font-serif text-2xl font-bold leading-tight text-navy sm:text-3xl">
+                          {currentItem.title}
+                        </h3>
+                        <p className="mt-1 text-sm sm:text-base font-semibold text-gold font-sans">
+                          {currentItem.sub}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Bullet Points */}
+                    <div className="mt-6 sm:mt-8 border-t border-navy/8 pt-6">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-anthracite/50 mb-3">
+                        Ce que cela comprend concrètement :
+                      </p>
+                      <ul className="space-y-3">
+                        {currentItem.points.map((pt, idx) => (
+                          <li key={idx} className="flex items-start gap-3 text-sm sm:text-base leading-relaxed text-anthracite/85">
+                            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                              <CheckCircle2 className="size-4" />
+                            </span>
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-                  {/* Title & Subtitle */}
-                  <h3 className="mt-5 font-serif text-xl font-bold leading-snug text-navy md:text-2xl">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm font-medium text-gold font-sans">
-                    {item.sub}
-                  </p>
+            {/* ──── Dot indicators ──── */}
+            <div className="mt-6 flex items-center justify-center gap-2">
+              {GAIN_ITEMS.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => {
+                    setDirection(i > current ? 1 : -1);
+                    setCurrent(i);
+                  }}
+                  aria-label={`Aller au slide ${i + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === current
+                      ? "w-8 bg-gold"
+                      : "w-2 bg-navy/20 hover:bg-navy/40"
+                  }`}
+                />
+              ))}
+            </div>
 
-                  {/* Bullet points */}
-                  <ul className="mt-5 space-y-2.5 border-t border-navy/5 pt-5">
-                    {item.points.map((p, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-sm leading-relaxed text-anthracite/80">
-                        <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-brand" />
-                        <span>{p}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            </Reveal>
-          ))}
-        </div>
+            {/* Counter */}
+            <p className="mt-2 text-center text-xs font-semibold text-anthracite/50">
+              {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+            </p>
+          </div>
+        </Reveal>
 
         {/* Highlight Card: Réductions et Paiements en tranches */}
-        <Reveal delay={0.2} className="mt-12">
+        <Reveal delay={0.2} className="mt-14">
           <div className="relative overflow-hidden rounded-3xl border-2 border-gold/30 bg-navy-gradient p-8 text-white shadow-navy-glow md:p-10">
             {/* Ambient gold glow */}
             <div className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-gold/20 blur-3xl" />
