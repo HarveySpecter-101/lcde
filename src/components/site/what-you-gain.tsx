@@ -243,11 +243,6 @@ export function WhatYouGain() {
                   className="cursor-grab active:cursor-grabbing"
                 >
                   <div className="relative overflow-hidden rounded-3xl border border-navy/10 bg-white p-7 sm:p-10 shadow-premium">
-                    {/* Number watermark */}
-                    <span className="pointer-events-none absolute right-6 top-4 font-serif text-6xl sm:text-8xl font-bold text-navy opacity-5">
-                      {String(currentItem.id).padStart(2, "0")}
-                    </span>
-
                     {/* Gold accent top bar */}
                     <span className="absolute inset-x-0 top-0 h-1.5 bg-gold" />
 
