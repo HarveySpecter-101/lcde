@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { sendContactEmails } from "@/lib/email";
+import { sendWhatsAppConfirmation } from "@/lib/whatsapp";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -126,6 +127,13 @@ export async function POST(req: Request) {
       } catch (err) {
         console.error(`[API /contact] Webhook failed (${url}):`, err);
       }
+    }
+
+    // 4. Send automated WhatsApp message to the lead
+    if (phone) {
+      sendWhatsAppConfirmation(name, phone).catch((err) => {
+        console.error("[API /contact] WhatsApp confirmation failed:", err);
+      });
     }
 
     return NextResponse.json({
