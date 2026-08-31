@@ -131,9 +131,11 @@ export async function POST(req: Request) {
 
     // 4. Send automated WhatsApp message to the lead
     if (phone) {
-      sendWhatsAppConfirmation(name, phone).catch((err) => {
+      try {
+        await sendWhatsAppConfirmation(name, phone);
+      } catch (err) {
         console.error("[API /contact] WhatsApp confirmation failed:", err);
-      });
+      }
     }
 
     return NextResponse.json({

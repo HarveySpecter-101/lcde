@@ -1,13 +1,9 @@
 /**
- * WhatsApp Anti-Ban & Human Simulation Engine
- * Protects against:
- * 1. Instant Blast Flag -> Random human response delay (15-40s)
- * 2. Identical Text Flag -> Dynamic Spintax generator (billions of unique message permutations)
- * 3. Spam / Duplicate Flag -> Rate-limiting and lead deduplication
+ * WhatsApp Confirmation Engine via UltraMsg
+ * - Formats all numbers (Moroccan & International)
+ * - Generates unique dynamic spintax messages
+ * - Dispatches safely to UltraMsg API
  */
-
-// In-memory cache to prevent duplicate blasts to the same number within 1 hour
-const recentSentMap = new Map<string, number>();
 
 /**
  * Normalizes phone number to international format (E.164 without leading +)
@@ -76,7 +72,6 @@ export function generateDynamicMessage(name: string): string {
     `À très vite,\n*L'équipe LCDE*`,
   ];
 
-  // Unique reference token to guarantee 100% distinct text payload
   const randomRef = Math.floor(1000 + Math.random() * 9000);
 
   return [
@@ -94,10 +89,7 @@ export function generateDynamicMessage(name: string): string {
 }
 
 /**
- * Sends automated WhatsApp message with Anti-Ban safeguards:
- * - Anti-spam deduplication
- * - Human typing simulation delay (15-35 seconds)
- * - Dynamic spintax text variation
+ * Sends automated WhatsApp message via UltraMsg
  */
 export async function sendWhatsAppConfirmation(name: string, rawPhone: string): Promise<boolean> {
   const instanceId = process.env.ULTRAMSG_INSTANCE_ID || "instance190147";
@@ -114,22 +106,7 @@ export async function sendWhatsAppConfirmation(name: string, rawPhone: string): 
     return false;
   }
 
-  // 1. Anti-Duplicate protection (Prevent sending multiple times to the same number within 1 hour)
-  const now = Date.now();
-  const lastSent = recentSentMap.get(phone);
-  if (lastSent && now - lastSent < 60 * 60 * 1000) {
-    console.warn(`[WhatsApp UltraMsg] Duplicate submission ignored for ${phone} (sent recently).`);
-    return true;
-  }
-  recentSentMap.set(phone, now);
-
-  // 2. Anti-Instant Blast: Simulate natural human delay (between 15 and 35 seconds)
-  // WhatsApp heuristics flag sub-second replies as automated bots.
-  const randomDelayMs = Math.floor(15000 + Math.random() * 20000);
-  console.log(`[WhatsApp UltraMsg] Queued with ${Math.round(randomDelayMs / 1000)}s human delay for ${phone}...`);
-  await new Promise((resolve) => setTimeout(resolve, randomDelayMs));
-
-  // 3. Anti-Identical Text: Generate unique variation
+  // Generate unique variation
   const message = generateDynamicMessage(name);
 
   try {
