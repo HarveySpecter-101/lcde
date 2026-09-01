@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import { SectionDecor } from "@/components/site/section-decor";
 
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
