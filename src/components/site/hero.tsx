@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroCanvas } from "@/components/site/hero-canvas";
+import { HiggsfieldTiltCard, HiggsfieldLaserButton } from "@/components/site/higgsfield-ui";
 
 const container = {
   hidden: {},
@@ -81,33 +82,26 @@ export function Hero() {
           </motion.h1>
 
           {/* Promotional cards — emoji inline, text wraps to left edge */}
-          <motion.div variants={item} className="mt-8 w-full space-y-3.5 text-left">
+          <motion.div variants={item} className="mt-10 w-full space-y-4 text-left">
             {PROMO_ITEMS.map((p, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.2 }}
-                className="rounded-2xl border border-gold/20 bg-white/70 px-5 py-4 shadow-premium backdrop-blur-sm transition-all hover:border-gold/40 hover:bg-white/90 hover:shadow-gold-glow"
-              >
-                <p className="text-sm leading-relaxed text-anthracite sm:text-[15px]">
-                  <span className="mr-1.5 text-base">{p.emoji}</span>{p.text}
-                </p>
-              </motion.div>
+              <HiggsfieldTiltCard key={i}>
+                <div className="px-5 py-5 sm:px-6">
+                  <p className="text-[15px] leading-relaxed text-anthracite sm:text-base">
+                    <span className="mr-2 text-lg">{p.emoji}</span>{p.text}
+                  </p>
+                </div>
+              </HiggsfieldTiltCard>
             ))}
           </motion.div>
 
           {/* CTA button */}
-          <motion.div variants={item} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="bg-gold-gradient text-navy font-semibold shadow-gold-glow transition-transform hover:scale-105 active:scale-95"
-            >
-              <a href="#contact" className="inline-flex items-center gap-2">
+          <motion.div variants={item} className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <HiggsfieldLaserButton asChild>
+              <a href="#contact">
                 Je rejoins la prochaine édition
-                <ArrowRight className="size-4" />
+                <ArrowRight className="size-4 ml-1" />
               </a>
-            </Button>
+            </HiggsfieldLaserButton>
           </motion.div>
         </motion.div>
       </div>

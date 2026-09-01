@@ -70,29 +70,52 @@ function useGlobalParticleCanvas() {
       ctx.clearRect(0, 0, w, h);
       scrollVRef.current *= 0.88;
 
-      pts.forEach((p) => {
+      pts.forEach((p, i) => {
         const dx = mouseRef.current.x - p.x;
         const dy = mouseRef.current.y - p.y;
         const d  = Math.sqrt(dx * dx + dy * dy);
-        if (d < 140 && d > 0) {
-          const f = (140 - d) / 140;
-          p.vx += (dx / d) * f * 0.028;
-          p.vy += (dy / d) * f * 0.028;
+        
+        // Mouse attraction
+        if (d < 150 && d > 0) {
+          const f = (150 - d) / 150;
+          p.vx += (dx / d) * f * 0.035;
+          p.vy += (dy / d) * f * 0.035;
         }
+        
         p.vx += (0       - p.vx)    * 0.012;
         p.vy += (p.baseVy - p.vy)   * 0.012;
         p.y  += p.vy - scrollVRef.current;
         p.x  += p.vx;
 
-        if (p.y < -12) { p.y = h + 6; p.x = Math.random() * w; }
-        if (p.y > h+12) { p.y = -6;   p.x = Math.random() * w; }
-        if (p.x < -12) p.x = w + 6;
-        if (p.x > w+12) p.x = -6;
+        if (p.y < -20) { p.y = h + 10; p.x = Math.random() * w; }
+        if (p.y > h+20) { p.y = -10;   p.x = Math.random() * w; }
+        if (p.x < -20) p.x = w + 10;
+        if (p.x > w+20) p.x = -10;
 
+        // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
         ctx.fill();
+
+        // ── HIGGSFIELD NEURAL MESH (Draw lines to nearby particles) ──
+        for (let j = i + 1; j < pts.length; j++) {
+          const p2 = pts[j];
+          const dx2 = p.x - p2.x;
+          const dy2 = p.y - p2.y;
+          const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+          
+          if (dist2 < 110) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            // Line opacity depends on distance (closer = more opaque)
+            const lineOpacity = (1 - dist2 / 110) * 0.25;
+            ctx.strokeStyle = `rgba(${p.color},${lineOpacity})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
       });
 
       rafRef.current = requestAnimationFrame(draw);
