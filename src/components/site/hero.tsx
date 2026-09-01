@@ -58,7 +58,27 @@ export function Hero() {
         <line x1="100%" y1="40" x2="calc(100% - 180px)" y2="220" stroke="rgba(10,38,71,0.04)" strokeWidth="1" />
         {/* Horizontal rule near bottom */}
         <line x1="0" y1="100%" x2="100%" y2="100%" stroke="rgba(196,169,98,0.18)" strokeWidth="1" />
+        {/* Subtle mid-section horizontal rule with gold fade */}
+        <line x1="10%" y1="55%" x2="90%" y2="55%" stroke="url(#goldFade)" strokeWidth="1" />
+        <defs>
+          <linearGradient id="goldFade" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(196,169,98,0)" />
+            <stop offset="40%" stopColor="rgba(196,169,98,0.15)" />
+            <stop offset="60%" stopColor="rgba(196,169,98,0.15)" />
+            <stop offset="100%" stopColor="rgba(196,169,98,0)" />
+          </linearGradient>
+        </defs>
       </svg>
+
+      {/* ── Large faint circle arc (top-right, partially cropped) ── */}
+      <div
+        className="pointer-events-none absolute -right-24 -top-24 size-[320px] rounded-full border border-gold/[0.12]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -right-16 -top-16 size-[220px] rounded-full border border-gold/[0.08]"
+        aria-hidden
+      />
 
       {/* ── Corner accent squares (rotated) ── */}
       <div
@@ -70,29 +90,29 @@ export function Hero() {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute bottom-16 left-[10%] size-8 rotate-[45deg] rounded border border-gold/15 bg-transparent opacity-40 hidden sm:block"
+        className="pointer-events-none absolute bottom-16 left-[10%] size-8 rotate-[45deg] rounded border border-gold/15 bg-transparent opacity-40"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute bottom-24 right-[8%] size-12 rotate-[20deg] rounded-lg border border-navy/10 bg-transparent opacity-35 hidden sm:block"
+        className="pointer-events-none absolute bottom-24 right-[8%] size-12 rotate-[20deg] rounded-lg border border-navy/10 bg-transparent opacity-35"
         aria-hidden
       />
 
-      {/* ── Dot cluster (top-right) ── */}
+      {/* ── Dot cluster top-right — visible on all screens ── */}
       <div
-        className="pointer-events-none absolute right-16 top-20 hidden md:block"
+        className="pointer-events-none absolute right-6 top-20 sm:right-16"
         aria-hidden
         style={{
           backgroundImage: "radial-gradient(rgba(196,169,98,0.35) 1.5px, transparent 1.5px)",
           backgroundSize: "14px 14px",
-          width: 84,
-          height: 84,
-          opacity: 0.5,
+          width: 70,
+          height: 70,
+          opacity: 0.45,
         }}
       />
-      {/* ── Dot cluster (bottom-left) ── */}
+      {/* ── Dot cluster bottom-left — visible on all screens ── */}
       <div
-        className="pointer-events-none absolute left-16 bottom-20 hidden md:block"
+        className="pointer-events-none absolute left-6 bottom-16 sm:left-16"
         aria-hidden
         style={{
           backgroundImage: "radial-gradient(rgba(10,38,71,0.18) 1.5px, transparent 1.5px)",
@@ -102,6 +122,41 @@ export function Hero() {
           opacity: 0.55,
         }}
       />
+
+      {/* ── Concentric circle arcs — bottom-left corner ── */}
+      <div
+        className="pointer-events-none absolute -left-20 -bottom-20 size-[260px] rounded-full border border-navy/[0.08]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -left-12 -bottom-12 size-[180px] rounded-full border border-gold/[0.10]"
+        aria-hidden
+      />
+
+      {/* ── Gold cross accent — top-left area ── */}
+      <svg
+        className="pointer-events-none absolute left-[40%] top-8 opacity-[0.12]"
+        aria-hidden
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+      >
+        <line x1="10" y1="0" x2="10" y2="20" stroke="rgba(196,169,98,1)" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="0" y1="10" x2="20" y2="10" stroke="rgba(196,169,98,1)" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+      {/* ── Gold cross accent — bottom-right area ── */}
+      <svg
+        className="pointer-events-none absolute right-[30%] bottom-12 opacity-[0.10]"
+        aria-hidden
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+      >
+        <line x1="8" y1="0" x2="8" y2="16" stroke="rgba(196,169,98,1)" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="0" y1="8" x2="16" y2="8" stroke="rgba(196,169,98,1)" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
 
       {/* ── Content ── */}
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
