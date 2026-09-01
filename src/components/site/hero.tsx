@@ -186,20 +186,17 @@ export function Hero() {
             de la formation qui vous prépare pour 13 métiers différents et complémentaires.
           </motion.h1>
 
-          {/* Promotional cards block — emoji stacked above text */}
+          {/* Promotional cards — emoji inline at start, text wraps to left edge */}
           <motion.div variants={item} className="mt-8 w-full space-y-3.5 text-left">
             {PROMO_ITEMS.map((p, i) => (
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.2 }}
-                className="flex flex-col rounded-2xl border border-gold/20 bg-white/70 px-5 pt-4 pb-5 shadow-premium backdrop-blur-sm transition-all hover:border-gold/40 hover:bg-white/90 hover:shadow-gold-glow"
+                className="rounded-2xl border border-gold/20 bg-white/70 px-5 py-4 shadow-premium backdrop-blur-sm transition-all hover:border-gold/40 hover:bg-white/90 hover:shadow-gold-glow"
               >
-                {/* Emoji — top line */}
-                <span className="mb-2 text-xl leading-none">{p.emoji}</span>
-                {/* Text — starts below emoji, no extra indent */}
                 <p className="text-sm leading-relaxed text-anthracite sm:text-[15px]">
-                  {p.text}
+                  <span className="mr-1.5 text-base">{p.emoji}</span>{p.text}
                 </p>
               </motion.div>
             ))}
