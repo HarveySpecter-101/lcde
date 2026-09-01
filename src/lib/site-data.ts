@@ -510,22 +510,6 @@ export const EMPLOYER_SECTORS = [
   { name: "Conseil stratégique", desc: "Cabinets de conseil & M&A" },
 ];
 
-/* ===== Free resources (lead magnet) ===== */
-export const RESOURCES = [
-  {
-    title: "Guide d'entretiens PFE",
-    desc: "Questions types, méthodologie de réponse et erreurs à éviter pour réussir vos entretiens en audit & finance.",
-    icon: "FileText",
-    format: "PDF — 24 pages",
-  },
-  {
-    title: "Boîte à outils de l'auditeur financier",
-    desc: "Check-list d'audit, programmes de travail modèles et trames de due diligence prêtes à l'emploi.",
-    icon: "Wrench",
-    format: "Pack — Excel + PDF",
-  },
-];
-
 /* ===== FAQ ===== */
 export const FAQ = [
   {
@@ -561,7 +545,6 @@ export const NAV_LINKS = [
   { href: "#ce-que-vous-gagnez", label: "Ce que vous gagnez" },
   { href: "#intervenants", label: "Intervenants" },
   { href: "#resultats", label: "Résultats" },
-  { href: "#ressources", label: "Ressources gratuites" },
   { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
 ];

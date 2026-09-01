@@ -8,7 +8,6 @@ import { Founders } from "@/components/site/founders";
 import { BeforeAfter } from "@/components/site/before-after";
 import { SuccessStories } from "@/components/site/success-stories";
 import { HiringCompanies } from "@/components/site/hiring-companies";
-import { Resources } from "@/components/site/resources";
 import { Faq } from "@/components/site/faq";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
@@ -37,9 +36,6 @@ export default function Home() {
         <SectionDivider variant="navy-to-light" />
         <SuccessStories />
         <HiringCompanies />
-        <SectionDivider variant="light-to-soft" className="bg-[#ffebf0] dark:bg-transparent" />
-        <Resources />
-        <SectionDivider variant="soft-to-light" />
         <Faq />
         <SectionDivider variant="light-to-navy" />
         <Contact />
