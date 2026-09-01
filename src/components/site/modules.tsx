@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import {
   ArrowUpRight,
@@ -40,7 +40,6 @@ export function Modules() {
   /* ----- carousel state ----- */
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
-  const [paused, setPaused] = useState(false);
   const total = MODULES.length;
 
   /* ----- popup state ----- */
@@ -63,16 +62,6 @@ export function Modules() {
     },
     [total],
   );
-
-  /* ----- auto-advance every 7 s ----- */
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrent((prev) => (prev + 1) % total);
-    }, 7000);
-    return () => clearInterval(timer);
-  }, [paused, total]);
 
   /* ----- swipe handler ----- */
   const handleDragEnd = (_: unknown, info: PanInfo) => {
@@ -108,10 +97,6 @@ export function Modules() {
         <Reveal delay={0.15} className="mt-14">
           <div
             className="relative mx-auto max-w-2xl"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onTouchStart={() => setPaused(true)}
-            onTouchEnd={() => setPaused(false)}
           >
             {/* ← Previous button */}
             <button

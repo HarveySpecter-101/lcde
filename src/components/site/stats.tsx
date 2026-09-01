@@ -18,18 +18,19 @@ export function Stats() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="group relative bg-card p-6 text-center transition-colors hover:bg-secondary md:p-8"
+                className="group relative bg-card p-5 text-center transition-colors hover:bg-secondary md:p-6"
               >
                 {/* Gold accent bar */}
                 <span className="absolute inset-x-8 top-0 h-0.5 origin-left scale-x-0 bg-gold transition-transform duration-300 group-hover:scale-x-100" />
-                <p className="font-serif text-4xl font-bold text-navy sm:text-5xl md:text-6xl">
+                {/* Value — smaller, proportionate to box text */}
+                <p className="font-serif text-2xl font-bold text-navy sm:text-3xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={(stat as any).prefix} />
                 </p>
-                <p className="mt-2 text-sm font-semibold text-anthracite sm:text-base">
+                <p className="mt-1.5 text-xs font-semibold leading-snug text-anthracite sm:text-sm">
                   {stat.label}
                 </p>
                 {stat.sub && (
-                  <p className="mt-1 text-xs font-medium uppercase tracking-wide text-anthracite/50">
+                  <p className="mt-0.5 text-[10px] font-medium uppercase tracking-wide text-anthracite/50">
                     {stat.sub}
                   </p>
                 )}
