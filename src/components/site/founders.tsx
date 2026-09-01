@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SectionDecor } from "@/components/site/section-decor";
 import { Reveal } from "@/components/site/reveal";
 
 const FOUNDERS = [
@@ -19,7 +20,7 @@ const FOUNDERS = [
 export function Founders() {
   return (
     <section id="fondateurs" className="relative scroll-mt-20 overflow-hidden bg-navy py-20 md:py-28">
-      <div className="pointer-events-none absolute -left-20 top-10 size-72 rounded-full bg-gold/10 blur-3xl" aria-hidden />
+      <SectionDecor variant="dark" pos="A" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">

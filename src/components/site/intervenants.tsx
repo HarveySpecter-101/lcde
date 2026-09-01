@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { SectionDecor } from "@/components/site/section-decor";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Users, Briefcase, Award, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
@@ -57,6 +58,7 @@ export function Intervenants() {
 
   return (
     <section id="intervenants" className="py-24 bg-white relative overflow-hidden">
+      <SectionDecor variant="light" pos="D" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Reveal>

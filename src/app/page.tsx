@@ -15,11 +15,13 @@ import { ScrollProgress } from "@/components/site/scroll-progress";
 import { SectionDivider } from "@/components/site/section-divider";
 import { BackToTop } from "@/components/site/back-to-top";
 import { PersistentCtaBar } from "@/components/site/persistent-cta-bar";
-
+import { GlobalCanvas } from "@/components/site/global-canvas";
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden">
+      {/* ── Global interactive background — fixed, z:-1, full page ── */}
+      <GlobalCanvas />
       <ScrollProgress />
       <Header />
       <main className="flex-1">

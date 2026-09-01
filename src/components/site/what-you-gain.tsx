@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { SectionDecor } from "@/components/site/section-decor";
+
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import {
   CreditCard,
@@ -176,10 +177,7 @@ export function WhatYouGain() {
       id="ce-que-vous-gagnez"
       className="relative scroll-mt-20 overflow-hidden bg-[#faf9f5] py-20 md:py-28 border-b border-navy/5"
     >
-      {/* Background ambient accents */}
-      <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.06]" aria-hidden />
-      <div className="pointer-events-none absolute -right-24 top-1/4 size-96 rounded-full bg-gold/10 blur-3xl" aria-hidden />
-      <div className="pointer-events-none absolute -left-24 bottom-1/4 size-96 rounded-full bg-navy/5 blur-3xl" aria-hidden />
+      <SectionDecor variant="light" pos="C" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { SectionDecor } from "@/components/site/section-decor";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Check, GitCompareArrows, GraduationCap, Briefcase } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
@@ -26,9 +27,8 @@ export function BeforeAfter() {
 
   return (
     <section className="relative overflow-hidden bg-white py-20 md:py-28">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.04]" aria-hidden />
-      <div className="pointer-events-none absolute -left-20 top-1/3 size-72 rounded-full bg-gold/10 blur-3xl" aria-hidden />
-
+      <SectionDecor variant="light" pos="B" />
+      
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy">
