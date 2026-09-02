@@ -54,7 +54,7 @@ export function HiringCompanies() {
             <Landmark className="size-3.5 text-gold" /> Débouchés & Recrutement
           </span>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
-            Où vous serez <span className="text-gold-gradient font-extrabold">acceptés</span> ?
+            Où vous serez <span className="text-gold-gradient font-extrabold">embauchés</span> ?
           </h2>
         </Reveal>
 
