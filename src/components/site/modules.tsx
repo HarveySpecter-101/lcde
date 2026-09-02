@@ -316,9 +316,6 @@ export function Modules() {
                     <h3 className="mt-1.5 font-serif text-xl font-bold leading-tight md:text-2xl">
                       {popupModule.title}
                     </h3>
-                    <p className="mt-1.5 text-sm text-white/75">
-                      {popupModule.short}
-                    </p>
                   </div>
                 </div>
               </div>
