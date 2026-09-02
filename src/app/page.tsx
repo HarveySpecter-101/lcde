@@ -31,9 +31,9 @@ export default function Home() {
         <SectionDivider variant="light-to-navy" />
         <Modules />
         <SectionDivider variant="navy-to-light" />
-        <BeforeAfter />
         <Intervenants />
         <WhatYouGain />
+        <BeforeAfter />
         <SectionDivider variant="light-to-navy" />
         <Founders />
         <SectionDivider variant="navy-to-light" />
