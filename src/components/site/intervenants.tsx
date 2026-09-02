@@ -60,16 +60,16 @@ export function Intervenants() {
     <section id="intervenants" className="py-24 bg-white relative overflow-hidden">
       <SectionDecor variant="light" pos="D" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
           <Reveal>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-soft border border-gray-200 mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-soft border border-gray-200 mb-4 sm:mb-5">
               <Users className="w-4 h-4 text-gold" />
               <span className="text-sm font-medium text-navy uppercase tracking-wider">Nos intervenants</span>
             </div>
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold text-navy mb-6">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-navy mb-4">
               Des experts de <span className="text-gold-gradient">terrain</span>
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
               Des praticiens issus des Big Four, des experts-comptables et des directeurs financiers qui partagent leur expérience concrète et leurs méthodes de travail au quotidien.
             </p>
           </Reveal>
@@ -80,7 +80,7 @@ export function Intervenants() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          <div className="relative h-[650px] sm:h-[450px] w-full flex items-center justify-center">
+          <div className="relative min-h-[600px] sm:min-h-[520px] md:min-h-[480px] w-full flex items-center justify-center">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={current}
@@ -104,47 +104,47 @@ export function Intervenants() {
                     paginate(-1);
                   }
                 }}
-                className="absolute w-full px-4 sm:px-12 cursor-grab active:cursor-grabbing"
+                className="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full px-4 sm:px-12 cursor-grab active:cursor-grabbing"
               >
                 {current < INTERVENANTS.length ? (
-                  <div className="bg-white rounded-3xl p-8 sm:p-10 border border-gray-100 shadow-premium max-w-2xl mx-auto relative">
-                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
+                  <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-premium max-w-2xl mx-auto relative">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-8">
                       <div className="flex-shrink-0">
                         {INTERVENANTS[current].photo ? (
                           <img 
                             src={INTERVENANTS[current].photo} 
                             alt={INTERVENANTS[current].name}
-                            className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-soft shadow-md"
+                            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-soft shadow-md"
                           />
                         ) : (
-                          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gold-gradient flex items-center justify-center text-white text-3xl sm:text-4xl font-serif font-bold shadow-lg">
+                          <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gold-gradient flex items-center justify-center text-white text-3xl sm:text-4xl font-serif font-bold shadow-lg">
                             {INTERVENANTS[current].initials}
                           </div>
                         )}
                       </div>
                       
                       <div className="flex-grow text-center sm:text-left">
-                        <h3 className="text-2xl font-serif font-bold text-navy mb-1">{INTERVENANTS[current].name}</h3>
+                        <h3 className="text-xl sm:text-2xl font-serif font-bold text-navy mb-1">{INTERVENANTS[current].name}</h3>
                         {INTERVENANTS[current].company && (
-                          <p className="text-gray-500 font-medium mb-3">{INTERVENANTS[current].company}</p>
+                          <p className="text-gray-500 font-medium text-sm sm:text-base mb-3">{INTERVENANTS[current].company}</p>
                         )}
                         
-                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-5">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft text-sm font-medium text-navy">
-                            <Briefcase className="w-4 h-4 text-gold" />
+                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 mb-4">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft text-xs sm:text-sm font-medium text-navy">
+                            <Briefcase className="w-3.5 h-3.5 text-gold" />
                             {INTERVENANTS[current].role}
                           </span>
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft text-sm font-medium text-navy">
-                            <Award className="w-4 h-4 text-gold" />
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft text-xs sm:text-sm font-medium text-navy">
+                            <Award className="w-3.5 h-3.5 text-gold" />
                             {INTERVENANTS[current].experience}
                           </span>
                         </div>
                         
-                        <ul className="space-y-2 text-left">
+                        <ul className="space-y-1.5 sm:space-y-2 text-left">
                           {INTERVENANTS[current].specialties.map((spec, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-gray-700">
-                              <CheckCircle2 className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
-                              <span className="text-sm sm:text-base">{spec}</span>
+                              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-gold flex-shrink-0 mt-0.5" />
+                              <span className="text-xs sm:text-sm md:text-base">{spec}</span>
                             </li>
                           ))}
                         </ul>
@@ -152,21 +152,21 @@ export function Intervenants() {
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-premium max-w-4xl mx-auto relative">
-                    <div className="text-center mb-8">
-                      <h3 className="text-2xl sm:text-3xl font-serif font-bold text-navy mb-2">Et bien d'autres...</h3>
-                      <p className="text-gray-600 font-medium">+10 intervenants avec minimum +5 ans d'expérience</p>
+                  <div className="bg-white rounded-3xl p-5 sm:p-7 md:p-8 border border-gray-100 shadow-premium max-w-4xl mx-auto relative">
+                    <div className="text-center mb-5 sm:mb-6">
+                      <h3 className="text-xl sm:text-2xl font-serif font-bold text-navy mb-1">Et bien d'autres...</h3>
+                      <p className="text-gray-600 font-medium text-xs sm:text-sm">+10 intervenants avec minimum +5 ans d'expérience</p>
                     </div>
                     
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3.5">
                       {ANONYMOUS_INTERVENANTS.map((anon, idx) => (
-                        <div key={idx} className="bg-soft rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center">
-                          <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mb-3 shadow-sm">
-                            <Users className="w-5 h-5 text-gold" />
+                        <div key={idx} className="bg-soft/80 hover:bg-soft rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center border border-navy/5 transition-colors">
+                          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center mb-2 shadow-xs">
+                            <Users className="w-4 h-4 text-gold" />
                           </div>
-                          <h4 className="font-bold text-navy text-sm sm:text-base mb-1">{anon.role}</h4>
-                          <span className="text-xs font-medium text-gold mb-2">{anon.experience}</span>
-                          <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{anon.specialty}</p>
+                          <h4 className="font-bold text-navy text-xs sm:text-sm mb-1 line-clamp-2 leading-tight">{anon.role}</h4>
+                          <span className="text-[11px] font-semibold text-gold mb-1">{anon.experience}</span>
+                          <p className="text-[11px] sm:text-xs text-gray-600 line-clamp-2 leading-snug">{anon.specialty}</p>
                         </div>
                       ))}
                     </div>
