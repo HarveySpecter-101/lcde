@@ -1,18 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
   Send,
   Sparkles,
   ChevronDown,
+  Check,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export const LEVEL_OPTIONS = [
   "Etudiant 1ère Année",
@@ -48,6 +50,115 @@ export const SCHOOL_OPTIONS = [
   "Toulouse Business School",
   "Autre Ecole Privée",
 ];
+
+interface CustomSelectProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  options: string[];
+  placeholder?: string;
+  required?: boolean;
+}
+
+function CustomSelect({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  placeholder = "Sélectionner",
+  required,
+}: CustomSelectProps) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent | TouchEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [open]);
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <Label htmlFor={id} className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
+        {label} {required && "*"}
+      </Label>
+
+      <button
+        id={id}
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+        className={cn(
+          "flex h-10 sm:h-11 w-full items-center justify-between rounded-xl border px-3.5 text-left text-sm transition-all duration-200 backdrop-blur-md",
+          open
+            ? "border-gold bg-[#0d2a4f] ring-2 ring-gold/40 shadow-lg shadow-gold/10 text-white"
+            : "border-white/20 bg-white/[0.08] hover:border-gold/50 hover:bg-white/[0.12] text-white"
+        )}
+      >
+        <span className={cn("truncate", !value ? "text-white/45" : "text-white font-medium")}>
+          {value || placeholder}
+        </span>
+        <ChevronDown
+          className={cn(
+            "size-4 shrink-0 text-gold transition-transform duration-200",
+            open && "rotate-180"
+          )}
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.16, ease: "easeOut" }}
+            className="absolute left-0 right-0 z-50 mt-1.5 max-h-56 overflow-y-auto rounded-2xl border border-gold/40 bg-[#071930]/98 p-1.5 shadow-2xl backdrop-blur-2xl"
+            style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "#c9a84c #071930",
+            }}
+          >
+            {options.map((opt) => {
+              const isSelected = value === opt;
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => {
+                    onChange(opt);
+                    setOpen(false);
+                  }}
+                  className={cn(
+                    "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs sm:text-sm transition-all duration-150",
+                    isSelected
+                      ? "bg-gold/25 text-gold font-semibold shadow-inner"
+                      : "text-white/85 hover:bg-white/10 hover:text-gold"
+                  )}
+                >
+                  <span className="truncate">{opt}</span>
+                  {isSelected && <Check className="size-4 shrink-0 text-gold ml-2" />}
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export function Contact() {
   const [form, setForm] = useState({
@@ -188,54 +299,27 @@ export function Contact() {
                       className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="c-level" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
-                      Niveau actuel *
-                    </Label>
-                    <div className="relative">
-                      <select
-                        id="c-level"
-                        required
-                        value={form.level}
-                        onChange={(e) => update("level", e.target.value)}
-                        className="h-10 sm:h-11 w-full appearance-none rounded-xl border border-white/20 bg-navy/70 backdrop-blur-sm px-3.5 pr-9 text-sm text-white focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 [&>option]:bg-navy [&>option]:text-white"
-                      >
-                        <option value="" disabled className="text-white/45">
-                          Sélectionner
-                        </option>
-                        {LEVEL_OPTIONS.map((lvl) => (
-                          <option key={lvl} value={lvl} className="bg-navy text-white">
-                            {lvl}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-white/60" />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="c-school" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
-                      École *
-                    </Label>
-                    <div className="relative">
-                      <select
-                        id="c-school"
-                        required
-                        value={form.school}
-                        onChange={(e) => update("school", e.target.value)}
-                        className="h-10 sm:h-11 w-full appearance-none rounded-xl border border-white/20 bg-navy/70 backdrop-blur-sm px-3.5 pr-9 text-sm text-white focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 [&>option]:bg-navy [&>option]:text-white"
-                      >
-                        <option value="" disabled className="text-white/45">
-                          Sélectionner
-                        </option>
-                        {SCHOOL_OPTIONS.map((sch) => (
-                          <option key={sch} value={sch} className="bg-navy text-white">
-                            {sch}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-white/60" />
-                    </div>
-                  </div>
+
+                  <CustomSelect
+                    id="c-level"
+                    label="Niveau actuel"
+                    required
+                    value={form.level}
+                    onChange={(val) => update("level", val)}
+                    options={LEVEL_OPTIONS}
+                    placeholder="Sélectionner"
+                  />
+
+                  <CustomSelect
+                    id="c-school"
+                    label="École"
+                    required
+                    value={form.school}
+                    onChange={(val) => update("school", val)}
+                    options={SCHOOL_OPTIONS}
+                    placeholder="Sélectionner"
+                  />
+
                   <Button
                     type="submit"
                     size="lg"
