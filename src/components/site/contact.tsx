@@ -59,6 +59,7 @@ interface CustomSelectProps {
   options: string[];
   placeholder?: string;
   required?: boolean;
+  zIndexClass?: string;
 }
 
 function CustomSelect({
@@ -69,6 +70,7 @@ function CustomSelect({
   options,
   placeholder = "Sélectionner",
   required,
+  zIndexClass = "z-30",
 }: CustomSelectProps) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,8 +91,13 @@ function CustomSelect({
     };
   }, [open]);
 
+  const handleSelect = (opt: string) => {
+    onChange(opt);
+    setOpen(false);
+  };
+
   return (
-    <div className="relative" ref={containerRef}>
+    <div className={cn("relative", open ? zIndexClass : "z-0")} ref={containerRef}>
       <Label htmlFor={id} className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
         {label} {required && "*"}
       </Label>
@@ -100,8 +107,9 @@ function CustomSelect({
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
+        aria-haspopup="listbox"
         className={cn(
-          "flex h-10 sm:h-11 w-full items-center justify-between rounded-xl border px-3.5 text-left text-sm transition-all duration-200 backdrop-blur-md",
+          "flex h-10 sm:h-11 w-full items-center justify-between rounded-xl border px-3.5 text-left text-sm transition-all duration-200 backdrop-blur-md cursor-pointer",
           open
             ? "border-gold bg-[#0d2a4f] ring-2 ring-gold/40 shadow-lg shadow-gold/10 text-white"
             : "border-white/20 bg-white/[0.08] hover:border-gold/50 hover:bg-white/[0.12] text-white"
@@ -121,11 +129,12 @@ function CustomSelect({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            role="listbox"
+            initial={{ opacity: 0, y: -4, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-            transition={{ duration: 0.16, ease: "easeOut" }}
-            className="absolute left-0 right-0 z-50 mt-1.5 max-h-56 overflow-y-auto rounded-2xl border border-gold/40 bg-[#071930]/98 p-1.5 shadow-2xl backdrop-blur-2xl"
+            exit={{ opacity: 0, y: -4, scale: 0.98 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="absolute left-0 right-0 z-[100] mt-1.5 max-h-56 overflow-y-auto rounded-2xl border border-gold/40 bg-[#071930] p-1.5 shadow-2xl backdrop-blur-2xl"
             style={{
               scrollbarWidth: "thin",
               scrollbarColor: "#c9a84c #071930",
@@ -134,23 +143,25 @@ function CustomSelect({
             {options.map((opt) => {
               const isSelected = value === opt;
               return (
-                <button
+                <div
                   key={opt}
-                  type="button"
-                  onClick={() => {
-                    onChange(opt);
-                    setOpen(false);
+                  role="option"
+                  aria-selected={isSelected}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    handleSelect(opt);
                   }}
+                  onClick={() => handleSelect(opt)}
                   className={cn(
-                    "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs sm:text-sm transition-all duration-150",
+                    "flex w-full cursor-pointer items-center justify-between rounded-xl px-3 py-2 text-left text-xs sm:text-sm transition-all duration-150 select-none",
                     isSelected
-                      ? "bg-gold/25 text-gold font-semibold shadow-inner"
+                      ? "bg-gold/25 text-gold font-semibold shadow-inner border-l-2 border-gold"
                       : "text-white/85 hover:bg-white/10 hover:text-gold"
                   )}
                 >
                   <span className="truncate">{opt}</span>
                   {isSelected && <Check className="size-4 shrink-0 text-gold ml-2" />}
-                </button>
+                </div>
               );
             })}
           </motion.div>
@@ -308,6 +319,7 @@ export function Contact() {
                     onChange={(val) => update("level", val)}
                     options={LEVEL_OPTIONS}
                     placeholder="Sélectionner"
+                    zIndexClass="z-50"
                   />
 
                   <CustomSelect
@@ -318,6 +330,7 @@ export function Contact() {
                     onChange={(val) => update("school", val)}
                     options={SCHOOL_OPTIONS}
                     placeholder="Sélectionner"
+                    zIndexClass="z-40"
                   />
 
                   <Button
