@@ -18,6 +18,7 @@ import { Reveal } from "@/components/site/reveal";
 
 import { MODULES, TOOLS, type Module } from "@/lib/site-data";
 import { PricingModal } from "@/components/site/pricing-modal";
+import { SectionDecor } from "@/components/site/section-decor";
 
 /* ------------------------------------------------------------------ */
 /*  Slide transition variants                                         */
@@ -78,6 +79,9 @@ export function Modules() {
     >
       {/* Decorative top line */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+
+      {/* Animated background decoration */}
+      <SectionDecor variant="dark" pos="C" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ───────── Header ───────── */}

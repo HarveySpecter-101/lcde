@@ -38,6 +38,13 @@ export function Stats() {
             ))}
           </div>
         </Reveal>
+
+        {/* Subtle space-optimized separation */}
+        <div className="mt-6 sm:mt-8 flex items-center justify-center gap-3" aria-hidden>
+          <div className="h-px w-20 sm:w-32 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+          <span className="size-1.5 rounded-full bg-gold/60" />
+          <div className="h-px w-20 sm:w-32 bg-gradient-to-l from-transparent via-gold/40 to-transparent" />
+        </div>
       </div>
     </section>
   );

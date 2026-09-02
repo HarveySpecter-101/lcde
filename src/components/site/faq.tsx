@@ -10,10 +10,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FAQ } from "@/lib/site-data";
+import { SectionDecor } from "@/components/site/section-decor";
 
 export function Faq() {
   return (
-    <section id="faq" className="relative scroll-mt-20 bg-white py-20 md:py-28">
+    <section id="faq" className="relative scroll-mt-20 overflow-hidden bg-white py-14 md:py-20">
+      {/* Background animated geometric elements */}
+      <SectionDecor variant="light" pos="D" />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy">

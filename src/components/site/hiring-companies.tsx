@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Landmark, Globe2, Building2, Building } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
+import { SectionDecor } from "@/components/site/section-decor";
 
 const SECTORS = [
   {
@@ -43,26 +44,29 @@ const LOGOS = [
 
 export function HiringCompanies() {
   return (
-    <section className="relative overflow-hidden border-y border-navy/10 bg-white py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-white pt-10 pb-12 sm:pt-14 sm:pb-16 md:pt-16 md:pb-18">
+      {/* Background animated geometric elements */}
+      <SectionDecor variant="light" pos="A" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/10 text-gold mb-4">
-            <Landmark className="size-7" />
-          </div>
-          <h2 className="font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
-            Où vous serez <span className="text-gold">acceptés</span> ?
+          <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy border border-navy/10 mb-3">
+            <Landmark className="size-3.5 text-gold" /> Débouchés & Recrutement
+          </span>
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
+            Où vous serez <span className="text-gold-gradient font-extrabold">acceptés</span> ?
           </h2>
         </Reveal>
 
         {/* Premium Sectors Grid */}
-        <div className="mt-14 grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+        <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6">
           {SECTORS.map((sector, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <div className="relative flex h-full flex-col items-center rounded-[2rem] border-2 border-transparent bg-soft p-6 shadow-sm transition-all hover:border-gold/20 hover:shadow-gold-glow">
-                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-lg ring-4 ring-gold/10">
-                  <sector.icon className="size-10" strokeWidth={1.5} />
+            <Reveal key={i} delay={i * 0.08}>
+              <div className="relative flex h-full flex-col items-center rounded-2xl sm:rounded-[1.75rem] border border-navy/10 bg-soft/80 p-4 sm:p-6 shadow-sm backdrop-blur-sm transition-all hover:border-gold/30 hover:bg-white hover:shadow-gold-glow">
+                <div className="mb-4 sm:mb-5 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-md ring-2 ring-gold/15">
+                  <sector.icon className="size-7 sm:size-8" strokeWidth={1.6} />
                 </div>
-                <h3 className="text-center font-sans text-sm font-bold leading-relaxed tracking-wide text-navy sm:text-base">
+                <h3 className="text-center font-sans text-xs sm:text-sm font-bold leading-relaxed tracking-wide text-navy">
                   {sector.title}
                 </h3>
               </div>
@@ -72,19 +76,19 @@ export function HiringCompanies() {
       </div>
 
       {/* Logos Marquee */}
-      <div className="mt-20 overflow-hidden bg-soft py-12 border-y border-navy/5 relative max-w-[100vw]">
+      <div className="mt-10 sm:mt-12 overflow-hidden bg-soft/90 py-8 sm:py-10 border-y border-navy/5 relative max-w-[100vw]">
         {/* Gradients to fade edges */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-soft to-transparent z-10 sm:w-32" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-soft to-transparent z-10 sm:w-32" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-soft to-transparent z-10 sm:w-28" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-soft to-transparent z-10 sm:w-28" />
         
         <div className="flex w-max animate-marquee items-center">
           {/* Exactly 2 copies: first half scrolls out, second half replaces it seamlessly */}
           {[...LOGOS, ...LOGOS].map((logo, i) => (
             <div
               key={i}
-              className="flex shrink-0 items-center justify-center px-8 sm:px-12"
+              className="flex shrink-0 items-center justify-center px-6 sm:px-10"
             >
-              <div className="relative h-14 w-36 transition-transform duration-300 hover:scale-110 sm:h-18 sm:w-48 md:h-20 md:w-52">
+              <div className="relative h-12 w-32 transition-transform duration-300 hover:scale-110 sm:h-16 sm:w-44 md:h-18 md:w-48">
                 <Image
                   src={logo.src}
                   alt={logo.name}

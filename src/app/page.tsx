@@ -38,6 +38,7 @@ export default function Home() {
         <Founders />
         <SectionDivider variant="navy-to-light" />
         <SuccessStories />
+        <SectionDivider variant="light-to-soft" />
         <Faq />
         <SectionDivider variant="light-to-navy" />
         <Contact />
