@@ -29,7 +29,7 @@ export function Faq() {
 
         <Reveal delay={0.1} className="mt-10">
           <div className="rounded-3xl border border-navy/10 bg-soft p-2 shadow-premium">
-            <Accordion type="single" collapsible defaultValue="item-0" className="w-full">
+            <Accordion type="single" collapsible className="w-full">
               {FAQ.map((item, i) => (
                 <AccordionItem
                   key={item.q}

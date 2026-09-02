@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroCanvas } from "@/components/site/hero-canvas";
-import { HiggsfieldTiltCard, HiggsfieldLaserButton } from "@/components/site/higgsfield-ui";
+import { HiggsfieldTiltCard } from "@/components/site/higgsfield-ui";
 
 const container = {
   hidden: {},
@@ -95,13 +95,17 @@ export function Hero() {
           </motion.div>
 
           {/* CTA button */}
-          <motion.div variants={item} className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <HiggsfieldLaserButton asChild>
-              <a href="#contact">
+          <motion.div variants={item} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button
+              asChild
+              size="lg"
+              className="bg-gold-gradient text-navy font-semibold shadow-gold-glow transition-transform hover:scale-105 active:scale-95"
+            >
+              <a href="#contact" className="inline-flex items-center gap-2">
                 Je rejoins la prochaine édition
-                <ArrowRight className="size-4 ml-1" />
+                <ArrowRight className="size-4" />
               </a>
-            </HiggsfieldLaserButton>
+            </Button>
           </motion.div>
         </motion.div>
       </div>
