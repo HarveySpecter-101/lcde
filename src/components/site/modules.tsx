@@ -140,19 +140,14 @@ export function Modules() {
                   className="cursor-grab active:cursor-grabbing"
                 >
                   <div className="relative flex flex-col overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-premium">
-                    {/* Number watermark */}
-                    <span className="pointer-events-none absolute right-4 top-4 sm:right-6 sm:top-4 font-serif text-5xl sm:text-7xl font-bold text-navy opacity-10">
-                      {String(m.id).padStart(2, "0")}
-                    </span>
-
                     <div className="p-6 sm:p-8">
                       {/* Icon + title */}
                       <div className="relative z-10 flex items-start gap-4">
                         <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
                           <m.icon className="size-7" strokeWidth={1.9} />
                         </span>
-                        <div className="flex-1 pr-14 sm:pr-24">
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
+                        <div className="flex-1">
+                          <p className="font-serif text-xl font-bold leading-snug text-gold sm:text-2xl">
                             Métier {String(m.id).padStart(2, "0")}
                           </p>
                           <h3 className="mt-1 font-serif text-xl font-bold leading-snug text-navy sm:text-2xl">
@@ -310,10 +305,10 @@ export function Modules() {
                     <popupModule.icon className="size-7" strokeWidth={1.9} />
                   </span>
                   <div className="flex-1 pr-10">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">
+                    <p className="font-serif text-lg font-bold text-gold md:text-xl">
                       Métier {String(popupModule.id).padStart(2, "0")}
                     </p>
-                    <h3 className="mt-1.5 font-serif text-xl font-bold leading-tight md:text-2xl">
+                    <h3 className="mt-1 font-serif text-xl font-bold leading-tight md:text-2xl">
                       {popupModule.title}
                     </h3>
                   </div>
