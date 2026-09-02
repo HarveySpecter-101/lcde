@@ -18,8 +18,10 @@ export async function POST(req: Request) {
     const name = typeof body.name === "string" ? body.name.trim() : "";
     const email = typeof body.email === "string" ? body.email.trim() : "";
     const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+    const level = typeof body.level === "string" ? body.level.trim() : "";
+    const school = typeof body.school === "string" ? body.school.trim() : "";
     const profile =
-      typeof body.profile === "string" ? body.profile : "student";
+      typeof body.profile === "string" ? body.profile : "candidate";
     const objective =
       typeof body.objective === "string" ? body.objective.trim() : "";
     const source =
@@ -32,7 +34,7 @@ export async function POST(req: Request) {
       rawMessage ||
       (source === "newsletter"
         ? "Inscription newsletter depuis le footer."
-        : "");
+        : "Je souhaite rejoindre la prochaine promotion.");
 
     if (!name || !email) {
       return NextResponse.json(
@@ -44,19 +46,24 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!message) {
-      return NextResponse.json(
-        { ok: false, error: "Le message est requis" },
-        { status: 422 }
-      );
-    }
-
     if (!EMAIL_RE.test(email)) {
       return NextResponse.json(
         { ok: false, error: "Adresse email invalide" },
         { status: 422 }
       );
     }
+
+    const enhancedObjective = [
+      objective || "Rejoindre la prochaine édition",
+      level ? `Niveau: ${level}` : null,
+      school ? `École: ${school}` : null,
+    ].filter(Boolean).join(" | ");
+
+    const enhancedMessage = [
+      message,
+      level ? `Niveau actuel : ${level}` : null,
+      school ? `École : ${school}` : null,
+    ].filter(Boolean).join("\n");
 
     // 1. Save to Supabase via Prisma
     const submission = await db.contactSubmission.create({
@@ -65,8 +72,8 @@ export async function POST(req: Request) {
         email,
         phone: phone || null,
         profile,
-        objective: objective || null,
-        message,
+        objective: enhancedObjective || null,
+        message: enhancedMessage,
         source,
       },
     });
@@ -76,9 +83,11 @@ export async function POST(req: Request) {
       name,
       email,
       phone,
+      level,
+      school,
       profile,
-      objective,
-      message,
+      objective: enhancedObjective,
+      message: enhancedMessage,
       source,
     })
       .then(({ errors }) => {
@@ -106,11 +115,19 @@ export async function POST(req: Request) {
     const webhookPayload = {
       "Date": new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" }),
       "Nom Complet": name,
+      "Nom": name,
       "Email": email,
       "WhatsApp": phone,
+      "Téléphone": phone,
+      "Niveau actuel": level,
+      "Niveau": level,
+      "Ecole": school,
+      "École": school,
       name,
       email,
       phone,
+      level,
+      school,
       source,
     };
 

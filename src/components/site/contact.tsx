@@ -6,6 +6,7 @@ import {
   CheckCircle2,
   Send,
   Sparkles,
+  ChevronDown,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
@@ -13,11 +14,48 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
+export const LEVEL_OPTIONS = [
+  "Etudiant 1ère Année",
+  "Etudiant 2ème Année",
+  "Etudiant 3ème Année",
+  "Etudiant 4ème Année",
+  "Etudiant 5ème Année",
+  "Cycle Doctoral",
+  "Lauréat",
+  "Professionnel expérimenté",
+];
+
+export const SCHOOL_OPTIONS = [
+  "ENCG Tanger",
+  "ENCG Casablanca",
+  "ENCG Kénitra",
+  "ENCG Settat",
+  "ENCG Agadir",
+  "ENCG Fès",
+  "ENCG Meknès",
+  "ENCG Dakhla",
+  "ENCG Marrakech",
+  "ENCG El Jadida",
+  "ENCG Béni Mellal",
+  "ENCG Oujda",
+  "ISCAE Casablanca",
+  "ISCAE Rabat",
+  "FSJES",
+  "Autre Ecole Publique",
+  "HEM Ecole Supérieure de Management",
+  "ESCA Ecole de Management",
+  "Groupe IGA",
+  "Toulouse Business School",
+  "Autre Ecole Privée",
+];
+
 export function Contact() {
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
+    level: "",
+    school: "",
   });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -30,8 +68,8 @@ export function Contact() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.phone.trim()) {
-      toast.error("Veuillez renseigner les trois champs : Nom complet, Email et WhatsApp.");
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim() || !form.level || !form.school) {
+      toast.error("Veuillez renseigner tous les champs obligatoires (Nom, Email, WhatsApp, Niveau actuel et École).");
       return;
     }
     if (!EMAIL_RE.test(form.email.trim())) {
@@ -48,6 +86,8 @@ export function Contact() {
           name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim(),
+          level: form.level,
+          school: form.school,
           profile: "candidate",
           message: "Je souhaite rejoindre la prochaine promotion.",
           objective: "Rejoindre la prochaine édition",
@@ -106,7 +146,7 @@ export function Contact() {
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={submit} className="space-y-3.5 sm:space-y-4">
+                <form onSubmit={submit} className="space-y-3 sm:space-y-3.5">
                   <div>
                     <Label htmlFor="c-name" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
                       Nom complet *
@@ -148,11 +188,59 @@ export function Contact() {
                       className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30"
                     />
                   </div>
+                  <div>
+                    <Label htmlFor="c-level" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
+                      Niveau actuel *
+                    </Label>
+                    <div className="relative">
+                      <select
+                        id="c-level"
+                        required
+                        value={form.level}
+                        onChange={(e) => update("level", e.target.value)}
+                        className="h-10 sm:h-11 w-full appearance-none rounded-xl border border-white/20 bg-navy/70 backdrop-blur-sm px-3.5 pr-9 text-sm text-white focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 [&>option]:bg-navy [&>option]:text-white"
+                      >
+                        <option value="" disabled className="text-white/45">
+                          Sélectionner
+                        </option>
+                        {LEVEL_OPTIONS.map((lvl) => (
+                          <option key={lvl} value={lvl} className="bg-navy text-white">
+                            {lvl}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-white/60" />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="c-school" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
+                      École *
+                    </Label>
+                    <div className="relative">
+                      <select
+                        id="c-school"
+                        required
+                        value={form.school}
+                        onChange={(e) => update("school", e.target.value)}
+                        className="h-10 sm:h-11 w-full appearance-none rounded-xl border border-white/20 bg-navy/70 backdrop-blur-sm px-3.5 pr-9 text-sm text-white focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 [&>option]:bg-navy [&>option]:text-white"
+                      >
+                        <option value="" disabled className="text-white/45">
+                          Sélectionner
+                        </option>
+                        {SCHOOL_OPTIONS.map((sch) => (
+                          <option key={sch} value={sch} className="bg-navy text-white">
+                            {sch}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-white/60" />
+                    </div>
+                  </div>
                   <Button
                     type="submit"
                     size="lg"
                     disabled={loading}
-                    className="mt-1 h-11 sm:h-12 w-full rounded-xl bg-gold text-navy font-bold text-sm sm:text-base hover:bg-gold/90 hover:shadow-gold-glow flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-[0.98]"
+                    className="mt-2 h-11 sm:h-12 w-full rounded-xl bg-gold text-navy font-bold text-sm sm:text-base hover:bg-gold/90 hover:shadow-gold-glow flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-[0.98]"
                   >
                     {loading ? "Envoi en cours…" : "J'envoie ma demande"}
                     {!loading && <Send className="size-4" />}

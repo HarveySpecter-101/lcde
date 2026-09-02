@@ -9,6 +9,8 @@ export interface ContactData {
   name: string;
   email: string;
   phone?: string | null;
+  level?: string | null;
+  school?: string | null;
   profile: string;
   objective?: string | null;
   message: string;
@@ -98,6 +100,16 @@ export function buildSupportEmailHtml(data: ContactData): string {
                 <td style="padding:12px 20px;border-top:1px solid #f3f4f6;">
                   <a href="tel:${escapeHtml(data.phone)}" style="color:#c9a84c;font-weight:700;font-size:14px;text-decoration:none;">${escapeHtml(data.phone)}</a>
                 </td>
+              </tr>` : ""}
+              ${data.level ? `
+              <tr>
+                <td style="padding:12px 20px;border-top:1px solid #f3f4f6;color:#6b7280;font-size:14px;font-weight:600;">Niveau actuel</td>
+                <td style="padding:12px 20px;border-top:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${escapeHtml(data.level)}</td>
+              </tr>` : ""}
+              ${data.school ? `
+              <tr>
+                <td style="padding:12px 20px;border-top:1px solid #f3f4f6;color:#6b7280;font-size:14px;font-weight:600;">École</td>
+                <td style="padding:12px 20px;border-top:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${escapeHtml(data.school)}</td>
               </tr>` : ""}
               <tr>
                 <td style="padding:12px 20px;border-top:1px solid #f3f4f6;color:#6b7280;font-size:14px;font-weight:600;">Profil</td>
