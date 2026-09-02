@@ -34,11 +34,11 @@ export default function Home() {
         <Intervenants />
         <WhatYouGain />
         <BeforeAfter />
+        <SectionDivider variant="light-to-soft" />
+        <SuccessStories />
         <SectionDivider variant="light-to-navy" />
         <Founders />
         <SectionDivider variant="navy-to-light" />
-        <SuccessStories />
-        <SectionDivider variant="light-to-soft" />
         <Faq />
         <SectionDivider variant="light-to-navy" />
         <Contact />

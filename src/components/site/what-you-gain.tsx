@@ -176,7 +176,7 @@ export function WhatYouGain() {
   return (
     <section
       id="ce-que-vous-gagnez"
-      className="relative scroll-mt-20 overflow-hidden bg-[#faf9f5] py-20 md:py-28 border-b border-navy/5"
+      className="relative scroll-mt-20 overflow-hidden bg-[#faf9f5] py-12 md:py-18 border-b border-navy/5"
     >
       <SectionDecor variant="light" pos="C" />
 
@@ -186,17 +186,17 @@ export function WhatYouGain() {
           <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy border border-navy/10">
             <Sparkles className="size-3.5 text-gold" /> Avantages & Valeur Exclusifs
           </span>
-          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
+          <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
             Ce que vous <span className="text-gold-gradient">gagnez</span>
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-anthracite/75 sm:text-lg">
+          <p className="mt-3 text-sm leading-relaxed text-anthracite/75 sm:text-base">
             Bien plus qu'un programme de cours : découvrez vos avantages exclusifs et votre accompagnement
             complet conçus pour propulser votre carrière.
           </p>
         </Reveal>
 
         {/* ═══════════ SLIDER / CAROUSEL ═══════════ */}
-        <Reveal delay={0.15} className="mt-14">
+        <Reveal delay={0.15} className="mt-8 sm:mt-10">
           <div
             className="relative mx-auto max-w-3xl"
             onMouseEnter={() => setPaused(true)}
@@ -214,7 +214,7 @@ export function WhatYouGain() {
               <ChevronLeft className="size-6" />
             </button>
 
-            {/* → Next button */}
+            {/* Next button → */}
             <button
               type="button"
               onClick={() => paginate(1)}
@@ -241,33 +241,33 @@ export function WhatYouGain() {
                   onDragEnd={handleDragEnd}
                   className="cursor-grab active:cursor-grabbing"
                 >
-                  <div className="relative overflow-hidden rounded-3xl border border-navy/10 bg-white p-7 sm:p-10 shadow-premium">
+                  <div className="relative overflow-hidden rounded-3xl border border-navy/10 bg-white p-6 sm:p-8 md:p-10 shadow-premium">
                     {/* Gold accent top bar */}
                     <span className="absolute inset-x-0 top-0 h-1.5 bg-gold" />
 
                     {/* Header of slide */}
                     <div className="relative z-10 flex items-start gap-4 sm:gap-6">
-                      <span className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
-                        <currentItem.icon className="size-8" strokeWidth={1.9} />
+                      <span className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
+                        <currentItem.icon className="size-7 sm:size-8" strokeWidth={1.9} />
                       </span>
-                      <div className="flex-1 pr-12 sm:pr-20">
-                        <h3 className="font-serif text-2xl font-bold leading-tight text-navy sm:text-3xl">
+                      <div className="flex-1 pr-8 sm:pr-14">
+                        <h3 className="font-serif text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-navy">
                           {currentItem.title}
                         </h3>
-                        <p className="mt-1.5 text-sm sm:text-base font-semibold text-gold font-sans">
+                        <p className="mt-1 text-xs sm:text-sm md:text-base font-semibold text-gold font-sans">
                           {currentItem.sub}
                         </p>
                       </div>
                     </div>
 
                     {/* Bullet Points */}
-                    <div className="mt-6 sm:mt-8 border-t border-navy/8 pt-6">
+                    <div className="mt-5 sm:mt-6 border-t border-navy/8 pt-5">
                       <p className="text-xs font-semibold uppercase tracking-wider text-anthracite/50 mb-3">
                         Ce que cela comprend concrètement :
                       </p>
-                      <ul className="space-y-3">
+                      <ul className="space-y-2.5 sm:space-y-3">
                         {currentItem.points.map((pt, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-sm sm:text-base leading-relaxed text-anthracite/85">
+                          <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm md:text-base leading-relaxed text-anthracite/85">
                             <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                               <CheckCircle2 className="size-4" />
                             </span>
@@ -279,26 +279,6 @@ export function WhatYouGain() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-            </div>
-
-            {/* ──── Dot indicators ──── */}
-            <div className="mt-6 flex items-center justify-center gap-2">
-              {GAIN_ITEMS.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => {
-                    setDirection(i > current ? 1 : -1);
-                    setCurrent(i);
-                  }}
-                  aria-label={`Aller au slide ${i + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === current
-                      ? "w-8 bg-gold"
-                      : "w-2 bg-navy/20 hover:bg-navy/40"
-                  }`}
-                />
-              ))}
             </div>
           </div>
         </Reveal>

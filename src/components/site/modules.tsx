@@ -75,7 +75,7 @@ export function Modules() {
   return (
     <section
       id="formations"
-      className="relative scroll-mt-20 overflow-hidden bg-navy py-20 md:py-28"
+      className="relative scroll-mt-20 overflow-hidden bg-navy py-12 md:py-18"
     >
       {/* Decorative top line */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
@@ -89,16 +89,16 @@ export function Modules() {
           <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2">
             Nos formations
           </h2>
-          <h3 className="mt-2 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+          <h3 className="mt-1 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
             13 métiers en 1 formation
           </h3>
-          <p className="mt-5 text-base font-medium leading-relaxed text-white/80 sm:text-xl">
+          <p className="mt-4 text-base font-medium leading-relaxed text-white/80 sm:text-xl">
             13 métiers en une seule formation, un seul prix pour tout le programme, sans frais cachés.
           </p>
         </Reveal>
 
         {/* ═══════════ CAROUSEL ═══════════ */}
-        <Reveal delay={0.15} className="mt-14">
+        <Reveal delay={0.15} className="mt-10 sm:mt-12">
           <div
             className="relative mx-auto max-w-2xl"
           >
@@ -112,7 +112,7 @@ export function Modules() {
               <ChevronLeft className="size-5" />
             </button>
 
-            {/* → Next button */}
+            {/* Next button → */}
             <button
               type="button"
               onClick={() => paginate(1)}
@@ -201,32 +201,12 @@ export function Modules() {
                 </motion.div>
               </AnimatePresence>
             </div>
-
-            {/* ──── Dot indicators ──── */}
-            <div className="mt-6 flex items-center justify-center gap-1.5">
-              {MODULES.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => {
-                    setDirection(i > current ? 1 : -1);
-                    setCurrent(i);
-                  }}
-                  aria-label={`Aller au métier ${i + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === current
-                      ? "w-6 bg-gold"
-                      : "w-1.5 bg-navy/15 hover:bg-navy/30"
-                  }`}
-                />
-              ))}
-            </div>
           </div>
         </Reveal>
 
 
         {/* ───────── Tools band ───────── */}
-        <Reveal className="mt-16">
+        <Reveal className="mt-10 sm:mt-12">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md">
             <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
               <div className="text-center md:text-left">

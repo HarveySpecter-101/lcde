@@ -57,19 +57,19 @@ export function Intervenants() {
   };
 
   return (
-    <section id="intervenants" className="py-24 bg-white relative overflow-hidden">
+    <section id="intervenants" className="py-12 sm:py-16 md:py-18 bg-white relative overflow-hidden">
       <SectionDecor variant="light" pos="D" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
+        <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
           <Reveal>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-soft border border-gray-200 mb-4 sm:mb-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-soft border border-gray-200 mb-3 sm:mb-4">
               <Users className="w-4 h-4 text-gold" />
               <span className="text-sm font-medium text-navy uppercase tracking-wider">Nos intervenants</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-navy mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-navy mb-3">
               Des experts de <span className="text-gold-gradient">terrain</span>
             </h2>
-            <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
               Des praticiens issus des Big Four, des experts-comptables et des directeurs financiers qui partagent leur expérience concrète et leurs méthodes de travail au quotidien.
             </p>
           </Reveal>
@@ -80,7 +80,7 @@ export function Intervenants() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          <div className="relative min-h-[600px] sm:min-h-[520px] md:min-h-[480px] w-full flex items-center justify-center">
+          <div className="relative min-h-[560px] sm:min-h-[460px] md:min-h-[420px] w-full flex items-center justify-center">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={current}
@@ -190,23 +190,6 @@ export function Intervenants() {
             >
               <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
-          </div>
-
-          {/* Dot Indicators */}
-          <div className="flex justify-center mt-6 gap-2">
-            {Array.from({ length: totalSlides }).map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => {
-                  setDirection(idx > current ? 1 : -1);
-                  setCurrent(idx);
-                }}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  idx === current ? "bg-gold w-8" : "bg-gray-300 hover:bg-gray-400 w-2"
-                }`}
-                aria-label={`Aller à la diapositive ${idx + 1}`}
-              />
-            ))}
           </div>
         </div>
       </div>

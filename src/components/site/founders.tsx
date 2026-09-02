@@ -19,21 +19,21 @@ const FOUNDERS = [
 
 export function Founders() {
   return (
-    <section id="fondateurs" className="relative scroll-mt-20 overflow-hidden bg-navy py-20 md:py-28">
+    <section id="fondateurs" className="relative scroll-mt-20 overflow-hidden bg-navy py-12 md:py-18">
       <SectionDecor variant="dark" pos="A" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <h2 className="font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl uppercase">
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl uppercase">
             Les fondateurs
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-white/80 sm:text-lg">
+          <p className="mt-3 text-sm leading-relaxed text-white/80 sm:text-base">
             Deux praticiens complémentaires qui ont bâti LCDE sur une conviction : la formation
             doit se confronter à la réalité des dossiers.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="mt-8 sm:mt-10 grid gap-5 sm:gap-6 md:grid-cols-2">
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.name} delay={i * 0.1} direction={i === 0 ? "right" : "left"}>
               <motion.article

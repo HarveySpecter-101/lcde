@@ -36,7 +36,7 @@ export function SuccessStories() {
   return (
     <section
       id="resultats"
-      className="relative scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-20 md:py-28"
+      className="relative scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-12 md:py-18"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -60,17 +60,17 @@ export function SuccessStories() {
           <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wider text-navy shadow-sm">
             <Star className="size-4 text-gold fill-gold" /> Résultats
           </span>
-          <h2 className="mt-6 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
+          <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
             Où sont les participants des anciennes éditions ?
           </h2>
-          <div className="mt-6 flex items-center justify-center gap-2">
+          <div className="mt-4 flex items-center justify-center gap-2">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="size-7 sm:size-8 fill-gold text-gold drop-shadow-sm" />
+              <Star key={i} className="size-6 sm:size-7 fill-gold text-gold drop-shadow-sm" />
             ))}
           </div>
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-16">
+        <Reveal delay={0.15} className="mt-8 sm:mt-10">
           <div className="relative mx-auto max-w-2xl">
             {/* Side Navigation Button: Left */}
             <button
@@ -125,26 +125,6 @@ export function SuccessStories() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-            </div>
-
-            {/* Bottom dots & counter */}
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 relative z-20">
-              <div className="flex items-center gap-2">
-                {SUCCESS_STORIES.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setIndex(i)}
-                    aria-label={`Aller à la slide ${i + 1}`}
-                    className={cn(
-                      "h-2.5 rounded-full transition-all duration-300",
-                      i === index ? "w-8 bg-gold" : "w-2.5 bg-navy/25 hover:bg-navy/50"
-                    )}
-                  />
-                ))}
-              </div>
-              <p className="text-xs font-semibold text-navy/60">
-                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-              </p>
             </div>
           </div>
         </Reveal>
