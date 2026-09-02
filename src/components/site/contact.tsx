@@ -1,20 +1,24 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   CheckCircle2,
   Send,
   Sparkles,
-  ChevronDown,
-  Check,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
 
 export const LEVEL_OPTIONS = [
   "Etudiant 1ère Année",
@@ -50,126 +54,6 @@ export const SCHOOL_OPTIONS = [
   "Toulouse Business School",
   "Autre Ecole Privée",
 ];
-
-interface CustomSelectProps {
-  id: string;
-  label: string;
-  value: string;
-  onChange: (val: string) => void;
-  options: string[];
-  placeholder?: string;
-  required?: boolean;
-  zIndexClass?: string;
-}
-
-function CustomSelect({
-  id,
-  label,
-  value,
-  onChange,
-  options,
-  placeholder = "Sélectionner",
-  required,
-  zIndexClass = "z-30",
-}: CustomSelectProps) {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent | TouchEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("touchstart", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [open]);
-
-  const handleSelect = (opt: string) => {
-    onChange(opt);
-    setOpen(false);
-  };
-
-  return (
-    <div className={cn("relative", open ? zIndexClass : "z-0")} ref={containerRef}>
-      <Label htmlFor={id} className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
-        {label} {required && "*"}
-      </Label>
-
-      <button
-        id={id}
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        className={cn(
-          "flex h-10 sm:h-11 w-full items-center justify-between rounded-xl border px-3.5 text-left text-sm transition-all duration-200 backdrop-blur-md cursor-pointer",
-          open
-            ? "border-gold bg-[#0d2a4f] ring-2 ring-gold/40 shadow-lg shadow-gold/10 text-white"
-            : "border-white/20 bg-white/[0.08] hover:border-gold/50 hover:bg-white/[0.12] text-white"
-        )}
-      >
-        <span className={cn("truncate", !value ? "text-white/45" : "text-white font-medium")}>
-          {value || placeholder}
-        </span>
-        <ChevronDown
-          className={cn(
-            "size-4 shrink-0 text-gold transition-transform duration-200",
-            open && "rotate-180"
-          )}
-        />
-      </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            role="listbox"
-            initial={{ opacity: 0, y: -4, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -4, scale: 0.98 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute left-0 right-0 z-[100] mt-1.5 max-h-56 overflow-y-auto rounded-2xl border border-gold/40 bg-[#071930] p-1.5 shadow-2xl backdrop-blur-2xl"
-            style={{
-              scrollbarWidth: "thin",
-              scrollbarColor: "#c9a84c #071930",
-            }}
-          >
-            {options.map((opt) => {
-              const isSelected = value === opt;
-              return (
-                <div
-                  key={opt}
-                  role="option"
-                  aria-selected={isSelected}
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    handleSelect(opt);
-                  }}
-                  onClick={() => handleSelect(opt)}
-                  className={cn(
-                    "flex w-full cursor-pointer items-center justify-between rounded-xl px-3 py-2 text-left text-xs sm:text-sm transition-all duration-150 select-none",
-                    isSelected
-                      ? "bg-gold/25 text-gold font-semibold shadow-inner border-l-2 border-gold"
-                      : "text-white/85 hover:bg-white/10 hover:text-gold"
-                  )}
-                >
-                  <span className="truncate">{opt}</span>
-                  {isSelected && <Check className="size-4 shrink-0 text-gold ml-2" />}
-                </div>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
 
 export function Contact() {
   const [form, setForm] = useState({
@@ -311,27 +195,55 @@ export function Contact() {
                     />
                   </div>
 
-                  <CustomSelect
-                    id="c-level"
-                    label="Niveau actuel"
-                    required
-                    value={form.level}
-                    onChange={(val) => update("level", val)}
-                    options={LEVEL_OPTIONS}
-                    placeholder="Sélectionner"
-                    zIndexClass="z-50"
-                  />
+                  <div>
+                    <Label htmlFor="c-level" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
+                      Niveau actuel *
+                    </Label>
+                    <Select value={form.level} onValueChange={(val) => update("level", val)}>
+                      <SelectTrigger
+                        id="c-level"
+                        className="h-10 sm:h-11 w-full rounded-xl border border-white/20 bg-white/[0.08] px-3.5 text-sm text-white hover:border-gold/50 hover:bg-white/[0.12] focus:border-gold focus:ring-2 focus:ring-gold/40 focus:ring-offset-0 data-[placeholder]:text-white/45 [&>span]:truncate"
+                      >
+                        <SelectValue placeholder="Sélectionner" />
+                      </SelectTrigger>
+                      <SelectContent className="z-[999] max-h-60 rounded-2xl border border-gold/40 bg-[#071930] text-white shadow-2xl backdrop-blur-2xl p-1.5">
+                        {LEVEL_OPTIONS.map((lvl) => (
+                          <SelectItem
+                            key={lvl}
+                            value={lvl}
+                            className="rounded-xl px-3 py-2 text-xs sm:text-sm text-white/90 hover:bg-white/10 hover:text-gold focus:bg-gold/20 focus:text-gold data-[state=checked]:bg-gold/25 data-[state=checked]:text-gold data-[state=checked]:font-semibold cursor-pointer"
+                          >
+                            {lvl}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-                  <CustomSelect
-                    id="c-school"
-                    label="École"
-                    required
-                    value={form.school}
-                    onChange={(val) => update("school", val)}
-                    options={SCHOOL_OPTIONS}
-                    placeholder="Sélectionner"
-                    zIndexClass="z-40"
-                  />
+                  <div>
+                    <Label htmlFor="c-school" className="mb-1 block text-xs font-medium uppercase tracking-wide text-white/80">
+                      École *
+                    </Label>
+                    <Select value={form.school} onValueChange={(val) => update("school", val)}>
+                      <SelectTrigger
+                        id="c-school"
+                        className="h-10 sm:h-11 w-full rounded-xl border border-white/20 bg-white/[0.08] px-3.5 text-sm text-white hover:border-gold/50 hover:bg-white/[0.12] focus:border-gold focus:ring-2 focus:ring-gold/40 focus:ring-offset-0 data-[placeholder]:text-white/45 [&>span]:truncate"
+                      >
+                        <SelectValue placeholder="Sélectionner" />
+                      </SelectTrigger>
+                      <SelectContent className="z-[999] max-h-60 rounded-2xl border border-gold/40 bg-[#071930] text-white shadow-2xl backdrop-blur-2xl p-1.5">
+                        {SCHOOL_OPTIONS.map((sch) => (
+                          <SelectItem
+                            key={sch}
+                            value={sch}
+                            className="rounded-xl px-3 py-2 text-xs sm:text-sm text-white/90 hover:bg-white/10 hover:text-gold focus:bg-gold/20 focus:text-gold data-[state=checked]:bg-gold/25 data-[state=checked]:text-gold data-[state=checked]:font-semibold cursor-pointer"
+                          >
+                            {sch}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
                   <Button
                     type="submit"

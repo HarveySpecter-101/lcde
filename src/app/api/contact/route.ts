@@ -144,7 +144,26 @@ export async function POST(req: Request) {
 
     for (const url of webhookUrls) {
       try {
-        await fetch(url, {
+        const isGoogleScript = url.includes("script.google.com");
+        let targetUrl = url;
+        if (isGoogleScript) {
+          const params = new URLSearchParams({
+            "Date": webhookPayload["Date"],
+            "Nom Complet": name,
+            "Email": email,
+            "WhatsApp": phone,
+            "Niveau actuel": level,
+            "Ecole": school,
+            "level": level,
+            "school": school,
+            "name": name,
+            "email": email,
+            "phone": phone,
+          });
+          targetUrl = `${url}${url.includes("?") ? "&" : "?"}${params.toString()}`;
+        }
+
+        await fetch(targetUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
