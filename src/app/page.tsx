@@ -32,8 +32,8 @@ export default function Home() {
         <Modules />
         <SectionDivider variant="navy-to-light" />
         <BeforeAfter />
-        <WhatYouGain />
         <Intervenants />
+        <WhatYouGain />
         <SectionDivider variant="light-to-navy" />
         <Founders />
         <SectionDivider variant="navy-to-light" />
