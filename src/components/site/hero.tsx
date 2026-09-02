@@ -2,10 +2,8 @@
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
 import { HeroCanvas } from "@/components/site/hero-canvas";
-import { HiggsfieldTiltCard } from "@/components/site/higgsfield-ui";
 
 const container = {
   hidden: {},
@@ -20,21 +18,6 @@ const item = {
     transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
-
-const PROMO_ITEMS = [
-  {
-    emoji: "💯",
-    text: "Une formation certifiée et reconnue, 100% pratique et complète, destinée à toutes les filières. On te prépare pour 13 métiers différents et liés entre eux, et pour toute la carrière : bien au-delà des entretiens PFE et CDI.",
-  },
-  {
-    emoji: "✅",
-    text: "+4 500 personnes formées dont +95% font leur carrière dans des postes à haute responsabilité, et les métiers les plus rémunérés sur le marché d'emploi marocain et international.",
-  },
-  {
-    emoji: "💼",
-    text: "Chaque métier est assuré par un spécialiste ; nos intervenants sont des experts comptables diplômés, des directeurs en audit, des managers au sein des cabinets Big4, des consultants financiers et des docteurs en sciences de gestion.",
-  },
-];
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -80,33 +63,6 @@ export function Hero() {
             </span>{" "}
             de la formation qui vous prépare pour 13 métiers différents et complémentaires.
           </motion.h1>
-
-          {/* Promotional cards — emoji inline, text wraps to left edge */}
-          <motion.div variants={item} className="mt-10 w-full space-y-4 text-left">
-            {PROMO_ITEMS.map((p, i) => (
-              <HiggsfieldTiltCard key={i}>
-                <div className="px-5 py-5 sm:px-6">
-                  <p className="text-[15px] leading-relaxed text-anthracite sm:text-base">
-                    <span className="mr-2 text-lg">{p.emoji}</span>{p.text}
-                  </p>
-                </div>
-              </HiggsfieldTiltCard>
-            ))}
-          </motion.div>
-
-          {/* CTA button */}
-          <motion.div variants={item} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="bg-gold-gradient text-navy font-semibold shadow-gold-glow transition-transform hover:scale-105 active:scale-95"
-            >
-              <a href="#contact" className="inline-flex items-center gap-2">
-                Je rejoins la prochaine édition
-                <ArrowRight className="size-4" />
-              </a>
-            </Button>
-          </motion.div>
         </motion.div>
       </div>
 

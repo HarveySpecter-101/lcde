@@ -1,6 +1,7 @@
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
 import { Stats } from "@/components/site/stats";
+import { FormationIntro } from "@/components/site/formation-intro";
 import { Modules } from "@/components/site/modules";
 import { WhatYouGain } from "@/components/site/what-you-gain";
 import { Intervenants } from "@/components/site/intervenants";
@@ -27,6 +28,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Stats />
+        <FormationIntro />
         <SectionDivider variant="light-to-navy" />
         <Modules />
         <SectionDivider variant="navy-to-light" />
