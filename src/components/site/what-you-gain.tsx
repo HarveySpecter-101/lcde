@@ -300,11 +300,6 @@ export function WhatYouGain() {
                 />
               ))}
             </div>
-
-            {/* Counter */}
-            <p className="mt-2 text-center text-xs font-semibold text-anthracite/50">
-              {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-            </p>
           </div>
         </Reveal>
       </div>

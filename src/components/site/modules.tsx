@@ -221,11 +221,6 @@ export function Modules() {
                 />
               ))}
             </div>
-
-            {/* Counter */}
-            <p className="mt-3 text-center text-xs font-medium text-anthracite/50">
-              {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-            </p>
           </div>
         </Reveal>
 
