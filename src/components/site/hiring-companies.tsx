@@ -34,7 +34,6 @@ const LOGOS = [
   { name: "Deloitte", src: "/logos/deloitte.svg" },
   { name: "EY", src: "/logos/ey.svg" },
   { name: "KPMG", src: "/logos/kpmg.svg" },
-  { name: "Mazars", src: "/logos/mazars.svg" },
   { name: "BDO", src: "/logos/bdo.svg" },
   { name: "Grant Thornton", src: "/logos/grant-thornton.svg" },
   // Fin
@@ -73,7 +72,7 @@ export function HiringCompanies() {
       </div>
 
       {/* Logos Marquee */}
-      <div className="mt-20 overflow-hidden bg-soft py-10 border-y border-navy/5 relative max-w-[100vw]">
+      <div className="mt-20 overflow-hidden bg-soft py-12 border-y border-navy/5 relative max-w-[100vw]">
         {/* Gradients to fade edges */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-soft to-transparent z-10 sm:w-32" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-soft to-transparent z-10 sm:w-32" />
@@ -83,9 +82,9 @@ export function HiringCompanies() {
           {[...LOGOS, ...LOGOS].map((logo, i) => (
             <div
               key={i}
-              className="flex shrink-0 items-center justify-center px-10 sm:px-14"
+              className="flex shrink-0 items-center justify-center px-8 sm:px-12"
             >
-              <div className="relative h-12 w-32 transition-transform duration-300 hover:scale-110 sm:h-14 sm:w-36">
+              <div className="relative h-14 w-36 transition-transform duration-300 hover:scale-110 sm:h-18 sm:w-48 md:h-20 md:w-52">
                 <Image
                   src={logo.src}
                   alt={logo.name}

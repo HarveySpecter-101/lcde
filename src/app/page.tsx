@@ -1,14 +1,13 @@
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
 import { Stats } from "@/components/site/stats";
-import { FormationIntro } from "@/components/site/formation-intro";
+import { HiringCompanies } from "@/components/site/hiring-companies";
 import { Modules } from "@/components/site/modules";
 import { WhatYouGain } from "@/components/site/what-you-gain";
 import { Intervenants } from "@/components/site/intervenants";
 import { Founders } from "@/components/site/founders";
 import { BeforeAfter } from "@/components/site/before-after";
 import { SuccessStories } from "@/components/site/success-stories";
-import { HiringCompanies } from "@/components/site/hiring-companies";
 import { Faq } from "@/components/site/faq";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
@@ -28,7 +27,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Stats />
-        <FormationIntro />
+        <HiringCompanies />
         <SectionDivider variant="light-to-navy" />
         <Modules />
         <SectionDivider variant="navy-to-light" />
@@ -39,7 +38,6 @@ export default function Home() {
         <Founders />
         <SectionDivider variant="navy-to-light" />
         <SuccessStories />
-        <HiringCompanies />
         <Faq />
         <SectionDivider variant="light-to-navy" />
         <Contact />
