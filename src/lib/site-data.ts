@@ -542,9 +542,9 @@ export const FAQ = [
 export const NAV_LINKS = [
   { href: "#accueil", label: "Accueil" },
   { href: "#formations", label: "Nos Formations" },
-  { href: "#ce-que-vous-gagnez", label: "Ce que vous gagnez" },
+  { href: "#ce-que-vous-gagnez", label: "Ce que vous gagnez aussi" },
   { href: "#intervenants", label: "Intervenants" },
   { href: "#resultats", label: "Résultats" },
-  { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
+  { href: "#faq", label: "FAQ" },
 ];

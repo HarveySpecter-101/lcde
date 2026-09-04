@@ -38,10 +38,10 @@ export default function Home() {
         <SuccessStories />
         <SectionDivider variant="light-to-navy" />
         <Founders />
+        <Contact />
         <SectionDivider variant="navy-to-light" />
         <Faq />
         <SectionDivider variant="light-to-navy" />
-        <Contact />
       </main>
       <Footer />
       <PersistentCtaBar />

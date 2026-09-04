@@ -187,7 +187,7 @@ export function WhatYouGain() {
             <Sparkles className="size-3.5 text-gold" /> Avantages & Valeur Exclusifs
           </span>
           <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
-            Ce que vous <span className="text-gold-gradient">gagnez</span>
+            Ce que vous <span className="text-gold-gradient">gagnez aussi</span>
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-anthracite/75 sm:text-base">
             Bien plus qu'un programme de cours : découvrez vos avantages exclusifs et votre accompagnement
@@ -262,9 +262,6 @@ export function WhatYouGain() {
 
                     {/* Bullet Points */}
                     <div className="mt-5 sm:mt-6 border-t border-navy/8 pt-5">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-anthracite/50 mb-3">
-                        Ce que cela comprend concrètement :
-                      </p>
                       <ul className="space-y-2.5 sm:space-y-3">
                         {currentItem.points.map((pt, idx) => (
                           <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm md:text-base leading-relaxed text-anthracite/85">

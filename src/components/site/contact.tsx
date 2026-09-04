@@ -251,7 +251,7 @@ export function Contact() {
                     disabled={loading}
                     className="mt-2 h-11 sm:h-12 w-full rounded-xl bg-gold text-navy font-bold text-sm sm:text-base hover:bg-gold/90 hover:shadow-gold-glow flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-[0.98]"
                   >
-                    {loading ? "Envoi en cours…" : "J'envoie ma demande"}
+                    {loading ? "Envoi en cours…" : "Envoyer"}
                     {!loading && <Send className="size-4" />}
                   </Button>
                 </form>
