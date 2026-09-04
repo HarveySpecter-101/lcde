@@ -31,28 +31,13 @@ export function Footer() {
       {/* Main footer */}
       <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16 lg:gap-24">
-          {/* Brand */}
+          {/* Réseaux sociaux */}
           <div>
-            <a href="#accueil" className="flex items-center gap-2.5" aria-label="LCDE - Accueil">
-              <span className="relative flex size-11 items-center justify-center overflow-hidden rounded-full bg-white/5 ring-2 ring-gold/30">
-                <img
-                  src="/logo-lcde.png"
-                  alt="LCDE — Le Club Des Experts"
-                  className="size-full object-contain p-0.5"
-                />
-              </span>
-              <span className="flex flex-col leading-none">
-                <span className="font-serif text-lg font-bold">LCDE</span>
-                <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/60">
-                  Le Club Des Experts
-                </span>
-              </span>
-            </a>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-white/65">
-              Formation 100 % pratique en Audit, Finance, Fiscalité et Comptabilité à Casablanca.
-              Opérationnel dès le premier jour.
+            <h3 className="font-serif text-base font-bold uppercase tracking-wider text-gold">Réseaux sociaux</h3>
+            <p className="mt-2 text-sm leading-relaxed text-white/70">
+              Suivez toute notre actualité et nos conseils exclusifs.
             </p>
-            <div className="mt-5 flex gap-3">
+            <div className="mt-4 flex gap-3">
               {[
                 { icon: Instagram, href: LCDE.instagram, label: LCDE.instagramHandle, key: "instagram" },
                 { icon: Facebook, href: LCDE.facebook, label: LCDE.facebookName, key: "facebook" },

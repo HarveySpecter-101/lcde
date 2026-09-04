@@ -8,7 +8,6 @@ import { Intervenants } from "@/components/site/intervenants";
 import { Founders } from "@/components/site/founders";
 import { BeforeAfter } from "@/components/site/before-after";
 import { SuccessStories } from "@/components/site/success-stories";
-import { Faq } from "@/components/site/faq";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
 import { ScrollProgress } from "@/components/site/scroll-progress";
@@ -39,9 +38,6 @@ export default function Home() {
         <SectionDivider variant="light-to-navy" />
         <Founders />
         <Contact />
-        <SectionDivider variant="navy-to-light" />
-        <Faq />
-        <SectionDivider variant="light-to-navy" />
       </main>
       <Footer />
       <PersistentCtaBar />

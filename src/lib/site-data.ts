@@ -546,5 +546,4 @@ export const NAV_LINKS = [
   { href: "#intervenants", label: "Intervenants" },
   { href: "#resultats", label: "Résultats" },
   { href: "#contact", label: "Contact" },
-  { href: "#faq", label: "FAQ" },
 ];
