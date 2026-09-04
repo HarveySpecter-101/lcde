@@ -35,8 +35,9 @@ export default function Home() {
         <BeforeAfter />
         <SectionDivider variant="light-to-soft" />
         <SuccessStories />
-        <SectionDivider variant="light-to-navy" />
+        <SectionDivider variant="light-to-soft" />
         <Founders />
+        <SectionDivider variant="light-to-navy" />
         <Contact />
       </main>
       <Footer />
