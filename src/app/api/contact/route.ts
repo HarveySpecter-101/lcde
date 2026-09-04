@@ -105,7 +105,7 @@ export async function POST(req: Request) {
     // 3. Send the form data to Google Sheet / n8n Webhook
     const googleSheetUrl =
       process.env.GOOGLE_SHEET_WEBHOOK_URL ||
-      "https://script.google.com/macros/s/AKfycbx8eVWRPqIs0Q-mPst-4mV6oDeh_m1eAEdBv8FocLzYhyb6bQtKpWz8IV2p4946f4Zp/exec";
+      "https://script.google.com/macros/s/AKfycbz0KnU7lmE22AxA_8esMXBlcLdYKhcAcSrvgnM133YJGOlOtisHWT2J7h9ZMQ-Y4Qg-mQ/exec";
 
     const webhookUrls = [
       googleSheetUrl,
@@ -144,29 +144,10 @@ export async function POST(req: Request) {
 
     for (const url of webhookUrls) {
       try {
-        const isGoogleScript = url.includes("script.google.com");
-        let targetUrl = url;
-        if (isGoogleScript) {
-          const params = new URLSearchParams({
-            "Date": webhookPayload["Date"],
-            "Nom Complet": name,
-            "Email": email,
-            "WhatsApp": phone,
-            "Niveau actuel": level,
-            "Ecole": school,
-            "level": level,
-            "school": school,
-            "name": name,
-            "email": email,
-            "phone": phone,
-          });
-          targetUrl = `${url}${url.includes("?") ? "&" : "?"}${params.toString()}`;
-        }
-
-        await fetch(targetUrl, {
+        await fetch(url, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "text/plain;charset=utf-8",
           },
           body: JSON.stringify(webhookPayload),
           redirect: "follow",
