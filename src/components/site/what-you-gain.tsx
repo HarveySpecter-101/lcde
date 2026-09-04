@@ -176,16 +176,45 @@ export function WhatYouGain() {
   return (
     <section
       id="ce-que-vous-gagnez"
-      className="relative scroll-mt-20 overflow-hidden bg-[#faf9f5] py-12 md:py-18 border-b border-navy/5"
+      className="relative scroll-mt-20 overflow-hidden bg-[#faf9f5] py-14 md:py-22 border-b border-navy/5"
     >
       <SectionDecor variant="light" pos="C" />
+
+      {/* Floating background ambient animation */}
+      <motion.div
+        animate={{
+          scale: [1, 1.25, 1],
+          opacity: [0.15, 0.3, 0.15],
+          x: [0, 30, 0],
+          y: [0, -20, 0],
+        }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -right-24 top-1/3 size-96 rounded-full bg-gold/20 blur-3xl"
+        aria-hidden
+      />
+      <motion.div
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.1, 0.25, 0.1],
+          x: [0, -20, 0],
+          y: [0, 25, 0],
+        }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="pointer-events-none absolute -left-20 bottom-1/4 size-80 rounded-full bg-navy/10 blur-3xl"
+        aria-hidden
+      />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy border border-navy/10">
-            <Sparkles className="size-3.5 text-gold" /> Avantages & Valeur Exclusifs
-          </span>
+          <motion.span
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy border border-navy/10 shadow-sm"
+          >
+            <Sparkles className="size-3.5 text-gold animate-pulse" /> Avantages & Valeur Exclusifs
+          </motion.span>
           <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
             Ce que vous <span className="text-gold-gradient">gagnez aussi</span>
           </h2>
@@ -205,24 +234,28 @@ export function WhatYouGain() {
             onTouchEnd={() => setPaused(false)}
           >
             {/* ← Previous button */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.12 }}
+              whileTap={{ scale: 0.92 }}
               type="button"
               onClick={() => paginate(-1)}
               aria-label="Avantage précédent"
-              className="absolute -left-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white hover:scale-105 sm:-left-16"
+              className="absolute -left-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-left-16"
             >
               <ChevronLeft className="size-6" />
-            </button>
+            </motion.button>
 
             {/* Next button → */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.12 }}
+              whileTap={{ scale: 0.92 }}
               type="button"
               onClick={() => paginate(1)}
               aria-label="Avantage suivant"
-              className="absolute -right-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white hover:scale-105 sm:-right-16"
+              className="absolute -right-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-right-16"
             >
               <ChevronRight className="size-6" />
-            </button>
+            </motion.button>
 
             {/* Slide container */}
             <div className="overflow-hidden rounded-3xl">
@@ -247,9 +280,13 @@ export function WhatYouGain() {
 
                     {/* Header of slide */}
                     <div className="relative z-10 flex items-start gap-4 sm:gap-6">
-                      <span className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
+                      <motion.span
+                        animate={{ rotate: [0, -3, 3, 0] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                        className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow"
+                      >
                         <currentItem.icon className="size-7 sm:size-8" strokeWidth={1.9} />
-                      </span>
+                      </motion.span>
                       <div className="flex-1 pr-8 sm:pr-14">
                         <h3 className="font-serif text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-navy">
                           {currentItem.title}
@@ -264,18 +301,42 @@ export function WhatYouGain() {
                     <div className="mt-5 sm:mt-6 border-t border-navy/8 pt-5">
                       <ul className="space-y-2.5 sm:space-y-3">
                         {currentItem.points.map((pt, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm md:text-base leading-relaxed text-anthracite/85">
+                          <motion.li
+                            key={idx}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.3, delay: idx * 0.08 }}
+                            className="flex items-start gap-3 text-xs sm:text-sm md:text-base leading-relaxed text-anthracite/85"
+                          >
                             <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                               <CheckCircle2 className="size-4" />
                             </span>
                             <span>{pt}</span>
-                          </li>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
+            </div>
+
+            {/* Pagination dots */}
+            <div className="mt-6 flex items-center justify-center gap-2">
+              {GAIN_ITEMS.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => {
+                    setDirection(i > current ? 1 : -1);
+                    setCurrent(i);
+                  }}
+                  aria-label={`Aller à l'avantage ${i + 1}`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    i === current ? "w-8 bg-gold shadow-gold-glow" : "w-2.5 bg-navy/20 hover:bg-navy/40"
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </Reveal>

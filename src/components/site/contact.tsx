@@ -118,34 +118,70 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-14 sm:scroll-mt-20 overflow-hidden bg-navy-gradient py-10 sm:py-16 md:py-20 text-white"
+      className="relative scroll-mt-14 sm:scroll-mt-20 overflow-hidden bg-navy-gradient py-12 sm:py-18 md:py-24 text-white"
     >
       <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.08]" aria-hidden />
-      <div className="pointer-events-none absolute -left-24 top-0 size-80 rounded-full bg-gold/15 blur-3xl" aria-hidden />
-      <div className="pointer-events-none absolute -right-24 bottom-0 size-96 rounded-full bg-emerald-brand/10 blur-3xl" aria-hidden />
+      
+      {/* Animated background glowing orbs */}
+      <motion.div
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.15, 0.35, 0.15],
+          x: [0, 25, 0],
+          y: [0, -25, 0],
+        }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -left-24 top-0 size-96 rounded-full bg-gold/20 blur-3xl"
+        aria-hidden
+      />
+      <motion.div
+        animate={{
+          scale: [1.3, 1, 1.3],
+          opacity: [0.1, 0.25, 0.1],
+          x: [0, -30, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="pointer-events-none absolute -right-24 bottom-0 size-96 rounded-full bg-emerald-brand/15 blur-3xl"
+        aria-hidden
+      />
 
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold">
-            <Sparkles className="size-3.5" /> Contact & inscription
-          </span>
+          <motion.span
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-gold shadow-gold-glow/20"
+          >
+            <Sparkles className="size-3.5 text-gold animate-spin-slow" /> Contact & inscription
+          </motion.span>
           <h2 className="mt-2.5 font-serif text-lg font-bold leading-snug tracking-tight text-white sm:text-2xl md:text-3xl">
             Laissez vos coordonnées, un conseiller LCDE vous recontacte sous 24h pour lancer la démarche d'inscription.
           </h2>
         </Reveal>
 
-        <div className="mt-5 sm:mt-8 flex justify-center">
+        <div className="mt-6 sm:mt-9 flex justify-center">
           <Reveal className="w-full max-w-lg">
-            <div className="rounded-2xl sm:rounded-3xl border border-white/12 bg-white/[0.05] p-5 sm:p-7 backdrop-blur-md shadow-2xl">
+            <motion.div
+              whileHover={{ scale: 1.005 }}
+              transition={{ duration: 0.3 }}
+              className="rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.06] p-5 sm:p-7 backdrop-blur-md shadow-2xl hover:border-gold/30 transition-colors"
+            >
               {done ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center py-8 text-center"
                 >
-                  <span className="flex size-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg">
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    className="flex size-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg"
+                  >
                     <CheckCircle2 className="size-8" />
-                  </span>
+                  </motion.span>
                   <h3 className="mt-4 font-serif text-xl font-bold text-white">Merci {submittedName}</h3>
                   <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/90">
                     Vous allez être recontacté sous 24 heures pour lancer votre démarche d'inscription.
@@ -163,7 +199,7 @@ export function Contact() {
                       value={form.name}
                       onChange={(e) => update("name", e.target.value)}
                       placeholder="Votre nom complet"
-                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30"
+                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30 transition-all"
                     />
                   </div>
                   <div>
@@ -177,7 +213,7 @@ export function Contact() {
                       value={form.email}
                       onChange={(e) => update("email", e.target.value)}
                       placeholder="vous@exemple.com"
-                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30"
+                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30 transition-all"
                     />
                   </div>
                   <div>
@@ -191,7 +227,7 @@ export function Contact() {
                       value={form.phone}
                       onChange={(e) => update("phone", e.target.value)}
                       placeholder="+212 6 00 00 00 00"
-                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30"
+                      className="h-10 sm:h-11 rounded-xl border-white/20 bg-white/[0.1] text-sm text-white placeholder:text-white/45 focus-visible:border-gold focus-visible:ring-gold/30 transition-all"
                     />
                   </div>
 
@@ -202,7 +238,7 @@ export function Contact() {
                     <Select value={form.level} onValueChange={(val) => update("level", val)}>
                       <SelectTrigger
                         id="c-level"
-                        className="h-10 sm:h-11 w-full rounded-xl border border-white/20 bg-white/[0.08] px-3.5 text-sm text-white hover:border-gold/50 hover:bg-white/[0.12] focus:border-gold focus:ring-2 focus:ring-gold/40 focus:ring-offset-0 data-[placeholder]:text-white/45 [&>span]:truncate"
+                        className="h-10 sm:h-11 w-full rounded-xl border border-white/20 bg-white/[0.08] px-3.5 text-sm text-white hover:border-gold/50 hover:bg-white/[0.12] focus:border-gold focus:ring-2 focus:ring-gold/40 focus:ring-offset-0 data-[placeholder]:text-white/45 [&>span]:truncate transition-all"
                       >
                         <SelectValue placeholder="Sélectionner" />
                       </SelectTrigger>
@@ -227,7 +263,7 @@ export function Contact() {
                     <Select value={form.school} onValueChange={(val) => update("school", val)}>
                       <SelectTrigger
                         id="c-school"
-                        className="h-10 sm:h-11 w-full rounded-xl border border-white/20 bg-white/[0.08] px-3.5 text-sm text-white hover:border-gold/50 hover:bg-white/[0.12] focus:border-gold focus:ring-2 focus:ring-gold/40 focus:ring-offset-0 data-[placeholder]:text-white/45 [&>span]:truncate"
+                        className="h-10 sm:h-11 w-full rounded-xl border border-white/20 bg-white/[0.08] px-3.5 text-sm text-white hover:border-gold/50 hover:bg-white/[0.12] focus:border-gold focus:ring-2 focus:ring-gold/40 focus:ring-offset-0 data-[placeholder]:text-white/45 [&>span]:truncate transition-all"
                       >
                         <SelectValue placeholder="Sélectionner" />
                       </SelectTrigger>
@@ -245,18 +281,20 @@ export function Contact() {
                     </Select>
                   </div>
 
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={loading}
-                    className="mt-2 h-11 sm:h-12 w-full rounded-xl bg-gold text-navy font-bold text-sm sm:text-base hover:bg-gold/90 hover:shadow-gold-glow flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-[0.98]"
-                  >
-                    {loading ? "Envoi en cours…" : "Envoyer"}
-                    {!loading && <Send className="size-4" />}
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={loading}
+                      className="mt-2 h-11 sm:h-12 w-full rounded-xl bg-gold text-navy font-bold text-sm sm:text-base hover:bg-gold/90 hover:shadow-gold-glow flex items-center justify-center gap-2 shadow-lg transition-all"
+                    >
+                      {loading ? "Envoi en cours…" : "Envoyer"}
+                      {!loading && <Send className="size-4 animate-pulse" />}
+                    </Button>
+                  </motion.div>
                 </form>
               )}
-            </div>
+            </motion.div>
           </Reveal>
         </div>
       </div>
