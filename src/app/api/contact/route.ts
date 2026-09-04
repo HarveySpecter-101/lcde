@@ -78,31 +78,7 @@ export async function POST(req: Request) {
       },
     });
 
-    // 2. Send emails via Resend
-    sendContactEmails({
-      name,
-      email,
-      phone,
-      level,
-      school,
-      profile,
-      objective: enhancedObjective,
-      message: enhancedMessage,
-      source,
-    })
-      .then(({ errors }) => {
-        if (errors.length > 0) {
-          console.warn("[API /contact] Email warnings:", errors);
-        }
-      })
-      .catch((err) => {
-        console.error(
-          "[API /contact] Email send failed (non-critical):",
-          err
-        );
-      });
-
-    // 3. Send the form data to Google Sheet / n8n Webhook
+    // 2. Prepare payload for Google Sheet Webhook
     const googleSheetUrl =
       process.env.GOOGLE_SHEET_WEBHOOK_URL ||
       "https://script.google.com/macros/s/AKfycbz0KnU7lmE22AxA_8esMXBlcLdYKhcAcSrvgnM133YJGOlOtisHWT2J7h9ZMQ-Y4Qg-mQ/exec";
@@ -112,8 +88,10 @@ export async function POST(req: Request) {
       process.env.N8N_WEBHOOK_URL,
     ].filter(Boolean) as string[];
 
+    const dateStr = new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" });
+
     const webhookPayload = {
-      "Date": new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" }),
+      "Date": dateStr,
       "Nom Complet": name,
       "Nom complet": name,
       "Nom": name,
@@ -125,46 +103,71 @@ export async function POST(req: Request) {
       "Téléphone": phone,
       "Telephone": phone,
       "phone": phone,
-      "Niveau actuel": level,
-      "Niveau Actuel": level,
-      "Niveau": level,
-      "level": level,
-      "Level": level,
-      "Ecole": school,
-      "École": school,
-      "ECOLE": school,
-      "ÉCOLE": school,
-      "school": school,
-      "School": school,
+      "Niveau actuel": level || (profile === "student" ? "Étudiant" : profile === "graduate" ? "Lauréat" : profile === "pro" ? "Professionnel" : "Non spécifié"),
+      "Niveau Actuel": level || "",
+      "Niveau": level || "",
+      "level": level || "",
+      "Level": level || "",
+      "Ecole": school || (source === "pricing-modal" ? "Demande de tarif" : "Non spécifié"),
+      "École": school || "",
+      "ECOLE": school || "",
+      "ÉCOLE": school || "",
+      "school": school || "",
+      "School": school || "",
       "source": source,
       "profile": profile,
       "objective": enhancedObjective,
       "message": enhancedMessage,
     };
 
-    for (const url of webhookUrls) {
+    // 3. Dispatch Webhook, Email and WhatsApp concurrently (non-blocking for UI speed)
+    const backgroundTasks = async () => {
+      // 3a. Google Sheet Webhook
+      for (const url of webhookUrls) {
+        try {
+          await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+            body: JSON.stringify(webhookPayload),
+            redirect: "follow",
+          });
+          console.log(`[API /contact] Webhook sent successfully to ${url}`);
+        } catch (err) {
+          console.error(`[API /contact] Webhook failed (${url}):`, err);
+        }
+      }
+
+      // 3b. Send emails via Resend
       try {
-        await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8",
-          },
-          body: JSON.stringify(webhookPayload),
-          redirect: "follow",
+        await sendContactEmails({
+          name,
+          email,
+          phone,
+          level,
+          school,
+          profile,
+          objective: enhancedObjective,
+          message: enhancedMessage,
+          source,
         });
       } catch (err) {
-        console.error(`[API /contact] Webhook failed (${url}):`, err);
+        console.error("[API /contact] Email send failed:", err);
       }
-    }
 
-    // 4. Send automated WhatsApp message to the lead
-    if (phone) {
-      try {
-        await sendWhatsAppConfirmation(name, phone);
-      } catch (err) {
-        console.error("[API /contact] WhatsApp confirmation failed:", err);
+      // 3c. Send WhatsApp confirmation
+      if (phone) {
+        try {
+          await sendWhatsAppConfirmation(name, phone);
+        } catch (err) {
+          console.error("[API /contact] WhatsApp confirmation failed:", err);
+        }
       }
-    }
+    };
+
+    // Run background tasks safely
+    backgroundTasks().catch((e) => console.error("[API /contact backgroundTasks error]:", e));
 
     return NextResponse.json({
       ok: true,
