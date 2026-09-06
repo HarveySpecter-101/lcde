@@ -71,6 +71,8 @@ export async function POST(req: Request) {
         name,
         email,
         phone: phone || null,
+        level: level || null,
+        school: school || null,
         profile,
         objective: enhancedObjective || null,
         message: enhancedMessage,

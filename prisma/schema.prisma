@@ -34,6 +34,8 @@ model ContactSubmission {
   name      String
   email     String
   phone     String?
+  level     String?
+  school    String?
   profile   String   @default("student") // "student" | "company" | "other"
   objective String?  // e.g. "Rejoindre la prochaine édition"
   message   String
