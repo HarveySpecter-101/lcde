@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import * as XLSX from "xlsx";
+import XLSX from "xlsx-js-style";
 import { db } from "@/lib/db";
 import { isUserAdmin } from "@/lib/admin-auth";
 
