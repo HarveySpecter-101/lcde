@@ -16,7 +16,6 @@ import {
   ShieldCheck,
   FileSpreadsheet,
 } from "lucide-react";
-import * as XLSX from "xlsx";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,12 +32,13 @@ type Submission = {
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [loginEmail, setLoginEmail] = useState("admin@lcde.ma");
-  const [loginPassword, setLoginPassword] = useState("AdminLCDE2026!");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
 
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loadingSubmissions, setLoadingSubmissions] = useState(false);
+  const [downloadingExcel, setDownloadingExcel] = useState(false);
   const [search, setSearch] = useState("");
 
   // Check authentication on mount
@@ -101,6 +101,8 @@ export default function AdminPage() {
       await fetch("/api/admin/logout", { method: "POST" });
       setIsAuthenticated(false);
       setSubmissions([]);
+      setLoginEmail("");
+      setLoginPassword("");
       toast.success("Déconnexion réussie.");
     } catch {
       toast.error("Erreur lors de la déconnexion.");
@@ -120,47 +122,43 @@ export default function AdminPage() {
     );
   }, [submissions, search]);
 
-  const exportToExcel = () => {
-    if (filteredSubmissions.length === 0) {
+  const exportToExcel = async () => {
+    if (submissions.length === 0) {
       toast.error("Aucune donnée à exporter.");
       return;
     }
 
+    setDownloadingExcel(true);
     try {
-      const dataToExport = filteredSubmissions.map((s, idx) => ({
-        "N°": idx + 1,
-        "Date": new Date(s.createdAt).toLocaleString("fr-FR", {
-          timeZone: "Africa/Casablanca",
-        }),
-        "Nom complet": s.name,
-        "Téléphone / WhatsApp": s.phone,
-        "Email": s.email,
-        "Niveau actuel": s.level,
-        "École": s.school,
-      }));
+      toast.info("Génération du fichier Excel officiel en cours...");
+      
+      const response = await fetch("/api/admin/export");
+      if (!response.ok) {
+        throw new Error("Erreur de génération serveur.");
+      }
 
-      const ws = XLSX.utils.json_to_sheet(dataToExport);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(
+        new Blob([blob], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        })
+      );
 
-      // Largeurs de colonnes optimales
-      ws["!cols"] = [
-        { wch: 6 },
-        { wch: 20 },
-        { wch: 26 },
-        { wch: 20 },
-        { wch: 32 },
-        { wch: 28 },
-        { wch: 28 },
-      ];
-
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Candidatures");
-
+      const a = document.createElement("a");
+      a.href = url;
       const today = new Date().toISOString().split("T")[0];
-      XLSX.writeFile(wb, `Candidatures_LCDE_${today}.xlsx`);
-      toast.success("Fichier Excel généré et téléchargé avec succès !");
+      a.download = `Candidatures_LCDE_${today}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      toast.success("Fichier Excel téléchargé avec succès !");
     } catch (error) {
       console.error("Export Excel error:", error);
-      toast.error("Erreur lors de l'export Excel.");
+      toast.error("Erreur lors du téléchargement du fichier Excel.");
+    } finally {
+      setDownloadingExcel(false);
     }
   };
 
@@ -176,7 +174,7 @@ export default function AdminPage() {
     );
   }
 
-  // 2. Login Screen
+  // 2. Login Screen (inputs vides, aucun pré-remplissage)
   if (!isAuthenticated) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#071930] px-4 py-12 text-white">
@@ -189,10 +187,10 @@ export default function AdminPage() {
             Espace Administrateur
           </h1>
           <p className="mt-1 text-center text-xs text-white/60">
-            Accès sécurisé à la liste des candidatures
+            Veuillez vous identifier pour accéder aux candidatures
           </p>
 
-          <form onSubmit={handleLogin} className="mt-6 space-y-4">
+          <form onSubmit={handleLogin} autoComplete="off" className="mt-6 space-y-4">
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-white/70">
                 Email / Identifiant
@@ -202,10 +200,11 @@ export default function AdminPage() {
                 <Input
                   type="email"
                   required
+                  autoComplete="off"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
-                  className="h-11 rounded-xl border-white/15 bg-white/10 pl-10 text-sm text-white placeholder:text-white/40 focus:border-gold focus:ring-gold"
-                  placeholder="admin@lcde.ma"
+                  className="h-11 rounded-xl border-white/15 bg-white/10 pl-10 text-sm text-white placeholder:text-white/30 focus:border-gold focus:ring-gold"
+                  placeholder="votre-email@lcde.ma"
                 />
               </div>
             </div>
@@ -219,10 +218,11 @@ export default function AdminPage() {
                 <Input
                   type="password"
                   required
+                  autoComplete="new-password"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
-                  className="h-11 rounded-xl border-white/15 bg-white/10 pl-10 text-sm text-white placeholder:text-white/40 focus:border-gold focus:ring-gold"
-                  placeholder="••••••••"
+                  className="h-11 rounded-xl border-white/15 bg-white/10 pl-10 text-sm text-white placeholder:text-white/30 focus:border-gold focus:ring-gold"
+                  placeholder="••••••••••••"
                 />
               </div>
             </div>
@@ -232,7 +232,7 @@ export default function AdminPage() {
               disabled={loggingIn}
               className="mt-2 h-11 w-full rounded-xl bg-gold font-bold text-navy hover:bg-gold/90 transition-all shadow-lg"
             >
-              {loggingIn ? "Vérification..." : "Se connecter"}
+              {loggingIn ? "Connexion en cours..." : "Se connecter"}
             </Button>
           </form>
         </div>
@@ -311,10 +311,11 @@ export default function AdminPage() {
             <Button
               size="sm"
               onClick={exportToExcel}
-              className="h-10 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs gap-2 px-4 shadow-lg shadow-emerald-900/30 transition-all"
+              disabled={downloadingExcel || submissions.length === 0}
+              className="h-10 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs gap-2 px-4 shadow-lg shadow-emerald-900/30 transition-all disabled:opacity-50"
             >
-              <Download className="size-4" />
-              Télécharger Excel (.xlsx)
+              <Download className={`size-4 ${downloadingExcel ? "animate-bounce" : ""}`} />
+              {downloadingExcel ? "Génération..." : "Télécharger Excel (.xlsx)"}
             </Button>
           </div>
         </div>
@@ -380,10 +381,18 @@ export default function AdminPage() {
                   </tr>
                 ) : filteredSubmissions.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="py-12 text-center text-white/50">
-                      {search
-                        ? "Aucune candidature ne correspond à votre recherche."
-                        : "Aucune candidature enregistrée pour le moment."}
+                    <td colSpan={6} className="py-16 text-center text-white/50">
+                      <div className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-white/40 mb-3">
+                        <FileSpreadsheet className="size-6" />
+                      </div>
+                      <p className="text-sm font-medium text-white/70">
+                        {search
+                          ? "Aucune candidature ne correspond à votre recherche."
+                          : "Aucune candidature pour le moment."}
+                      </p>
+                      <p className="mt-1 text-xs text-white/40">
+                        Les prochaines soumissions depuis le formulaire s'afficheront ici en direct.
+                      </p>
                     </td>
                   </tr>
                 ) : (
