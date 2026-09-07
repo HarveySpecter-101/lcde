@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 
 /* ═══════════════════════════════════════════════════
-   PARTICLE ENGINE — 80 particles (40 mobile)
-   Gold + Navy drift, mouse attraction, scroll boost
+   PARTICLE ENGINE — OPTIMIZED
+   30 particles on desktop, 18 on mobile
+   FPS-capped at 30fps, no inter-particle lines on mobile
+   Pauses when tab is hidden
 ═══════════════════════════════════════════════════ */
 
 interface Particle {
@@ -44,12 +46,15 @@ function useGlobalParticleCanvas() {
     if (!ctx) return;
 
     const mobile = window.innerWidth < 768;
-    const COUNT = mobile ? 40 : 80;
+    const COUNT = mobile ? 18 : 30; // Reduced from 80/40
+    const LINE_DIST = 110;
+    const FRAME_INTERVAL = 1000 / 30; // Cap at 30fps instead of 60
 
     let w = canvas.width  = window.innerWidth;
     let h = canvas.height = window.innerHeight;
-
     let pts: Particle[] = Array.from({ length: COUNT }, () => mkParticle(w, h));
+    let paused = false;
+    let lastFrameTime = 0;
 
     const onResize = () => {
       w = canvas.width  = window.innerWidth;
@@ -61,12 +66,22 @@ function useGlobalParticleCanvas() {
       scrollVRef.current = (window.scrollY - lastSY.current) * 0.14;
       lastSY.current = window.scrollY;
     };
+    const onVisibility = () => { paused = document.hidden; };
 
-    window.addEventListener("resize",    onResize);
-    window.addEventListener("mousemove", onMouse);
-    window.addEventListener("scroll",    onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    window.addEventListener("mousemove", onMouse, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("visibilitychange", onVisibility);
 
-    const draw = () => {
+    const draw = (timestamp: number) => {
+      rafRef.current = requestAnimationFrame(draw);
+
+      if (paused) return;
+
+      // Throttle to ~30fps
+      if (timestamp - lastFrameTime < FRAME_INTERVAL) return;
+      lastFrameTime = timestamp;
+
       ctx.clearRect(0, 0, w, h);
       scrollVRef.current *= 0.88;
 
@@ -74,14 +89,13 @@ function useGlobalParticleCanvas() {
         const dx = mouseRef.current.x - p.x;
         const dy = mouseRef.current.y - p.y;
         const d  = Math.sqrt(dx * dx + dy * dy);
-        
-        // Mouse attraction
+
         if (d < 150 && d > 0) {
           const f = (150 - d) / 150;
           p.vx += (dx / d) * f * 0.035;
           p.vy += (dy / d) * f * 0.035;
         }
-        
+
         p.vx += (0       - p.vx)    * 0.012;
         p.vy += (p.baseVy - p.vy)   * 0.012;
         p.y  += p.vy - scrollVRef.current;
@@ -92,41 +106,39 @@ function useGlobalParticleCanvas() {
         if (p.x < -20) p.x = w + 10;
         if (p.x > w+20) p.x = -10;
 
-        // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
         ctx.fill();
 
-        // ── HIGGSFIELD NEURAL MESH (Draw lines to nearby particles) ──
-        for (let j = i + 1; j < pts.length; j++) {
-          const p2 = pts[j];
-          const dx2 = p.x - p2.x;
-          const dy2 = p.y - p2.y;
-          const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-          
-          if (dist2 < 110) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            // Line opacity depends on distance (closer = more opaque)
-            const lineOpacity = (1 - dist2 / 110) * 0.25;
-            ctx.strokeStyle = `rgba(${p.color},${lineOpacity})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
+        // Lines only on desktop, fewer checks
+        if (!mobile) {
+          for (let j = i + 1; j < pts.length; j++) {
+            const p2 = pts[j];
+            const dx2 = p.x - p2.x;
+            const dy2 = p.y - p2.y;
+            const dist2 = dx2 * dx2 + dy2 * dy2; // Skip sqrt
+            if (dist2 < LINE_DIST * LINE_DIST) {
+              const lineOpacity = (1 - Math.sqrt(dist2) / LINE_DIST) * 0.25;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(${p.color},${lineOpacity})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
           }
         }
       });
-
-      rafRef.current = requestAnimationFrame(draw);
     };
-    draw();
+    rafRef.current = requestAnimationFrame(draw);
 
     return () => {
       cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize",    onResize);
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouse);
-      window.removeEventListener("scroll",    onScroll);
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 
@@ -145,7 +157,7 @@ function useGlobalSpotlight() {
   useEffect(() => {
     if (window.matchMedia("(hover: none)").matches) return;
     const fn = (e: MouseEvent) => { rawX.set(e.clientX - 350); rawY.set(e.clientY - 350); };
-    window.addEventListener("mousemove", fn);
+    window.addEventListener("mousemove", fn, { passive: true });
     return () => window.removeEventListener("mousemove", fn);
   }, [rawX, rawY]);
 
@@ -154,38 +166,25 @@ function useGlobalSpotlight() {
 
 /* ═══════════════════════════════════════════════════
    GLOBAL CANVAS EXPORT
-   position:fixed, z-index:-1, pointer-events:none
-   Visible behind ALL sections throughout the whole page
 ═══════════════════════════════════════════════════ */
 export function GlobalCanvas() {
   const canvasRef = useGlobalParticleCanvas();
   const { x: spotX, y: spotY } = useGlobalSpotlight();
 
-  /* Slow-drifting parallax shapes tied to global scrollY */
   const { scrollY } = useScroll();
   const totalH = typeof document !== "undefined" ? document.documentElement.scrollHeight - window.innerHeight : 3000;
 
-  // Top-right ring cluster — moves up as user scrolls
   const ring1Y = useSpring(useTransform(scrollY, [0, totalH], [0, -totalH * 0.22]), { stiffness: 40, damping: 30 });
   const ring1X = useSpring(useTransform(scrollY, [0, totalH], [0, totalH * 0.04]), { stiffness: 40, damping: 30 });
-
-  // Bottom-left ring cluster — moves down
   const ring2Y = useSpring(useTransform(scrollY, [0, totalH], [0, totalH * 0.18]), { stiffness: 35, damping: 28 });
-
-  // Mid floating ring — diagonal drift
   const ring3Y = useSpring(useTransform(scrollY, [0, totalH], [0, -totalH * 0.10]), { stiffness: 45, damping: 32 });
   const ring3X = useSpring(useTransform(scrollY, [0, totalH], [0, -totalH * 0.06]), { stiffness: 45, damping: 32 });
-
-  // Large bg diagonal line rotation
   const lineRot = useTransform(scrollY, [0, totalH], [0, 18]);
 
   return (
     <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden" aria-hidden>
-
-      {/* ── Canvas particles ── */}
       <canvas ref={canvasRef} className="absolute inset-0" />
 
-      {/* ── Mouse spotlight ── */}
       <motion.div
         className="absolute rounded-full"
         style={{
@@ -195,7 +194,6 @@ export function GlobalCanvas() {
         }}
       />
 
-      {/* ── Ring cluster A — top-right, drifts upward on scroll ── */}
       <motion.div style={{ y: ring1Y, x: ring1X, willChange: "transform" }} className="absolute">
         <div className="absolute -right-[280px] top-[-200px] size-[900px] rounded-full border border-gold/[0.11]" style={{ right: "calc(100vw - 92vw)" }} />
         <div style={{ position:"fixed", right:"-220px", top:"-160px", width:"720px", height:"720px", borderRadius:"50%", border:"1.5px solid rgba(196,169,98,0.14)" }} />
@@ -203,20 +201,17 @@ export function GlobalCanvas() {
         <div style={{ position:"fixed", right:"-80px",  top:"-50px",  width:"400px", height:"400px", borderRadius:"50%", border:"1px solid rgba(196,169,98,0.07)" }} />
       </motion.div>
 
-      {/* ── Ring cluster B — bottom-left, drifts down on scroll ── */}
       <motion.div style={{ y: ring2Y, willChange: "transform" }} className="absolute inset-0">
         <div style={{ position:"fixed", left:"-240px", bottom:"-200px", width:"800px", height:"800px", borderRadius:"50%", border:"1.5px solid rgba(10,38,71,0.10)" }} />
         <div style={{ position:"fixed", left:"-170px", bottom:"-140px", width:"620px", height:"620px", borderRadius:"50%", border:"1px solid rgba(10,38,71,0.08)" }} />
         <div style={{ position:"fixed", left:"-100px", bottom:"-80px",  width:"460px", height:"460px", borderRadius:"50%", border:"1px solid rgba(196,169,98,0.09)" }} />
       </motion.div>
 
-      {/* ── Ring cluster C — mid page, diagonal drift ── */}
       <motion.div style={{ y: ring3Y, x: ring3X, willChange: "transform" }} className="absolute inset-0">
         <div style={{ position:"fixed", left:"38%",  top:"30%", width:"600px", height:"600px", borderRadius:"50%", border:"1px solid rgba(196,169,98,0.07)", transform:"translate(-50%,-50%)" }} />
         <div style={{ position:"fixed", left:"62%",  top:"60%", width:"400px", height:"400px", borderRadius:"50%", border:"1px solid rgba(10,38,71,0.06)",  transform:"translate(-50%,-50%)" }} />
       </motion.div>
 
-      {/* ── Global diagonal SVG lines (slow rotate on scroll) ── */}
       <motion.div style={{ rotate: lineRot, willChange: "transform" }} className="absolute inset-0 origin-center">
         <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
           <defs>
@@ -236,7 +231,6 @@ export function GlobalCanvas() {
           <line x1="93%" y1="0" x2="63%" y2="100%" stroke="rgba(10,38,71,0.05)" strokeWidth="1" />
         </svg>
       </motion.div>
-
     </div>
   );
 }
