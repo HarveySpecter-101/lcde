@@ -16,9 +16,13 @@ import { BackToTop } from "@/components/site/back-to-top";
 import { PersistentCtaBar } from "@/components/site/persistent-cta-bar";
 import { GlobalCanvas } from "@/components/site/global-canvas";
 
+import { SiteTracker } from "@/components/site/tracker";
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden">
+      {/* ── Invisible visitor tracker ── */}
+      <SiteTracker />
       {/* ── Global interactive background — fixed, z:-1, full page ── */}
       <GlobalCanvas />
       <ScrollProgress />

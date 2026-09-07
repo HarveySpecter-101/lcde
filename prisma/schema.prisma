@@ -44,3 +44,25 @@ model ContactSubmission {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model SiteVisit {
+  id               String    @id @default(cuid())
+  sessionId        String    @unique
+  ip               String?
+  userAgent        String?
+  browser          String?
+  os               String?
+  device           String?
+  screenWidth      Int?
+  screenHeight     Int?
+  referrer         String?
+  country          String?
+  entryPage        String    @default("/")
+  sectionsVisited  Json?
+  events           Json?
+  maxScrollPercent Int       @default(0)
+  duration         Int       @default(0)
+  totalClicks      Int       @default(0)
+  startedAt        DateTime  @default(now())
+  endedAt          DateTime?
+}
