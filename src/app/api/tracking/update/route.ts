@@ -28,14 +28,27 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "Session not found" }, { status: 404 });
     }
 
+    const elapsed = Math.max(0, Date.now() - existing.startedAt.getTime());
+    const finalDuration = Math.max(body.duration ?? 0, existing.duration, elapsed);
+    const finalMaxScroll = Math.max(body.maxScrollPercent ?? 0, existing.maxScrollPercent);
+
+    // Update referrer if client detected specific source (like WhatsApp)
+    let referrerToSave = existing.referrer;
+    if (body.referrer && body.referrer !== "Direct" && body.referrer !== "Accès direct") {
+      referrerToSave = body.referrer;
+    } else if (!referrerToSave && body.referrer) {
+      referrerToSave = body.referrer;
+    }
+
     await db.siteVisit.update({
       where: { sessionId: body.sessionId },
       data: {
         sectionsVisited: body.sectionsVisited ?? existing.sectionsVisited,
         events: body.events ?? existing.events,
-        maxScrollPercent: Math.max(body.maxScrollPercent ?? 0, existing.maxScrollPercent),
-        duration: Math.max(body.duration ?? 0, existing.duration),
+        maxScrollPercent: finalMaxScroll,
+        duration: finalDuration,
         totalClicks: Math.max(body.totalClicks ?? 0, existing.totalClicks),
+        referrer: referrerToSave,
         ...(body.isEnd ? { endedAt: new Date() } : {}),
       },
     });

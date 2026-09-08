@@ -14,12 +14,17 @@ function generateSessionId(): string {
 }
 
 function getBrowserInfo() {
+  if (typeof navigator === "undefined") {
+    return { browser: "Unknown", os: "Unknown", device: "Desktop" };
+  }
+
   const ua = navigator.userAgent;
   let browser = "Unknown";
   let os = "Unknown";
   let device = "Desktop";
 
-  if (ua.includes("Firefox")) browser = "Firefox";
+  if (ua.includes("WhatsApp")) browser = "WhatsApp Webview";
+  else if (ua.includes("Firefox")) browser = "Firefox";
   else if (ua.includes("Edg")) browser = "Edge";
   else if (ua.includes("OPR") || ua.includes("Opera")) browser = "Opera";
   else if (ua.includes("Chrome")) browser = "Chrome";
@@ -35,6 +40,75 @@ function getBrowserInfo() {
   else if (/iPad|Tablet/i.test(ua)) device = "Tablet";
 
   return { browser, os, device };
+}
+
+function detectTrafficSource(): string {
+  if (typeof window === "undefined") return "Direct";
+
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource =
+      urlParams.get("utm_source") ||
+      urlParams.get("ref") ||
+      urlParams.get("source") ||
+      urlParams.get("utm_medium");
+
+    if (utmSource) {
+      if (/whatsapp/i.test(utmSource)) return "WhatsApp";
+      if (/instagram|ig/i.test(utmSource)) return "Instagram";
+      if (/facebook|fb/i.test(utmSource)) return "Facebook";
+      if (/linkedin/i.test(utmSource)) return "LinkedIn";
+      if (/tiktok/i.test(utmSource)) return "TikTok";
+      if (/google/i.test(utmSource)) return "Google";
+      return utmSource;
+    }
+
+    const ref = (document.referrer || "").trim();
+    const ua = navigator.userAgent || "";
+
+    // WhatsApp detection (Android intent, in-app browser, wa.me referrer)
+    if (
+      /whatsapp/i.test(ref) ||
+      /com\.whatsapp/i.test(ref) ||
+      /l\.whatsapp\.com/i.test(ref) ||
+      /whatsapp/i.test(ua)
+    ) {
+      return "WhatsApp";
+    }
+
+    if (/instagram/i.test(ref) || /instagram/i.test(ua)) return "Instagram";
+    if (/facebook|fb\.com|fbclid/i.test(ref) || /fbclid/i.test(window.location.search)) return "Facebook";
+    if (/linkedin/i.test(ref)) return "LinkedIn";
+    if (/google\./i.test(ref)) return "Google";
+
+    if (ref) {
+      try {
+        const hostname = new URL(ref).hostname.replace(/^www\./, "");
+        if (hostname) return hostname;
+      } catch {
+        return ref.slice(0, 50);
+      }
+    }
+  } catch {}
+
+  return "Accès direct";
+}
+
+function getScrollPercent(): number {
+  if (typeof window === "undefined" || typeof document === "undefined") return 0;
+  const doc = document.documentElement;
+  const body = document.body;
+  const scrollTop = window.pageYOffset || doc.scrollTop || body.scrollTop || 0;
+  const scrollHeight =
+    Math.max(
+      doc.scrollHeight,
+      body.scrollHeight,
+      doc.offsetHeight,
+      body.offsetHeight
+    ) - window.innerHeight;
+
+  if (scrollHeight <= 0) return 0;
+  return Math.min(100, Math.max(0, Math.round((scrollTop / scrollHeight) * 100)));
 }
 
 type SectionData = {
@@ -59,12 +133,22 @@ export function SiteTracker() {
   const clickCountRef = useRef(0);
   const initializedRef = useRef(false);
   const lastSendRef = useRef(0);
+  const trafficSourceRef = useRef("Accès direct");
+  const scrollDebounceTimer = useRef<NodeJS.Timeout | null>(null);
 
   const sendData = useCallback((isEnd: boolean = false) => {
-    // Throttle non-end sends to avoid spam
+    if (!sessionIdRef.current) return;
+
     const now = Date.now();
-    if (!isEnd && now - lastSendRef.current < 10000) return;
+    // Allow immediate send if isEnd, otherwise minimum 2s between rapid sends
+    if (!isEnd && now - lastSendRef.current < 2000) return;
     lastSendRef.current = now;
+
+    // Refresh scroll before sending
+    const currentScroll = getScrollPercent();
+    if (currentScroll > maxScrollRef.current) {
+      maxScrollRef.current = currentScroll;
+    }
 
     const sections = Array.from(sectionsRef.current.entries()).map(
       ([name, data]) => ({
@@ -78,27 +162,33 @@ export function SiteTracker() {
     const payload = JSON.stringify({
       sessionId: sessionIdRef.current,
       sectionsVisited: sections,
-      events: eventsRef.current.slice(-200), // Cap at 200 events
+      events: eventsRef.current.slice(-200),
       maxScrollPercent: maxScrollRef.current,
-      duration: now - startTimeRef.current,
+      duration: Math.max(1000, now - startTimeRef.current),
       totalClicks: clickCountRef.current,
+      referrer: trafficSourceRef.current,
       isEnd,
     });
 
     const url = "/api/tracking/update";
 
-    if (isEnd && navigator.sendBeacon) {
-      navigator.sendBeacon(
-        url,
-        new Blob([payload], { type: "application/json" })
-      );
-    } else {
+    // Modern keepalive fetch first (preferred on mobile)
+    try {
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: payload,
         keepalive: true,
-      }).catch(() => {});
+      }).catch(() => {
+        // Fallback to sendBeacon if fetch fails on unload
+        if (isEnd && typeof navigator !== "undefined" && navigator.sendBeacon) {
+          navigator.sendBeacon(url, new Blob([payload], { type: "application/json" }));
+        }
+      });
+    } catch {
+      if (isEnd && typeof navigator !== "undefined" && navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([payload], { type: "application/json" }));
+      }
     }
   }, []);
 
@@ -106,8 +196,10 @@ export function SiteTracker() {
     if (initializedRef.current) return;
     initializedRef.current = true;
 
-    // Check if on admin page — don't track
-    if (window.location.pathname.startsWith("/admin")) return;
+    // Do not track admin portal
+    if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) {
+      return;
+    }
 
     // Session ID management
     const existingSession = sessionStorage.getItem("lcde_track_sid");
@@ -118,9 +210,12 @@ export function SiteTracker() {
       sessionStorage.setItem("lcde_track_sid", sessionIdRef.current);
     }
 
+    const trafficSource = detectTrafficSource();
+    trafficSourceRef.current = trafficSource;
+
     const { browser, os, device } = getBrowserInfo();
 
-    // Initialize visit
+    // 1. Initialiser la visite
     fetch("/api/tracking/init", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -132,20 +227,23 @@ export function SiteTracker() {
         device,
         screenWidth: window.screen.width,
         screenHeight: window.screen.height,
-        referrer: document.referrer || null,
+        referrer: trafficSource,
         entryPage: window.location.pathname,
       }),
     }).catch(() => {});
 
-    // Section tracking — observe all <section id="...">
+    // 2. Observer toutes les sections avec seuil très bas pour le mobile
     const setupObserver = () => {
       const sections = document.querySelectorAll("section[id]");
-      if (sections.length === 0) return;
+      if (sections.length === 0) return null;
 
       const observer = new IntersectionObserver(
         (entries) => {
+          let hasNewEnter = false;
           entries.forEach((entry) => {
             const id = entry.target.id;
+            if (!id) return;
+
             if (!sectionsRef.current.has(id)) {
               sectionsRef.current.set(id, {
                 enterTime: 0,
@@ -158,6 +256,7 @@ export function SiteTracker() {
             if (entry.isIntersecting && !data.visible) {
               data.visible = true;
               data.enterTime = Date.now();
+              hasNewEnter = true;
               eventsRef.current.push({
                 type: "section_enter",
                 section: id,
@@ -173,46 +272,52 @@ export function SiteTracker() {
               });
             }
           });
+
+          // Dès qu'une nouvelle section est atteinte, on synchronise sans attendre !
+          if (hasNewEnter) {
+            sendData(false);
+          }
         },
-        { threshold: 0.25 }
+        { threshold: [0.05, 0.15], rootMargin: "0px 0px -5% 0px" }
       );
 
       sections.forEach((s) => observer.observe(s));
       return observer;
     };
 
-    // Wait a tick for DOM to be ready
-    const observerRef = { current: null as IntersectionObserver | null };
-    const setupTimer = setTimeout(() => {
-      observerRef.current = setupObserver() || null;
-    }, 1000);
+    // Attachement immédiat + rafraîchissement
+    let observer = setupObserver();
+    const t1 = setTimeout(() => {
+      if (!observer) observer = setupObserver();
+    }, 400);
+    const t2 = setTimeout(() => {
+      if (!observer) observer = setupObserver();
+    }, 1500);
 
-    // Scroll tracking (throttled)
-    let scrollRAF: number | null = null;
-    const handleScroll = () => {
-      if (scrollRAF) return;
-      scrollRAF = requestAnimationFrame(() => {
-        const scrollHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollHeight > 0) {
-          const percent = Math.round((window.scrollY / scrollHeight) * 100);
-          if (percent > maxScrollRef.current) {
-            maxScrollRef.current = percent;
-          }
-        }
-        scrollRAF = null;
-      });
+    // 3. Suivi du Scroll (Mobile touch + scroll classique)
+    const handleScrollUpdate = () => {
+      const p = getScrollPercent();
+      if (p > maxScrollRef.current) {
+        maxScrollRef.current = p;
+      }
+
+      // Debounce sync 1.5s après l'arrêt du défilement
+      if (scrollDebounceTimer.current) clearTimeout(scrollDebounceTimer.current);
+      scrollDebounceTimer.current = setTimeout(() => {
+        sendData(false);
+      }, 1500);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Click tracking
+    window.addEventListener("scroll", handleScrollUpdate, { passive: true });
+    window.addEventListener("touchmove", handleScrollUpdate, { passive: true });
+
+    // 4. Suivi des Clics
     const handleClick = (e: MouseEvent) => {
       clickCountRef.current++;
       const target = e.target as HTMLElement;
       const closestId = target.id || target.closest("[id]")?.id || "";
-      const tagName = target.tagName.toLowerCase();
+      const tagName = target.tagName ? target.tagName.toLowerCase() : "";
       const text = (target.textContent || "").trim().slice(0, 40);
-      const cls = target.className?.toString().slice(0, 50) || "";
 
       eventsRef.current.push({
         type: "click",
@@ -220,37 +325,51 @@ export function SiteTracker() {
         time: Date.now() - startTimeRef.current,
       });
 
-      // Keep events array from growing too large
       if (eventsRef.current.length > 300) {
         eventsRef.current = eventsRef.current.slice(-200);
       }
     };
-    document.addEventListener("click", handleClick);
+    document.addEventListener("click", handleClick, { passive: true });
 
-    // Periodic update (every 30s)
-    const interval = setInterval(() => sendData(false), 30000);
+    // 5. Synchronisations automatiques rapprochées
+    // 2s, 6s, 12s, puis toutes les 8s (pour ne JAMAIS perdre une visite rapide mobile)
+    const earlySync1 = setTimeout(() => sendData(false), 2000);
+    const earlySync2 = setTimeout(() => sendData(false), 6000);
+    const earlySync3 = setTimeout(() => sendData(false), 12000);
+    const interval = setInterval(() => sendData(false), 8000);
 
-    // End session on unload
-    const handleBeforeUnload = () => sendData(true);
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    // 6. Gestion ultra-fiable des sorties sur Mobile (pagehide + visibilitychange)
+    const handleExit = () => {
+      sendData(true);
+    };
 
-    const handleVisibilityChange = () => {
+    window.addEventListener("pagehide", handleExit);
+    window.addEventListener("beforeunload", handleExit);
+
+    const handleVisibility = () => {
       if (document.visibilityState === "hidden") {
         sendData(true);
       }
     };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
-      clearTimeout(setupTimer);
-      observerRef.current?.disconnect();
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("click", handleClick);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(earlySync1);
+      clearTimeout(earlySync2);
+      clearTimeout(earlySync3);
+      if (scrollDebounceTimer.current) clearTimeout(scrollDebounceTimer.current);
       clearInterval(interval);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      observer?.disconnect();
+      window.removeEventListener("scroll", handleScrollUpdate);
+      window.removeEventListener("touchmove", handleScrollUpdate);
+      document.removeEventListener("click", handleClick);
+      window.removeEventListener("pagehide", handleExit);
+      window.removeEventListener("beforeunload", handleExit);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, [sendData]);
 
-  return null; // Invisible tracking component
+  return null;
 }

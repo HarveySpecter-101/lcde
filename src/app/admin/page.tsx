@@ -319,9 +319,15 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
                 <span className="text-white/50">Appareil</span>
                 <span>{visit.device || "—"} ({visit.screenWidth}×{visit.screenHeight})</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="text-white/50">Source</span>
-                <span className="truncate max-w-[200px]">{visit.referrer || "Accès direct"}</span>
+                {/whatsapp/i.test(visit.referrer || "") ? (
+                  <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/20 border border-emerald-500/30 px-2 py-0.5 text-xs font-semibold text-emerald-300">
+                    <Phone className="size-3 text-emerald-400" /> WhatsApp (Mobile)
+                  </span>
+                ) : (
+                  <span className="truncate max-w-[200px]">{visit.referrer || "Accès direct"}</span>
+                )}
               </div>
               <div className="flex justify-between">
                 <span className="text-white/50">Durée totale</span>
@@ -1278,14 +1284,24 @@ export default function AdminPage() {
                                 </div>
 
                                 {/* Info */}
-                                <div className="flex-1 min-w-0 grid grid-cols-2 sm:grid-cols-5 gap-2">
+                                <div className="flex-1 min-w-0 grid grid-cols-2 sm:grid-cols-6 gap-2 items-center">
                                   <div>
                                     <p className="text-[10px] text-white/40 uppercase">Date</p>
                                     <p className="text-white/80 text-xs truncate">{formatDate(v.startedAt)}</p>
                                   </div>
                                   <div>
+                                    <p className="text-[10px] text-white/40 uppercase">Source</p>
+                                    {/whatsapp/i.test(v.referrer || "") ? (
+                                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/20 border border-emerald-500/30 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-300 truncate">
+                                        <Phone className="size-2.5 text-emerald-400" /> WhatsApp
+                                      </span>
+                                    ) : (
+                                      <p className="text-white/70 text-xs truncate">{v.referrer || "Direct"}</p>
+                                    )}
+                                  </div>
+                                  <div>
                                     <p className="text-[10px] text-white/40 uppercase">Appareil</p>
-                                    <p className="text-white/80 text-xs">{v.browser} / {v.os}</p>
+                                    <p className="text-white/80 text-xs truncate">{v.browser} / {v.os}</p>
                                   </div>
                                   <div className="hidden sm:block">
                                     <p className="text-[10px] text-white/40 uppercase">Durée</p>
