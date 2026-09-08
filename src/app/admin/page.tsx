@@ -1041,45 +1041,37 @@ export default function AdminPage() {
                       </div>
                     </GlassPanel>
 
-                    {/* ── Section Funnel & Entonnoir de Scroll Coloré ── */}
+                    {/* ── Sections les plus consultées ── */}
                     <GlassPanel>
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
                         <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80 flex items-center gap-2">
-                              <Layers className="size-4 text-purple-400" />
-                              Sections les plus consultées (Entonnoir de Scroll)
-                            </h3>
-                            <span className="rounded-full bg-emerald-500/15 border border-emerald-500/25 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
-                              Profondeur de scroll
-                            </span>
-                          </div>
-                          <p className="text-xs text-white/40 mt-1">
-                            Visualisez exactement où les candidats s&apos;arrêtent : de la 1ère section en haut jusqu&apos;à la dernière tout en bas
-                          </p>
+                          <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80 flex items-center gap-2">
+                            <Layers className="size-4 text-purple-400" />
+                            Sections les plus consultées
+                          </h3>
                         </div>
 
-                        {/* Toggle pour trier : Ordre réel de défilement vs Popularité */}
+                        {/* Toggle pour trier : Ordre de la page vs Les plus vues */}
                         <div className="flex items-center rounded-xl bg-white/[0.06] p-1 border border-white/10 self-start sm:self-auto">
-                          <button
-                            onClick={() => setSectionSortMode("flow")}
-                            className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
-                              sectionSortMode === "flow"
-                                ? "bg-purple-600 text-white font-semibold"
-                                : "text-white/60 hover:text-white"
-                            }`}
-                          >
-                            Ordre du site (Haut ➔ Bas)
-                          </button>
                           <button
                             onClick={() => setSectionSortMode("views")}
                             className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
                               sectionSortMode === "views"
-                                ? "bg-purple-600 text-white font-semibold"
+                                ? "bg-purple-600 text-white font-semibold shadow-md shadow-purple-900/30"
                                 : "text-white/60 hover:text-white"
                             }`}
                           >
                             Les plus vues
+                          </button>
+                          <button
+                            onClick={() => setSectionSortMode("flow")}
+                            className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
+                              sectionSortMode === "flow"
+                                ? "bg-purple-600 text-white font-semibold shadow-md shadow-purple-900/30"
+                                : "text-white/60 hover:text-white"
+                            }`}
+                          >
+                            Ordre de la page
                           </button>
                         </div>
                       </div>
@@ -1115,13 +1107,10 @@ export default function AdminPage() {
                                 color: "#fff",
                                 fontSize: "12px",
                               }}
-                              formatter={(value: number, _, item) => {
-                                const entry = item?.payload as SectionStat;
-                                return [
-                                  `${value} vue${value > 1 ? "s" : ""} (${entry.percentage}% des visiteurs ont scrollé ici)`,
-                                  entry.depth ? `Position : ${entry.depth}` : "Vues",
-                                ];
-                              }}
+                              formatter={(value: number) => [
+                                `${value} vue${value > 1 ? "s" : ""}`,
+                                "Vues",
+                              ]}
                             />
                             <Bar dataKey="views" radius={[0, 6, 6, 0]}>
                               {displayedSectionStats.map((entry, index) => (
@@ -1130,41 +1119,6 @@ export default function AdminPage() {
                             </Bar>
                           </BarChart>
                         </ResponsiveContainer>
-                      </div>
-
-                      {/* Cartes d'entonnoir colorées pour chaque étape */}
-                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 mt-5 pt-4 border-t border-white/[0.06]">
-                        {displayedSectionStats.map((s) => (
-                          <div
-                            key={s.name}
-                            className="p-2.5 rounded-xl bg-white/[0.025] border border-white/5 hover:border-white/15 transition-all flex flex-col justify-between"
-                          >
-                            <div className="flex items-center gap-1.5">
-                              <span
-                                className="size-2.5 rounded-full flex-shrink-0 shadow-sm"
-                                style={{ backgroundColor: s.color }}
-                              />
-                              <span className="text-[11px] text-white/80 font-medium truncate" title={s.label}>
-                                {s.label}
-                              </span>
-                            </div>
-                            <div className="flex items-baseline justify-between mt-2">
-                              <span className="text-xs font-bold text-white">{s.views} vues</span>
-                              <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-white/10 text-white/80">
-                                {s.percentage}%
-                              </span>
-                            </div>
-                            <div className="mt-1.5 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                              <div
-                                className="h-full rounded-full transition-all duration-500"
-                                style={{ width: `${s.percentage}%`, backgroundColor: s.color }}
-                              />
-                            </div>
-                            <span className="text-[9px] text-white/40 mt-1 truncate">
-                              {s.depth}
-                            </span>
-                          </div>
-                        ))}
                       </div>
                     </GlassPanel>
 
