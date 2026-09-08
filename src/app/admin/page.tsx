@@ -21,14 +21,13 @@ import {
   Smartphone,
   Tablet,
   MousePointerClick,
-  Clock,
-  ArrowUpRight,
   TrendingUp,
   ChevronDown,
   ChevronUp,
   Activity,
   Sparkles,
   Users,
+  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -71,6 +70,17 @@ type ChartPoint = {
   total?: number;
 };
 
+type SectionStat = {
+  name: string;
+  label: string;
+  order: number;
+  depth: string;
+  color: string;
+  views: number;
+  percentage: number;
+  avgTime: number;
+};
+
 type AnalyticsData = {
   summary: {
     totalVisits: number;
@@ -89,7 +99,7 @@ type AnalyticsData = {
     overall: ChartPoint[];
   };
   visitsPerDay: Array<{ date: string; count: number }>;
-  sectionStats: Array<{ name: string; views: number; avgTime: number }>;
+  sectionStats: SectionStat[];
   devices: Record<string, number>;
   browsers: Record<string, number>;
   referrers: Record<string, number>;
@@ -142,16 +152,24 @@ function formatDate(iso: string): string {
 }
 
 const SECTION_LABELS: Record<string, string> = {
-  hero: "Hero / Accueil",
-  stats: "Statistiques",
-  "hiring-companies": "Entreprises partenaires",
-  modules: "Modules de formation",
-  intervenants: "Intervenants",
-  "what-you-gain": "Ce que vous gagnez",
-  "before-after": "Avant / Après",
-  "success-stories": "Témoignages",
-  founders: "Fondateurs",
-  contact: "Contact / Inscription",
+  accueil: "1. Accueil / Hero",
+  hero: "1. Accueil / Hero",
+  statistiques: "2. Chiffres Clés",
+  stats: "2. Chiffres Clés",
+  entreprises: "3. Entreprises Partenaires",
+  "hiring-companies": "3. Entreprises Partenaires",
+  formations: "4. Modules & Formations",
+  modules: "4. Modules & Formations",
+  intervenants: "5. Intervenants & Experts",
+  "ce-que-vous-gagnez": "6. Ce que vous gagnez",
+  "what-you-gain": "6. Ce que vous gagnez",
+  "avant-apres": "7. Avant / Après",
+  "before-after": "7. Avant / Après",
+  resultats: "8. Témoignages & Résultats",
+  "success-stories": "8. Témoignages & Résultats",
+  fondateurs: "9. Fondateurs",
+  founders: "9. Fondateurs",
+  contact: "10. Inscription & Formulaire",
 };
 
 const PIE_COLORS = ["#8b5cf6", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444", "#ec4899"];
@@ -214,48 +232,6 @@ function AnimatedBackground() {
 }
 
 /* ────────────────────────────────────────────────────────────── */
-/* Metric Card                                                   */
-/* ────────────────────────────────────────────────────────────── */
-
-function MetricCard({
-  label,
-  value,
-  icon: Icon,
-  trend,
-  color = "text-purple-400",
-}: {
-  label: string;
-  value: string | number;
-  icon: React.ComponentType<{ className?: string }>;
-  trend?: string;
-  color?: string;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl p-5 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300"
-    >
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wider text-white/50">{label}</p>
-          <p className="mt-1.5 text-2xl font-bold text-white">{value}</p>
-          {trend && (
-            <p className="mt-1 flex items-center gap-1 text-xs text-emerald-400">
-              <TrendingUp className="size-3" />
-              {trend}
-            </p>
-          )}
-        </div>
-        <div className={`flex size-10 items-center justify-center rounded-xl bg-white/[0.06] ${color}`}>
-          <Icon className="size-5" />
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ────────────────────────────────────────────────────────────── */
 /* Glass Panel                                                   */
 /* ────────────────────────────────────────────────────────────── */
 
@@ -295,7 +271,7 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
       case "section_enter":
         return <Eye className="size-3.5 text-emerald-400" />;
       case "section_leave":
-        return <ArrowUpRight className="size-3.5 text-amber-400" />;
+        return <Activity className="size-3.5 text-amber-400" />;
       case "click":
         return <MousePointerClick className="size-3.5 text-sky-400" />;
       default:
@@ -440,6 +416,7 @@ export default function AdminPage() {
   // Filter periods
   const [trafficPeriod, setTrafficPeriod] = useState<PeriodFilter>("day");
   const [submissionPeriod, setSubmissionPeriod] = useState<PeriodFilter>("overall");
+  const [sectionSortMode, setSectionSortMode] = useState<"flow" | "views">("flow");
 
   // Submissions
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -565,12 +542,12 @@ export default function AdminPage() {
     }
   };
 
-  /* ── Candidatures Stats by Period (Combien de personnes ont rempli le formulaire) ── */
+  /* ── Candidatures Stats by Period ── */
   const submissionStats = useMemo(() => {
     const now = new Date();
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
 
-    const dayOfWeek = (now.getDay() + 6) % 7; // Monday = 0
+    const dayOfWeek = (now.getDay() + 6) % 7;
     const mondayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dayOfWeek);
     mondayStart.setHours(0, 0, 0, 0);
     const weekStartTime = mondayStart.getTime();
@@ -655,6 +632,17 @@ export default function AdminPage() {
     }
     return analytics.chartData[trafficPeriod] || [];
   }, [analytics, trafficPeriod]);
+
+  /* ── Section Stats Formatted & Sorted ── */
+  const displayedSectionStats = useMemo(() => {
+    if (!analytics?.sectionStats || analytics.sectionStats.length === 0) return [];
+    const stats = [...analytics.sectionStats];
+    if (sectionSortMode === "views") {
+      return stats.sort((a, b) => b.views - a.views);
+    }
+    // "flow" sort mode: natural order of page from 1 to 10
+    return stats.sort((a, b) => (a.order || 99) - (b.order || 99));
+  }, [analytics, sectionSortMode]);
 
   const exportToExcel = async () => {
     if (submissions.length === 0) {
@@ -916,42 +904,37 @@ export default function AdminPage() {
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-8"
               >
-                {/* ── Section 1 : Métriques & Graphique des visites totales avec sélecteur ── */}
+                {/* ── Section 1 : Carte Visites Totales + Graphique des visites ── */}
                 {loadingAnalytics && !analytics ? (
                   <div className="flex items-center justify-center py-20">
                     <RefreshCw className="size-6 animate-spin text-purple-400" />
                   </div>
                 ) : analytics ? (
                   <div className="space-y-6">
-                    {/* Metrics Grid */}
-                    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-                      <MetricCard
-                        label="Visites totales"
-                        value={analytics.summary.totalVisits.toLocaleString("fr-FR")}
-                        icon={Globe}
-                        trend={`${analytics.summary.todayVisits} aujourd'hui`}
-                        color="text-purple-400"
-                      />
-                      <MetricCard
-                        label="Cette semaine"
-                        value={analytics.summary.weekVisits}
-                        icon={Calendar}
-                        trend={analytics.summary.monthVisits ? `${analytics.summary.monthVisits} ce mois` : undefined}
-                        color="text-blue-400"
-                      />
-                      <MetricCard
-                        label="Durée moyenne"
-                        value={formatDuration(analytics.summary.avgDuration)}
-                        icon={Clock}
-                        color="text-teal-400"
-                      />
-                      <MetricCard
-                        label="Scroll moyen"
-                        value={`${analytics.summary.avgScrollDepth}%`}
-                        icon={ArrowUpRight}
-                        trend={`${analytics.summary.bounceRate}% rebond (<10%)`}
-                        color="text-amber-400"
-                      />
+                    {/* Carte Visites Totales épurée (durée moyenne, scroll moyen et visites cette semaine retirés selon la demande) */}
+                    <div className="rounded-2xl border border-purple-500/20 bg-purple-500/[0.06] backdrop-blur-xl p-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-wider text-purple-300">
+                            Visites totales sur le site
+                          </p>
+                          <div className="flex items-baseline gap-3 mt-1.5">
+                            <span className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight font-serif">
+                              {analytics.summary.totalVisits.toLocaleString("fr-FR")}
+                            </span>
+                            <span className="text-sm font-medium text-emerald-400 flex items-center gap-1">
+                              <TrendingUp className="size-4" />
+                              +{analytics.summary.todayVisits} aujourd&apos;hui
+                            </span>
+                          </div>
+                          <p className="mt-1.5 text-xs text-white/50">
+                            Volume total de visiteurs uniques enregistrés sur la plateforme
+                          </p>
+                        </div>
+                        <div className="flex size-14 items-center justify-center rounded-2xl bg-purple-500/20 text-purple-300 shadow-inner flex-shrink-0">
+                          <Globe className="size-7" />
+                        </div>
+                      </div>
                     </div>
 
                     {/* ── Graphique Visites Totales (Jour, Semaine, Mois, Overall) ── */}
@@ -1058,121 +1041,197 @@ export default function AdminPage() {
                       </div>
                     </GlassPanel>
 
-                    {/* Section Funnel & Distribution */}
+                    {/* ── Section Funnel & Entonnoir de Scroll Coloré ── */}
+                    <GlassPanel>
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80 flex items-center gap-2">
+                              <Layers className="size-4 text-purple-400" />
+                              Sections les plus consultées (Entonnoir de Scroll)
+                            </h3>
+                            <span className="rounded-full bg-emerald-500/15 border border-emerald-500/25 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+                              Profondeur de scroll
+                            </span>
+                          </div>
+                          <p className="text-xs text-white/40 mt-1">
+                            Visualisez exactement où les candidats s&apos;arrêtent : de la 1ère section en haut jusqu&apos;à la dernière tout en bas
+                          </p>
+                        </div>
+
+                        {/* Toggle pour trier : Ordre réel de défilement vs Popularité */}
+                        <div className="flex items-center rounded-xl bg-white/[0.06] p-1 border border-white/10 self-start sm:self-auto">
+                          <button
+                            onClick={() => setSectionSortMode("flow")}
+                            className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
+                              sectionSortMode === "flow"
+                                ? "bg-purple-600 text-white font-semibold"
+                                : "text-white/60 hover:text-white"
+                            }`}
+                          >
+                            Ordre du site (Haut ➔ Bas)
+                          </button>
+                          <button
+                            onClick={() => setSectionSortMode("views")}
+                            className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
+                              sectionSortMode === "views"
+                                ? "bg-purple-600 text-white font-semibold"
+                                : "text-white/60 hover:text-white"
+                            }`}
+                          >
+                            Les plus vues
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* BarChart avec couleurs différentes pour chaque section */}
+                      <div className="h-[280px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart
+                            data={displayedSectionStats}
+                            layout="vertical"
+                            margin={{ left: 10, right: 20 }}
+                          >
+                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                            <XAxis
+                              type="number"
+                              tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10 }}
+                              axisLine={false}
+                              tickLine={false}
+                            />
+                            <YAxis
+                              type="category"
+                              dataKey="label"
+                              tick={{ fill: "rgba(255,255,255,0.6)", fontSize: 11 }}
+                              axisLine={false}
+                              tickLine={false}
+                              width={160}
+                            />
+                            <Tooltip
+                              contentStyle={{
+                                background: "rgba(10,0,30,0.95)",
+                                border: "1px solid rgba(255,255,255,0.12)",
+                                borderRadius: "12px",
+                                color: "#fff",
+                                fontSize: "12px",
+                              }}
+                              formatter={(value: number, _, item) => {
+                                const entry = item?.payload as SectionStat;
+                                return [
+                                  `${value} vue${value > 1 ? "s" : ""} (${entry.percentage}% des visiteurs ont scrollé ici)`,
+                                  entry.depth ? `Position : ${entry.depth}` : "Vues",
+                                ];
+                              }}
+                            />
+                            <Bar dataKey="views" radius={[0, 6, 6, 0]}>
+                              {displayedSectionStats.map((entry, index) => (
+                                <Cell key={`section-cell-${index}`} fill={entry.color} />
+                              ))}
+                            </Bar>
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+
+                      {/* Cartes d'entonnoir colorées pour chaque étape */}
+                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 mt-5 pt-4 border-t border-white/[0.06]">
+                        {displayedSectionStats.map((s) => (
+                          <div
+                            key={s.name}
+                            className="p-2.5 rounded-xl bg-white/[0.025] border border-white/5 hover:border-white/15 transition-all flex flex-col justify-between"
+                          >
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="size-2.5 rounded-full flex-shrink-0 shadow-sm"
+                                style={{ backgroundColor: s.color }}
+                              />
+                              <span className="text-[11px] text-white/80 font-medium truncate" title={s.label}>
+                                {s.label}
+                              </span>
+                            </div>
+                            <div className="flex items-baseline justify-between mt-2">
+                              <span className="text-xs font-bold text-white">{s.views} vues</span>
+                              <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-white/10 text-white/80">
+                                {s.percentage}%
+                              </span>
+                            </div>
+                            <div className="mt-1.5 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                              <div
+                                className="h-full rounded-full transition-all duration-500"
+                                style={{ width: `${s.percentage}%`, backgroundColor: s.color }}
+                              />
+                            </div>
+                            <span className="text-[9px] text-white/40 mt-1 truncate">
+                              {s.depth}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </GlassPanel>
+
+                    {/* Distribution Appareils & Navigateurs */}
                     <div className="grid gap-6 lg:grid-cols-2">
-                      {/* Section Funnel */}
-                      <GlassPanel title="Sections les plus consultées">
-                        <div className="h-[250px]">
+                      <GlassPanel title="Répartition par Appareil">
+                        <div className="h-[180px] flex items-center justify-center">
                           <ResponsiveContainer width="100%" height="100%">
-                            <BarChart
-                              data={analytics.sectionStats.slice(0, 8)}
-                              layout="vertical"
-                              margin={{ left: 0, right: 10 }}
-                            >
-                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                              <XAxis
-                                type="number"
-                                tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10 }}
-                                axisLine={false}
-                                tickLine={false}
-                              />
-                              <YAxis
-                                type="category"
-                                dataKey="name"
-                                tick={{ fill: "rgba(255,255,255,0.5)", fontSize: 10 }}
-                                axisLine={false}
-                                tickLine={false}
-                                width={110}
-                                tickFormatter={(name) => SECTION_LABELS[name] || name}
-                              />
+                            <PieChart>
+                              <Pie
+                                data={Object.entries(analytics.devices).map(([name, value]) => ({ name, value }))}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={45}
+                                outerRadius={75}
+                                paddingAngle={3}
+                                dataKey="value"
+                              >
+                                {Object.entries(analytics.devices).map((_, i) => (
+                                  <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                                ))}
+                              </Pie>
                               <Tooltip
                                 contentStyle={{
                                   background: "rgba(10,0,30,0.9)",
                                   border: "1px solid rgba(255,255,255,0.1)",
                                   borderRadius: "12px",
                                   color: "#fff",
-                                  fontSize: "12px",
-                                }}
-                                formatter={(value: number, name: string) => {
-                                  if (name === "views") return [`${value} vues`, "Vues"];
-                                  return [formatDuration(value), "Temps moyen"];
+                                  fontSize: "11px",
                                 }}
                               />
-                              <Bar dataKey="views" fill="#8b5cf6" radius={[0, 6, 6, 0]} name="views" />
-                            </BarChart>
+                            </PieChart>
                           </ResponsiveContainer>
+                        </div>
+                        <div className="flex flex-wrap justify-center gap-3 mt-1">
+                          {Object.entries(analytics.devices).map(([name, count], i) => (
+                            <span key={name} className="text-xs text-white/60 flex items-center gap-1.5">
+                              <span className="size-2.5 rounded-full" style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }} />
+                              {name} ({count})
+                            </span>
+                          ))}
                         </div>
                       </GlassPanel>
 
-                      {/* Distribution Appareils & Navigateurs */}
-                      <GlassPanel title="Appareils & Navigateurs">
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <p className="text-xs text-white/50 mb-2">Appareils</p>
-                            <div className="h-[140px]">
-                              <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                  <Pie
-                                    data={Object.entries(analytics.devices).map(([name, value]) => ({ name, value }))}
-                                    cx="50%"
-                                    cy="50%"
-                                    innerRadius={35}
-                                    outerRadius={60}
-                                    paddingAngle={3}
-                                    dataKey="value"
-                                  >
-                                    {Object.entries(analytics.devices).map((_, i) => (
-                                      <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
-                                    ))}
-                                  </Pie>
-                                  <Tooltip
-                                    contentStyle={{
-                                      background: "rgba(10,0,30,0.9)",
-                                      border: "1px solid rgba(255,255,255,0.1)",
-                                      borderRadius: "12px",
-                                      color: "#fff",
-                                      fontSize: "11px",
-                                    }}
-                                  />
-                                </PieChart>
-                              </ResponsiveContainer>
-                            </div>
-                            <div className="flex flex-wrap justify-center gap-2 mt-1">
-                              {Object.entries(analytics.devices).map(([name, count], i) => (
-                                <span key={name} className="text-[10px] text-white/60 flex items-center gap-1">
-                                  <span className="size-2 rounded-full" style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }} />
-                                  {name} ({count})
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div>
-                            <p className="text-xs text-white/50 mb-2">Navigateurs</p>
-                            <div className="space-y-2">
-                              {Object.entries(analytics.browsers)
-                                .sort(([, a], [, b]) => b - a)
-                                .slice(0, 4)
-                                .map(([name, count]) => {
-                                  const max = Math.max(...Object.values(analytics.browsers));
-                                  const pct = max > 0 ? (count / max) * 100 : 0;
-                                  return (
-                                    <div key={name}>
-                                      <div className="flex justify-between text-[11px] mb-0.5">
-                                        <span className="text-white/70">{name}</span>
-                                        <span className="text-white/50">{count}</span>
-                                      </div>
-                                      <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                                        <div
-                                          style={{ width: `${pct}%` }}
-                                          className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
-                                        />
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                            </div>
-                          </div>
+                      <GlassPanel title="Navigateurs les plus utilisés">
+                        <div className="space-y-2.5">
+                          {Object.entries(analytics.browsers)
+                            .sort(([, a], [, b]) => b - a)
+                            .slice(0, 5)
+                            .map(([name, count]) => {
+                              const max = Math.max(...Object.values(analytics.browsers));
+                              const pct = max > 0 ? (count / max) * 100 : 0;
+                              return (
+                                <div key={name}>
+                                  <div className="flex justify-between text-xs mb-1">
+                                    <span className="text-white/70">{name}</span>
+                                    <span className="text-white/50">{count}</span>
+                                  </div>
+                                  <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                                    <div
+                                      style={{ width: `${pct}%` }}
+                                      className="h-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-400"
+                                    />
+                                  </div>
+                                </div>
+                              );
+                            })}
                         </div>
                       </GlassPanel>
                     </div>
@@ -1184,7 +1243,7 @@ export default function AdminPage() {
                   </div>
                 )}
 
-                {/* ── Section 2 : Trafic & Replays de Sessions ── */}
+                {/* ── Section 3 : Trafic & Replays de Sessions ── */}
                 <div className="space-y-4 pt-4 border-t border-white/[0.08]">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>

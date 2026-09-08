@@ -12,6 +12,29 @@ function getMonday(d: Date): Date {
   return date;
 }
 
+const SECTION_ALIASES: Record<string, string> = {
+  hero: "accueil",
+  stats: "statistiques",
+  "hiring-companies": "entreprises",
+  modules: "formations",
+  "what-you-gain": "ce-que-vous-gagnez",
+  "before-after": "avant-apres",
+  "success-stories": "resultats",
+};
+
+const SECTION_METADATA: Record<string, { label: string; order: number; depth: string; color: string }> = {
+  accueil: { label: "1. Accueil / Hero", order: 1, depth: "Début (0%)", color: "#8b5cf6" },
+  statistiques: { label: "2. Chiffres Clés", order: 2, depth: "10% scroll", color: "#6366f1" },
+  entreprises: { label: "3. Entreprises Partenaires", order: 3, depth: "25% scroll", color: "#3b82f6" },
+  formations: { label: "4. Modules & Formations", order: 4, depth: "40% scroll", color: "#06b6d4" },
+  intervenants: { label: "5. Intervenants & Experts", order: 5, depth: "55% scroll", color: "#14b8a6" },
+  "ce-que-vous-gagnez": { label: "6. Ce que vous gagnez", order: 6, depth: "68% scroll", color: "#10b981" },
+  "avant-apres": { label: "7. Avant / Après", order: 7, depth: "78% scroll", color: "#84cc16" },
+  resultats: { label: "8. Témoignages & Résultats", order: 8, depth: "88% scroll", color: "#eab308" },
+  fondateurs: { label: "9. Fondateurs", order: 9, depth: "93% scroll", color: "#f97316" },
+  contact: { label: "10. Inscription & Formulaire", order: 10, depth: "Fin (100%)", color: "#ef4444" },
+};
+
 export async function GET() {
   const isAdmin = await isUserAdmin();
   if (!isAdmin) {
@@ -122,7 +145,6 @@ export async function GET() {
     }));
 
     // ── 4. Overall (Évolution cumulative de toutes les visites) ──
-    // Group all visits by day from earliest to latest, with cumulative running total
     let runningTotal = 0;
     const overallDayMap = new Map<string, number>();
     allVisits.forEach((v) => {
@@ -142,7 +164,6 @@ export async function GET() {
       };
     });
 
-    // If no visits recorded yet, provide at least today's point with 0
     if (visitsOverall.length === 0) {
       const todayStr = now.toISOString().slice(0, 10);
       const [y, m, d] = todayStr.split("-");
@@ -155,7 +176,7 @@ export async function GET() {
       }];
     }
 
-    // ── Section stats ──
+    // ── Section stats : normalisation et calcul d'entonnoir de scroll ──
     const allVisitsWithSections = await db.siteVisit.findMany({
       where: { sectionsVisited: { not: null } },
       select: { sectionsVisited: true },
@@ -166,21 +187,36 @@ export async function GET() {
       const sections = v.sectionsVisited as Array<{ name: string; totalTime: number }> | null;
       if (!Array.isArray(sections)) return;
       sections.forEach((s) => {
-        if (!sectionAgg[s.name]) {
-          sectionAgg[s.name] = { views: 0, totalTime: 0 };
+        const canonicalName = SECTION_ALIASES[s.name] || s.name;
+        if (!sectionAgg[canonicalName]) {
+          sectionAgg[canonicalName] = { views: 0, totalTime: 0 };
         }
-        sectionAgg[s.name].views++;
-        sectionAgg[s.name].totalTime += s.totalTime || 0;
+        sectionAgg[canonicalName].views++;
+        sectionAgg[canonicalName].totalTime += s.totalTime || 0;
       });
     });
 
     const sectionStats = Object.entries(sectionAgg)
-      .map(([name, data]) => ({
-        name,
-        views: data.views,
-        avgTime: data.views > 0 ? Math.round(data.totalTime / data.views) : 0,
-      }))
-      .sort((a, b) => b.views - a.views);
+      .map(([name, data]) => {
+        const meta = SECTION_METADATA[name] || {
+          label: name,
+          order: 99,
+          depth: "Section",
+          color: "#a855f7",
+        };
+        const percentage = totalVisits > 0 ? Math.min(100, Math.round((data.views / totalVisits) * 100)) : 0;
+        return {
+          name,
+          label: meta.label,
+          order: meta.order,
+          depth: meta.depth,
+          color: meta.color,
+          views: data.views,
+          percentage,
+          avgTime: data.views > 0 ? Math.round(data.totalTime / data.views) : 0,
+        };
+      })
+      .sort((a, b) => a.order - b.order); // Natural scroll progression from top to bottom
 
     // ── Device, browser, referrer distribution ──
     const allVisitsForDist = await db.siteVisit.findMany({

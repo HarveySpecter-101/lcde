@@ -44,7 +44,7 @@ const LOGOS = [
 
 export function HiringCompanies() {
   return (
-    <section className="relative overflow-hidden bg-white pt-10 pb-12 sm:pt-14 sm:pb-16 md:pt-16 md:pb-18">
+    <section id="entreprises" className="relative overflow-hidden bg-white pt-10 pb-12 sm:pt-14 sm:pb-16 md:pt-16 md:pb-18">
       {/* Background animated geometric elements */}
       <SectionDecor variant="light" pos="A" />
 

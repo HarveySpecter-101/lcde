@@ -27,7 +27,7 @@ export function BeforeAfter() {
   const [activeTab, setActiveTab] = useState<"avant" | "apres">("avant");
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 md:py-28">
+    <section id="avant-apres" className="relative overflow-hidden bg-white py-20 md:py-28">
       <SectionDecor variant="light" pos="B" />
       
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

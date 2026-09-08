@@ -7,7 +7,7 @@ import { STATS } from "@/lib/site-data";
 
 export function Stats() {
   return (
-    <section className="relative -mt-12 z-10 px-4 sm:px-6 lg:px-8">
+    <section id="statistiques" className="relative -mt-12 z-10 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <Reveal>
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border shadow-premium lg:grid-cols-4">
