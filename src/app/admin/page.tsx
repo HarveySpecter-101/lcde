@@ -28,6 +28,7 @@ import {
   ChevronUp,
   Activity,
   Sparkles,
+  Users,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -62,15 +63,30 @@ type Submission = {
   createdAt: string;
 };
 
+type ChartPoint = {
+  key: string;
+  label: string;
+  fullDate?: string;
+  count: number;
+  total?: number;
+};
+
 type AnalyticsData = {
   summary: {
     totalVisits: number;
     todayVisits: number;
     weekVisits: number;
+    monthVisits?: number;
     avgDuration: number;
     avgScrollDepth: number;
     avgClicks: number;
     bounceRate: number;
+  };
+  chartData?: {
+    day: ChartPoint[];
+    week: ChartPoint[];
+    month: ChartPoint[];
+    overall: ChartPoint[];
   };
   visitsPerDay: Array<{ date: string; count: number }>;
   sectionStats: Array<{ name: string; views: number; avgTime: number }>;
@@ -100,6 +116,7 @@ type SiteVisit = {
 };
 
 type Tab = "dashboard" | "submissions";
+type PeriodFilter = "day" | "week" | "month" | "overall";
 
 /* ────────────────────────────────────────────────────────────── */
 /* Helpers                                                       */
@@ -417,8 +434,12 @@ export default function AdminPage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
 
-  // Fusion: 2 tabs ("dashboard" contains both Analytics & Traffic Sessions)
+  // Tabs: Dashboard (Traffic & Sessions included) vs Candidatures
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
+
+  // Filter periods
+  const [trafficPeriod, setTrafficPeriod] = useState<PeriodFilter>("day");
+  const [submissionPeriod, setSubmissionPeriod] = useState<PeriodFilter>("overall");
 
   // Submissions
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -544,10 +565,62 @@ export default function AdminPage() {
     }
   };
 
+  /* ── Candidatures Stats by Period (Combien de personnes ont rempli le formulaire) ── */
+  const submissionStats = useMemo(() => {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+    const dayOfWeek = (now.getDay() + 6) % 7; // Monday = 0
+    const mondayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dayOfWeek);
+    mondayStart.setHours(0, 0, 0, 0);
+    const weekStartTime = mondayStart.getTime();
+
+    const monthStartTime = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+
+    let todayCount = 0;
+    let weekCount = 0;
+    let monthCount = 0;
+
+    submissions.forEach((s) => {
+      const t = new Date(s.createdAt).getTime();
+      if (t >= todayStart) todayCount++;
+      if (t >= weekStartTime) weekCount++;
+      if (t >= monthStartTime) monthCount++;
+    });
+
+    return {
+      total: submissions.length,
+      today: todayCount,
+      week: weekCount,
+      month: monthCount,
+    };
+  }, [submissions]);
+
+  /* ── Filtered Submissions by Period & Search ── */
   const filteredSubmissions = useMemo(() => {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+    const dayOfWeek = (now.getDay() + 6) % 7;
+    const mondayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dayOfWeek);
+    mondayStart.setHours(0, 0, 0, 0);
+    const weekStartTime = mondayStart.getTime();
+
+    const monthStartTime = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+
+    let list = submissions;
+
+    if (submissionPeriod === "day") {
+      list = list.filter((s) => new Date(s.createdAt).getTime() >= todayStart);
+    } else if (submissionPeriod === "week") {
+      list = list.filter((s) => new Date(s.createdAt).getTime() >= weekStartTime);
+    } else if (submissionPeriod === "month") {
+      list = list.filter((s) => new Date(s.createdAt).getTime() >= monthStartTime);
+    }
+
     const q = search.trim().toLowerCase();
-    if (!q) return submissions;
-    return submissions.filter(
+    if (!q) return list;
+    return list.filter(
       (s) =>
         s.name.toLowerCase().includes(q) ||
         s.email.toLowerCase().includes(q) ||
@@ -555,8 +628,9 @@ export default function AdminPage() {
         s.level.toLowerCase().includes(q) ||
         s.school.toLowerCase().includes(q)
     );
-  }, [submissions, search]);
+  }, [submissions, submissionPeriod, search]);
 
+  /* ── Filtered Visits ── */
   const filteredVisits = useMemo(() => {
     const q = visitSearch.trim().toLowerCase();
     if (!q) return visits;
@@ -569,6 +643,18 @@ export default function AdminPage() {
         (v.referrer || "").toLowerCase().includes(q)
     );
   }, [visits, visitSearch]);
+
+  /* ── Visits Chart Data by Selected Period ── */
+  const currentVisitsChartData = useMemo(() => {
+    if (!analytics?.chartData) {
+      return analytics?.visitsPerDay?.map((d) => ({
+        key: d.date,
+        label: d.date.split("-").slice(1).join("/"),
+        count: d.count,
+      })) || [];
+    }
+    return analytics.chartData[trafficPeriod] || [];
+  }, [analytics, trafficPeriod]);
 
   const exportToExcel = async () => {
     if (submissions.length === 0) {
@@ -705,7 +791,7 @@ export default function AdminPage() {
     );
   }
 
-  /* ── Authenticated Admin (2 Fused Tabs) ── */
+  /* ── Authenticated Admin (Tabs: Dashboard & Trafic vs Candidatures) ── */
   const tabs: { id: Tab; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
     { id: "dashboard", label: "Tableau de bord & Trafic", icon: BarChart3 },
     { id: "submissions", label: "Candidatures", icon: FileSpreadsheet },
@@ -781,7 +867,7 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Tab Bar (2 Fused Tabs) */}
+          {/* Tab Bar */}
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <nav className="flex gap-2 -mb-px">
               {tabs.map((tab) => (
@@ -821,7 +907,7 @@ export default function AdminPage() {
         {/* ── Content ── */}
         <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
           <AnimatePresence mode="wait">
-            {/* ========== FUSED DASHBOARD & TRAFFIC TAB ========== */}
+            {/* ========== DASHBOARD & TRAFFIC TAB ========== */}
             {activeTab === "dashboard" && (
               <motion.div
                 key="dashboard"
@@ -830,7 +916,7 @@ export default function AdminPage() {
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-8"
               >
-                {/* ── Section 1 : Métriques & Graphiques analytiques ── */}
+                {/* ── Section 1 : Métriques & Graphique des visites totales avec sélecteur ── */}
                 {loadingAnalytics && !analytics ? (
                   <div className="flex items-center justify-center py-20">
                     <RefreshCw className="size-6 animate-spin text-purple-400" />
@@ -843,13 +929,14 @@ export default function AdminPage() {
                         label="Visites totales"
                         value={analytics.summary.totalVisits.toLocaleString("fr-FR")}
                         icon={Globe}
+                        trend={`${analytics.summary.todayVisits} aujourd'hui`}
                         color="text-purple-400"
                       />
                       <MetricCard
-                        label="Aujourd'hui"
-                        value={analytics.summary.todayVisits}
-                        icon={Eye}
-                        trend={analytics.summary.weekVisits > 0 ? `${analytics.summary.weekVisits} cette semaine` : undefined}
+                        label="Cette semaine"
+                        value={analytics.summary.weekVisits}
+                        icon={Calendar}
+                        trend={analytics.summary.monthVisits ? `${analytics.summary.monthVisits} ce mois` : undefined}
                         color="text-blue-400"
                       />
                       <MetricCard
@@ -867,61 +954,112 @@ export default function AdminPage() {
                       />
                     </div>
 
-                    {/* Charts Row */}
-                    <div className="grid gap-6 lg:grid-cols-2">
-                      {/* Visits Over Time */}
-                      <GlassPanel title="Visites (30 derniers jours)">
-                        <div className="h-[250px]">
-                          <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={analytics.visitsPerDay}>
-                              <defs>
-                                <linearGradient id="visitGrad" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3} />
-                                  <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
-                                </linearGradient>
-                              </defs>
-                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                              <XAxis
-                                dataKey="date"
-                                tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10 }}
-                                tickFormatter={(d) => {
-                                  const parts = d.split("-");
-                                  return `${parts[2]}/${parts[1]}`;
-                                }}
-                                axisLine={false}
-                                tickLine={false}
-                              />
-                              <YAxis
-                                tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10 }}
-                                axisLine={false}
-                                tickLine={false}
-                              />
-                              <Tooltip
-                                contentStyle={{
-                                  background: "rgba(10,0,30,0.9)",
-                                  border: "1px solid rgba(255,255,255,0.1)",
-                                  borderRadius: "12px",
-                                  color: "#fff",
-                                  fontSize: "12px",
-                                }}
-                                labelFormatter={(d) => {
-                                  const parts = String(d).split("-");
-                                  return `${parts[2]}/${parts[1]}/${parts[0]}`;
-                                }}
-                              />
-                              <Area
-                                type="monotone"
-                                dataKey="count"
-                                stroke="#8b5cf6"
-                                strokeWidth={2}
-                                fill="url(#visitGrad)"
-                                name="Visites"
-                              />
-                            </AreaChart>
-                          </ResponsiveContainer>
+                    {/* ── Graphique Visites Totales (Jour, Semaine, Mois, Overall) ── */}
+                    <GlassPanel>
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-5">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80 flex items-center gap-2">
+                              <TrendingUp className="size-4 text-purple-400" />
+                              Graphique des Visites Totales
+                            </h3>
+                            <span className="rounded-full bg-purple-500/15 border border-purple-500/25 px-2 py-0.5 text-[10px] font-semibold text-purple-300">
+                              {analytics.summary.totalVisits} visites au total
+                            </span>
+                          </div>
+                          <p className="text-xs text-white/40 mt-1">
+                            {trafficPeriod === "day" && "Évolution des visites quotidiennes (30 derniers jours)"}
+                            {trafficPeriod === "week" && "Évolution des visites hebdomadaires (12 dernières semaines)"}
+                            {trafficPeriod === "month" && "Évolution des visites mensuelles (12 derniers mois)"}
+                            {trafficPeriod === "overall" && "Courbe d'évolution cumulative de toutes les visites enregistrées"}
+                          </p>
                         </div>
-                      </GlassPanel>
 
+                        {/* Sélecteur de période : Jour / Semaine / Mois / Overall */}
+                        <div className="flex items-center rounded-xl bg-white/[0.06] p-1 border border-white/10 self-start sm:self-auto">
+                          {(["day", "week", "month", "overall"] as PeriodFilter[]).map((period) => {
+                            const labels: Record<PeriodFilter, string> = {
+                              day: "Par jour",
+                              week: "Par semaine",
+                              month: "Par mois",
+                              overall: "Overall",
+                            };
+                            const isActive = trafficPeriod === period;
+                            return (
+                              <button
+                                key={period}
+                                onClick={() => setTrafficPeriod(period)}
+                                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
+                                  isActive
+                                    ? "bg-purple-600 text-white shadow-md shadow-purple-900/40 font-semibold"
+                                    : "text-white/60 hover:text-white hover:bg-white/[0.04]"
+                                }`}
+                              >
+                                {labels[period]}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Chart */}
+                      <div className="h-[280px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <AreaChart data={currentVisitsChartData}>
+                            <defs>
+                              <linearGradient id="trafficPeriodGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4} />
+                                <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.02} />
+                              </linearGradient>
+                            </defs>
+                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                            <XAxis
+                              dataKey="label"
+                              tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 10 }}
+                              axisLine={false}
+                              tickLine={false}
+                            />
+                            <YAxis
+                              tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 10 }}
+                              axisLine={false}
+                              tickLine={false}
+                            />
+                            <Tooltip
+                              contentStyle={{
+                                background: "rgba(10,0,30,0.95)",
+                                border: "1px solid rgba(255,255,255,0.12)",
+                                borderRadius: "12px",
+                                color: "#fff",
+                                fontSize: "12px",
+                                boxShadow: "0 10px 25px -5px rgba(0,0,0,0.5)",
+                              }}
+                              labelFormatter={(_, payload) => {
+                                if (payload && payload[0]?.payload) {
+                                  const p = payload[0].payload as ChartPoint;
+                                  return p.fullDate || p.label || p.key;
+                                }
+                                return "";
+                              }}
+                              formatter={(value: number) => [
+                                `${value} visite${value > 1 ? "s" : ""}`,
+                                trafficPeriod === "overall" ? "Total cumulé" : "Visites",
+                              ]}
+                            />
+                            <Area
+                              type="monotone"
+                              dataKey={trafficPeriod === "overall" ? "total" : "count"}
+                              stroke="#8b5cf6"
+                              strokeWidth={2.5}
+                              fill="url(#trafficPeriodGrad)"
+                              name="Visites"
+                            />
+                          </AreaChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </GlassPanel>
+
+                    {/* Section Funnel & Distribution */}
+                    <div className="grid gap-6 lg:grid-cols-2">
                       {/* Section Funnel */}
                       <GlassPanel title="Sections les plus consultées">
                         <div className="h-[250px]">
@@ -965,108 +1103,76 @@ export default function AdminPage() {
                           </ResponsiveContainer>
                         </div>
                       </GlassPanel>
-                    </div>
 
-                    {/* Bottom Row: Device + Browser + Sources */}
-                    <div className="grid gap-6 lg:grid-cols-3">
-                      {/* Devices Pie */}
-                      <GlassPanel title="Appareils">
-                        <div className="h-[180px] flex items-center justify-center">
-                          <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                              <Pie
-                                data={Object.entries(analytics.devices).map(([name, value]) => ({ name, value }))}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={45}
-                                outerRadius={75}
-                                paddingAngle={3}
-                                dataKey="value"
-                              >
-                                {Object.entries(analytics.devices).map((_, i) => (
-                                  <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
-                                ))}
-                              </Pie>
-                              <Tooltip
-                                contentStyle={{
-                                  background: "rgba(10,0,30,0.9)",
-                                  border: "1px solid rgba(255,255,255,0.1)",
-                                  borderRadius: "12px",
-                                  color: "#fff",
-                                  fontSize: "12px",
-                                }}
-                              />
-                            </PieChart>
-                          </ResponsiveContainer>
-                        </div>
-                        <div className="flex flex-wrap justify-center gap-3 mt-1">
-                          {Object.entries(analytics.devices).map(([name, count], i) => (
-                            <span key={name} className="flex items-center gap-1.5 text-xs text-white/60">
-                              <span
-                                className="size-2.5 rounded-full"
-                                style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }}
-                              />
-                              {name} ({count})
-                            </span>
-                          ))}
-                        </div>
-                      </GlassPanel>
+                      {/* Distribution Appareils & Navigateurs */}
+                      <GlassPanel title="Appareils & Navigateurs">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-xs text-white/50 mb-2">Appareils</p>
+                            <div className="h-[140px]">
+                              <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                  <Pie
+                                    data={Object.entries(analytics.devices).map(([name, value]) => ({ name, value }))}
+                                    cx="50%"
+                                    cy="50%"
+                                    innerRadius={35}
+                                    outerRadius={60}
+                                    paddingAngle={3}
+                                    dataKey="value"
+                                  >
+                                    {Object.entries(analytics.devices).map((_, i) => (
+                                      <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                                    ))}
+                                  </Pie>
+                                  <Tooltip
+                                    contentStyle={{
+                                      background: "rgba(10,0,30,0.9)",
+                                      border: "1px solid rgba(255,255,255,0.1)",
+                                      borderRadius: "12px",
+                                      color: "#fff",
+                                      fontSize: "11px",
+                                    }}
+                                  />
+                                </PieChart>
+                              </ResponsiveContainer>
+                            </div>
+                            <div className="flex flex-wrap justify-center gap-2 mt-1">
+                              {Object.entries(analytics.devices).map(([name, count], i) => (
+                                <span key={name} className="text-[10px] text-white/60 flex items-center gap-1">
+                                  <span className="size-2 rounded-full" style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }} />
+                                  {name} ({count})
+                                </span>
+                              ))}
+                            </div>
+                          </div>
 
-                      {/* Browsers */}
-                      <GlassPanel title="Navigateurs">
-                        <div className="space-y-2.5">
-                          {Object.entries(analytics.browsers)
-                            .sort(([, a], [, b]) => b - a)
-                            .slice(0, 5)
-                            .map(([name, count]) => {
-                              const max = Math.max(...Object.values(analytics.browsers));
-                              const pct = max > 0 ? (count / max) * 100 : 0;
-                              return (
-                                <div key={name}>
-                                  <div className="flex justify-between text-xs mb-1">
-                                    <span className="text-white/70">{name}</span>
-                                    <span className="text-white/50">{count}</span>
-                                  </div>
-                                  <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                                    <motion.div
-                                      initial={{ width: 0 }}
-                                      animate={{ width: `${pct}%` }}
-                                      transition={{ duration: 0.8, ease: "easeOut" }}
-                                      className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
-                                    />
-                                  </div>
-                                </div>
-                              );
-                            })}
-                        </div>
-                      </GlassPanel>
-
-                      {/* Sources / Referrers */}
-                      <GlassPanel title="Sources de trafic">
-                        <div className="space-y-2.5">
-                          {Object.entries(analytics.referrers)
-                            .sort(([, a], [, b]) => b - a)
-                            .slice(0, 5)
-                            .map(([name, count]) => {
-                              const max = Math.max(...Object.values(analytics.referrers));
-                              const pct = max > 0 ? (count / max) * 100 : 0;
-                              return (
-                                <div key={name}>
-                                  <div className="flex justify-between text-xs mb-1">
-                                    <span className="text-white/70 truncate max-w-[150px]">{name}</span>
-                                    <span className="text-white/50">{count}</span>
-                                  </div>
-                                  <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                                    <motion.div
-                                      initial={{ width: 0 }}
-                                      animate={{ width: `${pct}%` }}
-                                      transition={{ duration: 0.8, ease: "easeOut" }}
-                                      className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400"
-                                    />
-                                  </div>
-                                </div>
-                              );
-                            })}
+                          <div>
+                            <p className="text-xs text-white/50 mb-2">Navigateurs</p>
+                            <div className="space-y-2">
+                              {Object.entries(analytics.browsers)
+                                .sort(([, a], [, b]) => b - a)
+                                .slice(0, 4)
+                                .map(([name, count]) => {
+                                  const max = Math.max(...Object.values(analytics.browsers));
+                                  const pct = max > 0 ? (count / max) * 100 : 0;
+                                  return (
+                                    <div key={name}>
+                                      <div className="flex justify-between text-[11px] mb-0.5">
+                                        <span className="text-white/70">{name}</span>
+                                        <span className="text-white/50">{count}</span>
+                                      </div>
+                                      <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                                        <div
+                                          style={{ width: `${pct}%` }}
+                                          className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
+                                        />
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                            </div>
+                          </div>
                         </div>
                       </GlassPanel>
                     </div>
@@ -1078,7 +1184,7 @@ export default function AdminPage() {
                   </div>
                 )}
 
-                {/* ── Section 2 (Fusionnée) : Trafic & Replays de Sessions ── */}
+                {/* ── Section 2 : Trafic & Replays de Sessions ── */}
                 <div className="space-y-4 pt-4 border-t border-white/[0.08]">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
@@ -1208,33 +1314,121 @@ export default function AdminPage() {
               </motion.div>
             )}
 
-            {/* ========== SUBMISSIONS TAB ========== */}
+            {/* ========== CANDIDATURES TAB (Avec statistiques et tri Jour/Semaine/Mois/Overall) ========== */}
             {activeTab === "submissions" && (
               <motion.div
                 key="submissions"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
+                className="space-y-6"
               >
-                {/* Actions Bar */}
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-5">
-                  <div className="relative flex-1 max-w-md">
-                    <Search className="pointer-events-none absolute left-3.5 top-3 size-4 text-white/30" />
-                    <Input
-                      type="text"
-                      placeholder="Rechercher par nom, téléphone, email, école..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      className="h-10 rounded-xl border-white/10 bg-white/[0.05] pl-10 text-sm text-white placeholder:text-white/30 focus:border-purple-500/50 focus:ring-purple-500/30"
-                    />
+                {/* ── Cartes de statistiques : Nombre de personnes ayant rempli le formulaire ── */}
+                <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+                  <div className="rounded-2xl border border-purple-500/20 bg-purple-500/[0.06] backdrop-blur-xl p-5 hover:bg-purple-500/[0.09] transition-all">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-purple-300">Total Candidats (Overall)</p>
+                        <p className="mt-1.5 text-3xl font-bold text-white">{submissionStats.total}</p>
+                        <p className="mt-1 text-xs text-white/50">Personnes inscrites au total</p>
+                      </div>
+                      <div className="flex size-10 items-center justify-center rounded-xl bg-purple-500/20 text-purple-300">
+                        <Users className="size-5" />
+                      </div>
+                    </div>
                   </div>
+
+                  <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.05] backdrop-blur-xl p-5 hover:bg-emerald-500/[0.08] transition-all">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">Aujourd&apos;hui (Jour)</p>
+                        <p className="mt-1.5 text-3xl font-bold text-emerald-400">+{submissionStats.today}</p>
+                        <p className="mt-1 text-xs text-white/50">Inscriptions reçues aujourd&apos;hui</p>
+                      </div>
+                      <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400">
+                        <Calendar className="size-5" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-blue-500/20 bg-blue-500/[0.05] backdrop-blur-xl p-5 hover:bg-blue-500/[0.08] transition-all">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-blue-400">Cette semaine</p>
+                        <p className="mt-1.5 text-3xl font-bold text-blue-400">+{submissionStats.week}</p>
+                        <p className="mt-1 text-xs text-white/50">Depuis lundi</p>
+                      </div>
+                      <div className="flex size-10 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400">
+                        <Calendar className="size-5" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.05] backdrop-blur-xl p-5 hover:bg-amber-500/[0.08] transition-all">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-amber-400">Ce mois-ci</p>
+                        <p className="mt-1.5 text-3xl font-bold text-amber-400">+{submissionStats.month}</p>
+                        <p className="mt-1 text-xs text-white/50">Inscriptions ce mois</p>
+                      </div>
+                      <div className="flex size-10 items-center justify-center rounded-xl bg-amber-500/20 text-amber-400">
+                        <TrendingUp className="size-5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── Barre de filtre par Période (Jour / Semaine / Mois / Overall) ── */}
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 backdrop-blur-xl">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs uppercase tracking-wider font-semibold text-white/50 mr-1">
+                      Période :
+                    </span>
+                    {(["overall", "day", "week", "month"] as PeriodFilter[]).map((p) => {
+                      const labels: Record<PeriodFilter, string> = {
+                        overall: "Overall (Tout)",
+                        day: "Aujourd'hui (Jour)",
+                        week: "Cette semaine",
+                        month: "Ce mois",
+                      };
+                      const counts: Record<PeriodFilter, number> = {
+                        overall: submissionStats.total,
+                        day: submissionStats.today,
+                        week: submissionStats.week,
+                        month: submissionStats.month,
+                      };
+                      const isActive = submissionPeriod === p;
+                      return (
+                        <button
+                          key={p}
+                          onClick={() => setSubmissionPeriod(p)}
+                          className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-medium rounded-xl transition-all ${
+                            isActive
+                              ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-900/30 font-semibold"
+                              : "bg-white/[0.04] text-white/60 hover:text-white hover:bg-white/[0.08] border border-white/5"
+                          }`}
+                        >
+                          <span>{labels[p]}</span>
+                          <span
+                            className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                              isActive ? "bg-white/20 text-white" : "bg-white/10 text-white/70"
+                            }`}
+                          >
+                            {counts[p]}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Actions Rapides */}
                   <div className="flex items-center gap-2.5">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={fetchSubmissions}
                       disabled={loadingSubmissions}
-                      className="h-10 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08]"
+                      className="h-9 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08]"
                     >
                       <RefreshCw className={`size-3.5 mr-1.5 ${loadingSubmissions ? "animate-spin text-purple-400" : ""}`} />
                       Rafraîchir
@@ -1243,27 +1437,40 @@ export default function AdminPage() {
                       size="sm"
                       onClick={exportToExcel}
                       disabled={downloadingExcel || submissions.length === 0}
-                      className="h-10 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs gap-2 px-4 shadow-lg shadow-emerald-900/30 transition-all disabled:opacity-50"
+                      className="h-9 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs gap-2 px-4 shadow-lg shadow-emerald-900/30 transition-all disabled:opacity-50"
                     >
                       <Download className={`size-4 ${downloadingExcel ? "animate-bounce" : ""}`} />
-                      {downloadingExcel ? "Génération..." : "Excel (.xlsx)"}
+                      {downloadingExcel ? "Génération..." : "Télécharger Excel (.xlsx)"}
                     </Button>
                   </div>
                 </div>
 
-                {/* Counter */}
-                <div className="flex items-center justify-between mb-3 text-xs text-white/50">
-                  <span>
-                    <strong className="text-white/80">{filteredSubmissions.length}</strong> candidature{filteredSubmissions.length > 1 ? "s" : ""}
-                    {search ? ` (filtré depuis ${submissions.length})` : ""}
-                  </span>
-                  <span className="flex items-center gap-1.5 text-emerald-400">
-                    <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Données directes
-                  </span>
+                {/* ── Barre de recherche ── */}
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="pointer-events-none absolute left-3.5 top-3 size-4 text-white/30" />
+                    <Input
+                      type="text"
+                      placeholder="Rechercher par nom, téléphone, email, niveau, école..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      className="h-10 rounded-xl border-white/10 bg-white/[0.05] pl-10 text-sm text-white placeholder:text-white/30 focus:border-purple-500/50 focus:ring-purple-500/30"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between sm:justify-end gap-3 text-xs text-white/50">
+                    <span>
+                      <strong className="text-white/80">{filteredSubmissions.length}</strong> personne{filteredSubmissions.length > 1 ? "s" : ""} trouvée{filteredSubmissions.length > 1 ? "s" : ""}
+                      {submissionPeriod !== "overall" || search ? ` (sur ${submissions.length} au total)` : ""}
+                    </span>
+                    <span className="flex items-center gap-1.5 text-emerald-400">
+                      <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+                      Live
+                    </span>
+                  </div>
                 </div>
 
-                {/* Data Table */}
+                {/* ── Table des Candidatures ── */}
                 <GlassPanel>
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs sm:text-sm">
@@ -1302,7 +1509,9 @@ export default function AdminPage() {
                             <td colSpan={6} className="py-16 text-center text-white/40">
                               <FileSpreadsheet className="mx-auto size-8 mb-3 text-white/20" />
                               <p className="text-sm">
-                                {search ? "Aucun résultat pour cette recherche." : "Aucune candidature enregistrée pour le moment."}
+                                {search
+                                  ? "Aucun résultat pour cette recherche."
+                                  : "Aucune candidature enregistrée pour cette période."}
                               </p>
                             </td>
                           </tr>
