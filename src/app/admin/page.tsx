@@ -13,7 +13,6 @@ import {
   Building,
   Calendar,
   User,
-  ShieldCheck,
   FileSpreadsheet,
   BarChart3,
   Eye,
@@ -28,16 +27,13 @@ import {
   ChevronDown,
   ChevronUp,
   Activity,
-  Layers,
-  X,
+  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   PieChart,
@@ -103,7 +99,7 @@ type SiteVisit = {
   endedAt: string | null;
 };
 
-type Tab = "dashboard" | "submissions" | "traffic";
+type Tab = "dashboard" | "submissions";
 
 /* ────────────────────────────────────────────────────────────── */
 /* Helpers                                                       */
@@ -149,7 +145,7 @@ const PIE_COLORS = ["#8b5cf6", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#ef4
 
 function AnimatedBackground() {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden">
+    <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden>
       <div className="absolute inset-0 bg-[#030014]" />
       <motion.div
         animate={{
@@ -421,6 +417,7 @@ export default function AdminPage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
 
+  // Fusion: 2 tabs ("dashboard" contains both Analytics & Traffic Sessions)
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
 
   // Submissions
@@ -433,7 +430,7 @@ export default function AdminPage() {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [loadingAnalytics, setLoadingAnalytics] = useState(false);
 
-  // Traffic / Visits
+  // Traffic / Visits (integrated in Dashboard)
   const [visits, setVisits] = useState<SiteVisit[]>([]);
   const [loadingVisits, setLoadingVisits] = useState(false);
   const [expandedVisitId, setExpandedVisitId] = useState<string | null>(null);
@@ -497,11 +494,13 @@ export default function AdminPage() {
     }
   }, []);
 
-  // Load data when tabs change
+  // When on dashboard, fetch both analytics and visits
   useEffect(() => {
     if (!isAuthenticated) return;
-    if (activeTab === "dashboard" && !analytics) fetchAnalytics();
-    if (activeTab === "traffic" && visits.length === 0) fetchVisits();
+    if (activeTab === "dashboard") {
+      if (!analytics) fetchAnalytics();
+      if (visits.length === 0) fetchVisits();
+    }
   }, [activeTab, isAuthenticated, analytics, visits.length, fetchAnalytics, fetchVisits]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -519,6 +518,7 @@ export default function AdminPage() {
         toast.success("Connexion réussie !");
         fetchSubmissions();
         fetchAnalytics();
+        fetchVisits();
       } else {
         toast.error(data.error || "Email ou mot de passe incorrect.");
       }
@@ -626,7 +626,7 @@ export default function AdminPage() {
     );
   }
 
-  /* ── Login Screen ── */
+  /* ── Login Screen avec Logo LCDE ── */
   if (!isAuthenticated) {
     return (
       <>
@@ -638,21 +638,26 @@ export default function AdminPage() {
             transition={{ duration: 0.5 }}
             className="w-full max-w-md rounded-3xl border border-white/[0.08] bg-white/[0.04] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl"
           >
-            <div className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-white/10 text-purple-400 mb-5">
-              <ShieldCheck className="size-8" />
+            {/* Logo officiel LCDE */}
+            <div className="relative mx-auto mb-5 flex size-20 items-center justify-center overflow-hidden rounded-full bg-white p-2 shadow-2xl ring-4 ring-gold/40">
+              <img
+                src="/logo-lcde.png"
+                alt="Logo Le Club Des Experts"
+                className="size-full object-contain"
+              />
             </div>
 
             <h1 className="text-center font-serif text-2xl font-bold text-white">
-              LCDE Admin
+              Le Club Des Experts
             </h1>
-            <p className="mt-1.5 text-center text-xs text-white/50">
-              Accédez aux candidatures, analytics et sessions
+            <p className="mt-1 text-center text-xs text-white/50">
+              Portail d&apos;administration & suivi analytique
             </p>
 
             <form onSubmit={handleLogin} autoComplete="off" className="mt-7 space-y-4">
               <div>
                 <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-white/60">
-                  Email
+                  Email administrateur
                 </label>
                 <div className="relative">
                   <Mail className="pointer-events-none absolute left-3.5 top-3 size-4 text-white/30" />
@@ -663,7 +668,7 @@ export default function AdminPage() {
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                     className="h-11 rounded-xl border-white/10 bg-white/[0.06] pl-11 text-sm text-white placeholder:text-white/25 focus:border-purple-500/50 focus:ring-purple-500/30"
-                    placeholder="votre-email@lcde.ma"
+                    placeholder="admin@lcde.ma"
                   />
                 </div>
               </div>
@@ -689,9 +694,9 @@ export default function AdminPage() {
               <Button
                 type="submit"
                 disabled={loggingIn}
-                className="mt-3 h-12 w-full rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 font-bold text-white hover:from-purple-500 hover:to-blue-500 transition-all shadow-lg shadow-purple-500/20"
+                className="mt-3 h-12 w-full rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 font-bold text-white hover:from-purple-500 hover:to-blue-500 transition-all shadow-lg shadow-purple-500/20"
               >
-                {loggingIn ? "Connexion en cours..." : "Se connecter"}
+                {loggingIn ? "Connexion en cours..." : "Accéder à l'administration"}
               </Button>
             </form>
           </motion.div>
@@ -700,11 +705,10 @@ export default function AdminPage() {
     );
   }
 
-  /* ── Authenticated Admin ── */
+  /* ── Authenticated Admin (2 Fused Tabs) ── */
   const tabs: { id: Tab; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
-    { id: "dashboard", label: "Tableau de bord", icon: BarChart3 },
+    { id: "dashboard", label: "Tableau de bord & Trafic", icon: BarChart3 },
     { id: "submissions", label: "Candidatures", icon: FileSpreadsheet },
-    { id: "traffic", label: "Trafic & Sessions", icon: Eye },
   ];
 
   return (
@@ -714,21 +718,48 @@ export default function AdminPage() {
         {/* ── Top Navbar ── */}
         <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-black/30 backdrop-blur-2xl">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+            {/* Logo de gauche */}
             <div className="flex items-center gap-3">
-              <span className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-white/10 text-purple-400">
-                <Layers className="size-5" />
+              <span className="relative flex size-10 items-center justify-center overflow-hidden rounded-full bg-white ring-2 ring-gold/40 shadow-md flex-shrink-0">
+                <img
+                  src="/logo-lcde.png"
+                  alt="Logo LCDE"
+                  className="size-full object-contain p-0.5"
+                />
               </span>
               <div>
-                <h1 className="font-serif text-lg font-bold leading-none text-white">
-                  LCDE Admin
+                <h1 className="font-serif text-lg font-bold leading-none text-white flex items-center gap-2">
+                  Le Club Des Experts
+                  <span className="text-[10px] font-sans font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                    Admin
+                  </span>
                 </h1>
                 <p className="text-[11px] text-white/40">
-                  Dashboard · Analytics · Sessions
+                  Dashboard · Trafic · Candidatures
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            {/* Actions & Profil Admin à droite */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Photo de profil admin avec le logo du Club des Experts */}
+              <div className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-2.5 py-1.5 backdrop-blur-md">
+                <div className="relative flex size-7 items-center justify-center overflow-hidden rounded-full bg-white ring-2 ring-gold/50 shadow flex-shrink-0">
+                  <img
+                    src="/logo-lcde.png"
+                    alt="Photo de profil admin - Le Club des Experts"
+                    className="size-full object-contain p-0.5"
+                  />
+                </div>
+                <div className="hidden sm:flex flex-col text-left">
+                  <span className="text-xs font-semibold text-white leading-tight">Admin LCDE</span>
+                  <span className="text-[10px] text-emerald-400 font-medium leading-none flex items-center gap-1">
+                    <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Connecté
+                  </span>
+                </div>
+              </div>
+
               <Button
                 variant="outline"
                 size="sm"
@@ -736,7 +767,7 @@ export default function AdminPage() {
                 className="h-9 gap-1.5 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08] hover:text-white"
               >
                 <RefreshCw className={`size-3.5 ${loadingAnalytics || loadingSubmissions || loadingVisits ? "animate-spin" : ""}`} />
-                Rafraîchir
+                <span className="hidden sm:inline">Rafraîchir</span>
               </Button>
               <Button
                 variant="outline"
@@ -745,14 +776,14 @@ export default function AdminPage() {
                 className="h-9 gap-1.5 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/20 transition-colors"
               >
                 <LogOut className="size-3.5" />
-                Quitter
+                <span className="hidden sm:inline">Quitter</span>
               </Button>
             </div>
           </div>
 
-          {/* Tab Bar */}
+          {/* Tab Bar (2 Fused Tabs) */}
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <nav className="flex gap-1 -mb-px">
+            <nav className="flex gap-2 -mb-px">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
@@ -763,12 +794,22 @@ export default function AdminPage() {
                       : "text-white/50 hover:text-white/80 hover:bg-white/[0.03]"
                   }`}
                 >
-                  <tab.icon className="size-4" />
-                  <span className="hidden sm:inline">{tab.label}</span>
+                  <tab.icon className="size-4 text-purple-400" />
+                  <span>{tab.label}</span>
+                  {tab.id === "submissions" && submissions.length > 0 && (
+                    <span className="ml-1 rounded-full bg-purple-500/20 px-2 py-0.2 text-[10px] font-semibold text-purple-300 border border-purple-500/30">
+                      {submissions.length}
+                    </span>
+                  )}
+                  {tab.id === "dashboard" && visits.length > 0 && (
+                    <span className="ml-1 rounded-full bg-blue-500/20 px-2 py-0.2 text-[10px] font-semibold text-blue-300 border border-blue-500/30">
+                      {visits.length}
+                    </span>
+                  )}
                   {activeTab === tab.id && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-full"
                     />
                   )}
                 </button>
@@ -780,14 +821,16 @@ export default function AdminPage() {
         {/* ── Content ── */}
         <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
           <AnimatePresence mode="wait">
-            {/* ========== DASHBOARD TAB ========== */}
+            {/* ========== FUSED DASHBOARD & TRAFFIC TAB ========== */}
             {activeTab === "dashboard" && (
               <motion.div
                 key="dashboard"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
+                className="space-y-8"
               >
+                {/* ── Section 1 : Métriques & Graphiques analytiques ── */}
                 {loadingAnalytics && !analytics ? (
                   <div className="flex items-center justify-center py-20">
                     <RefreshCw className="size-6 animate-spin text-purple-400" />
@@ -819,7 +862,7 @@ export default function AdminPage() {
                         label="Scroll moyen"
                         value={`${analytics.summary.avgScrollDepth}%`}
                         icon={ArrowUpRight}
-                        trend={`${analytics.summary.bounceRate}% taux de rebond`}
+                        trend={`${analytics.summary.bounceRate}% rebond (<10%)`}
                         color="text-amber-400"
                       />
                     </div>
@@ -880,7 +923,7 @@ export default function AdminPage() {
                       </GlassPanel>
 
                       {/* Section Funnel */}
-                      <GlassPanel title="Sections les plus vues">
+                      <GlassPanel title="Sections les plus consultées">
                         <div className="h-[250px]">
                           <ResponsiveContainer width="100%" height="100%">
                             <BarChart
@@ -901,7 +944,7 @@ export default function AdminPage() {
                                 tick={{ fill: "rgba(255,255,255,0.5)", fontSize: 10 }}
                                 axisLine={false}
                                 tickLine={false}
-                                width={100}
+                                width={110}
                                 tickFormatter={(name) => SECTION_LABELS[name] || name}
                               />
                               <Tooltip
@@ -924,19 +967,19 @@ export default function AdminPage() {
                       </GlassPanel>
                     </div>
 
-                    {/* Bottom Row: Device + Browser */}
+                    {/* Bottom Row: Device + Browser + Sources */}
                     <div className="grid gap-6 lg:grid-cols-3">
                       {/* Devices Pie */}
                       <GlassPanel title="Appareils">
-                        <div className="h-[200px] flex items-center justify-center">
+                        <div className="h-[180px] flex items-center justify-center">
                           <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                               <Pie
                                 data={Object.entries(analytics.devices).map(([name, value]) => ({ name, value }))}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius={50}
-                                outerRadius={80}
+                                innerRadius={45}
+                                outerRadius={75}
                                 paddingAngle={3}
                                 dataKey="value"
                               >
@@ -956,7 +999,7 @@ export default function AdminPage() {
                             </PieChart>
                           </ResponsiveContainer>
                         </div>
-                        <div className="flex flex-wrap justify-center gap-3 mt-2">
+                        <div className="flex flex-wrap justify-center gap-3 mt-1">
                           {Object.entries(analytics.devices).map(([name, count], i) => (
                             <span key={name} className="flex items-center gap-1.5 text-xs text-white/60">
                               <span
@@ -974,7 +1017,7 @@ export default function AdminPage() {
                         <div className="space-y-2.5">
                           {Object.entries(analytics.browsers)
                             .sort(([, a], [, b]) => b - a)
-                            .slice(0, 6)
+                            .slice(0, 5)
                             .map(([name, count]) => {
                               const max = Math.max(...Object.values(analytics.browsers));
                               const pct = max > 0 ? (count / max) * 100 : 0;
@@ -1003,7 +1046,7 @@ export default function AdminPage() {
                         <div className="space-y-2.5">
                           {Object.entries(analytics.referrers)
                             .sort(([, a], [, b]) => b - a)
-                            .slice(0, 6)
+                            .slice(0, 5)
                             .map(([name, count]) => {
                               const max = Math.max(...Object.values(analytics.referrers));
                               const pct = max > 0 ? (count / max) * 100 : 0;
@@ -1029,11 +1072,139 @@ export default function AdminPage() {
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center py-20 text-white/50">
+                  <div className="text-center py-12 text-white/50">
                     <BarChart3 className="mx-auto size-8 mb-3 text-white/30" />
-                    <p>Aucune donnée analytics disponible.</p>
+                    <p>Aucune donnée analytics disponible pour le moment.</p>
                   </div>
                 )}
+
+                {/* ── Section 2 (Fusionnée) : Trafic & Replays de Sessions ── */}
+                <div className="space-y-4 pt-4 border-t border-white/[0.08]">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <h2 className="text-base font-bold text-white flex items-center gap-2">
+                        <Eye className="size-5 text-purple-400" />
+                        Trafic & Sessions des Visiteurs en Direct
+                      </h2>
+                      <p className="text-xs text-white/40 mt-0.5">
+                        Retrouvez le parcours exact de chaque visiteur : sections scrollées, clics effectués et temps passé
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2.5">
+                      <div className="relative flex-1 sm:w-80">
+                        <Search className="pointer-events-none absolute left-3.5 top-2.5 size-3.5 text-white/30" />
+                        <Input
+                          type="text"
+                          placeholder="Filtrer par IP, navigateur, appareil, source..."
+                          value={visitSearch}
+                          onChange={(e) => setVisitSearch(e.target.value)}
+                          className="h-9 rounded-xl border-white/10 bg-white/[0.05] pl-9 text-xs text-white placeholder:text-white/30 focus:border-purple-500/50 focus:ring-purple-500/30"
+                        />
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={fetchVisits}
+                        disabled={loadingVisits}
+                        className="h-9 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08]"
+                      >
+                        <RefreshCw className={`size-3.5 mr-1.5 ${loadingVisits ? "animate-spin text-purple-400" : ""}`} />
+                        Actualiser
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-white/50">
+                    <span>
+                      <strong className="text-white/80">{filteredVisits.length}</strong> session{filteredVisits.length > 1 ? "s" : ""} enregistrée{filteredVisits.length > 1 ? "s" : ""}
+                      {visitSearch ? ` (filtré depuis ${visits.length})` : ""}
+                    </span>
+                    <span className="text-purple-400 flex items-center gap-1.5">
+                      <Sparkles className="size-3.5 text-purple-400 animate-pulse" />
+                      Cliquez sur une session pour dérouler le replay d&apos;activité
+                    </span>
+                  </div>
+
+                  {/* Sessions Table */}
+                  <GlassPanel>
+                    {loadingVisits && visits.length === 0 ? (
+                      <div className="py-12 text-center">
+                        <RefreshCw className="mx-auto size-6 animate-spin text-purple-400 mb-2" />
+                        <p className="text-xs text-white/40">Chargement des sessions visiteurs...</p>
+                      </div>
+                    ) : filteredVisits.length === 0 ? (
+                      <div className="py-16 text-center">
+                        <Eye className="mx-auto size-8 mb-3 text-white/20" />
+                        <p className="text-sm text-white/40">
+                          {visitSearch ? "Aucune session ne correspond à votre recherche." : "Aucune visite enregistrée pour le moment."}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="divide-y divide-white/[0.04]">
+                        {filteredVisits.map((v) => {
+                          const isExpanded = expandedVisitId === v.id;
+                          const DeviceIcon =
+                            v.device === "Mobile" ? Smartphone : v.device === "Tablet" ? Tablet : Monitor;
+
+                          return (
+                            <div key={v.id}>
+                              <button
+                                onClick={() => setExpandedVisitId(isExpanded ? null : v.id)}
+                                className="w-full flex items-center gap-4 py-3 px-4 text-left hover:bg-white/[0.03] transition-colors text-xs sm:text-sm group"
+                              >
+                                {/* Device Icon */}
+                                <div className="flex size-9 flex-shrink-0 items-center justify-center rounded-xl bg-white/[0.05] group-hover:bg-purple-500/10 transition-colors">
+                                  <DeviceIcon className="size-4 text-white/50 group-hover:text-purple-400" />
+                                </div>
+
+                                {/* Info */}
+                                <div className="flex-1 min-w-0 grid grid-cols-2 sm:grid-cols-5 gap-2">
+                                  <div>
+                                    <p className="text-[10px] text-white/40 uppercase">Date</p>
+                                    <p className="text-white/80 text-xs truncate">{formatDate(v.startedAt)}</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-[10px] text-white/40 uppercase">Appareil</p>
+                                    <p className="text-white/80 text-xs">{v.browser} / {v.os}</p>
+                                  </div>
+                                  <div className="hidden sm:block">
+                                    <p className="text-[10px] text-white/40 uppercase">Durée</p>
+                                    <p className="text-emerald-400 text-xs font-medium">{formatDuration(v.duration)}</p>
+                                  </div>
+                                  <div className="hidden sm:block">
+                                    <p className="text-[10px] text-white/40 uppercase">Scroll Max</p>
+                                    <p className="text-white/80 text-xs">{v.maxScrollPercent}%</p>
+                                  </div>
+                                  <div className="hidden sm:block">
+                                    <p className="text-[10px] text-white/40 uppercase">Sections Vues</p>
+                                    <p className="text-white/80 text-xs">
+                                      {(v.sectionsVisited || []).length} vue{((v.sectionsVisited || []).length) > 1 ? "s" : ""}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                {/* Expand Chevron */}
+                                <div className="flex-shrink-0">
+                                  {isExpanded ? (
+                                    <ChevronUp className="size-4 text-purple-400" />
+                                  ) : (
+                                    <ChevronDown className="size-4 text-white/40 group-hover:text-white/70" />
+                                  )}
+                                </div>
+                              </button>
+
+                              {/* Expanded Detail */}
+                              <AnimatePresence>
+                                {isExpanded && <SessionTimeline visit={v} />}
+                              </AnimatePresence>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </GlassPanel>
+                </div>
               </motion.div>
             )}
 
@@ -1088,7 +1259,7 @@ export default function AdminPage() {
                   </span>
                   <span className="flex items-center gap-1.5 text-emerald-400">
                     <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Live
+                    Données directes
                   </span>
                 </div>
 
@@ -1123,7 +1294,7 @@ export default function AdminPage() {
                           <tr>
                             <td colSpan={6} className="py-12 text-center text-white/40">
                               <RefreshCw className="mx-auto size-6 animate-spin text-purple-400 mb-2" />
-                              Chargement...
+                              Chargement des candidatures...
                             </td>
                           </tr>
                         ) : filteredSubmissions.length === 0 ? (
@@ -1131,7 +1302,7 @@ export default function AdminPage() {
                             <td colSpan={6} className="py-16 text-center text-white/40">
                               <FileSpreadsheet className="mx-auto size-8 mb-3 text-white/20" />
                               <p className="text-sm">
-                                {search ? "Aucun résultat." : "Aucune candidature."}
+                                {search ? "Aucun résultat pour cette recherche." : "Aucune candidature enregistrée pour le moment."}
                               </p>
                             </td>
                           </tr>
@@ -1177,128 +1348,6 @@ export default function AdminPage() {
                       </tbody>
                     </table>
                   </div>
-                </GlassPanel>
-              </motion.div>
-            )}
-
-            {/* ========== TRAFFIC TAB ========== */}
-            {activeTab === "traffic" && (
-              <motion.div
-                key="traffic"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-              >
-                {/* Actions Bar */}
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-5">
-                  <div className="relative flex-1 max-w-md">
-                    <Search className="pointer-events-none absolute left-3.5 top-3 size-4 text-white/30" />
-                    <Input
-                      type="text"
-                      placeholder="Rechercher par IP, navigateur, appareil, source..."
-                      value={visitSearch}
-                      onChange={(e) => setVisitSearch(e.target.value)}
-                      className="h-10 rounded-xl border-white/10 bg-white/[0.05] pl-10 text-sm text-white placeholder:text-white/30 focus:border-purple-500/50 focus:ring-purple-500/30"
-                    />
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={fetchVisits}
-                    disabled={loadingVisits}
-                    className="h-10 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08]"
-                  >
-                    <RefreshCw className={`size-3.5 mr-1.5 ${loadingVisits ? "animate-spin text-purple-400" : ""}`} />
-                    Rafraîchir
-                  </Button>
-                </div>
-
-                <div className="flex items-center justify-between mb-3 text-xs text-white/50">
-                  <span>
-                    <strong className="text-white/80">{filteredVisits.length}</strong> session{filteredVisits.length > 1 ? "s" : ""}
-                  </span>
-                  <span className="text-white/40">
-                    Cliquez sur une session pour voir le détail
-                  </span>
-                </div>
-
-                {/* Visits Table */}
-                <GlassPanel>
-                  {loadingVisits && visits.length === 0 ? (
-                    <div className="py-12 text-center">
-                      <RefreshCw className="mx-auto size-6 animate-spin text-purple-400 mb-2" />
-                      <p className="text-xs text-white/40">Chargement des sessions...</p>
-                    </div>
-                  ) : filteredVisits.length === 0 ? (
-                    <div className="py-16 text-center">
-                      <Eye className="mx-auto size-8 mb-3 text-white/20" />
-                      <p className="text-sm text-white/40">
-                        {visitSearch ? "Aucune session trouvée." : "Aucune visite enregistrée."}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="divide-y divide-white/[0.04]">
-                      {filteredVisits.map((v) => {
-                        const isExpanded = expandedVisitId === v.id;
-                        const DeviceIcon =
-                          v.device === "Mobile" ? Smartphone : v.device === "Tablet" ? Tablet : Monitor;
-
-                        return (
-                          <div key={v.id}>
-                            <button
-                              onClick={() => setExpandedVisitId(isExpanded ? null : v.id)}
-                              className="w-full flex items-center gap-4 py-3 px-4 text-left hover:bg-white/[0.03] transition-colors text-xs sm:text-sm"
-                            >
-                              {/* Device Icon */}
-                              <div className="flex size-9 flex-shrink-0 items-center justify-center rounded-xl bg-white/[0.05]">
-                                <DeviceIcon className="size-4 text-white/50" />
-                              </div>
-
-                              {/* Info */}
-                              <div className="flex-1 min-w-0 grid grid-cols-2 sm:grid-cols-5 gap-2">
-                                <div>
-                                  <p className="text-[10px] text-white/40 uppercase">Date</p>
-                                  <p className="text-white/80 text-xs truncate">{formatDate(v.startedAt)}</p>
-                                </div>
-                                <div>
-                                  <p className="text-[10px] text-white/40 uppercase">Appareil</p>
-                                  <p className="text-white/80 text-xs">{v.browser} / {v.os}</p>
-                                </div>
-                                <div className="hidden sm:block">
-                                  <p className="text-[10px] text-white/40 uppercase">Durée</p>
-                                  <p className="text-emerald-400 text-xs font-medium">{formatDuration(v.duration)}</p>
-                                </div>
-                                <div className="hidden sm:block">
-                                  <p className="text-[10px] text-white/40 uppercase">Scroll</p>
-                                  <p className="text-white/80 text-xs">{v.maxScrollPercent}%</p>
-                                </div>
-                                <div className="hidden sm:block">
-                                  <p className="text-[10px] text-white/40 uppercase">Sections</p>
-                                  <p className="text-white/80 text-xs">
-                                    {(v.sectionsVisited || []).length} vues
-                                  </p>
-                                </div>
-                              </div>
-
-                              {/* Expand Chevron */}
-                              <div className="flex-shrink-0">
-                                {isExpanded ? (
-                                  <ChevronUp className="size-4 text-white/40" />
-                                ) : (
-                                  <ChevronDown className="size-4 text-white/40" />
-                                )}
-                              </div>
-                            </button>
-
-                            {/* Expanded Detail */}
-                            <AnimatePresence>
-                              {isExpanded && <SessionTimeline visit={v} />}
-                            </AnimatePresence>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
                 </GlassPanel>
               </motion.div>
             )}
