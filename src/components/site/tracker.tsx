@@ -66,7 +66,7 @@ function detectTrafficSource(): string {
     const ref = (document.referrer || "").trim();
     const ua = navigator.userAgent || "";
 
-    // WhatsApp detection (Android intent, in-app browser, wa.me referrer)
+    // WhatsApp detection
     if (
       /whatsapp/i.test(ref) ||
       /com\.whatsapp/i.test(ref) ||
@@ -134,13 +134,13 @@ export function SiteTracker() {
   const initializedRef = useRef(false);
   const lastSendRef = useRef(0);
   const trafficSourceRef = useRef("Accès direct");
+  const lastRecordedSectionRef = useRef("");
   const scrollDebounceTimer = useRef<NodeJS.Timeout | null>(null);
 
   const sendData = useCallback((isEnd: boolean = false) => {
     if (!sessionIdRef.current) return;
 
     const now = Date.now();
-    // Allow immediate send if isEnd, otherwise minimum 2s between rapid sends
     if (!isEnd && now - lastSendRef.current < 2000) return;
     lastSendRef.current = now;
 
@@ -162,7 +162,7 @@ export function SiteTracker() {
     const payload = JSON.stringify({
       sessionId: sessionIdRef.current,
       sectionsVisited: sections,
-      events: eventsRef.current.slice(-200),
+      events: eventsRef.current.slice(-100),
       maxScrollPercent: maxScrollRef.current,
       duration: Math.max(1000, now - startTimeRef.current),
       totalClicks: clickCountRef.current,
@@ -172,7 +172,6 @@ export function SiteTracker() {
 
     const url = "/api/tracking/update";
 
-    // Modern keepalive fetch first (preferred on mobile)
     try {
       fetch(url, {
         method: "POST",
@@ -180,7 +179,6 @@ export function SiteTracker() {
         body: payload,
         keepalive: true,
       }).catch(() => {
-        // Fallback to sendBeacon if fetch fails on unload
         if (isEnd && typeof navigator !== "undefined" && navigator.sendBeacon) {
           navigator.sendBeacon(url, new Blob([payload], { type: "application/json" }));
         }
@@ -196,7 +194,6 @@ export function SiteTracker() {
     if (initializedRef.current) return;
     initializedRef.current = true;
 
-    // Do not track admin portal
     if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) {
       return;
     }
@@ -215,7 +212,14 @@ export function SiteTracker() {
 
     const { browser, os, device } = getBrowserInfo();
 
-    // 1. Initialiser la visite
+    // Événement initial : Arrivée sur le site
+    eventsRef.current.push({
+      type: "session_start",
+      target: trafficSource,
+      time: 0,
+    });
+
+    // 1. Initialiser la visite en DB
     fetch("/api/tracking/init", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -232,7 +236,7 @@ export function SiteTracker() {
       }),
     }).catch(() => {});
 
-    // 2. Observer toutes les sections avec seuil très bas pour le mobile
+    // 2. Observer les sections
     const setupObserver = () => {
       const sections = document.querySelectorAll("section[id]");
       if (sections.length === 0) return null;
@@ -256,24 +260,23 @@ export function SiteTracker() {
             if (entry.isIntersecting && !data.visible) {
               data.visible = true;
               data.enterTime = Date.now();
-              hasNewEnter = true;
-              eventsRef.current.push({
-                type: "section_enter",
-                section: id,
-                time: Date.now() - startTimeRef.current,
-              });
+
+              // Enregistrer l'événement propre "A vu la section ..." sans doublon consécutif
+              if (lastRecordedSectionRef.current !== id) {
+                lastRecordedSectionRef.current = id;
+                hasNewEnter = true;
+                eventsRef.current.push({
+                  type: "section_view",
+                  section: id,
+                  time: Date.now() - startTimeRef.current,
+                });
+              }
             } else if (!entry.isIntersecting && data.visible) {
               data.visible = false;
               data.totalTime += Date.now() - data.enterTime;
-              eventsRef.current.push({
-                type: "section_leave",
-                section: id,
-                time: Date.now() - startTimeRef.current,
-              });
             }
           });
 
-          // Dès qu'une nouvelle section est atteinte, on synchronise sans attendre !
           if (hasNewEnter) {
             sendData(false);
           }
@@ -285,7 +288,6 @@ export function SiteTracker() {
       return observer;
     };
 
-    // Attachement immédiat + rafraîchissement
     let observer = setupObserver();
     const t1 = setTimeout(() => {
       if (!observer) observer = setupObserver();
@@ -301,7 +303,6 @@ export function SiteTracker() {
         maxScrollRef.current = p;
       }
 
-      // Debounce sync 1.5s après l'arrêt du défilement
       if (scrollDebounceTimer.current) clearTimeout(scrollDebounceTimer.current);
       scrollDebounceTimer.current = setTimeout(() => {
         sendData(false);
@@ -311,34 +312,25 @@ export function SiteTracker() {
     window.addEventListener("scroll", handleScrollUpdate, { passive: true });
     window.addEventListener("touchmove", handleScrollUpdate, { passive: true });
 
-    // 4. Suivi des Clics
-    const handleClick = (e: MouseEvent) => {
+    // 4. Événement Formulaire Rempli
+    const handleFormSubmitted = () => {
       clickCountRef.current++;
-      const target = e.target as HTMLElement;
-      const closestId = target.id || target.closest("[id]")?.id || "";
-      const tagName = target.tagName ? target.tagName.toLowerCase() : "";
-      const text = (target.textContent || "").trim().slice(0, 40);
-
       eventsRef.current.push({
-        type: "click",
-        target: [tagName, closestId, text].filter(Boolean).join(" | "),
+        type: "form_submitted",
+        target: "Formulaire d'inscription",
         time: Date.now() - startTimeRef.current,
       });
-
-      if (eventsRef.current.length > 300) {
-        eventsRef.current = eventsRef.current.slice(-200);
-      }
+      sendData(false);
     };
-    document.addEventListener("click", handleClick, { passive: true });
+    window.addEventListener("lcde:form_submitted", handleFormSubmitted);
 
-    // 5. Synchronisations automatiques rapprochées
-    // 2s, 6s, 12s, puis toutes les 8s (pour ne JAMAIS perdre une visite rapide mobile)
+    // 5. Synchronisations automatiques
     const earlySync1 = setTimeout(() => sendData(false), 2000);
     const earlySync2 = setTimeout(() => sendData(false), 6000);
     const earlySync3 = setTimeout(() => sendData(false), 12000);
     const interval = setInterval(() => sendData(false), 8000);
 
-    // 6. Gestion ultra-fiable des sorties sur Mobile (pagehide + visibilitychange)
+    // 6. Gestion mobile des sorties
     const handleExit = () => {
       sendData(true);
     };
@@ -364,7 +356,7 @@ export function SiteTracker() {
       observer?.disconnect();
       window.removeEventListener("scroll", handleScrollUpdate);
       window.removeEventListener("touchmove", handleScrollUpdate);
-      document.removeEventListener("click", handleClick);
+      window.removeEventListener("lcde:form_submitted", handleFormSubmitted);
       window.removeEventListener("pagehide", handleExit);
       window.removeEventListener("beforeunload", handleExit);
       document.removeEventListener("visibilitychange", handleVisibility);

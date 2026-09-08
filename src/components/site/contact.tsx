@@ -106,6 +106,9 @@ export function Contact() {
       }
       setSubmittedName(form.name.trim());
       setDone(true);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("lcde:form_submitted"));
+      }
       toast.success("Demande envoyée ! Notre équipe vous recontacte sous 24 h.");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Une erreur est survenue. Réessayez ou écrivez-nous sur WhatsApp.";

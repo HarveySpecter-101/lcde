@@ -259,38 +259,105 @@ function GlassPanel({
 }
 
 /* ────────────────────────────────────────────────────────────── */
-/* Session Timeline (expanded visit detail)                      */
+/* Session Timeline (parcours narratif simplifié)                 */
 /* ────────────────────────────────────────────────────────────── */
 
 function SessionTimeline({ visit }: { visit: SiteVisit }) {
-  const events = visit.events || [];
   const sections = visit.sectionsVisited || [];
 
-  const eventIcon = (type: string) => {
-    switch (type) {
-      case "section_enter":
-        return <Eye className="size-3.5 text-emerald-400" />;
-      case "section_leave":
-        return <Activity className="size-3.5 text-amber-400" />;
-      case "click":
-        return <MousePointerClick className="size-3.5 text-sky-400" />;
-      default:
-        return <Activity className="size-3.5 text-white/40" />;
-    }
-  };
+  const timelineItems = useMemo(() => {
+    const items: Array<{
+      icon: React.ReactNode;
+      title: string;
+      subtitle?: string;
+      badge?: string;
+      badgeColor?: string;
+      highlight?: boolean;
+    }> = [];
 
-  const eventLabel = (e: { type: string; target?: string; section?: string }) => {
-    switch (e.type) {
-      case "section_enter":
-        return `A vu la section "${SECTION_LABELS[e.section || ""] || e.section}"`;
-      case "section_leave":
-        return `A quitté "${SECTION_LABELS[e.section || ""] || e.section}"`;
-      case "click":
-        return `Clic sur : ${e.target || "élément"}`;
-      default:
-        return e.type;
+    const isWa = /whatsapp/i.test(visit.referrer || "");
+    const sourceName = isWa ? "WhatsApp" : (visit.referrer || "Accès direct");
+
+    // 1. Arrivée sur le site
+    items.push({
+      icon: isWa ? <Phone className="size-4 text-emerald-400" /> : <Globe className="size-4 text-blue-400" />,
+      title: `Arrivée sur le site via ${sourceName}`,
+      subtitle: `Appareil : ${visit.browser || "Inconnu"} (${visit.os || "OS"}) · IP : ${visit.ip || "—"}`,
+      badge: "Entrée",
+      badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+    });
+
+    // 2. Sections vues dans l'ordre
+    const rawEvents = visit.events || [];
+    const orderedSections: string[] = [];
+
+    rawEvents.forEach((e) => {
+      if (e.type === "section_view" || e.type === "section_enter") {
+        if (e.section && !orderedSections.includes(e.section)) {
+          orderedSections.push(e.section);
+        }
+      }
+    });
+
+    if (orderedSections.length === 0 && sections.length > 0) {
+      sections.forEach((s) => {
+        if (s.name && !orderedSections.includes(s.name)) {
+          orderedSections.push(s.name);
+        }
+      });
     }
-  };
+
+    const lastSection = orderedSections.length > 0 ? orderedSections[orderedSections.length - 1] : null;
+
+    orderedSections.forEach((secId, idx) => {
+      const isLast = secId === lastSection;
+      const label = SECTION_LABELS[secId] || secId;
+
+      if (isLast && orderedSections.length > 1) {
+        items.push({
+          icon: <Activity className="size-4 text-amber-400" />,
+          title: `S'est arrêté sur la section "${label}"`,
+          subtitle: "Dernière section consultée avant de quitter",
+          badge: "Arrêt",
+          badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+          highlight: true,
+        });
+      } else {
+        items.push({
+          icon: <Eye className="size-4 text-purple-400" />,
+          title: `A vu la section "${label}"`,
+          badge: `Étape ${idx + 1}`,
+          badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/30",
+        });
+      }
+    });
+
+    // 3. Formulaire rempli (si applicable)
+    const hasFormSubmit = rawEvents.some((e) => e.type === "form_submitted");
+    if (hasFormSubmit) {
+      items.push({
+        icon: <Sparkles className="size-4 text-amber-300 animate-pulse" />,
+        title: "A rempli le formulaire d'inscription 🎉",
+        subtitle: "Candidature complétée avec succès",
+        badge: "Succès",
+        badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30 font-bold",
+        highlight: true,
+      });
+    }
+
+    // 4. Sortie du site
+    if (visit.duration > 0 || visit.maxScrollPercent > 0) {
+      items.push({
+        icon: <LogOut className="size-4 text-white/40" />,
+        title: "A quitté le site",
+        subtitle: `Durée : ${formatDuration(visit.duration)} · Scroll max atteint : ${visit.maxScrollPercent}%`,
+        badge: "Sortie",
+        badgeColor: "bg-white/10 text-white/50 border-white/10",
+      });
+    }
+
+    return items;
+  }, [visit, sections]);
 
   return (
     <motion.div
@@ -299,9 +366,9 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
       exit={{ height: 0, opacity: 0 }}
       className="overflow-hidden"
     >
-      <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-4">
+      <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-5 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-2">
-          {/* Session Info */}
+          {/* Informations de connexion */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-3">
               Informations de connexion
@@ -337,17 +404,13 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
                 <span className="text-white/50">Scroll max</span>
                 <span>{visit.maxScrollPercent}%</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-white/50">Clics</span>
-                <span>{visit.totalClicks}</span>
-              </div>
             </div>
 
-            {/* Sections visited */}
+            {/* Sections visitées en résumé */}
             {sections.length > 0 && (
               <div className="mt-4">
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-2">
-                  Sections visitées
+                  Temps passé par section
                 </h4>
                 <div className="space-y-1.5">
                   {sections.map((s, i) => (
@@ -358,7 +421,7 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
                       <span className="text-white/80">
                         {SECTION_LABELS[s.name] || s.name}
                       </span>
-                      <span className="text-white/50">
+                      <span className="text-white/50 font-mono">
                         {formatDuration(s.totalTime)}
                       </span>
                     </div>
@@ -368,36 +431,44 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
             )}
           </div>
 
-          {/* Event Timeline */}
+          {/* Parcours du candidat (événements simples et narratifs) */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-3">
-              Activité détaillée ({events.length} événements)
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-3 flex items-center justify-between">
+              <span>Parcours chronologique du candidat</span>
+              <span className="text-[10px] text-white/40">{timelineItems.length} étapes</span>
             </h4>
-            <div className="max-h-[300px] overflow-y-auto space-y-0 pr-2 scroll-lcde">
-              {events.length === 0 ? (
-                <p className="text-xs text-white/40 italic">Aucun événement enregistré</p>
-              ) : (
-                events.slice(0, 100).map((e, i) => (
-                  <div key={i} className="flex items-start gap-3 py-1.5 group">
-                    <div className="mt-0.5 flex size-6 flex-shrink-0 items-center justify-center rounded-full bg-white/[0.06] group-hover:bg-white/[0.1] transition-colors">
-                      {eventIcon(e.type)}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs text-white/80 leading-relaxed truncate">
-                        {eventLabel(e)}
-                      </p>
-                    </div>
-                    <span className="text-[10px] text-white/30 tabular-nums flex-shrink-0">
-                      {formatDuration(e.time)}
-                    </span>
+            <div className="space-y-3 pl-1">
+              {timelineItems.map((item, i) => (
+                <div
+                  key={i}
+                  className={`flex items-start gap-3 p-2.5 rounded-xl transition-all ${
+                    item.highlight
+                      ? "bg-white/[0.06] border border-white/10 shadow-sm"
+                      : "bg-white/[0.02] border border-white/5"
+                  }`}
+                >
+                  <div className="mt-0.5 flex size-8 flex-shrink-0 items-center justify-center rounded-lg bg-white/[0.08]">
+                    {item.icon}
                   </div>
-                ))
-              )}
-              {events.length > 100 && (
-                <p className="text-xs text-white/40 pt-2 text-center">
-                  … et {events.length - 100} autres événements
-                </p>
-              )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className={`text-xs font-medium ${item.highlight ? "text-white font-semibold" : "text-white/90"}`}>
+                        {item.title}
+                      </p>
+                      {item.badge && (
+                        <span className={`text-[10px] px-1.5 py-0.2 rounded-md border font-semibold flex-shrink-0 ${item.badgeColor || "bg-white/10 text-white/60 border-white/10"}`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
+                    {item.subtitle && (
+                      <p className="text-[11px] text-white/50 mt-0.5">
+                        {item.subtitle}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
