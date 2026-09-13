@@ -132,6 +132,7 @@ export function SiteTracker() {
   const eventsRef = useRef<TrackingEvent[]>([]);
   const maxScrollRef = useRef(0);
   const clickCountRef = useRef(0);
+  const isAutoScrollingRef = useRef(false);
   const initializedRef = useRef(false);
   const lastSendRef = useRef(0);
   const trafficSourceRef = useRef("Accès direct");
@@ -259,11 +260,13 @@ export function SiteTracker() {
             const data = sectionsRef.current.get(id)!;
 
             if (entry.isIntersecting && !data.visible) {
+              if (isAutoScrollingRef.current) return; // Ignore if scrolling programmatically
+              
               data.visible = true;
               data.enterTime = Date.now();
 
-              // Au lieu de loguer instantanément, on attend 800ms 
-              // pour ignorer le fast-scrolling (ex: clic sur une ancre)
+              // Au lieu de loguer instantanément, on attend 1500ms 
+              // pour s'assurer que l'utilisateur lit vraiment la section (ignore le fast-scrolling)
               data.viewTimer = setTimeout(() => {
                 if (data.visible && lastRecordedSectionRef.current !== id) {
                   lastRecordedSectionRef.current = id;
@@ -275,7 +278,7 @@ export function SiteTracker() {
                   });
                   sendData(false);
                 }
-              }, 800);
+              }, 1500);
               
             } else if (!entry.isIntersecting && data.visible) {
               data.visible = false;
@@ -317,6 +320,40 @@ export function SiteTracker() {
 
     window.addEventListener("scroll", handleScrollUpdate, { passive: true });
     window.addEventListener("touchmove", handleScrollUpdate, { passive: true });
+
+    // 3.5. Global Click Event Tracking
+    const handleGlobalClick = (e: MouseEvent) => {
+      let target = e.target as HTMLElement;
+      let depth = 0;
+      while (target && target !== document.body && depth < 4) {
+        if (target.tagName === "A" || target.tagName === "BUTTON") {
+          clickCountRef.current++;
+          
+          const text = target.innerText?.trim().slice(0, 40) || target.title || target.id || "Interaction";
+          const href = target.getAttribute("href");
+
+          eventsRef.current.push({
+            type: "click",
+            target: text,
+            time: Date.now() - startTimeRef.current,
+          });
+
+          // Si le lien est une ancre interne, on désactive le tracking temporairement
+          if (href && href.startsWith("#")) {
+            isAutoScrollingRef.current = true;
+            setTimeout(() => {
+              isAutoScrollingRef.current = false;
+            }, 1500);
+          }
+
+          sendData(false);
+          break;
+        }
+        target = target.parentElement as HTMLElement;
+        depth++;
+      }
+    };
+    document.addEventListener("click", handleGlobalClick, { passive: true });
 
     // 4. Événement Formulaire Rempli
     const handleFormSubmitted = () => {
@@ -366,6 +403,7 @@ export function SiteTracker() {
       window.removeEventListener("pagehide", handleExit);
       window.removeEventListener("beforeunload", handleExit);
       document.removeEventListener("visibilitychange", handleVisibility);
+      document.removeEventListener("click", handleGlobalClick);
     };
   }, [sendData]);
 

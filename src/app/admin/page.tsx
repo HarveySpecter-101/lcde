@@ -26,6 +26,7 @@ import {
   Activity,
   Sparkles,
   Users,
+  MousePointerClick,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -320,51 +321,62 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
       badge: "Entrée",
       badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
     });
-
-    // 2. Sections vues dans l'ordre
+    // 2. Événements chronologiques (Vues de sections + Clics)
     const rawEvents = visit.events || [];
-    const orderedSections: string[] = [];
-
-    rawEvents.forEach((e) => {
-      if (e.type === "section_view" || e.type === "section_enter") {
-        if (e.section && !orderedSections.includes(e.section)) {
-          orderedSections.push(e.section);
-        }
-      }
-    });
-
-    if (orderedSections.length === 0 && sections.length > 0) {
-      sections.forEach((s) => {
-        if (s.name && !orderedSections.includes(s.name)) {
-          orderedSections.push(s.name);
+    
+    // Si la liste d'événements est vide (vieux format), on utilise `sections` comme fallback
+    if (rawEvents.length === 0 && sections.length > 0) {
+      sections.forEach((s, idx) => {
+        if (s.name) {
+          const label = SECTION_LABELS[s.name] || s.name;
+          const isLast = idx === sections.length - 1;
+          items.push({
+            icon: isLast ? <Activity className="size-4 text-amber-400" /> : <Eye className="size-4 text-purple-400" />,
+            title: isLast ? `S'est arrêté sur la section "${label}"` : `A vu la section "${label}"`,
+            badge: isLast ? "Arrêt" : `Étape ${idx + 1}`,
+            badgeColor: isLast ? "bg-amber-500/20 text-amber-300 border-amber-500/30" : "bg-purple-500/20 text-purple-300 border-purple-500/30",
+            highlight: isLast && sections.length > 1,
+          });
         }
       });
-    }
-
-    const lastSection = orderedSections.length > 0 ? orderedSections[orderedSections.length - 1] : null;
-
-    orderedSections.forEach((secId, idx) => {
-      const isLast = secId === lastSection;
-      const label = SECTION_LABELS[secId] || secId;
-
-      if (isLast && orderedSections.length > 1) {
-        items.push({
-          icon: <Activity className="size-4 text-amber-400" />,
-          title: `S'est arrêté sur la section "${label}"`,
-          subtitle: "Dernière section consultée avant de quitter",
-          badge: "Arrêt",
-          badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-          highlight: true,
-        });
-      } else {
-        items.push({
-          icon: <Eye className="size-4 text-purple-400" />,
-          title: `A vu la section "${label}"`,
-          badge: `Étape ${idx + 1}`,
-          badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-        });
+    } else {
+      // Filtrer les événements pour ne garder qu'une seule occurrence de chaque section vue (la première)
+      const seenSections = new Set<string>();
+      let step = 1;
+      
+      rawEvents.forEach((e) => {
+        if (e.type === "section_view" || e.type === "section_enter") {
+          const secId = e.section || "";
+          if (secId && !seenSections.has(secId)) {
+            seenSections.add(secId);
+            const label = SECTION_LABELS[secId] || secId;
+            items.push({
+              icon: <Eye className="size-4 text-purple-400" />,
+              title: `A vu la section "${label}"`,
+              badge: `Étape ${step++}`,
+              badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/30",
+            });
+          }
+        } else if (e.type === "click") {
+          items.push({
+            icon: <MousePointerClick className="size-4 text-sky-400" />,
+            title: `A cliqué sur "${e.target || 'Bouton'}"`,
+            badge: `Clic`,
+            badgeColor: "bg-sky-500/20 text-sky-300 border-sky-500/30",
+          });
+        }
+      });
+      
+      // Mettre en évidence la dernière section vue si elle existe
+      const lastSectionItem = [...items].reverse().find(item => item.title.startsWith('A vu la section'));
+      if (lastSectionItem && seenSections.size > 1) {
+        lastSectionItem.icon = <Activity className="size-4 text-amber-400" />;
+        lastSectionItem.title = lastSectionItem.title.replace('A vu la section', 'S\'est arrêté sur la section');
+        lastSectionItem.badge = "Arrêt";
+        lastSectionItem.badgeColor = "bg-amber-500/20 text-amber-300 border-amber-500/30";
+        lastSectionItem.highlight = true;
       }
-    });
+    }
 
     // 3. Formulaire rempli (si applicable)
     const hasFormSubmit = rawEvents.some((e) => e.type === "form_submitted");
