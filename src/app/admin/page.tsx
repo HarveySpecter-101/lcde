@@ -32,9 +32,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  BarChart,
-  Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -168,7 +165,6 @@ const SECTION_LABELS: Record<string, string> = {
   contact: "10. Inscription & Formulaire",
 };
 
-const PIE_COLORS = ["#8b5cf6", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444", "#ec4899"];
 
 /* ── Traffic Source Helper ── */
 type SourceInfo = {
@@ -1156,45 +1152,32 @@ export default function AdminPage() {
                     {/* Distribution Appareils & Navigateurs */}
                     <div className="grid gap-6 lg:grid-cols-2">
                       <GlassPanel title="Répartition par Appareil">
-                        <div className="h-[180px]">
-                          <ResponsiveContainer width="100%" height="100%">
-                            <BarChart
-                              data={Object.entries(analytics.devices).map(([name, value]) => ({ name, value }))}
-                              layout="vertical"
-                              margin={{ left: 10, right: 20 }}
-                            >
-                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                              <XAxis
-                                type="number"
-                                tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10 }}
-                                axisLine={false}
-                                tickLine={false}
-                              />
-                              <YAxis
-                                type="category"
-                                dataKey="name"
-                                tick={{ fill: "rgba(255,255,255,0.6)", fontSize: 11 }}
-                                axisLine={false}
-                                tickLine={false}
-                                width={80}
-                              />
-                              <Tooltip
-                                contentStyle={{
-                                  background: "rgba(10,0,30,0.9)",
-                                  border: "1px solid rgba(255,255,255,0.1)",
-                                  borderRadius: "12px",
-                                  color: "#fff",
-                                  fontSize: "11px",
-                                }}
-                                formatter={(value: number) => [`${value}`, "Visites"]}
-                              />
-                              <Bar dataKey="value" radius={[0, 6, 6, 0]}>
-                                {Object.entries(analytics.devices).map((_, i) => (
-                                  <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
-                                ))}
-                              </Bar>
-                            </BarChart>
-                          </ResponsiveContainer>
+                        <div className="space-y-2.5">
+                          {Object.entries(analytics.devices)
+                            .sort(([, a], [, b]) => b - a)
+                            .map(([name, count]) => {
+                              const max = Math.max(...Object.values(analytics.devices));
+                              const pct = max > 0 ? (count / max) * 100 : 0;
+                              const DeviceIcon =
+                                name === "Mobile" ? Smartphone : name === "Tablet" ? Tablet : Monitor;
+                              return (
+                                <div key={name}>
+                                  <div className="flex justify-between text-xs mb-1">
+                                    <span className="text-white/70 flex items-center gap-1.5">
+                                      <DeviceIcon className="size-3.5 text-purple-400" />
+                                      {name}
+                                    </span>
+                                    <span className="text-white/50">{count}</span>
+                                  </div>
+                                  <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                                    <div
+                                      style={{ width: `${pct}%` }}
+                                      className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-400"
+                                    />
+                                  </div>
+                                </div>
+                              );
+                            })}
                         </div>
                       </GlassPanel>
 
