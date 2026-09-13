@@ -115,6 +115,7 @@ type SectionData = {
   enterTime: number;
   totalTime: number;
   visible: boolean;
+  viewTimer?: NodeJS.Timeout;
 };
 
 type TrackingEvent = {
@@ -238,8 +239,8 @@ export function SiteTracker() {
 
     // 2. Observer les sections
     const setupObserver = () => {
-      const sections = document.querySelectorAll("section[id]");
-      if (sections.length === 0) return null;
+      const sectionsElements = document.querySelectorAll("section[id]");
+      if (sectionsElements.length === 0) return null;
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -261,30 +262,35 @@ export function SiteTracker() {
               data.visible = true;
               data.enterTime = Date.now();
 
-              // Enregistrer l'événement propre "A vu la section ..." sans doublon consécutif
-              if (lastRecordedSectionRef.current !== id) {
-                lastRecordedSectionRef.current = id;
-                hasNewEnter = true;
-                eventsRef.current.push({
-                  type: "section_view",
-                  section: id,
-                  time: Date.now() - startTimeRef.current,
-                });
-              }
+              // Au lieu de loguer instantanément, on attend 800ms 
+              // pour ignorer le fast-scrolling (ex: clic sur une ancre)
+              data.viewTimer = setTimeout(() => {
+                if (data.visible && lastRecordedSectionRef.current !== id) {
+                  lastRecordedSectionRef.current = id;
+                  hasNewEnter = true;
+                  eventsRef.current.push({
+                    type: "section_view",
+                    section: id,
+                    time: Date.now() - startTimeRef.current,
+                  });
+                  sendData(false);
+                }
+              }, 800);
+              
             } else if (!entry.isIntersecting && data.visible) {
               data.visible = false;
               data.totalTime += Date.now() - data.enterTime;
+              if (data.viewTimer) {
+                clearTimeout(data.viewTimer);
+                data.viewTimer = undefined;
+              }
             }
           });
-
-          if (hasNewEnter) {
-            sendData(false);
-          }
         },
         { threshold: [0.05, 0.15], rootMargin: "0px 0px -5% 0px" }
       );
 
-      sections.forEach((s) => observer.observe(s));
+      sectionsElements.forEach((s) => observer.observe(s));
       return observer;
     };
 
