@@ -9,7 +9,16 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { X, Play, Video } from "lucide-react";
-import type { Testimonial } from "@/lib/site-data";
+
+export type Testimonial = {
+  name: string;
+  role?: string;
+  company?: string;
+  avatar?: string;
+  quote?: string;
+  story?: string;
+  [key: string]: any;
+};
 
 type Props = {
   testimonial: Testimonial | null;

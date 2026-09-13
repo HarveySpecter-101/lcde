@@ -20,14 +20,12 @@ import {
   Monitor,
   Smartphone,
   Tablet,
-  MousePointerClick,
   TrendingUp,
   ChevronDown,
   ChevronUp,
   Activity,
   Sparkles,
   Users,
-  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -36,8 +34,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart,
   Bar,
-  PieChart,
-  Pie,
   Cell,
   XAxis,
   YAxis,
@@ -174,6 +170,48 @@ const SECTION_LABELS: Record<string, string> = {
 
 const PIE_COLORS = ["#8b5cf6", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444", "#ec4899"];
 
+/* ── Traffic Source Helper ── */
+type SourceInfo = {
+  name: string;
+  icon: "whatsapp" | "instagram" | "facebook" | "linkedin" | "tiktok" | "google" | "direct" | "other";
+  color: string;
+  bgClass: string;
+  textClass: string;
+  borderClass: string;
+};
+
+function getSourceInfo(referrer: string | null): SourceInfo {
+  const ref = (referrer || "").toLowerCase().trim();
+
+  if (/whatsapp/i.test(ref))
+    return { name: "WhatsApp", icon: "whatsapp", color: "#25D366", bgClass: "bg-emerald-500/20", textClass: "text-emerald-300", borderClass: "border-emerald-500/30" };
+  if (/instagram|ig\b/i.test(ref))
+    return { name: "Instagram", icon: "instagram", color: "#E1306C", bgClass: "bg-pink-500/20", textClass: "text-pink-300", borderClass: "border-pink-500/30" };
+  if (/facebook|fb\.com|fbclid/i.test(ref))
+    return { name: "Facebook", icon: "facebook", color: "#1877F2", bgClass: "bg-blue-500/20", textClass: "text-blue-300", borderClass: "border-blue-500/30" };
+  if (/linkedin/i.test(ref))
+    return { name: "LinkedIn", icon: "linkedin", color: "#0A66C2", bgClass: "bg-sky-500/20", textClass: "text-sky-300", borderClass: "border-sky-500/30" };
+  if (/tiktok/i.test(ref))
+    return { name: "TikTok", icon: "tiktok", color: "#000000", bgClass: "bg-white/10", textClass: "text-white", borderClass: "border-white/20" };
+  if (/google/i.test(ref))
+    return { name: "Google", icon: "google", color: "#4285F4", bgClass: "bg-blue-400/20", textClass: "text-blue-200", borderClass: "border-blue-400/30" };
+  if (!ref || ref === "direct" || ref === "accès direct")
+    return { name: "Accès direct", icon: "direct", color: "#94a3b8", bgClass: "bg-white/10", textClass: "text-white/60", borderClass: "border-white/10" };
+
+  return { name: referrer || "Inconnu", icon: "other", color: "#94a3b8", bgClass: "bg-white/10", textClass: "text-white/60", borderClass: "border-white/10" };
+}
+
+const SOURCE_ICONS: Record<SourceInfo["icon"], React.ComponentType<{ className?: string }>> = {
+  whatsapp: Phone,
+  instagram: Sparkles,
+  facebook: Globe,
+  linkedin: Globe,
+  tiktok: Sparkles,
+  google: Globe,
+  direct: Globe,
+  other: Globe,
+};
+
 /* ────────────────────────────────────────────────────────────── */
 /* Animated Background                                           */
 /* ────────────────────────────────────────────────────────────── */
@@ -275,13 +313,13 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
       highlight?: boolean;
     }> = [];
 
-    const isWa = /whatsapp/i.test(visit.referrer || "");
-    const sourceName = isWa ? "WhatsApp" : (visit.referrer || "Accès direct");
+    const sourceInfo = getSourceInfo(visit.referrer);
+    const SourceIcon = SOURCE_ICONS[sourceInfo.icon];
 
     // 1. Arrivée sur le site
     items.push({
-      icon: isWa ? <Phone className="size-4 text-emerald-400" /> : <Globe className="size-4 text-blue-400" />,
-      title: `Arrivée sur le site via ${sourceName}`,
+      icon: <SourceIcon className={`size-4 ${sourceInfo.textClass}`} />,
+      title: `Arrivée sur le site via ${sourceInfo.name}`,
       subtitle: `Appareil : ${visit.browser || "Inconnu"} (${visit.os || "OS"}) · IP : ${visit.ip || "—"}`,
       badge: "Entrée",
       badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
@@ -388,13 +426,17 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-white/50">Source</span>
-                {/whatsapp/i.test(visit.referrer || "") ? (
-                  <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/20 border border-emerald-500/30 px-2 py-0.5 text-xs font-semibold text-emerald-300">
-                    <Phone className="size-3 text-emerald-400" /> WhatsApp (Mobile)
-                  </span>
-                ) : (
-                  <span className="truncate max-w-[200px]">{visit.referrer || "Accès direct"}</span>
-                )}
+                {(() => {
+                  const si = getSourceInfo(visit.referrer);
+                  const SIcon = SOURCE_ICONS[si.icon];
+                  return si.icon !== "direct" && si.icon !== "other" ? (
+                    <span className={`inline-flex items-center gap-1 rounded-md ${si.bgClass} border ${si.borderClass} px-2 py-0.5 text-xs font-semibold ${si.textClass}`}>
+                      <SIcon className={`size-3 ${si.textClass}`} /> {si.name}
+                    </span>
+                  ) : (
+                    <span className="truncate max-w-[200px]">{si.name}</span>
+                  );
+                })()}
               </div>
               <div className="flex justify-between">
                 <span className="text-white/50">Durée totale</span>
@@ -493,7 +535,7 @@ export default function AdminPage() {
   // Filter periods
   const [trafficPeriod, setTrafficPeriod] = useState<PeriodFilter>("day");
   const [submissionPeriod, setSubmissionPeriod] = useState<PeriodFilter>("overall");
-  const [sectionSortMode, setSectionSortMode] = useState<"flow" | "views">("flow");
+
 
   // Submissions
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -710,16 +752,8 @@ export default function AdminPage() {
     return analytics.chartData[trafficPeriod] || [];
   }, [analytics, trafficPeriod]);
 
-  /* ── Section Stats Formatted & Sorted ── */
-  const displayedSectionStats = useMemo(() => {
-    if (!analytics?.sectionStats || analytics.sectionStats.length === 0) return [];
-    const stats = [...analytics.sectionStats];
-    if (sectionSortMode === "views") {
-      return stats.sort((a, b) => b.views - a.views);
-    }
-    // "flow" sort mode: natural order of page from 1 to 10
-    return stats.sort((a, b) => (a.order || 99) - (b.order || 99));
-  }, [analytics, sectionSortMode]);
+
+
 
   const exportToExcel = async () => {
     if (submissions.length === 0) {
@@ -858,7 +892,7 @@ export default function AdminPage() {
 
   /* ── Authenticated Admin (Tabs: Dashboard & Trafic vs Candidatures) ── */
   const tabs: { id: Tab; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
-    { id: "dashboard", label: "Tableau de bord & Trafic", icon: BarChart3 },
+    { id: "dashboard", label: "Visiteurs", icon: BarChart3 },
     { id: "submissions", label: "Candidatures", icon: FileSpreadsheet },
   ];
 
@@ -886,7 +920,7 @@ export default function AdminPage() {
                   </span>
                 </h1>
                 <p className="text-[11px] text-white/40">
-                  Dashboard · Trafic · Candidatures
+                  Visiteurs · Candidatures
                 </p>
               </div>
             </div>
@@ -1118,106 +1152,32 @@ export default function AdminPage() {
                       </div>
                     </GlassPanel>
 
-                    {/* ── Sections les plus consultées ── */}
-                    <GlassPanel>
-                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
-                        <div>
-                          <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80 flex items-center gap-2">
-                            <Layers className="size-4 text-purple-400" />
-                            Sections les plus consultées
-                          </h3>
-                        </div>
-
-                        {/* Toggle pour trier : Ordre de la page vs Les plus vues */}
-                        <div className="flex items-center rounded-xl bg-white/[0.06] p-1 border border-white/10 self-start sm:self-auto">
-                          <button
-                            onClick={() => setSectionSortMode("views")}
-                            className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
-                              sectionSortMode === "views"
-                                ? "bg-purple-600 text-white font-semibold shadow-md shadow-purple-900/30"
-                                : "text-white/60 hover:text-white"
-                            }`}
-                          >
-                            Les plus vues
-                          </button>
-                          <button
-                            onClick={() => setSectionSortMode("flow")}
-                            className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
-                              sectionSortMode === "flow"
-                                ? "bg-purple-600 text-white font-semibold shadow-md shadow-purple-900/30"
-                                : "text-white/60 hover:text-white"
-                            }`}
-                          >
-                            Ordre de la page
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* BarChart avec couleurs différentes pour chaque section */}
-                      <div className="h-[280px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <BarChart
-                            data={displayedSectionStats}
-                            layout="vertical"
-                            margin={{ left: 10, right: 20 }}
-                          >
-                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                            <XAxis
-                              type="number"
-                              tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10 }}
-                              axisLine={false}
-                              tickLine={false}
-                            />
-                            <YAxis
-                              type="category"
-                              dataKey="label"
-                              tick={{ fill: "rgba(255,255,255,0.6)", fontSize: 11 }}
-                              axisLine={false}
-                              tickLine={false}
-                              width={160}
-                            />
-                            <Tooltip
-                              contentStyle={{
-                                background: "rgba(10,0,30,0.95)",
-                                border: "1px solid rgba(255,255,255,0.12)",
-                                borderRadius: "12px",
-                                color: "#fff",
-                                fontSize: "12px",
-                              }}
-                              formatter={(value: number) => [
-                                `${value} vue${value > 1 ? "s" : ""}`,
-                                "Vues",
-                              ]}
-                            />
-                            <Bar dataKey="views" radius={[0, 6, 6, 0]}>
-                              {displayedSectionStats.map((entry, index) => (
-                                <Cell key={`section-cell-${index}`} fill={entry.color} />
-                              ))}
-                            </Bar>
-                          </BarChart>
-                        </ResponsiveContainer>
-                      </div>
-                    </GlassPanel>
 
                     {/* Distribution Appareils & Navigateurs */}
                     <div className="grid gap-6 lg:grid-cols-2">
                       <GlassPanel title="Répartition par Appareil">
-                        <div className="h-[180px] flex items-center justify-center">
+                        <div className="h-[180px]">
                           <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                              <Pie
-                                data={Object.entries(analytics.devices).map(([name, value]) => ({ name, value }))}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={45}
-                                outerRadius={75}
-                                paddingAngle={3}
-                                dataKey="value"
-                              >
-                                {Object.entries(analytics.devices).map((_, i) => (
-                                  <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
-                                ))}
-                              </Pie>
+                            <BarChart
+                              data={Object.entries(analytics.devices).map(([name, value]) => ({ name, value }))}
+                              layout="vertical"
+                              margin={{ left: 10, right: 20 }}
+                            >
+                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+                              <XAxis
+                                type="number"
+                                tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 10 }}
+                                axisLine={false}
+                                tickLine={false}
+                              />
+                              <YAxis
+                                type="category"
+                                dataKey="name"
+                                tick={{ fill: "rgba(255,255,255,0.6)", fontSize: 11 }}
+                                axisLine={false}
+                                tickLine={false}
+                                width={80}
+                              />
                               <Tooltip
                                 contentStyle={{
                                   background: "rgba(10,0,30,0.9)",
@@ -1226,17 +1186,15 @@ export default function AdminPage() {
                                   color: "#fff",
                                   fontSize: "11px",
                                 }}
+                                formatter={(value: number) => [`${value}`, "Visites"]}
                               />
-                            </PieChart>
+                              <Bar dataKey="value" radius={[0, 6, 6, 0]}>
+                                {Object.entries(analytics.devices).map((_, i) => (
+                                  <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                                ))}
+                              </Bar>
+                            </BarChart>
                           </ResponsiveContainer>
-                        </div>
-                        <div className="flex flex-wrap justify-center gap-3 mt-1">
-                          {Object.entries(analytics.devices).map(([name, count], i) => (
-                            <span key={name} className="text-xs text-white/60 flex items-center gap-1.5">
-                              <span className="size-2.5 rounded-full" style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }} />
-                              {name} ({count})
-                            </span>
-                          ))}
                         </div>
                       </GlassPanel>
 
@@ -1362,13 +1320,17 @@ export default function AdminPage() {
                                   </div>
                                   <div>
                                     <p className="text-[10px] text-white/40 uppercase">Source</p>
-                                    {/whatsapp/i.test(v.referrer || "") ? (
-                                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/20 border border-emerald-500/30 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-300 truncate">
-                                        <Phone className="size-2.5 text-emerald-400" /> WhatsApp
-                                      </span>
-                                    ) : (
-                                      <p className="text-white/70 text-xs truncate">{v.referrer || "Direct"}</p>
-                                    )}
+                                    {(() => {
+                                      const si = getSourceInfo(v.referrer);
+                                      const SIcon = SOURCE_ICONS[si.icon];
+                                      return si.icon !== "direct" && si.icon !== "other" ? (
+                                        <span className={`inline-flex items-center gap-1 rounded-md ${si.bgClass} border ${si.borderClass} px-1.5 py-0.5 text-[10px] font-semibold ${si.textClass} truncate`}>
+                                          <SIcon className={`size-2.5 ${si.textClass}`} /> {si.name}
+                                        </span>
+                                      ) : (
+                                        <p className="text-white/70 text-xs truncate">{si.name}</p>
+                                      );
+                                    })()}
                                   </div>
                                   <div>
                                     <p className="text-[10px] text-white/40 uppercase">Appareil</p>
@@ -1423,241 +1385,187 @@ export default function AdminPage() {
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-6"
               >
-                {/* ── Cartes de statistiques : Nombre de personnes ayant rempli le formulaire ── */}
+                {/* ── Cartes de statistiques cliquables ── */}
                 <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-                  <div className="rounded-2xl border border-purple-500/20 bg-purple-500/[0.06] backdrop-blur-xl p-5 hover:bg-purple-500/[0.09] transition-all">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-purple-300">Total Candidats (Overall)</p>
-                        <p className="mt-1.5 text-3xl font-bold text-white">{submissionStats.total}</p>
-                        <p className="mt-1 text-xs text-white/50">Personnes inscrites au total</p>
-                      </div>
-                      <div className="flex size-10 items-center justify-center rounded-xl bg-purple-500/20 text-purple-300">
-                        <Users className="size-5" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.05] backdrop-blur-xl p-5 hover:bg-emerald-500/[0.08] transition-all">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">Aujourd&apos;hui (Jour)</p>
-                        <p className="mt-1.5 text-3xl font-bold text-emerald-400">+{submissionStats.today}</p>
-                        <p className="mt-1 text-xs text-white/50">Inscriptions reçues aujourd&apos;hui</p>
-                      </div>
-                      <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400">
-                        <Calendar className="size-5" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl border border-blue-500/20 bg-blue-500/[0.05] backdrop-blur-xl p-5 hover:bg-blue-500/[0.08] transition-all">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-blue-400">Cette semaine</p>
-                        <p className="mt-1.5 text-3xl font-bold text-blue-400">+{submissionStats.week}</p>
-                        <p className="mt-1 text-xs text-white/50">Depuis lundi</p>
-                      </div>
-                      <div className="flex size-10 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400">
-                        <Calendar className="size-5" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.05] backdrop-blur-xl p-5 hover:bg-amber-500/[0.08] transition-all">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-amber-400">Ce mois-ci</p>
-                        <p className="mt-1.5 text-3xl font-bold text-amber-400">+{submissionStats.month}</p>
-                        <p className="mt-1 text-xs text-white/50">Inscriptions ce mois</p>
-                      </div>
-                      <div className="flex size-10 items-center justify-center rounded-xl bg-amber-500/20 text-amber-400">
-                        <TrendingUp className="size-5" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* ── Barre de filtre par Période (Jour / Semaine / Mois / Overall) ── */}
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 backdrop-blur-xl">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs uppercase tracking-wider font-semibold text-white/50 mr-1">
-                      Période :
-                    </span>
-                    {(["overall", "day", "week", "month"] as PeriodFilter[]).map((p) => {
-                      const labels: Record<PeriodFilter, string> = {
-                        overall: "Overall (Tout)",
-                        day: "Aujourd'hui (Jour)",
-                        week: "Cette semaine",
-                        month: "Ce mois",
-                      };
-                      const counts: Record<PeriodFilter, number> = {
-                        overall: submissionStats.total,
-                        day: submissionStats.today,
-                        week: submissionStats.week,
-                        month: submissionStats.month,
-                      };
-                      const isActive = submissionPeriod === p;
-                      return (
-                        <button
-                          key={p}
-                          onClick={() => setSubmissionPeriod(p)}
-                          className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-medium rounded-xl transition-all ${
-                            isActive
-                              ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-900/30 font-semibold"
-                              : "bg-white/[0.04] text-white/60 hover:text-white hover:bg-white/[0.08] border border-white/5"
-                          }`}
-                        >
-                          <span>{labels[p]}</span>
-                          <span
-                            className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                              isActive ? "bg-white/20 text-white" : "bg-white/10 text-white/70"
-                            }`}
-                          >
-                            {counts[p]}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Actions Rapides */}
-                  <div className="flex items-center gap-2.5">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={fetchSubmissions}
-                      disabled={loadingSubmissions}
-                      className="h-9 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08]"
-                    >
-                      <RefreshCw className={`size-3.5 mr-1.5 ${loadingSubmissions ? "animate-spin text-purple-400" : ""}`} />
-                      Rafraîchir
-                    </Button>
-                    <Button
-                      size="sm"
-                      onClick={exportToExcel}
-                      disabled={downloadingExcel || submissions.length === 0}
-                      className="h-9 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs gap-2 px-4 shadow-lg shadow-emerald-900/30 transition-all disabled:opacity-50"
-                    >
-                      <Download className={`size-4 ${downloadingExcel ? "animate-bounce" : ""}`} />
-                      {downloadingExcel ? "Génération..." : "Télécharger Excel (.xlsx)"}
-                    </Button>
-                  </div>
-                </div>
-
-                {/* ── Barre de recherche ── */}
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="relative flex-1 max-w-md">
-                    <Search className="pointer-events-none absolute left-3.5 top-3 size-4 text-white/30" />
-                    <Input
-                      type="text"
-                      placeholder="Rechercher par nom, téléphone, email, niveau, école..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      className="h-10 rounded-xl border-white/10 bg-white/[0.05] pl-10 text-sm text-white placeholder:text-white/30 focus:border-purple-500/50 focus:ring-purple-500/30"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between sm:justify-end gap-3 text-xs text-white/50">
-                    <span>
-                      <strong className="text-white/80">{filteredSubmissions.length}</strong> personne{filteredSubmissions.length > 1 ? "s" : ""} trouvée{filteredSubmissions.length > 1 ? "s" : ""}
-                      {submissionPeriod !== "overall" || search ? ` (sur ${submissions.length} au total)` : ""}
-                    </span>
-                    <span className="flex items-center gap-1.5 text-emerald-400">
-                      <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-                      Live
-                    </span>
-                  </div>
-                </div>
-
-                {/* ── Table des Candidatures ── */}
-                <GlassPanel>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs sm:text-sm">
-                      <thead className="border-b border-white/[0.06] text-[11px] uppercase tracking-wider text-white/50">
-                        <tr>
-                          <th className="py-3 px-4 font-semibold">
-                            <span className="inline-flex items-center gap-1.5"><Calendar className="size-3 text-purple-400" /> Date</span>
-                          </th>
-                          <th className="py-3 px-4 font-semibold">
-                            <span className="inline-flex items-center gap-1.5"><User className="size-3 text-purple-400" /> Nom</span>
-                          </th>
-                          <th className="py-3 px-4 font-semibold">
-                            <span className="inline-flex items-center gap-1.5"><Phone className="size-3 text-purple-400" /> WhatsApp</span>
-                          </th>
-                          <th className="py-3 px-4 font-semibold">
-                            <span className="inline-flex items-center gap-1.5"><Mail className="size-3 text-purple-400" /> Email</span>
-                          </th>
-                          <th className="py-3 px-4 font-semibold">
-                            <span className="inline-flex items-center gap-1.5"><GraduationCap className="size-3 text-purple-400" /> Niveau</span>
-                          </th>
-                          <th className="py-3 px-4 font-semibold">
-                            <span className="inline-flex items-center gap-1.5"><Building className="size-3 text-purple-400" /> École</span>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-white/[0.04]">
-                        {loadingSubmissions && submissions.length === 0 ? (
-                          <tr>
-                            <td colSpan={6} className="py-12 text-center text-white/40">
-                              <RefreshCw className="mx-auto size-6 animate-spin text-purple-400 mb-2" />
-                              Chargement des candidatures...
-                            </td>
-                          </tr>
-                        ) : filteredSubmissions.length === 0 ? (
-                          <tr>
-                            <td colSpan={6} className="py-16 text-center text-white/40">
-                              <FileSpreadsheet className="mx-auto size-8 mb-3 text-white/20" />
-                              <p className="text-sm">
-                                {search
-                                  ? "Aucun résultat pour cette recherche."
-                                  : "Aucune candidature enregistrée pour cette période."}
-                              </p>
-                            </td>
-                          </tr>
-                        ) : (
-                          filteredSubmissions.map((s) => {
-                            const cleanPhone = s.phone.replace(/[^0-9+]/g, "");
-                            const waLink = cleanPhone ? `https://wa.me/${cleanPhone.replace("+", "")}` : null;
-                            return (
-                              <tr key={s.id} className="hover:bg-white/[0.03] transition-colors">
-                                <td className="py-3 px-4 whitespace-nowrap text-white/60 text-xs">
-                                  {formatDate(s.createdAt)}
-                                </td>
-                                <td className="py-3 px-4 font-medium text-white whitespace-nowrap">{s.name}</td>
-                                <td className="py-3 px-4 whitespace-nowrap">
-                                  {waLink ? (
-                                    <a
-                                      href={waLink}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 hover:underline"
-                                    >
-                                      <Phone className="size-3.5" /> {s.phone}
-                                    </a>
-                                  ) : (
-                                    <span className="text-white/30">{s.phone}</span>
-                                  )}
-                                </td>
-                                <td className="py-3 px-4 whitespace-nowrap">
-                                  <a href={`mailto:${s.email}`} className="text-sky-400 hover:text-sky-300 hover:underline">
-                                    {s.email}
-                                  </a>
-                                </td>
-                                <td className="py-3 px-4 whitespace-nowrap">
-                                  <span className="inline-block rounded-lg bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 text-xs text-purple-300 font-medium">
-                                    {s.level}
-                                  </span>
-                                </td>
-                                <td className="py-3 px-4 whitespace-nowrap text-white/70">{s.school}</td>
-                              </tr>
-                            );
-                          })
+                  {([
+                    { period: "overall" as PeriodFilter, label: "Total Candidats", count: submissionStats.total, subtitle: "Personnes inscrites au total", borderColor: "border-purple-500/20", bgColor: "bg-purple-500/[0.06]", hoverBg: "hover:bg-purple-500/[0.12]", textColor: "text-purple-300", countColor: "text-white", iconBg: "bg-purple-500/20", icon: Users },
+                    { period: "day" as PeriodFilter, label: "Aujourd'hui", count: submissionStats.today, subtitle: "Inscriptions reçues aujourd'hui", borderColor: "border-emerald-500/20", bgColor: "bg-emerald-500/[0.05]", hoverBg: "hover:bg-emerald-500/[0.12]", textColor: "text-emerald-400", countColor: "text-emerald-400", iconBg: "bg-emerald-500/20", icon: Calendar },
+                    { period: "week" as PeriodFilter, label: "Cette semaine", count: submissionStats.week, subtitle: "Depuis lundi", borderColor: "border-blue-500/20", bgColor: "bg-blue-500/[0.05]", hoverBg: "hover:bg-blue-500/[0.12]", textColor: "text-blue-400", countColor: "text-blue-400", iconBg: "bg-blue-500/20", icon: Calendar },
+                    { period: "month" as PeriodFilter, label: "Ce mois-ci", count: submissionStats.month, subtitle: "Inscriptions ce mois", borderColor: "border-amber-500/20", bgColor: "bg-amber-500/[0.05]", hoverBg: "hover:bg-amber-500/[0.12]", textColor: "text-amber-400", countColor: "text-amber-400", iconBg: "bg-amber-500/20", icon: TrendingUp },
+                  ]).map((card) => {
+                    const isActive = submissionPeriod === card.period;
+                    const CardIcon = card.icon;
+                    return (
+                      <button
+                        key={card.period}
+                        onClick={() => setSubmissionPeriod(card.period)}
+                        className={`rounded-2xl border ${card.borderColor} ${card.bgColor} backdrop-blur-xl p-5 ${card.hoverBg} transition-all text-left cursor-pointer ${
+                          isActive ? "ring-2 ring-purple-500/50 shadow-lg shadow-purple-900/20 scale-[1.02]" : ""
+                        }`}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <p className={`text-xs font-semibold uppercase tracking-wider ${card.textColor}`}>{card.label}</p>
+                            <p className={`mt-1.5 text-3xl font-bold ${card.countColor}`}>
+                              {card.period === "overall" ? card.count : `+${card.count}`}
+                            </p>
+                            <p className="mt-1 text-xs text-white/50">{card.subtitle}</p>
+                          </div>
+                          <div className={`flex size-10 items-center justify-center rounded-xl ${card.iconBg} ${card.textColor}`}>
+                            <CardIcon className="size-5" />
+                          </div>
+                        </div>
+                        {isActive && (
+                          <div className="mt-2 flex items-center gap-1.5 text-[10px] font-semibold text-purple-300">
+                            <ChevronDown className="size-3" />
+                            Détails affichés ci-dessous
+                          </div>
                         )}
-                      </tbody>
-                    </table>
-                  </div>
-                </GlassPanel>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* ── Détail des candidatures filtrées ── */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={submissionPeriod}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="space-y-4"
+                  >
+                    {/* Actions : Recherche + Excel + Rafraîchir */}
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 backdrop-blur-xl">
+                      <div className="flex items-center gap-3 flex-1">
+                        <div className="relative flex-1 max-w-md">
+                          <Search className="pointer-events-none absolute left-3.5 top-2.5 size-4 text-white/30" />
+                          <Input
+                            type="text"
+                            placeholder="Rechercher par nom, téléphone, email..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="h-9 rounded-xl border-white/10 bg-white/[0.05] pl-10 text-sm text-white placeholder:text-white/30 focus:border-purple-500/50 focus:ring-purple-500/30"
+                          />
+                        </div>
+                        <span className="text-xs text-white/50 whitespace-nowrap">
+                          <strong className="text-white/80">{filteredSubmissions.length}</strong> candidat{filteredSubmissions.length > 1 ? "s" : ""}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2.5">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={fetchSubmissions}
+                          disabled={loadingSubmissions}
+                          className="h-9 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08]"
+                        >
+                          <RefreshCw className={`size-3.5 mr-1.5 ${loadingSubmissions ? "animate-spin text-purple-400" : ""}`} />
+                          Rafraîchir
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={exportToExcel}
+                          disabled={downloadingExcel || filteredSubmissions.length === 0}
+                          className="h-9 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs gap-2 px-4 shadow-lg shadow-emerald-900/30 transition-all disabled:opacity-50"
+                        >
+                          <Download className={`size-4 ${downloadingExcel ? "animate-bounce" : ""}`} />
+                          {downloadingExcel ? "Génération..." : "Télécharger Excel (.xlsx)"}
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Table des Candidatures */}
+                    <GlassPanel>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left text-xs sm:text-sm">
+                          <thead className="border-b border-white/[0.06] text-[11px] uppercase tracking-wider text-white/50">
+                            <tr>
+                              <th className="py-3 px-4 font-semibold">
+                                <span className="inline-flex items-center gap-1.5"><Calendar className="size-3 text-purple-400" /> Date</span>
+                              </th>
+                              <th className="py-3 px-4 font-semibold">
+                                <span className="inline-flex items-center gap-1.5"><User className="size-3 text-purple-400" /> Nom</span>
+                              </th>
+                              <th className="py-3 px-4 font-semibold">
+                                <span className="inline-flex items-center gap-1.5"><Phone className="size-3 text-purple-400" /> WhatsApp</span>
+                              </th>
+                              <th className="py-3 px-4 font-semibold">
+                                <span className="inline-flex items-center gap-1.5"><Mail className="size-3 text-purple-400" /> Email</span>
+                              </th>
+                              <th className="py-3 px-4 font-semibold">
+                                <span className="inline-flex items-center gap-1.5"><GraduationCap className="size-3 text-purple-400" /> Niveau</span>
+                              </th>
+                              <th className="py-3 px-4 font-semibold">
+                                <span className="inline-flex items-center gap-1.5"><Building className="size-3 text-purple-400" /> École</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-white/[0.04]">
+                            {loadingSubmissions && submissions.length === 0 ? (
+                              <tr>
+                                <td colSpan={6} className="py-12 text-center text-white/40">
+                                  <RefreshCw className="mx-auto size-6 animate-spin text-purple-400 mb-2" />
+                                  Chargement des candidatures...
+                                </td>
+                              </tr>
+                            ) : filteredSubmissions.length === 0 ? (
+                              <tr>
+                                <td colSpan={6} className="py-16 text-center text-white/40">
+                                  <FileSpreadsheet className="mx-auto size-8 mb-3 text-white/20" />
+                                  <p className="text-sm">
+                                    {search
+                                      ? "Aucun résultat pour cette recherche."
+                                      : "Aucune candidature enregistrée pour cette période."}
+                                  </p>
+                                </td>
+                              </tr>
+                            ) : (
+                              filteredSubmissions.map((s) => {
+                                const cleanPhone = s.phone.replace(/[^0-9+]/g, "");
+                                const waLink = cleanPhone ? `https://wa.me/${cleanPhone.replace("+", "")}` : null;
+                                return (
+                                  <tr key={s.id} className="hover:bg-white/[0.03] transition-colors">
+                                    <td className="py-3 px-4 whitespace-nowrap text-white/60 text-xs">
+                                      {formatDate(s.createdAt)}
+                                    </td>
+                                    <td className="py-3 px-4 font-medium text-white whitespace-nowrap">{s.name}</td>
+                                    <td className="py-3 px-4 whitespace-nowrap">
+                                      {waLink ? (
+                                        <a
+                                          href={waLink}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 hover:underline"
+                                        >
+                                          <Phone className="size-3.5" /> {s.phone}
+                                        </a>
+                                      ) : (
+                                        <span className="text-white/30">{s.phone}</span>
+                                      )}
+                                    </td>
+                                    <td className="py-3 px-4 whitespace-nowrap">
+                                      <a href={`mailto:${s.email}`} className="text-sky-400 hover:text-sky-300 hover:underline">
+                                        {s.email}
+                                      </a>
+                                    </td>
+                                    <td className="py-3 px-4 whitespace-nowrap">
+                                      <span className="inline-block rounded-lg bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 text-xs text-purple-300 font-medium">
+                                        {s.level}
+                                      </span>
+                                    </td>
+                                    <td className="py-3 px-4 whitespace-nowrap text-white/70">{s.school}</td>
+                                  </tr>
+                                );
+                              })
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </GlassPanel>
+                  </motion.div>
+                </AnimatePresence>
               </motion.div>
             )}
           </AnimatePresence>

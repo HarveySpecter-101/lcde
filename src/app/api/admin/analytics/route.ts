@@ -178,7 +178,6 @@ export async function GET() {
 
     // ── Section stats : normalisation et calcul d'entonnoir de scroll ──
     const allVisitsWithSections = await db.siteVisit.findMany({
-      where: { sectionsVisited: { not: null } },
       select: { sectionsVisited: true },
     });
 
@@ -236,10 +235,19 @@ export async function GET() {
 
       let ref = "Direct";
       if (v.referrer) {
-        try {
-          ref = new URL(v.referrer).hostname;
-        } catch {
-          ref = v.referrer.slice(0, 50);
+        const r = v.referrer.toLowerCase();
+        if (/whatsapp/i.test(r)) ref = "WhatsApp";
+        else if (/instagram|ig\b/i.test(r)) ref = "Instagram";
+        else if (/facebook|fb\.com|fbclid/i.test(r)) ref = "Facebook";
+        else if (/linkedin/i.test(r)) ref = "LinkedIn";
+        else if (/tiktok/i.test(r)) ref = "TikTok";
+        else if (/google/i.test(r)) ref = "Google";
+        else {
+          try {
+            ref = new URL(v.referrer).hostname;
+          } catch {
+            ref = v.referrer.slice(0, 50);
+          }
         }
       }
       referrers[ref] = (referrers[ref] || 0) + 1;
