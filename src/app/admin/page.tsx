@@ -530,7 +530,7 @@ export default function AdminPage() {
 
   // Filter periods
   const [trafficPeriod, setTrafficPeriod] = useState<PeriodFilter>("day");
-  const [submissionPeriod, setSubmissionPeriod] = useState<PeriodFilter>("overall");
+  const [submissionPeriod, setSubmissionPeriod] = useState<PeriodFilter | null>(null);
 
 
   // Submissions
@@ -690,6 +690,8 @@ export default function AdminPage() {
 
   /* ── Filtered Submissions by Period & Search ── */
   const filteredSubmissions = useMemo(() => {
+    if (!submissionPeriod) return [];
+
     const now = new Date();
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
 
@@ -748,18 +750,16 @@ export default function AdminPage() {
     return analytics.chartData[trafficPeriod] || [];
   }, [analytics, trafficPeriod]);
 
-
-
-
   const exportToExcel = async () => {
-    if (submissions.length === 0) {
-      toast.error("Aucune donnée à exporter.");
+    if (filteredSubmissions.length === 0) {
+      toast.error("Aucune donnée à exporter pour cette sélection.");
       return;
     }
     setDownloadingExcel(true);
     try {
       toast.info("Génération du fichier Excel en cours...");
-      const response = await fetch("/api/admin/export");
+      const targetPeriod = submissionPeriod || "overall";
+      const response = await fetch(`/api/admin/export?period=${targetPeriod}`);
       if (!response.ok) throw new Error("Erreur de génération.");
       const blob = await response.blob();
       const url = window.URL.createObjectURL(
@@ -769,7 +769,7 @@ export default function AdminPage() {
       );
       const a = document.createElement("a");
       a.href = url;
-      a.download = `Candidatures_LCDE_${new Date().toISOString().split("T")[0]}.xlsx`;
+      a.download = `Candidatures_LCDE_${targetPeriod}_${new Date().toISOString().split("T")[0]}.xlsx`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -1381,9 +1381,9 @@ export default function AdminPage() {
                     return (
                       <button
                         key={card.period}
-                        onClick={() => setSubmissionPeriod(card.period)}
+                        onClick={() => setSubmissionPeriod(submissionPeriod === card.period ? null : card.period)}
                         className={`rounded-2xl border ${card.borderColor} ${card.bgColor} backdrop-blur-xl p-5 ${card.hoverBg} transition-all text-left cursor-pointer ${
-                          isActive ? "ring-2 ring-purple-500/50 shadow-lg shadow-purple-900/20 scale-[1.02]" : ""
+                          isActive ? "ring-2 ring-purple-500/60 shadow-xl shadow-purple-900/30 scale-[1.02]" : ""
                         }`}
                       >
                         <div className="flex items-start justify-between">
@@ -1398,156 +1398,192 @@ export default function AdminPage() {
                             <CardIcon className="size-5" />
                           </div>
                         </div>
-                        {isActive && (
-                          <div className="mt-2 flex items-center gap-1.5 text-[10px] font-semibold text-purple-300">
-                            <ChevronDown className="size-3" />
-                            Détails affichés ci-dessous
-                          </div>
-                        )}
+                        <div className="mt-3 flex items-center justify-between text-[11px] font-medium border-t border-white/[0.06] pt-2">
+                          <span className={isActive ? "text-purple-300 font-semibold" : "text-white/40"}>
+                            {isActive ? "Masquer les détails" : "Voir les candidats"}
+                          </span>
+                          <span className={isActive ? "text-purple-300" : "text-white/30"}>
+                            {isActive ? "▲" : "▼"}
+                          </span>
+                        </div>
                       </button>
                     );
                   })}
                 </div>
 
-                {/* ── Détail des candidatures filtrées ── */}
+                {/* ── Détail des candidatures filtrées (affiché UNIQUEMENT si une carte est cliquée) ── */}
                 <AnimatePresence mode="wait">
-                  <motion.div
-                    key={submissionPeriod}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="space-y-4"
-                  >
-                    {/* Actions : Recherche + Excel + Rafraîchir */}
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 backdrop-blur-xl">
-                      <div className="flex items-center gap-3 flex-1">
-                        <div className="relative flex-1 max-w-md">
-                          <Search className="pointer-events-none absolute left-3.5 top-2.5 size-4 text-white/30" />
-                          <Input
-                            type="text"
-                            placeholder="Rechercher par nom, téléphone, email..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            className="h-9 rounded-xl border-white/10 bg-white/[0.05] pl-10 text-sm text-white placeholder:text-white/30 focus:border-purple-500/50 focus:ring-purple-500/30"
-                          />
+                  {submissionPeriod !== null ? (
+                    <motion.div
+                      key={submissionPeriod}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -12 }}
+                      className="space-y-4"
+                    >
+                      {/* En-tête de sélection + Actions : Recherche + Excel + Fermer */}
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 backdrop-blur-xl">
+                        <div className="flex flex-wrap items-center gap-3 flex-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-semibold text-white/90">
+                              {submissionPeriod === "overall" && "Total des candidats"}
+                              {submissionPeriod === "day" && "Candidatures d'Aujourd'hui"}
+                              {submissionPeriod === "week" && "Candidatures de Cette semaine"}
+                              {submissionPeriod === "month" && "Candidatures de Ce mois-ci"}
+                            </span>
+                            <span className="rounded-full bg-purple-500/20 border border-purple-500/30 px-2 py-0.5 text-[11px] font-bold text-purple-300">
+                              {filteredSubmissions.length} profil{filteredSubmissions.length > 1 ? "s" : ""}
+                            </span>
+                          </div>
+
+                          <div className="relative flex-1 min-w-[200px] max-w-sm">
+                            <Search className="pointer-events-none absolute left-3.5 top-2.5 size-4 text-white/30" />
+                            <Input
+                              type="text"
+                              placeholder="Rechercher par nom, téléphone, email..."
+                              value={search}
+                              onChange={(e) => setSearch(e.target.value)}
+                              className="h-9 rounded-xl border-white/10 bg-white/[0.05] pl-10 text-xs text-white placeholder:text-white/30 focus:border-purple-500/50 focus:ring-purple-500/30"
+                            />
+                          </div>
                         </div>
-                        <span className="text-xs text-white/50 whitespace-nowrap">
-                          <strong className="text-white/80">{filteredSubmissions.length}</strong> candidat{filteredSubmissions.length > 1 ? "s" : ""}
-                        </span>
+
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={fetchSubmissions}
+                            disabled={loadingSubmissions}
+                            className="h-9 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08]"
+                          >
+                            <RefreshCw className={`size-3.5 mr-1.5 ${loadingSubmissions ? "animate-spin text-purple-400" : ""}`} />
+                            Rafraîchir
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={exportToExcel}
+                            disabled={downloadingExcel || filteredSubmissions.length === 0}
+                            className="h-9 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs gap-2 px-4 shadow-lg shadow-emerald-900/30 transition-all disabled:opacity-50"
+                          >
+                            <Download className={`size-4 ${downloadingExcel ? "animate-bounce" : ""}`} />
+                            {downloadingExcel ? "Génération..." : "Télécharger Excel (.xlsx)"}
+                          </Button>
+                          <button
+                            onClick={() => setSubmissionPeriod(null)}
+                            title="Masquer les détails"
+                            className="flex size-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white/50 hover:bg-white/[0.08] hover:text-white transition-colors text-xs font-semibold"
+                          >
+                            ✕
+                          </button>
+                        </div>
                       </div>
 
-                      <div className="flex items-center gap-2.5">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={fetchSubmissions}
-                          disabled={loadingSubmissions}
-                          className="h-9 rounded-xl border-white/10 bg-white/[0.04] text-xs text-white/80 hover:bg-white/[0.08]"
-                        >
-                          <RefreshCw className={`size-3.5 mr-1.5 ${loadingSubmissions ? "animate-spin text-purple-400" : ""}`} />
-                          Rafraîchir
-                        </Button>
-                        <Button
-                          size="sm"
-                          onClick={exportToExcel}
-                          disabled={downloadingExcel || filteredSubmissions.length === 0}
-                          className="h-9 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs gap-2 px-4 shadow-lg shadow-emerald-900/30 transition-all disabled:opacity-50"
-                        >
-                          <Download className={`size-4 ${downloadingExcel ? "animate-bounce" : ""}`} />
-                          {downloadingExcel ? "Génération..." : "Télécharger Excel (.xlsx)"}
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Table des Candidatures */}
-                    <GlassPanel>
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-left text-xs sm:text-sm">
-                          <thead className="border-b border-white/[0.06] text-[11px] uppercase tracking-wider text-white/50">
-                            <tr>
-                              <th className="py-3 px-4 font-semibold">
-                                <span className="inline-flex items-center gap-1.5"><Calendar className="size-3 text-purple-400" /> Date</span>
-                              </th>
-                              <th className="py-3 px-4 font-semibold">
-                                <span className="inline-flex items-center gap-1.5"><User className="size-3 text-purple-400" /> Nom</span>
-                              </th>
-                              <th className="py-3 px-4 font-semibold">
-                                <span className="inline-flex items-center gap-1.5"><Phone className="size-3 text-purple-400" /> WhatsApp</span>
-                              </th>
-                              <th className="py-3 px-4 font-semibold">
-                                <span className="inline-flex items-center gap-1.5"><Mail className="size-3 text-purple-400" /> Email</span>
-                              </th>
-                              <th className="py-3 px-4 font-semibold">
-                                <span className="inline-flex items-center gap-1.5"><GraduationCap className="size-3 text-purple-400" /> Niveau</span>
-                              </th>
-                              <th className="py-3 px-4 font-semibold">
-                                <span className="inline-flex items-center gap-1.5"><Building className="size-3 text-purple-400" /> École</span>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-white/[0.04]">
-                            {loadingSubmissions && submissions.length === 0 ? (
+                      {/* Table des Candidatures */}
+                      <GlassPanel>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-left text-xs sm:text-sm">
+                            <thead className="border-b border-white/[0.06] text-[11px] uppercase tracking-wider text-white/50">
                               <tr>
-                                <td colSpan={6} className="py-12 text-center text-white/40">
-                                  <RefreshCw className="mx-auto size-6 animate-spin text-purple-400 mb-2" />
-                                  Chargement des candidatures...
-                                </td>
+                                <th className="py-3 px-4 font-semibold">
+                                  <span className="inline-flex items-center gap-1.5"><Calendar className="size-3 text-purple-400" /> Date</span>
+                                </th>
+                                <th className="py-3 px-4 font-semibold">
+                                  <span className="inline-flex items-center gap-1.5"><User className="size-3 text-purple-400" /> Nom</span>
+                                </th>
+                                <th className="py-3 px-4 font-semibold">
+                                  <span className="inline-flex items-center gap-1.5"><Phone className="size-3 text-purple-400" /> WhatsApp</span>
+                                </th>
+                                <th className="py-3 px-4 font-semibold">
+                                  <span className="inline-flex items-center gap-1.5"><Mail className="size-3 text-purple-400" /> Email</span>
+                                </th>
+                                <th className="py-3 px-4 font-semibold">
+                                  <span className="inline-flex items-center gap-1.5"><GraduationCap className="size-3 text-purple-400" /> Niveau</span>
+                                </th>
+                                <th className="py-3 px-4 font-semibold">
+                                  <span className="inline-flex items-center gap-1.5"><Building className="size-3 text-purple-400" /> École</span>
+                                </th>
                               </tr>
-                            ) : filteredSubmissions.length === 0 ? (
-                              <tr>
-                                <td colSpan={6} className="py-16 text-center text-white/40">
-                                  <FileSpreadsheet className="mx-auto size-8 mb-3 text-white/20" />
-                                  <p className="text-sm">
-                                    {search
-                                      ? "Aucun résultat pour cette recherche."
-                                      : "Aucune candidature enregistrée pour cette période."}
-                                  </p>
-                                </td>
-                              </tr>
-                            ) : (
-                              filteredSubmissions.map((s) => {
-                                const cleanPhone = s.phone.replace(/[^0-9+]/g, "");
-                                const waLink = cleanPhone ? `https://wa.me/${cleanPhone.replace("+", "")}` : null;
-                                return (
-                                  <tr key={s.id} className="hover:bg-white/[0.03] transition-colors">
-                                    <td className="py-3 px-4 whitespace-nowrap text-white/60 text-xs">
-                                      {formatDate(s.createdAt)}
-                                    </td>
-                                    <td className="py-3 px-4 font-medium text-white whitespace-nowrap">{s.name}</td>
-                                    <td className="py-3 px-4 whitespace-nowrap">
-                                      {waLink ? (
-                                        <a
-                                          href={waLink}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 hover:underline"
-                                        >
-                                          <Phone className="size-3.5" /> {s.phone}
+                            </thead>
+                            <tbody className="divide-y divide-white/[0.04]">
+                              {loadingSubmissions && submissions.length === 0 ? (
+                                <tr>
+                                  <td colSpan={6} className="py-12 text-center text-white/40">
+                                    <RefreshCw className="mx-auto size-6 animate-spin text-purple-400 mb-2" />
+                                    Chargement des candidatures...
+                                  </td>
+                                </tr>
+                              ) : filteredSubmissions.length === 0 ? (
+                                <tr>
+                                  <td colSpan={6} className="py-16 text-center text-white/40">
+                                    <FileSpreadsheet className="mx-auto size-8 mb-3 text-white/20" />
+                                    <p className="text-sm">
+                                      {search
+                                        ? "Aucun résultat pour cette recherche."
+                                        : "Aucune candidature enregistrée pour cette période."}
+                                    </p>
+                                  </td>
+                                </tr>
+                              ) : (
+                                filteredSubmissions.map((s) => {
+                                  const cleanPhone = s.phone.replace(/[^0-9+]/g, "");
+                                  const waLink = cleanPhone ? `https://wa.me/${cleanPhone.replace("+", "")}` : null;
+                                  return (
+                                    <tr key={s.id} className="hover:bg-white/[0.03] transition-colors">
+                                      <td className="py-3 px-4 whitespace-nowrap text-white/60 text-xs">
+                                        {formatDate(s.createdAt)}
+                                      </td>
+                                      <td className="py-3 px-4 font-medium text-white whitespace-nowrap">{s.name}</td>
+                                      <td className="py-3 px-4 whitespace-nowrap">
+                                        {waLink ? (
+                                          <a
+                                            href={waLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 hover:underline"
+                                          >
+                                            <Phone className="size-3.5" /> {s.phone}
+                                          </a>
+                                        ) : (
+                                          <span className="text-white/30">{s.phone}</span>
+                                        )}
+                                      </td>
+                                      <td className="py-3 px-4 whitespace-nowrap">
+                                        <a href={`mailto:${s.email}`} className="text-sky-400 hover:text-sky-300 hover:underline">
+                                          {s.email}
                                         </a>
-                                      ) : (
-                                        <span className="text-white/30">{s.phone}</span>
-                                      )}
-                                    </td>
-                                    <td className="py-3 px-4 whitespace-nowrap">
-                                      <a href={`mailto:${s.email}`} className="text-sky-400 hover:text-sky-300 hover:underline">
-                                        {s.email}
-                                      </a>
-                                    </td>
-                                    <td className="py-3 px-4 whitespace-nowrap">
-                                      <span className="inline-block rounded-lg bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 text-xs text-purple-300 font-medium">
-                                        {s.level}
-                                      </span>
-                                    </td>
-                                    <td className="py-3 px-4 whitespace-nowrap text-white/70">{s.school}</td>
-                                  </tr>
-                                );
-                              })
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
-                    </GlassPanel>
-                  </motion.div>
+                                      </td>
+                                      <td className="py-3 px-4 whitespace-nowrap">
+                                        <span className="inline-block rounded-lg bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 text-xs text-purple-300 font-medium">
+                                          {s.level}
+                                        </span>
+                                      </td>
+                                      <td className="py-3 px-4 whitespace-nowrap text-white/70">{s.school}</td>
+                                    </tr>
+                                  );
+                                })
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      </GlassPanel>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="empty-selection"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-8 text-center"
+                    >
+                      <Users className="mx-auto size-8 mb-2 text-white/20" />
+                      <p className="text-sm font-medium text-white/70">
+                        Sélectionnez une période pour afficher les candidatures
+                      </p>
+                      <p className="text-xs text-white/40 mt-1 max-w-md mx-auto">
+                        Cliquez sur <strong>Total Candidats</strong>, <strong>Aujourd&apos;hui</strong>, <strong>Cette semaine</strong> ou <strong>Ce mois-ci</strong> pour voir les profils détaillés et télécharger le fichier Excel correspondant.
+                      </p>
+                    </motion.div>
+                  )}
                 </AnimatePresence>
               </motion.div>
             )}

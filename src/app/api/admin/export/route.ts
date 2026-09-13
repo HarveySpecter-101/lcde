@@ -17,7 +17,7 @@ function extractFromText(text: string | null | undefined, prefix: string): strin
   return null;
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   const isAdmin = await isUserAdmin();
   if (!isAdmin) {
     return NextResponse.json(
@@ -27,7 +27,26 @@ export async function GET() {
   }
 
   try {
+    const { searchParams } = new URL(req.url);
+    const period = searchParams.get("period");
+
+    const whereClause: any = {};
+    const now = new Date();
+    if (period === "day") {
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      whereClause.createdAt = { gte: today };
+    } else if (period === "week") {
+      const dayOfWeek = (now.getDay() + 6) % 7;
+      const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dayOfWeek);
+      monday.setHours(0, 0, 0, 0);
+      whereClause.createdAt = { gte: monday };
+    } else if (period === "month") {
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+      whereClause.createdAt = { gte: firstDay };
+    }
+
     const submissions = await db.contactSubmission.findMany({
+      where: whereClause,
       orderBy: { createdAt: "desc" },
     });
 
@@ -180,7 +199,8 @@ export async function GET() {
     });
 
     const today = new Date().toISOString().split("T")[0];
-    const filename = `Candidatures_LCDE_${today}.xlsx`;
+    const periodSuffix = period ? `_${period}` : "";
+    const filename = `Candidatures_LCDE${periodSuffix}_${today}.xlsx`;
 
     return new Response(buffer, {
       status: 200,
