@@ -1568,21 +1568,7 @@ export default function AdminPage() {
                       </GlassPanel>
                     </motion.div>
                   ) : (
-                    <motion.div
-                      key="empty-selection"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-8 text-center"
-                    >
-                      <Users className="mx-auto size-8 mb-2 text-white/20" />
-                      <p className="text-sm font-medium text-white/70">
-                        Sélectionnez une période pour afficher les candidatures
-                      </p>
-                      <p className="text-xs text-white/40 mt-1 max-w-md mx-auto">
-                        Cliquez sur <strong>Total Candidats</strong>, <strong>Aujourd&apos;hui</strong>, <strong>Cette semaine</strong> ou <strong>Ce mois-ci</strong> pour voir les profils détaillés et télécharger le fichier Excel correspondant.
-                      </p>
-                    </motion.div>
+                    null
                   )}
                 </AnimatePresence>
               </motion.div>
