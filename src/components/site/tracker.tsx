@@ -46,53 +46,144 @@ function getBrowserInfo() {
   return { browser, os, device };
 }
 
+function cleanUrl() {
+  if (typeof window === "undefined" || !window.history || !window.history.replaceState) return;
+  try {
+    const path = window.location.pathname;
+    const cleanPath = path.replace(/^\/(wa|whatsapp|li|linkedin|ig|instagram|fb|facebook|tt|tiktok)\/?$/i, "");
+    const target = cleanPath || "/";
+    window.history.replaceState({}, document.title, target);
+  } catch {}
+}
+
 function detectTrafficSource(): string {
-  if (typeof window === "undefined") return "Direct";
+  if (typeof window === "undefined") return "Accès direct";
 
   try {
-    const urlParams = new URLSearchParams(window.location.search);
+    const url = new URL(window.location.href);
+    const urlParams = url.searchParams;
+    const pathname = url.pathname.toLowerCase();
+    const hash = url.hash.toLowerCase();
+    const search = url.search.toLowerCase();
+    const ref = (document.referrer || "").toLowerCase().trim();
+    const ua = (navigator.userAgent || "").toLowerCase();
+
     const utmSource =
       urlParams.get("utm_source") ||
       urlParams.get("ref") ||
       urlParams.get("source") ||
-      urlParams.get("utm_medium");
+      urlParams.get("src") ||
+      urlParams.get("utm_medium") ||
+      "";
 
-    if (utmSource) {
-      if (/whatsapp/i.test(utmSource)) return "WhatsApp";
-      if (/instagram|ig/i.test(utmSource)) return "Instagram";
-      if (/facebook|fb/i.test(utmSource)) return "Facebook";
-      if (/linkedin/i.test(utmSource)) return "LinkedIn";
-      if (/tiktok/i.test(utmSource)) return "TikTok";
-      if (/google/i.test(utmSource)) return "Google";
-      return utmSource;
-    }
+    let detected: string | null = null;
 
-    const ref = (document.referrer || "").trim();
-    const ua = navigator.userAgent || "";
-
-    // WhatsApp detection
+    // 1. WhatsApp (?wa, ?w, ?whatsapp, /wa, /whatsapp, #wa, referer, userAgent)
     if (
-      /whatsapp/i.test(ref) ||
-      /com\.whatsapp/i.test(ref) ||
-      /l\.whatsapp\.com/i.test(ref) ||
-      /whatsapp/i.test(ua)
+      /whatsapp/i.test(utmSource) ||
+      urlParams.has("wa") ||
+      urlParams.has("whatsapp") ||
+      urlParams.has("w") ||
+      hash.includes("wa") ||
+      hash.includes("whatsapp") ||
+      pathname === "/wa" ||
+      pathname === "/whatsapp" ||
+      ref.includes("whatsapp") ||
+      ref.includes("com.whatsapp") ||
+      ref.includes("l.whatsapp.com") ||
+      ua.includes("whatsapp")
     ) {
-      return "WhatsApp";
+      detected = "WhatsApp";
     }
-
-    if (/instagram/i.test(ref) || /instagram/i.test(ua)) return "Instagram";
-    if (/facebook|fb\.com|fbclid/i.test(ref) || /fbclid/i.test(window.location.search)) return "Facebook";
-    if (/linkedin/i.test(ref)) return "LinkedIn";
-    if (/google\./i.test(ref)) return "Google";
-
-    if (ref) {
+    // 2. Instagram (?ig, ?instagram, /ig, /instagram, #ig, referer, userAgent)
+    else if (
+      /instagram|ig/i.test(utmSource) ||
+      urlParams.has("ig") ||
+      urlParams.has("instagram") ||
+      hash.includes("ig") ||
+      hash.includes("instagram") ||
+      pathname === "/ig" ||
+      pathname === "/instagram" ||
+      ref.includes("instagram") ||
+      ua.includes("instagram") ||
+      ua.includes("igapp")
+    ) {
+      detected = "Instagram";
+    }
+    // 3. LinkedIn (?li, ?linkedin, /li, /linkedin, #li, referer, userAgent)
+    else if (
+      /linkedin/i.test(utmSource) ||
+      urlParams.has("li") ||
+      urlParams.has("linkedin") ||
+      hash.includes("li") ||
+      hash.includes("linkedin") ||
+      pathname === "/li" ||
+      pathname === "/linkedin" ||
+      ref.includes("linkedin") ||
+      ref.includes("lnkd.in") ||
+      ua.includes("linkedinapp")
+    ) {
+      detected = "LinkedIn";
+    }
+    // 4. Facebook (?fb, ?facebook, /fb, /facebook, #fb, fbclid, referer, userAgent)
+    else if (
+      /facebook|fb/i.test(utmSource) ||
+      urlParams.has("fb") ||
+      urlParams.has("facebook") ||
+      urlParams.has("fbclid") ||
+      search.includes("fbclid") ||
+      hash.includes("fb") ||
+      hash.includes("facebook") ||
+      pathname === "/fb" ||
+      pathname === "/facebook" ||
+      ref.includes("facebook") ||
+      ref.includes("fb.com") ||
+      ua.includes("fban") ||
+      ua.includes("fbav") ||
+      ua.includes("fb_iab")
+    ) {
+      detected = "Facebook";
+    }
+    // 5. TikTok (?tt, ?tiktok, /tt, /tiktok, #tt, referer, userAgent)
+    else if (
+      /tiktok/i.test(utmSource) ||
+      urlParams.has("tt") ||
+      urlParams.has("tiktok") ||
+      hash.includes("tt") ||
+      hash.includes("tiktok") ||
+      pathname === "/tt" ||
+      pathname === "/tiktok" ||
+      ref.includes("tiktok") ||
+      ua.includes("tiktok")
+    ) {
+      detected = "TikTok";
+    }
+    // 6. Google
+    else if (/google/i.test(utmSource) || ref.includes("google.") || ref.includes("googleads")) {
+      detected = "Google";
+    }
+    // 7. Autre UTM explicite
+    else if (utmSource) {
+      detected = utmSource;
+    }
+    // 8. Autre referer de site externe
+    else if (ref) {
       try {
         const hostname = new URL(ref).hostname.replace(/^www\./, "");
-        if (hostname) return hostname;
+        if (hostname) detected = hostname;
       } catch {
-        return ref.slice(0, 50);
+        detected = ref.slice(0, 50);
       }
     }
+
+    if (detected) {
+      cleanUrl();
+      sessionStorage.setItem("lcde_track_source", detected);
+      return detected;
+    }
+
+    const saved = sessionStorage.getItem("lcde_track_source");
+    if (saved) return saved;
   } catch {}
 
   return "Accès direct";
