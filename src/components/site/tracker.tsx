@@ -23,7 +23,11 @@ function getBrowserInfo() {
   let os = "Unknown";
   let device = "Desktop";
 
-  if (ua.includes("WhatsApp")) browser = "WhatsApp Webview";
+  if (ua.includes("WhatsApp") || ua.includes("whatsapp")) browser = "WhatsApp";
+  else if (ua.includes("Instagram") || ua.includes("IGApp")) browser = "Instagram";
+  else if (ua.includes("FBAN") || ua.includes("FBAV") || ua.includes("FB_IAB")) browser = "Facebook";
+  else if (ua.includes("TikTok")) browser = "TikTok";
+  else if (ua.includes("LinkedInApp")) browser = "LinkedIn";
   else if (ua.includes("Firefox")) browser = "Firefox";
   else if (ua.includes("Edg")) browser = "Edge";
   else if (ua.includes("OPR") || ua.includes("Opera")) browser = "Opera";
