@@ -19,8 +19,15 @@ const inter = Inter({
   display: "swap",
 });
 
+const getBaseUrl = () => {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "https://leclubdesexperts.vercel.app";
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://leclubdesexperts1.com"),
+  metadataBase: new URL(getBaseUrl()),
   title: "Le Club Des Experts (LCDE) — Formation Audit, Finance & Fiscalité à Casablanca",
   description:
     "Formation 100 % pratique en Audit, Finance, Fiscalité et Comptabilité à Casablanca. 10 modules en 12 mois, animés par des experts-comptables OEC et des seniors de l'audit. Opérationnel dès le premier jour.",
