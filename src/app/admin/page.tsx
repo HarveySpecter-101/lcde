@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import {
   Search,
   Download,
@@ -23,6 +23,8 @@ import {
   TrendingUp,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Activity,
   Sparkles,
   Users,
@@ -218,7 +220,7 @@ const SOURCE_ICONS: Record<SourceInfo["icon"], React.ComponentType<{ className?:
 /* Animated Background                                           */
 /* ────────────────────────────────────────────────────────────── */
 
-function AnimatedBackground() {
+const AnimatedBackground = memo(function AnimatedBackground() {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden>
       <div className="absolute inset-0 bg-[#030014]" />
@@ -269,7 +271,7 @@ function AnimatedBackground() {
       />
     </div>
   );
-}
+});
 
 /* ────────────────────────────────────────────────────────────── */
 /* Glass Panel                                                   */
@@ -640,6 +642,8 @@ export default function AdminPage() {
   const [loadingSubmissions, setLoadingSubmissions] = useState(false);
   const [downloadingExcel, setDownloadingExcel] = useState(false);
   const [search, setSearch] = useState("");
+  const [subPage, setSubPage] = useState(1);
+  const [subsPerPage, setSubsPerPage] = useState(25);
 
   // Analytics
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
@@ -650,6 +654,8 @@ export default function AdminPage() {
   const [loadingVisits, setLoadingVisits] = useState(false);
   const [expandedVisitId, setExpandedVisitId] = useState<string | null>(null);
   const [visitSearch, setVisitSearch] = useState("");
+  const [visitPage, setVisitPage] = useState(1);
+  const [visitsPerPage, setVisitsPerPage] = useState(25);
 
   /* ── Auth ── */
   useEffect(() => {
@@ -697,7 +703,7 @@ export default function AdminPage() {
   const fetchVisits = useCallback(async () => {
     setLoadingVisits(true);
     try {
-      const res = await fetch("/api/admin/visits?limit=100");
+      const res = await fetch("/api/admin/visits?limit=500");
       if (res.ok) {
         const data = await res.json();
         if (data.ok) setVisits(data.visits);
@@ -839,6 +845,27 @@ export default function AdminPage() {
         (v.referrer || "").toLowerCase().includes(q)
     );
   }, [visits, visitSearch]);
+
+  // Reset pagination on filter changes
+  useEffect(() => {
+    setSubPage(1);
+  }, [search, submissionPeriod]);
+
+  useEffect(() => {
+    setVisitPage(1);
+  }, [visitSearch]);
+
+  const totalSubPages = Math.max(1, Math.ceil(filteredSubmissions.length / subsPerPage));
+  const paginatedSubmissions = useMemo(() => {
+    const start = (subPage - 1) * subsPerPage;
+    return filteredSubmissions.slice(start, start + subsPerPage);
+  }, [filteredSubmissions, subPage, subsPerPage]);
+
+  const totalVisitPages = Math.max(1, Math.ceil(filteredVisits.length / visitsPerPage));
+  const paginatedVisits = useMemo(() => {
+    const start = (visitPage - 1) * visitsPerPage;
+    return filteredVisits.slice(start, start + visitsPerPage);
+  }, [filteredVisits, visitPage, visitsPerPage]);
 
   /* ── Visits Chart Data by Selected Period ── */
   const currentVisitsChartData = useMemo(() => {
@@ -1410,7 +1437,7 @@ export default function AdminPage() {
                       </div>
                     ) : (
                       <div className="divide-y divide-white/[0.04]">
-                        {filteredVisits.map((v) => {
+                        {paginatedVisits.map((v) => {
                           const isExpanded = expandedVisitId === v.id;
                           const DeviceIcon =
                             v.device === "Mobile" ? Smartphone : v.device === "Tablet" ? Tablet : Monitor;
@@ -1505,6 +1532,64 @@ export default function AdminPage() {
                             </div>
                           );
                         })}
+                      </div>
+                    )}
+
+                    {/* Pagination Controls for Visits */}
+                    {filteredVisits.length > 0 && (
+                      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-white/[0.06] text-xs text-white/60">
+                        <div className="flex items-center gap-3">
+                          <span>
+                            Affichage de <strong className="text-white/90">{(visitPage - 1) * visitsPerPage + 1}</strong> à{" "}
+                            <strong className="text-white/90">
+                              {Math.min(visitPage * visitsPerPage, filteredVisits.length)}
+                            </strong>{" "}
+                            sur <strong className="text-white/90">{filteredVisits.length}</strong> session{filteredVisits.length > 1 ? "s" : ""}
+                          </span>
+                          <div className="flex items-center gap-1.5 ml-2">
+                            <span className="text-white/40">Par page :</span>
+                            <select
+                              value={visitsPerPage}
+                              onChange={(e) => {
+                                setVisitsPerPage(Number(e.target.value));
+                                setVisitPage(1);
+                              }}
+                              className="bg-white/[0.06] border border-white/10 rounded-lg px-2 py-1 text-xs text-white/80 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+                            >
+                              <option value={10} className="bg-slate-900 text-white">10</option>
+                              <option value={25} className="bg-slate-900 text-white">25</option>
+                              <option value={50} className="bg-slate-900 text-white">50</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled={visitPage <= 1}
+                            onClick={() => setVisitPage((p) => Math.max(1, p - 1))}
+                            className="h-8 px-2.5 rounded-lg border-white/10 bg-white/[0.04] text-xs text-white/70 hover:bg-white/[0.08] disabled:opacity-30 disabled:pointer-events-none"
+                          >
+                            <ChevronLeft className="size-3.5 mr-1" />
+                            Précédent
+                          </Button>
+
+                          <span className="text-xs text-white/70 font-medium px-2">
+                            Page <span className="text-purple-400 font-semibold">{visitPage}</span> / {totalVisitPages}
+                          </span>
+
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled={visitPage >= totalVisitPages}
+                            onClick={() => setVisitPage((p) => Math.min(totalVisitPages, p + 1))}
+                            className="h-8 px-2.5 rounded-lg border-white/10 bg-white/[0.04] text-xs text-white/70 hover:bg-white/[0.08] disabled:opacity-30 disabled:pointer-events-none"
+                          >
+                            Suivant
+                            <ChevronRight className="size-3.5 ml-1" />
+                          </Button>
+                        </div>
                       </div>
                     )}
                   </GlassPanel>
@@ -1677,7 +1762,7 @@ export default function AdminPage() {
                                   </td>
                                 </tr>
                               ) : (
-                                filteredSubmissions.map((s) => {
+                                paginatedSubmissions.map((s) => {
                                   const cleanPhone = s.phone.replace(/[^0-9+]/g, "");
                                   const waLink = cleanPhone ? `https://wa.me/${cleanPhone.replace("+", "")}` : null;
                                   return (
@@ -1718,6 +1803,65 @@ export default function AdminPage() {
                             </tbody>
                           </table>
                         </div>
+
+                        {/* Pagination Bar */}
+                        {filteredSubmissions.length > 0 && (
+                          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-3 border-t border-white/[0.06] text-xs text-white/60">
+                            <div className="flex items-center gap-3">
+                              <span>
+                                Affichage de <strong className="text-white/90">{(subPage - 1) * subsPerPage + 1}</strong> à{" "}
+                                <strong className="text-white/90">
+                                  {Math.min(subPage * subsPerPage, filteredSubmissions.length)}
+                                </strong>{" "}
+                                sur <strong className="text-white/90">{filteredSubmissions.length}</strong> candidat{filteredSubmissions.length > 1 ? "s" : ""}
+                              </span>
+                              <div className="flex items-center gap-1.5 ml-2">
+                                <span className="text-white/40">Par page :</span>
+                                <select
+                                  value={subsPerPage}
+                                  onChange={(e) => {
+                                    setSubsPerPage(Number(e.target.value));
+                                    setSubPage(1);
+                                  }}
+                                  className="bg-white/[0.06] border border-white/10 rounded-lg px-2 py-1 text-xs text-white/80 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+                                >
+                                  <option value={10} className="bg-slate-900 text-white">10</option>
+                                  <option value={25} className="bg-slate-900 text-white">25</option>
+                                  <option value={50} className="bg-slate-900 text-white">50</option>
+                                  <option value={100} className="bg-slate-900 text-white">100</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                disabled={subPage <= 1}
+                                onClick={() => setSubPage((p) => Math.max(1, p - 1))}
+                                className="h-8 px-2.5 rounded-lg border-white/10 bg-white/[0.04] text-xs text-white/70 hover:bg-white/[0.08] disabled:opacity-30 disabled:pointer-events-none"
+                              >
+                                <ChevronLeft className="size-3.5 mr-1" />
+                                Précédent
+                              </Button>
+
+                              <span className="text-xs text-white/70 font-medium px-2">
+                                Page <span className="text-purple-400 font-semibold">{subPage}</span> / {totalSubPages}
+                              </span>
+
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                disabled={subPage >= totalSubPages}
+                                onClick={() => setSubPage((p) => Math.min(totalSubPages, p + 1))}
+                                className="h-8 px-2.5 rounded-lg border-white/10 bg-white/[0.04] text-xs text-white/70 hover:bg-white/[0.08] disabled:opacity-30 disabled:pointer-events-none"
+                              >
+                                Suivant
+                                <ChevronRight className="size-3.5 ml-1" />
+                              </Button>
+                            </div>
+                          </div>
+                        )}
                       </GlassPanel>
                     </motion.div>
                   ) : (
