@@ -32,7 +32,10 @@ export function BeforeAfter() {
       
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <h2 className="font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
+          <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy">
+            <GitCompareArrows className="size-3.5 text-gold" /> L'effet LCDE
+          </span>
+          <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
             Avant / Après LCDE
           </h2>
           <p className="mt-5 text-base leading-relaxed text-anthracite/70 sm:text-lg">

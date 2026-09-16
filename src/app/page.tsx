@@ -31,14 +31,17 @@ export default function Home() {
         <Hero />
         <Stats />
         <HiringCompanies />
+        <SectionDivider variant="light-to-navy" />
         <Modules />
+        <SectionDivider variant="navy-to-light" />
         <Intervenants />
         <WhatYouGain />
         <BeforeAfter />
         <SectionDivider variant="light-to-soft" />
         <SuccessStories />
-        <SectionDivider variant="light-to-navy" />
+        <SectionDivider variant="light-to-soft" />
         <Founders />
+        <SectionDivider variant="light-to-navy" />
         <Contact />
       </main>
       <Footer />

@@ -57,6 +57,9 @@ export function SuccessStories() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 z-10">
         <Reveal className="mx-auto max-w-3xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wider text-navy shadow-sm">
+            <Star className="size-4 text-gold fill-gold" /> Résultats
+          </span>
           <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
             Où sont les participants des anciennes éditions ?
           </h2>

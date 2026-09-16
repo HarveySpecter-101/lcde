@@ -8,13 +8,17 @@ import { HeroCanvas } from "@/components/site/hero-canvas";
 import { HiggsfieldTiltCard } from "@/components/site/higgsfield-ui";
 
 const container = {
-  hidden: { opacity: 1 },
-  show: { opacity: 1 },
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
 const item = {
-  hidden: { opacity: 1, y: 0 },
-  show: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  },
 };
 
 const PROMO_ITEMS = [

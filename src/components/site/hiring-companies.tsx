@@ -50,6 +50,9 @@ export function HiringCompanies() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy border border-navy/10 mb-3">
+            <Landmark className="size-3.5 text-gold" /> Débouchés & Recrutement
+          </span>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
             Où vous serez <span className="text-gold-gradient font-extrabold">embauchés</span> ?
           </h2>
