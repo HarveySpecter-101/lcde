@@ -62,9 +62,15 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og/og-image.png",
-        width: 1344,
-        height: 768,
-        alt: "Le Club Des Experts — Formation Audit, Finance & Fiscalité à Casablanca",
+        width: 1200,
+        height: 630,
+        alt: "Le Club Des Experts — Formation Audit, Finance & Fiscalité",
+      },
+      {
+        url: "/og/logo-square.png",
+        width: 600,
+        height: 600,
+        alt: "Logo Le Club Des Experts",
       },
     ],
   },
