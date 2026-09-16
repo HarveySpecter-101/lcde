@@ -75,24 +75,21 @@ export function Modules() {
   return (
     <section
       id="formations"
-      className="relative scroll-mt-20 overflow-hidden bg-navy py-12 md:py-18"
+      className="relative scroll-mt-20 overflow-hidden bg-white py-12 md:py-18"
     >
       {/* Decorative top line */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
 
       {/* Animated background decoration */}
-      <SectionDecor variant="dark" pos="C" />
+      <SectionDecor variant="light" pos="C" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ───────── Header ───────── */}
         <Reveal className="mx-auto max-w-4xl text-center">
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2">
-            Nos formations
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
+            Nos formations : <span className="text-gold-gradient font-extrabold">13 métiers en 1</span>
           </h2>
-          <h3 className="mt-1 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            13 métiers en 1 formation
-          </h3>
-          <p className="mt-4 text-base font-medium leading-relaxed text-white/80 sm:text-xl">
+          <p className="mt-3 text-base font-medium leading-relaxed text-anthracite/80 sm:text-lg">
             13 métiers en une seule formation, un seul prix pour tout le programme, sans frais cachés.
           </p>
         </Reveal>
@@ -107,7 +104,7 @@ export function Modules() {
               type="button"
               onClick={() => paginate(-1)}
               aria-label="Métier précédent"
-              className="absolute -left-4 top-1/2 z-20 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-left-14"
+              className="absolute -left-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/15 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-left-14 active:scale-95"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -117,7 +114,7 @@ export function Modules() {
               type="button"
               onClick={() => paginate(1)}
               aria-label="Métier suivant"
-              className="absolute -right-4 top-1/2 z-20 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-right-14"
+              className="absolute -right-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/15 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-right-14 active:scale-95"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -139,62 +136,44 @@ export function Modules() {
                   onDragEnd={handleDragEnd}
                   className="cursor-grab active:cursor-grabbing"
                 >
-                  <div className="relative flex flex-col overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-premium">
-                    <div className="p-6 sm:p-8">
-                      {/* Icon + title */}
-                      <div className="relative z-10 flex items-start gap-4">
-                        <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
-                          <m.icon className="size-7" strokeWidth={1.9} />
-                        </span>
-                        <div className="flex-1">
-                          <p className="font-serif text-xl font-bold leading-snug text-gold sm:text-2xl">
-                            Métier {String(m.id).padStart(2, "0")}
-                          </p>
-                          <h3 className="mt-1 font-serif text-xl font-bold leading-snug text-navy sm:text-2xl">
-                            {m.title}
-                          </h3>
-                        </div>
+                  <div className="relative flex flex-col overflow-hidden rounded-3xl border border-navy/10 bg-soft/70 shadow-premium p-6 sm:p-8">
+                    {/* Icon + title */}
+                    <div className="relative z-10 flex items-start gap-4">
+                      <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
+                        <m.icon className="size-7" strokeWidth={1.9} />
+                      </span>
+                      <div className="flex-1">
+                        <p className="font-serif text-lg font-bold leading-snug text-gold sm:text-xl">
+                          Métier {String(m.id).padStart(2, "0")}
+                        </p>
+                        <h3 className="mt-1 font-serif text-xl font-bold leading-snug text-navy sm:text-2xl">
+                          {m.title}
+                        </h3>
                       </div>
+                    </div>
 
-                      {/* Short description */}
-                      <p className="mt-4 text-sm leading-relaxed text-anthracite/70 sm:text-base">
+                    {/* Short description / Sum up */}
+                    <div className="mt-5 rounded-2xl bg-white/80 border border-navy/5 p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-navy/50 mb-1">
+                        Résumé du métier
+                      </p>
+                      <p className="text-sm leading-relaxed text-anthracite/80 sm:text-base">
                         {m.short}
                       </p>
+                    </div>
 
-                      {/* Bullet points */}
-                      <ul className="mt-5 space-y-2 border-t border-navy/8 pt-5">
-                        {m.bullets.map((b) => (
-                          <li
-                            key={b}
-                            className="flex items-start gap-2.5 text-sm text-anthracite/80"
-                          >
-                            <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-brand" />
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* Skills tags */}
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {m.skills.map((s) => (
-                          <span
-                            key={s}
-                            className="inline-flex items-center gap-1.5 rounded-full border border-navy/10 bg-soft px-3 py-1.5 text-xs font-medium text-navy"
-                          >
-                            <Sparkles className="size-3 text-gold" />
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* "En savoir plus" button → opens popup */}
+                    {/* "En savoir plus" button → opens popup */}
+                    <div className="mt-6 flex items-center justify-between">
+                      <span className="text-xs font-medium text-anthracite/50">
+                        Cliquez pour découvrir le programme complet
+                      </span>
                       <button
                         type="button"
                         onClick={() => setPopupIndex(current)}
-                        className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gold/10 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold/20"
+                        className="inline-flex items-center gap-2 rounded-xl bg-navy px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-navy/85 hover:scale-[1.02] active:scale-[0.98]"
                       >
                         En savoir plus
-                        <ArrowUpRight className="size-4" />
+                        <ArrowUpRight className="size-4 text-gold" />
                       </button>
                     </div>
                   </div>
@@ -207,13 +186,13 @@ export function Modules() {
 
         {/* ───────── Tools band ───────── */}
         <Reveal className="mt-10 sm:mt-12">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md">
+          <div className="rounded-3xl border border-navy/10 bg-soft/80 p-6 md:p-8 shadow-sm">
             <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
               <div className="text-center md:text-left">
                 <p className="text-xs font-semibold uppercase tracking-wider text-gold">
                   Outils & logiciels enseignés
                 </p>
-                <h3 className="mt-1 font-serif text-xl font-bold text-white">
+                <h3 className="mt-1 font-serif text-xl font-bold text-navy">
                   Maîtrisez les outils réellement utilisés en cabinet
                 </h3>
               </div>
@@ -222,7 +201,7 @@ export function Modules() {
                   <motion.span
                     key={t.name}
                     whileHover={{ y: -3 }}
-                    className="flex flex-col items-center gap-1 rounded-xl border border-navy/10 bg-white px-4 py-3 shadow-premium"
+                    className="flex flex-col items-center gap-1 rounded-xl border border-navy/10 bg-white px-4 py-3 shadow-sm hover:shadow-md transition-shadow"
                   >
                     <span className="font-serif text-base font-bold text-navy">
                       {t.name}
@@ -390,26 +369,15 @@ export function Modules() {
                   </div>
                 </div>
 
-                {/* Navigation between métiers */}
-                <div className="mt-8 flex items-center justify-between gap-3 border-t border-navy/10 pt-4">
+                {/* Close action at bottom — user must exit popup to view other métiers */}
+                <div className="mt-8 flex items-center justify-end border-t border-navy/10 pt-4">
                   <button
                     type="button"
-                    onClick={() => setPopupIndex((popupIndex! - 1 + MODULES.length) % MODULES.length)}
-                    aria-label="Métier précédent"
-                    className="flex size-10 items-center justify-center rounded-xl border border-navy/10 bg-soft text-navy transition-colors hover:bg-navy hover:text-white"
+                    onClick={() => setPopupIndex(null)}
+                    className="inline-flex items-center gap-2 rounded-xl bg-navy px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-navy/85 hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    <ChevronLeft className="size-5" />
-                  </button>
-                  <p className="text-xs font-semibold text-anthracite/50">
-                    {String(popupModule.id).padStart(2, "0")} / {String(MODULES.length).padStart(2, "0")}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setPopupIndex((popupIndex! + 1) % MODULES.length)}
-                    aria-label="Métier suivant"
-                    className="flex size-10 items-center justify-center rounded-xl border border-navy/10 bg-soft text-navy transition-colors hover:bg-navy hover:text-white"
-                  >
-                    <ChevronRight className="size-5" />
+                    <X className="size-4" />
+                    Fermer
                   </button>
                 </div>
               </div>

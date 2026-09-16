@@ -102,7 +102,7 @@ export function Header() {
             className="hidden md:inline-flex bg-gold text-navy font-semibold hover:bg-gold/90 hover:shadow-gold-glow"
           >
             <a href="#contact">
-              Rejoindre la formation
+              Nous Rejoindre
               <ArrowRight className="size-4" />
             </a>
           </Button>
@@ -142,7 +142,7 @@ export function Header() {
                   <SheetClose asChild>
                     <Button asChild className="w-full bg-gold text-navy font-semibold hover:bg-gold/90">
                       <a href="#contact">
-                        Rejoindre la formation
+                        Nous Rejoindre
                         <ArrowRight className="size-4" />
                       </a>
                     </Button>

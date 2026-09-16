@@ -14,7 +14,7 @@ type Props = {
   amount?: number;
 };
 
-const offset = 28;
+const offset = 16;
 
 const buildVariants = (direction: Direction): Variants => {
   const hidden: Record<string, number> = { opacity: 0 };
@@ -30,7 +30,7 @@ const buildVariants = (direction: Direction): Variants => {
       x: 0,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.35,
         ease: [0.22, 1, 0.36, 1],
       },
     },
@@ -43,7 +43,7 @@ export function Reveal({
   direction = "up",
   className,
   once = true,
-  amount = 0.2,
+  amount = 0.05,
 }: Props) {
   const variants = buildVariants(direction);
   return (
