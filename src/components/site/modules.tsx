@@ -86,12 +86,18 @@ export function Modules() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ───────── Header ───────── */}
         <Reveal className="mx-auto max-w-4xl text-center">
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2">
-            Nos formations
+          <motion.span
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white border border-white/10 shadow-sm mb-3"
+          >
+            <Sparkles className="size-3.5 text-gold animate-spin-slow" /> Nos formations
+          </motion.span>
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl uppercase">
+            13 métiers en <span className="text-gold-gradient">1 formation</span>
           </h2>
-          <h3 className="mt-1 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            13 métiers en 1 formation
-          </h3>
           <p className="mt-4 text-base font-medium leading-relaxed text-white/80 sm:text-xl">
             13 métiers en une seule formation, un seul prix pour tout le programme, sans frais cachés.
           </p>
