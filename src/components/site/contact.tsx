@@ -150,18 +150,22 @@ export function Contact() {
       />
 
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <motion.span
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-gold shadow-gold-glow/20"
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white border border-white/10 shadow-sm"
           >
-            <Sparkles className="size-3.5 text-gold animate-spin-slow" /> Contact & inscription
+            <Sparkles className="size-3.5 text-gold animate-spin-slow" /> Inscriptions ouvertes
           </motion.span>
-          <h2 className="mt-2.5 font-serif text-lg font-bold leading-snug tracking-tight text-white sm:text-2xl md:text-3xl">
-            Laissez vos coordonnées, un conseiller LCDE vous recontacte sous 24h pour lancer la démarche d'inscription.
+          <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl uppercase">
+            Contact & <span className="text-gold-gradient">Inscription</span>
           </h2>
+          <p className="mt-3 text-sm leading-relaxed text-white/70 sm:text-base max-w-2xl mx-auto">
+            Laissez vos coordonnées, un conseiller LCDE vous recontacte sous 24h pour lancer la démarche d'inscription.
+          </p>
         </Reveal>
 
         <div className="mt-6 sm:mt-9 flex justify-center">
