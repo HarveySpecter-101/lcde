@@ -7,7 +7,6 @@ import {
   Instagram,
   Facebook,
   Linkedin,
-  Heart,
 } from "lucide-react";
 import { LCDE, WHATSAPP_LINK } from "@/lib/site-data";
 
@@ -101,11 +100,7 @@ export function Footer() {
             <span className="size-1 rounded-full bg-white/20" />
             <a href="#" className="transition-colors hover:text-gold">Confidentialité</a>
             <span className="size-1 rounded-full bg-white/20" />
-            <a href="#accueil" className="transition-colors hover:text-gold">Plan du site</a>
           </div>
-          <p className="flex items-center gap-1.5 text-xs text-white/50">
-            Conçu avec <Heart className="size-3.5 fill-gold text-gold" /> à Casablanca
-          </p>
         </div>
       </div>
     </footer>
