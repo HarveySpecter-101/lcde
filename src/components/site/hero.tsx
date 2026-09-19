@@ -61,13 +61,6 @@ export function Hero() {
           animate="show"
           className="flex flex-col items-center text-center"
         >
-          {/* Top pill badge */}
-          <motion.div variants={item} className="mb-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold shadow-sm backdrop-blur-md">
-              <Sparkles className="size-3.5 text-gold" />
-              Le Club Des Experts
-            </span>
-          </motion.div>
 
           {/* Centered Headline */}
           <motion.h1

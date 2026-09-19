@@ -34,9 +34,6 @@ export function Companies() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           {/* Left */}
           <Reveal direction="right">
-            <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-gold">
-              <Building2 className="size-3.5" /> Espace entreprises
-            </span>
             <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
               Vos futurs collaborateurs, déjà formés par des experts-comptables et des seniors de l'audit.
             </h2>

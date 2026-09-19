@@ -151,15 +151,6 @@ export function Contact() {
 
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <motion.span
-            initial={{ scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white border border-white/10 shadow-sm"
-          >
-            <Sparkles className="size-3.5 text-gold animate-spin-slow" /> Inscriptions ouvertes
-          </motion.span>
           <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl uppercase">
             Contact & <span className="text-gold-gradient">Inscription</span>
           </h2>

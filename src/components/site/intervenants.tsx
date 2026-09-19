@@ -62,10 +62,6 @@ export function Intervenants() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
           <Reveal>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-soft border border-gray-200 mb-3 sm:mb-4">
-              <Users className="w-4 h-4 text-gold" />
-              <span className="text-sm font-medium text-navy uppercase tracking-wider">Nos intervenants</span>
-            </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-navy mb-3">
               Les experts de <span className="text-gold-gradient">terrain</span>
             </h2>

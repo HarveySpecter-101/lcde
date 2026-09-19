@@ -19,9 +19,6 @@ export function Faq() {
       <SectionDecor variant="light" pos="D" />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-navy/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-navy">
-            <HelpCircle className="size-3.5 text-gold" /> FAQ formation
-          </span>
           <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
             Questions fréquentes
           </h2>
