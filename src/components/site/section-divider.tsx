@@ -25,15 +25,15 @@ export function SectionDivider({ variant = "light-to-soft", className }: Props) 
       break;
     case "light-to-navy":
       // top is light (transparent bg), bottom is navy (svg fill)
-      colorClasses = "text-[#0A2647]";
+      colorClasses = "text-[#0A0A0A]";
       break;
     case "soft-to-navy":
       // top is soft (bg), bottom is navy (svg fill)
-      colorClasses = "bg-[#F5F6F8] text-[#0A2647] dark:bg-[#14182a]";
+      colorClasses = "bg-[#F5F6F8] text-[#0A0A0A] dark:bg-[#14182a]";
       break;
     case "navy-to-light":
       // top is navy (bg), bottom is light (svg fill)
-      colorClasses = "bg-[#0A2647] text-white dark:text-background";
+      colorClasses = "bg-[#0A0A0A] text-white dark:text-background";
       break;
   }
 
