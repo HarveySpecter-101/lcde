@@ -176,9 +176,9 @@ export function WhatYouGain() {
   return (
     <section
       id="ce-que-vous-gagnez"
-      className="relative scroll-mt-20 overflow-hidden bg-[#faf9f5] py-14 md:py-22 border-b border-navy/5"
+      className="relative scroll-mt-20 overflow-hidden bg-black py-14 md:py-22"
     >
-      <SectionDecor variant="light" pos="C" />
+      <SectionDecor variant="dark" pos="C" />
 
       {/* Floating background ambient animation */}
       <motion.div
@@ -207,10 +207,10 @@ export function WhatYouGain() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <Reveal className="mx-auto max-w-3xl text-center">
-          <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
             Ce que vous <span className="text-gold-gradient">gagnez aussi</span>
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-anthracite/75 sm:text-base">
+          <p className="mt-3 text-sm leading-relaxed text-white/75 sm:text-base">
             Bien plus qu'un programme de cours : découvrez vos avantages exclusifs et votre accompagnement
             complet conçus pour propulser votre carrière.
           </p>
@@ -325,7 +325,7 @@ export function WhatYouGain() {
                   }}
                   aria-label={`Aller à l'avantage ${i + 1}`}
                   className={`h-2.5 rounded-full transition-all duration-300 ${
-                    i === current ? "w-8 bg-gold shadow-gold-glow" : "w-2.5 bg-navy/20 hover:bg-navy/40"
+                    i === current ? "w-8 bg-gold shadow-gold-glow" : "w-2.5 bg-white/20 hover:bg-white/40"
                   }`}
                 />
               ))}

@@ -161,8 +161,7 @@ export function Intervenants() {
                             <Users className="w-4 h-4 text-gold" />
                           </div>
                           <h4 className="font-bold text-navy text-xs sm:text-sm mb-1 line-clamp-2 leading-tight">{anon.role}</h4>
-                          <span className="text-[11px] font-semibold text-gold mb-1">{anon.experience}</span>
-                          <p className="text-[11px] sm:text-xs text-gray-600 line-clamp-2 leading-snug">{anon.specialty}</p>
+                          <span className="text-[11px] font-semibold text-gold">{anon.experience}</span>
                         </div>
                       ))}
                     </div>
