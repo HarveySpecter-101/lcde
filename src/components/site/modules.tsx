@@ -77,9 +77,6 @@ export function Modules() {
       id="formations"
       className="relative scroll-mt-20 overflow-hidden bg-navy py-12 md:py-18"
     >
-      {/* Decorative top line */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
-
       {/* Animated background decoration */}
       <SectionDecor variant="dark" pos="C" />
 
