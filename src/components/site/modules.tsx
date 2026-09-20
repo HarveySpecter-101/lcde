@@ -249,7 +249,7 @@ export function Modules() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+              className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm"
               onClick={() => setPopupIndex(null)}
               aria-hidden
             />
@@ -260,8 +260,28 @@ export function Modules() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-x-4 top-[8%] bottom-[8%] z-50 mx-auto max-w-xl overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-2xl sm:inset-x-0 sm:w-full"
+              className="fixed inset-x-4 top-[8%] bottom-[8%] z-[60] mx-auto max-w-xl overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-2xl sm:inset-x-0 sm:w-full"
             >
+              {/* Left Arrow (Absolute to Card) */}
+              <button
+                type="button"
+                onClick={() => setPopupIndex((popupIndex! - 1 + MODULES.length) % MODULES.length)}
+                aria-label="Métier précédent"
+                className="absolute left-2 sm:left-3 top-1/2 z-20 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white/90 backdrop-blur-sm text-navy shadow-premium transition-all hover:bg-navy hover:text-white"
+              >
+                <ChevronLeft className="size-5" />
+              </button>
+
+              {/* Right Arrow (Absolute to Card) */}
+              <button
+                type="button"
+                onClick={() => setPopupIndex((popupIndex! + 1) % MODULES.length)}
+                aria-label="Métier suivant"
+                className="absolute right-2 sm:right-3 top-1/2 z-20 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white/90 backdrop-blur-sm text-navy shadow-premium transition-all hover:bg-navy hover:text-white"
+              >
+                <ChevronRight className="size-5" />
+              </button>
+
               {/* Header — navy gradient */}
               <div className="relative overflow-hidden bg-navy-gradient p-5 text-white sm:p-6">
                 <div className="pointer-events-none absolute -right-12 -top-12 size-44 rounded-full bg-gold/20 blur-3xl" />
@@ -291,19 +311,20 @@ export function Modules() {
               </div>
 
               {/* Scrollable body */}
-              <div className="overflow-y-auto p-5 sm:p-6" style={{ maxHeight: "calc(100% - 140px)" }}>
+              {/* Added pb-12 so the content doesn't end up covered by the popup container edge or padding */}
+              <div className="overflow-y-auto px-5 py-5 sm:px-6 sm:py-6 pb-12" style={{ maxHeight: "calc(100% - 140px)" }}>
                 {/* Présentation */}
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-gold">
                     Présentation
                   </p>
-                  <p className="mt-2 text-sm leading-relaxed text-anthracite/80">
+                  <p className="mt-2 text-sm leading-relaxed text-anthracite/80 px-2 sm:px-4">
                     {popupModule.description}
                   </p>
                 </div>
 
                 {/* Au programme */}
-                <div className="mt-6">
+                <div className="mt-6 px-2 sm:px-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-gold">
                     Au programme
                   </p>
@@ -321,7 +342,7 @@ export function Modules() {
                 </div>
 
                 {/* Compétences acquises */}
-                <div className="mt-6">
+                <div className="mt-6 px-2 sm:px-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-gold">
                     Compétences acquises
                   </p>
@@ -339,7 +360,7 @@ export function Modules() {
                 </div>
 
                 {/* Objectifs pédagogiques — extra detailed content */}
-                <div className="mt-6">
+                <div className="mt-6 px-2 sm:px-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-gold">
                     Objectifs pédagogiques
                   </p>
@@ -364,7 +385,7 @@ export function Modules() {
                 </div>
 
                 {/* Méthodologie */}
-                <div className="mt-6">
+                <div className="mt-6 px-2 sm:px-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-gold">
                     Méthodologie
                   </p>
@@ -388,29 +409,6 @@ export function Modules() {
                       </p>
                     </div>
                   </div>
-                </div>
-
-                {/* Navigation between métiers */}
-                <div className="mt-8 flex items-center justify-between gap-3 border-t border-navy/10 pt-4">
-                  <button
-                    type="button"
-                    onClick={() => setPopupIndex((popupIndex! - 1 + MODULES.length) % MODULES.length)}
-                    aria-label="Métier précédent"
-                    className="flex size-10 items-center justify-center rounded-xl border border-navy/10 bg-soft text-navy transition-colors hover:bg-navy hover:text-white"
-                  >
-                    <ChevronLeft className="size-5" />
-                  </button>
-                  <p className="text-xs font-semibold text-anthracite/50">
-                    {String(popupModule.id).padStart(2, "0")} / {String(MODULES.length).padStart(2, "0")}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setPopupIndex((popupIndex! + 1) % MODULES.length)}
-                    aria-label="Métier suivant"
-                    className="flex size-10 items-center justify-center rounded-xl border border-navy/10 bg-soft text-navy transition-colors hover:bg-navy hover:text-white"
-                  >
-                    <ChevronRight className="size-5" />
-                  </button>
                 </div>
               </div>
             </motion.div>

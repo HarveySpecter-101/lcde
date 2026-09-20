@@ -48,23 +48,23 @@
 
   /* LCDE Brand Palette — inspired by the logo: white / black / metallic gold */
   --background: #ffffff;
-  --foreground: #0a0a0a;
+  --foreground: #000000;
   --card: #ffffff;
-  --card-foreground: #0a0a0a;
+  --card-foreground: #000000;
   --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
+  --popover-foreground: #000000;
 
-  --primary: #0a0a0a;                             /* black */
+  --primary: #000000;                             /* black */
   --primary-foreground: #ffffff;
 
   --secondary: #f6f4ef;                           /* warm off-white */
-  --secondary-foreground: #0a0a0a;
+  --secondary-foreground: #000000;
 
   --muted: #f6f4ef;
   --muted-foreground: #6b6b6b;
 
   --accent: #c4a962;                              /* mid gold */
-  --accent-foreground: #0a0a0a;
+  --accent-foreground: #000000;
 
   --destructive: #8b1a1a;                         /* burgundy red */
   --border: #e8e4dc;
@@ -73,18 +73,18 @@
 
   --success: #8b1a1a;                             /* burgundy as success accent */
 
-  --chart-1: #0a0a0a;
+  --chart-1: #000000;
   --chart-2: #c4a962;
   --chart-3: #8b7325;
   --chart-4: #e8d5a3;
   --chart-5: #6b6b6b;
 
   --sidebar: #ffffff;
-  --sidebar-foreground: #0a0a0a;
-  --sidebar-primary: #0a0a0a;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #000000;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #f6f4ef;
-  --sidebar-accent-foreground: #0a0a0a;
+  --sidebar-accent-foreground: #000000;
   --sidebar-border: #e8e4dc;
   --sidebar-ring: #c4a962;
 }
@@ -92,19 +92,19 @@
 .dark {
   /* Brand palette stays the same — institutional luxury is intentionally light */
   --background: #ffffff;
-  --foreground: #0a0a0a;
+  --foreground: #000000;
   --card: #ffffff;
-  --card-foreground: #0a0a0a;
+  --card-foreground: #000000;
   --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --primary: #0a0a0a;
+  --popover-foreground: #000000;
+  --primary: #000000;
   --primary-foreground: #ffffff;
   --secondary: #f6f4ef;
-  --secondary-foreground: #0a0a0a;
+  --secondary-foreground: #000000;
   --muted: #f6f4ef;
   --muted-foreground: #6b6b6b;
   --accent: #c4a962;
-  --accent-foreground: #0a0a0a;
+  --accent-foreground: #000000;
   --destructive: #8b1a1a;
   --border: #e8e4dc;
   --input: #e8e4dc;
@@ -135,24 +135,24 @@
   }
 
   /* Brand color helpers — inspired by LCDE logo (black/white/gold) */
-  .text-navy { color: #0a0a0a; }                    /* black */
-  .bg-navy { background-color: #0a0a0a; }
+  .text-navy { color: #000000; }                    /* black */
+  .bg-navy { background-color: #000000; }
   .text-gold { color: #b89840; }                    /* deep gold */
   .fill-gold { fill: #b89840; }                    /* deep gold fill for SVGs */
   .bg-gold { background: linear-gradient(135deg, #e8d5a3 0%, #c4a962 50%, #8b7325 100%); }
   .text-emerald-brand { color: #8b1a1a; }           /* burgundy accent */
   .bg-emerald-brand { background-color: #8b1a1a; }
-  .text-anthracite { color: #0a0a0a; }
+  .text-anthracite { color: #000000; }
 
   /* Premium gradient backgrounds — institutional luxury */
   .bg-navy-gradient {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 55%, #2a2a2a 100%);
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 55%, #2a2a2a 100%);
   }
   .bg-hero-radial {
     background:
       radial-gradient(1200px 600px at 80% -10%, rgba(196,169,98,0.15), transparent 60%),
       radial-gradient(900px 500px at 0% 100%, rgba(139,26,26,0.08), transparent 55%),
-      linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 55%, #2a2a2a 100%);
+      linear-gradient(135deg, #000000 0%, #1a1a1a 55%, #2a2a2a 100%);
   }
   .bg-gold-gradient {
     background: linear-gradient(135deg, #e8d5a3 0%, #c4a962 50%, #8b7325 100%);

@@ -20,7 +20,7 @@ const FOUNDERS = [
 
 export function Founders() {
   return (
-    <section id="fondateurs" className="relative scroll-mt-20 overflow-hidden bg-[#0A0A0A] py-14 md:py-24">
+    <section id="fondateurs" className="relative scroll-mt-20 overflow-hidden bg-[#000000] py-14 md:py-24">
       <SectionDecor variant="dark" pos="A" />
 
       {/* Animated floating background ambient orbs */}
