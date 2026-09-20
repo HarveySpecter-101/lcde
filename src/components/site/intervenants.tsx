@@ -63,7 +63,7 @@ export function Intervenants() {
         <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-navy mb-3">
-              Les experts de <span className="text-gold-gradient">terrain</span>
+              +10 intervenants experts de <span className="text-gold-gradient">terrain</span>
             </h2>
             <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
               Des praticiens issus des Big Four, des experts-comptables et des directeurs financiers qui partagent leur expérience concrète et leurs méthodes de travail au quotidien.
