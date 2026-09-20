@@ -156,36 +156,10 @@ export function Modules() {
                         </div>
                       </div>
 
-                      {/* Short description */}
-                      <p className="mt-4 text-sm leading-relaxed text-anthracite/70 sm:text-base">
-                        {m.short}
+                      {/* Short description / Summary */}
+                      <p className="mt-4 text-sm leading-relaxed text-anthracite/70 sm:text-base line-clamp-4">
+                        {m.description}
                       </p>
-
-                      {/* Bullet points */}
-                      <ul className="mt-5 space-y-2 border-t border-navy/8 pt-5">
-                        {m.bullets.map((b) => (
-                          <li
-                            key={b}
-                            className="flex items-start gap-2.5 text-sm text-anthracite/80"
-                          >
-                            <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-brand" />
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* Skills tags */}
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {m.skills.map((s) => (
-                          <span
-                            key={s}
-                            className="inline-flex items-center gap-1.5 rounded-full border border-navy/10 bg-soft px-3 py-1.5 text-xs font-medium text-navy"
-                          >
-                            <Sparkles className="size-3 text-gold" />
-                            {s}
-                          </span>
-                        ))}
-                      </div>
 
                       {/* "En savoir plus" button → opens popup */}
                       <button
