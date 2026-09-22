@@ -121,7 +121,7 @@ export function Modules() {
 
             {/* Slide container */}
             <div className="overflow-hidden rounded-3xl">
-              <AnimatePresence mode="wait" custom={direction}>
+              <AnimatePresence mode="wait" custom={direction} initial={false}>
                 <motion.div
                   key={current}
                   custom={direction}

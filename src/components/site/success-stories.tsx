@@ -89,7 +89,7 @@ export function SuccessStories() {
             </button>
 
             <div className="relative min-h-[22rem] sm:min-h-[20rem]">
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: 50, scale: 0.95 }}

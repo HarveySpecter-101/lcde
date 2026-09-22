@@ -72,7 +72,7 @@ export function BeforeAfter() {
 
           {/* Content Area */}
           <div className="mt-6">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               {activeTab === "avant" && (
                 <motion.div
                   key="avant"

@@ -70,6 +70,7 @@ export function Founders() {
                       alt={`Photo de ${f.name}`}
                       width={128}
                       height={128}
+                      loading="eager"
                       className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>

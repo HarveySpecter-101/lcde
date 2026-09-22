@@ -90,6 +90,7 @@ export function HiringCompanies() {
                   src={logo.src}
                   alt={logo.name}
                   fill
+                  loading="eager"
                   className="object-contain"
                 />
               </div>
