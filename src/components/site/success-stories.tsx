@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, CheckCircle2, Star, Quote } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
@@ -21,25 +21,15 @@ const FloatingEmoji = ({ emoji, className, delay = 0, duration = 4 }: { emoji: s
 
 export function SuccessStories() {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const total = SUCCESS_STORIES.length;
 
   const go = (dir: number) => setIndex((p) => (p + dir + total) % total);
-
-  useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => setIndex((p) => (p + 1) % total), 5000);
-    return () => clearInterval(id);
-  }, [paused, total]);
-
   const active = SUCCESS_STORIES[index];
 
   return (
     <section
       id="resultats"
       className="relative scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-12 md:py-18"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <style>{`
         @keyframes float-emoji {
