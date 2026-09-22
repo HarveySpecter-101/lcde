@@ -34,6 +34,7 @@ import {
   AlertOctagon,
   Share2,
   Compass,
+  Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -1693,6 +1694,39 @@ export default function AdminPage() {
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-6"
               >
+                <div className="flex justify-between items-center bg-red-500/[0.05] border border-red-500/20 rounded-2xl p-4 backdrop-blur-md">
+                  <div>
+                    <h2 className="text-sm font-bold text-red-400 flex items-center gap-2">
+                      <AlertOctagon className="size-4" />
+                      Zone de Danger
+                    </h2>
+                    <p className="text-xs text-white/50 mt-1">
+                      Cette action supprimera toutes les candidatures de la base de données.
+                    </p>
+                  </div>
+                  <Button
+                    onClick={async () => {
+                      if (confirm("Voulez-vous vraiment supprimer TOUTES les candidatures ? Cette action est irréversible !")) {
+                        try {
+                          const res = await fetch("/api/admin/clear-submissions", { method: "POST", headers: { "x-admin-key": "AdminLCDE2026!" } });
+                          if (res.ok) {
+                            toast.success("Toutes les candidatures ont été supprimées.");
+                            fetchSubmissions();
+                            setSubmissionPeriod(null);
+                          } else {
+                            toast.error("Erreur lors de la suppression.");
+                          }
+                        } catch (err) { toast.error("Erreur de connexion."); }
+                      }
+                    }}
+                    variant="destructive"
+                    className="bg-red-600 hover:bg-red-700 text-white font-semibold text-xs h-9 rounded-xl shadow-lg shadow-red-900/20 transition-all"
+                  >
+                    <Trash2 className="size-3.5 mr-2" />
+                    Réinitialiser les Candidatures
+                  </Button>
+                </div>
+
                 {/* ── Cartes de statistiques cliquables ── */}
                 <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
                   {([
