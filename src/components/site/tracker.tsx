@@ -424,7 +424,7 @@ export function SiteTracker() {
         if (target.tagName === "A" || target.tagName === "BUTTON") {
           clickCountRef.current++;
           
-          const text = target.innerText?.trim().slice(0, 40) || target.title || target.id || "Interaction";
+          const text = target.getAttribute("data-track") || target.innerText?.trim().slice(0, 40) || target.getAttribute("aria-label") || target.title || target.id || "Interaction";
           const href = target.getAttribute("href");
 
           eventsRef.current.push({

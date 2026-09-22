@@ -167,6 +167,7 @@ export function Intervenants() {
               className="absolute left-0 sm:left-4 z-20 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white shadow-md text-navy hover:text-gold hover:scale-105 transition-all border border-gray-100 focus:outline-none"
               onClick={() => paginate(-1)}
               aria-label="Précédent"
+              data-track="A swipé ou défilé les intervenants"
             >
               <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
@@ -174,6 +175,7 @@ export function Intervenants() {
               className="absolute right-0 sm:right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white shadow-md text-navy hover:text-gold hover:scale-105 transition-all border border-gray-100 focus:outline-none"
               onClick={() => paginate(1)}
               aria-label="Suivant"
+              data-track="A swipé ou défilé les intervenants"
             >
               <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
