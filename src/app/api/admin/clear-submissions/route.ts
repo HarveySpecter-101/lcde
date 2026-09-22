@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+Ôªøimport { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { isUserAdmin } from "@/lib/admin-auth";
 
@@ -6,18 +6,19 @@ export async function POST(req: Request) {
   const isAdmin = await isUserAdmin();
 
   if (!isAdmin) {
-    return NextResponse.json({ ok: false, error: "Non autorisÈ" }, { status: 401 });
+    return NextResponse.json({ ok: false, error: "Non autoris√©" }, { status: 401 });
   }
 
   try {
     await db.contactSubmission.deleteMany({});
+    await db.siteVisit.deleteMany({});
     
     return NextResponse.json({
       ok: true,
-      message: "Toutes les candidatures ont ÈtÈ supprimÈes avec succËs."
+      message: "Toutes les donn√©es (candidatures et visites) ont √©t√© supprim√©es avec succ√®s."
     });
   } catch (error: any) {
-    console.error("[Clear Submissions Error]:", error);
+    console.error("[Clear Data Error]:", error);
     return NextResponse.json(
       { ok: false, error: error.message || "Erreur lors de la suppression" },
       { status: 500 }

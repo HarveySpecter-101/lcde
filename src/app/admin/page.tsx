@@ -1698,20 +1698,22 @@ export default function AdminPage() {
                   <div>
                     <h2 className="text-sm font-bold text-red-400 flex items-center gap-2">
                       <AlertOctagon className="size-4" />
-                      Zone de Danger
+                      Zone de Danger Globale
                     </h2>
                     <p className="text-xs text-white/50 mt-1">
-                      Cette action supprimera toutes les candidatures de la base de données.
+                      Cette action supprimera toutes les candidatures, les statistiques et l'historique des visites du site.
                     </p>
                   </div>
                   <Button
                     onClick={async () => {
-                      if (confirm("Voulez-vous vraiment supprimer TOUTES les candidatures ? Cette action est irréversible !")) {
+                      if (confirm("Voulez-vous vraiment supprimer TOUTES les données (candidats et statistiques de trafic) ? Cette action est irréversible !")) {
                         try {
                           const res = await fetch("/api/admin/clear-submissions", { method: "POST", headers: { "x-admin-key": "AdminLCDE2026!" } });
                           if (res.ok) {
-                            toast.success("Toutes les candidatures ont été supprimées.");
+                            toast.success("Toutes les données ont été supprimées avec succès.");
                             fetchSubmissions();
+                            fetchVisits();
+                            fetchAnalytics();
                             setSubmissionPeriod(null);
                           } else {
                             toast.error("Erreur lors de la suppression.");
@@ -1723,7 +1725,7 @@ export default function AdminPage() {
                     className="bg-red-600 hover:bg-red-700 text-white font-semibold text-xs h-9 rounded-xl shadow-lg shadow-red-900/20 transition-all"
                   >
                     <Trash2 className="size-3.5 mr-2" />
-                    Réinitialiser les Candidatures
+                    Tout réinitialiser (Candidats & Visites)
                   </Button>
                 </div>
 
