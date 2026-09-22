@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { motion } from "framer-motion";
 import { SectionDecor } from "@/components/site/section-decor";
@@ -69,9 +70,11 @@ export function Founders() {
                 {/* Founder photo */}
                 <div className="shrink-0 mx-auto sm:mx-0">
                   <div className="relative size-32 overflow-hidden rounded-2xl sm:size-[120px]">
-                    <img
+                    <Image
                       src={f.photo}
                       alt={`Photo de ${f.name}`}
+                      width={128}
+                      height={128}
                       className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>

@@ -14,9 +14,6 @@ export function Stats() {
             {STATS.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
                 transition={{ delay: i * 0.08, duration: 0.5 }}
                 className="group relative bg-card p-5 text-center transition-colors hover:bg-secondary md:p-6"
               >

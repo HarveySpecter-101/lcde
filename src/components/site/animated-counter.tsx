@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
 
 type Props = {
   value: number;
@@ -19,11 +18,12 @@ export function AnimatedCounter({
   className,
 }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [display, setDisplay] = useState(0);
+  const [display, setDisplay] = useState(value);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    if (!inView) return;
+    if (hasAnimated) return;
+    setHasAnimated(true);
     let raf = 0;
     const start = performance.now();
     const from = 0;
@@ -39,7 +39,7 @@ export function AnimatedCounter({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, value, duration]);
+  }, [hasAnimated, value, duration]);
 
   return (
     <span ref={ref} className={className}>

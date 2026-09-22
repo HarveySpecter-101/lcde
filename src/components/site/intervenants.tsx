@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState, useEffect, useCallback } from "react";
 import { SectionDecor } from "@/components/site/section-decor";
@@ -12,17 +13,7 @@ export function Intervenants() {
   const [direction, setDirection] = useState(0);
   const totalSlides = INTERVENANTS.length + 1; // +1 for the "et bien d'autre" slide
   
-  // Auto-advance
-  const [paused, setPaused] = useState(false);
-  
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrent((prev) => (prev + 1) % totalSlides);
-    }, 7000);
-    return () => clearInterval(timer);
-  }, [paused, totalSlides]);
+
   
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
@@ -73,8 +64,6 @@ export function Intervenants() {
 
         <div 
           className="max-w-5xl mx-auto relative"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
         >
           <div className="relative min-h-[560px] sm:min-h-[460px] md:min-h-[420px] w-full flex items-center justify-center">
             <AnimatePresence initial={false} custom={direction}>
@@ -107,9 +96,11 @@ export function Intervenants() {
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-8">
                       <div className="flex-shrink-0">
                         {INTERVENANTS[current].photo ? (
-                          <img 
+                          <Image 
                             src={INTERVENANTS[current].photo} 
                             alt={INTERVENANTS[current].name}
+                            width={128}
+                            height={128}
                             className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-soft shadow-md"
                           />
                         ) : (

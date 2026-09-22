@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -53,9 +54,12 @@ export function Header() {
         {/* Logo */}
         <a href="#accueil" className="flex items-center gap-2.5 group" aria-label="LCDE - Accueil">
           <span className="relative flex size-11 items-center justify-center overflow-hidden rounded-full bg-white shadow-premium ring-2 ring-gold/30 transition-transform group-hover:scale-105">
-            <img
+            <Image
               src="/logo-lcde.png"
               alt="LCDE — Le Club Des Experts"
+              width={44}
+              height={44}
+              priority
               className="size-full object-contain p-0.5"
             />
           </span>

@@ -140,7 +140,7 @@ const SWIPE_THRESHOLD = 50;
 export function WhatYouGain() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
-  const [paused, setPaused] = useState(false);
+
   const total = GAIN_ITEMS.length;
 
   const paginate = useCallback(
@@ -155,16 +155,6 @@ export function WhatYouGain() {
     },
     [total]
   );
-
-  // Auto-advance every 6 seconds
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrent((prev) => (prev + 1) % total);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [paused, total]);
 
   const handleDragEnd = (_: unknown, info: PanInfo) => {
     if (info.offset.x < -SWIPE_THRESHOLD) paginate(1);
@@ -220,10 +210,6 @@ export function WhatYouGain() {
         <Reveal delay={0.15} className="mt-8 sm:mt-10">
           <div
             className="relative mx-auto max-w-3xl"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onTouchStart={() => setPaused(true)}
-            onTouchEnd={() => setPaused(false)}
           >
             {/* ← Previous button */}
             <motion.button

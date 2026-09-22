@@ -182,7 +182,7 @@ function DecorD({ col, inView }: { col: ReturnType<typeof c>; inView: boolean })
 ══════════════════════════════════════ */
 export function SectionDecor({ variant = "light", pos = "A" }: SectionDecorProps) {
   const ref   = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: false, margin: "-80px 0px" });
+  const inView = true; // Always visible — no lazy reveal
   const col   = c(variant);
 
   /* Subtle parallax inside the section */
