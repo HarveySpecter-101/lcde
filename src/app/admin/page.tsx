@@ -1408,49 +1408,6 @@ export default function AdminPage() {
                       </GlassPanel>
                     </div>
 
-                    {/* DropOff vs Conversions */}
-                    <GlassPanel title="Comportement par Section (Abandons vs Intentions de rejoindre)">
-                      <div className="h-[320px] mt-4">
-                        {sectionDropOffAndConversion.length > 0 ? (
-                          <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={sectionDropOffAndConversion} margin={{ top: 10, right: 10, left: -20, bottom: 40 }}>
-                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
-                              <XAxis 
-                                dataKey="name" 
-                                tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 10 }}
-                                axisLine={false}
-                                tickLine={false}
-                                angle={-45}
-                                textAnchor="end"
-                                height={60}
-                              />
-                              <YAxis 
-                                tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 10 }}
-                                axisLine={false}
-                                tickLine={false}
-                              />
-                              <Tooltip
-                                cursor={{ fill: "rgba(255,255,255,0.04)" }}
-                                contentStyle={{
-                                  background: "rgba(10,0,30,0.95)",
-                                  border: "1px solid rgba(255,255,255,0.12)",
-                                  borderRadius: "12px",
-                                  color: "#fff",
-                                  fontSize: "12px",
-                                }}
-                              />
-                              <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
-                              <Bar dataKey="dropOff" name="A quitté le site ici" fill="#f43f5e" radius={[4, 4, 0, 0]} maxBarSize={40} />
-                              <Bar dataKey="conversion" name="A cliqué sur Nous rejoindre" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={40} />
-                            </BarChart>
-                          </ResponsiveContainer>
-                        ) : (
-                          <div className="h-full flex items-center justify-center text-white/40 text-xs">
-                            Pas assez de données de navigation pour afficher ce graphique.
-                          </div>
-                        )}
-                      </div>
-                    </GlassPanel>
                   </div>
                 ) : (
                   <div className="text-center py-12 text-white/50">
@@ -1506,6 +1463,50 @@ export default function AdminPage() {
                       Cliquez sur une session pour dérouler le replay d&apos;activité
                     </span>
                   </div>
+
+                  {/* DropOff vs Conversions */}
+                  <GlassPanel title="Comportement par Section (Abandons vs Intentions de rejoindre)">
+                    <div className="h-[320px] mt-4">
+                      {sectionDropOffAndConversion.length > 0 ? (
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={sectionDropOffAndConversion} margin={{ top: 10, right: 10, left: -20, bottom: 40 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
+                            <XAxis 
+                              dataKey="name" 
+                              tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 10 }}
+                              axisLine={false}
+                              tickLine={false}
+                              angle={-45}
+                              textAnchor="end"
+                              height={60}
+                            />
+                            <YAxis 
+                              tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 10 }}
+                              axisLine={false}
+                              tickLine={false}
+                            />
+                            <Tooltip
+                              cursor={{ fill: "rgba(255,255,255,0.04)" }}
+                              contentStyle={{
+                                background: "rgba(10,0,30,0.95)",
+                                border: "1px solid rgba(255,255,255,0.12)",
+                                borderRadius: "12px",
+                                color: "#fff",
+                                fontSize: "12px",
+                              }}
+                            />
+                            <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
+                            <Bar dataKey="dropOff" name="A quitté le site ici" fill="#f43f5e" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                            <Bar dataKey="conversion" name="A cliqué sur Nous rejoindre" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      ) : (
+                        <div className="h-full flex items-center justify-center text-white/40 text-xs">
+                          Pas assez de données de navigation pour afficher ce graphique.
+                        </div>
+                      )}
+                    </div>
+                  </GlassPanel>
 
                   {/* Sessions Table */}
                   <GlassPanel>
