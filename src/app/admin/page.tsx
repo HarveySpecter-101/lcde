@@ -47,6 +47,9 @@ import {
   ResponsiveContainer,
   Area,
   AreaChart,
+  BarChart,
+  Bar,
+  Legend,
 } from "recharts";
 
 /* ────────────────────────────────────────────────────────────── */
@@ -796,6 +799,45 @@ export default function AdminPage() {
     };
   }, [submissions]);
 
+  /* ── Drop-off & Conversion by Section ── */
+  const sectionDropOffAndConversion = useMemo(() => {
+    if (!visits || visits.length === 0) return [];
+    
+    const stats: Record<string, { dropOff: number, conversion: number }> = {};
+    
+    visits.forEach(v => {
+      let currentSection = "Inconnu";
+      let convertedSections = new Set<string>();
+      
+      const events = Array.isArray(v.events) ? v.events : [];
+      
+      events.forEach((ev: any) => {
+        if (ev.type === "section_view" && ev.section) {
+          currentSection = ev.section;
+        } else if (ev.type === "click" && ev.target && ev.target.toLowerCase().includes("rejoindre")) {
+          convertedSections.add(currentSection);
+        }
+      });
+      
+      // Conversion
+      convertedSections.forEach(sec => {
+        if (!stats[sec]) stats[sec] = { dropOff: 0, conversion: 0 };
+        stats[sec].conversion++;
+      });
+      
+      // Drop-off
+      // If they didn't convert (or even if they did, but this was their last section before leaving), 
+      // where did they end their journey?
+      if (!stats[currentSection]) stats[currentSection] = { dropOff: 0, conversion: 0 };
+      stats[currentSection].dropOff++;
+    });
+    
+    return Object.entries(stats).map(([name, data]) => ({
+      name: SECTION_LABELS[name] || name,
+      ...data
+    })).sort((a, b) => (b.dropOff + b.conversion) - (a.dropOff + a.conversion));
+  }, [visits]);
+
   /* ── Filtered Submissions by Period & Search ── */
   const filteredSubmissions = useMemo(() => {
     if (!submissionPeriod) return [];
@@ -1365,6 +1407,50 @@ export default function AdminPage() {
                         </div>
                       </GlassPanel>
                     </div>
+
+                    {/* DropOff vs Conversions */}
+                    <GlassPanel title="Comportement par Section (Abandons vs Intentions de rejoindre)">
+                      <div className="h-[320px] mt-4">
+                        {sectionDropOffAndConversion.length > 0 ? (
+                          <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={sectionDropOffAndConversion} margin={{ top: 10, right: 10, left: -20, bottom: 40 }}>
+                              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
+                              <XAxis 
+                                dataKey="name" 
+                                tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 10 }}
+                                axisLine={false}
+                                tickLine={false}
+                                angle={-45}
+                                textAnchor="end"
+                                height={60}
+                              />
+                              <YAxis 
+                                tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 10 }}
+                                axisLine={false}
+                                tickLine={false}
+                              />
+                              <Tooltip
+                                cursor={{ fill: "rgba(255,255,255,0.04)" }}
+                                contentStyle={{
+                                  background: "rgba(10,0,30,0.95)",
+                                  border: "1px solid rgba(255,255,255,0.12)",
+                                  borderRadius: "12px",
+                                  color: "#fff",
+                                  fontSize: "12px",
+                                }}
+                              />
+                              <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }} />
+                              <Bar dataKey="dropOff" name="A quitté le site ici" fill="#f43f5e" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                              <Bar dataKey="conversion" name="A cliqué sur Nous rejoindre" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        ) : (
+                          <div className="h-full flex items-center justify-center text-white/40 text-xs">
+                            Pas assez de données de navigation pour afficher ce graphique.
+                          </div>
+                        )}
+                      </div>
+                    </GlassPanel>
                   </div>
                 ) : (
                   <div className="text-center py-12 text-white/50">
