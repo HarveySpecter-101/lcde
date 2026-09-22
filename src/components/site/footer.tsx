@@ -5,7 +5,6 @@ import {
   Mail,
   MessageCircle,
   Instagram,
-  Facebook,
   Linkedin,
 } from "lucide-react";
 import { LCDE, WHATSAPP_LINK } from "@/lib/site-data";
@@ -39,7 +38,6 @@ export function Footer() {
             <div className="mt-4 flex gap-3">
               {[
                 { icon: Instagram, href: LCDE.instagram, label: LCDE.instagramHandle, key: "instagram" },
-                { icon: Facebook, href: LCDE.facebook, label: LCDE.facebookName, key: "facebook" },
                 { icon: Linkedin, href: LCDE.linkedin, label: LCDE.linkedinName, key: "linkedin" },
               ].map((s) => (
                 <a
