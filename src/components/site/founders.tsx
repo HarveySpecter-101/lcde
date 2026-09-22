@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 
-import { motion } from "framer-motion";
 import { SectionDecor } from "@/components/site/section-decor";
 import { Reveal } from "@/components/site/reveal";
 import { Sparkles } from "lucide-react";
@@ -25,25 +24,23 @@ export function Founders() {
       <SectionDecor variant="dark" pos="A" />
 
       {/* Animated floating background ambient orbs */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.08, 0.15, 0.08],
-          x: [0, 20, 0],
-          y: [0, -20, 0],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      <style>{`
+        @keyframes float-orb1 {
+          0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.08; }
+          50% { transform: scale(1.2) translate(20px, -20px); opacity: 0.15; }
+        }
+        @keyframes float-orb2 {
+          0%, 100% { transform: scale(1.2) translate(0, 0); opacity: 0.05; }
+          50% { transform: scale(1) translate(-30px, 30px); opacity: 0.1; }
+        }
+      `}</style>
+      <div
+        style={{ animation: "float-orb1 8s ease-in-out infinite" }}
         className="pointer-events-none absolute -left-20 top-1/4 size-80 rounded-full bg-gold/20 blur-3xl"
         aria-hidden
       />
-      <motion.div
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.05, 0.1, 0.05],
-          x: [0, -30, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      <div
+        style={{ animation: "float-orb2 10s ease-in-out infinite 1s" }}
         className="pointer-events-none absolute -right-20 bottom-1/4 size-96 rounded-full bg-white/10 blur-3xl"
         aria-hidden
       />
@@ -62,10 +59,8 @@ export function Founders() {
         <div className="mt-10 sm:mt-16 grid gap-6 sm:gap-8 md:grid-cols-2">
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.name} delay={i * 0.15} direction={i === 0 ? "right" : "left"}>
-              <motion.article
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group relative h-full rounded-3xl bg-white p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-2xl"
+              <article
+                className="group relative h-full rounded-3xl bg-white p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-2xl transition-transform hover:-translate-y-1"
               >
                 {/* Founder photo */}
                 <div className="shrink-0 mx-auto sm:mx-0">
@@ -88,7 +83,7 @@ export function Founders() {
                     {f.bio}
                   </p>
                 </div>
-              </motion.article>
+              </article>
             </Reveal>
           ))}
         </div>

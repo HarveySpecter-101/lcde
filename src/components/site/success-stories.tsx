@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, CheckCircle2, Star, Quote } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
@@ -8,14 +8,15 @@ import { SUCCESS_STORIES } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 const FloatingEmoji = ({ emoji, className, delay = 0, duration = 4 }: { emoji: string, className: string, delay?: number, duration?: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: [0, 1, 1, 0], y: [20, -20, -40, -60], x: [0, 10, -10, 0] }}
-    transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
-    className={cn("absolute text-4xl sm:text-5xl drop-shadow-xl z-0", className)}
+  <div
+    style={{ 
+      animation: `float-emoji ${duration}s ease-in-out infinite`,
+      animationDelay: `${delay}s`
+    }}
+    className={cn("absolute text-4xl sm:text-5xl drop-shadow-xl z-0 opacity-0", className)}
   >
     {emoji}
-  </motion.div>
+  </div>
 );
 
 export function SuccessStories() {
@@ -40,6 +41,14 @@ export function SuccessStories() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
+      <style>{`
+        @keyframes float-emoji {
+          0% { opacity: 0; transform: translate(0, 20px); }
+          25% { opacity: 1; transform: translate(10px, -20px); }
+          75% { opacity: 1; transform: translate(-10px, -40px); }
+          100% { opacity: 0; transform: translate(0, -60px); }
+        }
+      `}</style>
       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center opacity-10 overflow-hidden z-0" aria-hidden>
         <div className="font-sans text-[15vw] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12">CONGRATS</div>
         <div className="font-sans text-[15vw] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12 mt-4">CONGRATS</div>

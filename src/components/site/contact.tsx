@@ -126,25 +126,23 @@ export function Contact() {
       <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.08]" aria-hidden />
       
       {/* Animated background glowing orbs */}
-      <motion.div
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.15, 0.35, 0.15],
-          x: [0, 25, 0],
-          y: [0, -25, 0],
-        }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      <style>{`
+        @keyframes float-contact1 {
+          0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.15; }
+          50% { transform: scale(1.3) translate(25px, -25px); opacity: 0.35; }
+        }
+        @keyframes float-contact2 {
+          0%, 100% { transform: scale(1.3) translate(0, 0); opacity: 0.1; }
+          50% { transform: scale(1) translate(-30px, 30px); opacity: 0.25; }
+        }
+      `}</style>
+      <div
+        style={{ animation: "float-contact1 7s ease-in-out infinite" }}
         className="pointer-events-none absolute -left-24 top-0 size-96 rounded-full bg-gold/20 blur-3xl"
         aria-hidden
       />
-      <motion.div
-        animate={{
-          scale: [1.3, 1, 1.3],
-          opacity: [0.1, 0.25, 0.1],
-          x: [0, -30, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      <div
+        style={{ animation: "float-contact2 9s ease-in-out infinite 1s" }}
         className="pointer-events-none absolute -right-24 bottom-0 size-96 rounded-full bg-emerald-brand/15 blur-3xl"
         aria-hidden
       />
@@ -161,10 +159,8 @@ export function Contact() {
 
         <div className="mt-6 sm:mt-9 flex justify-center">
           <Reveal className="w-full max-w-lg">
-            <motion.div
-              whileHover={{ scale: 1.005 }}
-              transition={{ duration: 0.3 }}
-              className="rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.06] p-5 sm:p-7 backdrop-blur-md shadow-2xl hover:border-gold/30 transition-colors"
+            <div
+              className="rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.06] p-5 sm:p-7 backdrop-blur-md shadow-2xl hover:border-gold/30 transition-all hover:scale-[1.005]"
             >
               {done ? (
                 <motion.div
@@ -279,7 +275,7 @@ export function Contact() {
                     </Select>
                   </div>
 
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <div className="transition-transform hover:scale-[1.02] active:scale-[0.98]">
                     <Button
                       type="submit"
                       size="lg"
@@ -289,10 +285,10 @@ export function Contact() {
                       {loading ? "Envoi en cours…" : "Envoyer"}
                       {!loading && <Send className="size-4 animate-pulse" />}
                     </Button>
-                  </motion.div>
+                  </div>
                 </form>
               )}
-            </motion.div>
+            </div>
           </Reveal>
         </div>
       </div>

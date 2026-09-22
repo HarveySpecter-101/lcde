@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { AnimatedCounter } from "@/components/site/animated-counter";
 import { Reveal } from "@/components/site/reveal";
 import { STATS } from "@/lib/site-data";
@@ -12,9 +11,8 @@ export function Stats() {
         <Reveal>
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border shadow-premium lg:grid-cols-4">
             {STATS.map((stat, i) => (
-              <motion.div
+              <div
                 key={stat.label}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
                 className="group relative bg-card p-5 text-center transition-colors hover:bg-secondary md:p-6"
               >
                 {/* Gold accent bar */}
@@ -31,7 +29,7 @@ export function Stats() {
                     {stat.sub}
                   </p>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         </Reveal>

@@ -171,25 +171,28 @@ export function WhatYouGain() {
       <SectionDecor variant="dark" pos="C" />
 
       {/* Floating background ambient animation */}
-      <motion.div
-        animate={{
-          scale: [1, 1.25, 1],
-          opacity: [0.15, 0.3, 0.15],
-          x: [0, 30, 0],
-          y: [0, -20, 0],
-        }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      <style>{`
+        @keyframes float-gain1 {
+          0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.15; }
+          50% { transform: scale(1.25) translate(30px, -20px); opacity: 0.3; }
+        }
+        @keyframes float-gain2 {
+          0%, 100% { transform: scale(1.2) translate(0, 0); opacity: 0.1; }
+          50% { transform: scale(1) translate(-20px, 25px); opacity: 0.25; }
+        }
+        @keyframes wobble {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(-3deg); }
+          75% { transform: rotate(3deg); }
+        }
+      `}</style>
+      <div
+        style={{ animation: "float-gain1 9s ease-in-out infinite" }}
         className="pointer-events-none absolute -right-24 top-1/3 size-96 rounded-full bg-gold/20 blur-3xl"
         aria-hidden
       />
-      <motion.div
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.1, 0.25, 0.1],
-          x: [0, -20, 0],
-          y: [0, 25, 0],
-        }}
-        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      <div
+        style={{ animation: "float-gain2 11s ease-in-out infinite 1s" }}
         className="pointer-events-none absolute -left-20 bottom-1/4 size-80 rounded-full bg-navy/10 blur-3xl"
         aria-hidden
       />
@@ -212,28 +215,24 @@ export function WhatYouGain() {
             className="relative mx-auto max-w-3xl"
           >
             {/* ← Previous button */}
-            <motion.button
-              whileHover={{ scale: 1.12 }}
-              whileTap={{ scale: 0.92 }}
+            <button
               type="button"
               onClick={() => paginate(-1)}
               aria-label="Avantage précédent"
-              className="absolute -left-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-left-16"
+              className="absolute -left-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-left-16 hover:scale-110 active:scale-95"
             >
               <ChevronLeft className="size-6" />
-            </motion.button>
+            </button>
 
             {/* Next button → */}
-            <motion.button
-              whileHover={{ scale: 1.12 }}
-              whileTap={{ scale: 0.92 }}
+            <button
               type="button"
               onClick={() => paginate(1)}
               aria-label="Avantage suivant"
-              className="absolute -right-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-right-16"
+              className="absolute -right-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-right-16 hover:scale-110 active:scale-95"
             >
               <ChevronRight className="size-6" />
-            </motion.button>
+            </button>
 
             {/* Slide container */}
             <div className="overflow-hidden rounded-3xl">
@@ -258,13 +257,12 @@ export function WhatYouGain() {
 
                     {/* Header of slide */}
                     <div className="relative z-10 flex items-start gap-4 sm:gap-6">
-                      <motion.span
-                        animate={{ rotate: [0, -3, 3, 0] }}
-                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                      <span
+                        style={{ animation: 'wobble 5s ease-in-out infinite' }}
                         className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow"
                       >
                         <currentItem.icon className="size-7 sm:size-8" strokeWidth={1.9} />
-                      </motion.span>
+                      </span>
                       <div className="flex-1 pr-8 sm:pr-14">
                         <h3 className="font-serif text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-navy">
                           {currentItem.title}
@@ -279,18 +277,15 @@ export function WhatYouGain() {
                     <div className="mt-5 sm:mt-6 border-t border-navy/8 pt-5">
                       <ul className="space-y-2.5 sm:space-y-3">
                         {currentItem.points.map((pt, idx) => (
-                          <motion.li
+                          <li
                             key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.3, delay: idx * 0.08 }}
                             className="flex items-start gap-3 text-xs sm:text-sm md:text-base leading-relaxed text-anthracite/85"
                           >
                             <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                               <CheckCircle2 className="size-4" />
                             </span>
                             <span>{pt}</span>
-                          </motion.li>
+                          </li>
                         ))}
                       </ul>
                     </div>
