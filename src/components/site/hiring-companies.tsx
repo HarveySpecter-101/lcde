@@ -44,19 +44,19 @@ const LOGOS = [
 
 export function HiringCompanies() {
   return (
-    <section id="entreprises" className="relative overflow-hidden bg-white pt-10 pb-12 sm:pt-14 sm:pb-16 md:pt-16 md:pb-18">
+    <section id="entreprises" className="relative overflow-hidden bg-white pt-4 pb-12 sm:pt-14 sm:pb-16 md:pt-16 md:pb-18">
       {/* Background animated geometric elements */}
       <SectionDecor variant="light" pos="A" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center">
           <h2 className="font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
-            Où vous serez <span className="text-gold-gradient font-extrabold">embauchés</span> ?
+            Où vous serez <span className="text-gold-gradient font-extrabold">embauchés</span>&nbsp;?
           </h2>
         </Reveal>
 
         {/* Premium Sectors Grid */}
-        <div className="mt-8 sm:mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6">
+        <div className="mt-4 sm:mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6">
           {SECTORS.map((sector, i) => (
             <Reveal key={i} delay={i * 0.08}>
               <div className="relative flex h-full flex-col items-center rounded-2xl sm:rounded-[1.75rem] border border-navy/10 bg-soft/80 p-4 sm:p-6 shadow-sm backdrop-blur-sm transition-all hover:border-gold/30 hover:bg-white hover:shadow-gold-glow">
