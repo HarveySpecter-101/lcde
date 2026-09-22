@@ -95,7 +95,7 @@ export function Hero() {
               className="bg-gold-gradient text-navy font-semibold shadow-gold-glow transition-transform hover:scale-105 active:scale-95"
             >
               <a href="#contact" className="inline-flex items-center gap-2">
-                Je rejoins la prochaine édition
+                Nous rejoindre
                 <ArrowRight className="size-4" />
               </a>
             </Button>
