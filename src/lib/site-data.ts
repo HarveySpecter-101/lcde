@@ -477,123 +477,165 @@ export type SuccessStory = {
 
 export const SUCCESS_STORIES: SuccessStory[] = [
   {
-    "name": "Laila Bouali",
-    "school": "ENCG Tanger",
+    "name": "Meryem Tagnaouti Moumnani",
+    "school": "ENCG Fès",
     "admissions": [
+      "Deloitte Maroc",
+      "Deloitte France",
+      "Pricewaterhouse"
+    ]
+  },
+  {
+    "name": "Niama Firdaous",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Coopers & Lybrand"
+    ]
+  },
+  {
+    "name": "Wiam Karim",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "PWC France",
+      "Deloitte France",
+      "Wiam Mnii ENCG Mekn8s Moore Stephens",
+      "Lotus Capital",
+      "Bank Of Africa (M&A)",
+      "AD Associés"
+    ]
+  },
+  {
+    "name": "Salah Eddine Enil",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Fidaroc Grant Thornton",
       "Mazars France"
     ]
   },
   {
-    "name": "Salma Doutar",
-    "school": "ENCG Marrakech",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Mohamed Moncef Akra",
-    "school": "ISCAE Rabat",
-    "admissions": [
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Maryame El Omari",
+    "name": "Noura Aboulkacem",
     "school": "ENCG Casablanca",
     "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Meryeme El Houdaibi",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Mazars France",
+      "AD Associés",
       "Deloitte France"
     ]
   },
   {
-    "name": "Nada Hani",
+    "name": "Zeid Nagbi",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte Maroc",
+      "AD Associés"
+    ]
+  },
+  {
+    "name": "Wiam Ikhlafen",
+    "school": "ENCG Oujda",
+    "admissions": [
+      "PWC France"
+    ]
+  },
+  {
+    "name": "Nouhaila Ezriouli",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "AD Associés",
+      "PWC France"
+    ]
+  },
+  {
+    "name": "Rajaa Bacha",
     "school": "ISCAE Casablanca",
     "admissions": [
-      "Mazars France",
-      "AD Associ�s",
-      "EY Maroc",
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Mohammed Erramdani",
-    "school": "ENCG F�s",
-    "admissions": [
-      "KPMG Maroc"
-    ]
-  },
-  {
-    "name": "Nirmine Berrada",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Nisrine Benbihi",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Mazars Maroc",
       "PWC Maroc"
     ]
   },
   {
-    "name": "Alae Ajdid",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte Maroc (Tax)",
-      "Maphar (Contr�le de gestion)"
-    ]
-  },
-  {
-    "name": "Nada Harchi",
-    "school": "ENCG B�ni",
-    "admissions": [
-      "Mellal KPMG Maroc"
-    ]
-  },
-  {
-    "name": "Hafsa Bessam",
+    "name": "Oumaima Soussi",
     "school": "ENCG Settat",
     "admissions": [
+      "Fidaroc Grant Thornton",
+      "Mazars France",
+      "Hdid & Associés",
+      "PWC Rtm",
       "Mazars Maroc"
     ]
   },
   {
-    "name": "Niama Jidar",
-    "school": "ENCG Marrakech",
+    "name": "Sami Ed-damiri",
+    "school": "ENCG Kénitra",
     "admissions": [
-      "PWC France",
+      "KPMG France"
+    ]
+  },
+  {
+    "name": "Yousra Abouniaamane",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "KPMG France",
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Youssef Kejji",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "PWC France"
+    ]
+  },
+  {
+    "name": "Yasmine Rezzouq",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Fidaroc Grant Thornton",
       "Deloitte France"
     ]
   },
   {
-    "name": "Mohamed Amine Belasri",
-    "school": "ENCG Casablanca",
+    "name": "Safae Hammal",
+    "school": "ENCG Fès",
     "admissions": [
-      "Fidaroc Grant Thornton (TS)"
+      "PWC Rtm",
+      "AD Associés",
+      "Fidaroc Grant Thornton",
+      "Deloitte France",
+      "PWC France"
     ]
   },
   {
-    "name": "Anas Belkharraz",
-    "school": "ENCG El Jadida",
+    "name": "Khouloud Nouari",
+    "school": "ENCG Casablanca",
     "admissions": [
-      "Hdid and Associ�s",
-      "Fizazi and Associ�s"
+      "Deloitte Maroc"
     ]
   },
   {
-    "name": "Imane Ahannach",
+    "name": "Omar Seqqat",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Mazars France",
+      "BDO Maroc",
+      "Baker Tilly International",
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Nouha Bennis",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Mazars France",
+      "Mazars Maroc",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Meriem El Mir",
     "school": "ENCG Casablanca",
     "admissions": [
-      "Coopers and Lybrand"
+      "AD Associés",
+      "Deloitte France"
     ]
   },
   {
@@ -607,1387 +649,10 @@ export const SUCCESS_STORIES: SuccessStory[] = [
     ]
   },
   {
-    "name": "Siham Elansi",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte France",
-      "Mazars Maroc",
-      "AD Associ�s",
-      "Bank Of Africa (Audit)",
-      "Soci�t� G�n�rale (Finance)"
-    ]
-  },
-  {
-    "name": "Ikrame Chouki",
-    "school": "ENCG Settat",
-    "admissions": [
-      "EY Maroc"
-    ]
-  },
-  {
-    "name": "Aya Abou-El-Khebra",
-    "school": "ENCG F�s",
-    "admissions": [
-      "PWC Rtm"
-    ]
-  },
-  {
-    "name": "Hamza Bendriss",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Nohaila Lakhdar",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Ismail Azzouzi",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Ikram Lakhoitri",
-    "school": "ENCG Settat",
-    "admissions": [
-      "AD Associ�s",
-      "Mazars Maroc",
-      "KPMG Tax"
-    ]
-  },
-  {
-    "name": "Imrane Houmou",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Coopers and Lybrand",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Hiba Fadel",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Mazars Luxembourg",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Chaimae Ibn Adelmoula Slimani",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "PWC Rtm"
-    ]
-  },
-  {
-    "name": "Nouha Bennis",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Mazars France",
-      "Mazars Maroc",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Ayman Halal",
-    "school": "ENCG F�s",
-    "admissions": [
-      "KPMG France",
-      "Mazars France",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Wiam Mokhtari",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Bilal Oubouaziz",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Deloitte Maroc",
-      "PWC Rtm",
-      "AD Associ�s"
-    ]
-  },
-  {
-    "name": "Kenza Chajidy",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Imane Mehdaoui",
-    "school": "ENCG F�s",
-    "admissions": [
-      "PWC Rtm",
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Kenza Benkirane",
-    "school": "ENCG F�s",
-    "admissions": [
-      "EY Maroc",
-      "CDG Invest"
-    ]
-  },
-  {
-    "name": "Mosaab Bendahhou",
-    "school": "ENCG Mekn�s",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Imane Lamkadmi",
-    "school": "ISCAE Casablanca",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Mahmoud Jadil",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "SM South Capital"
-    ]
-  },
-  {
-    "name": "Ikram Hilali",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "Deloitte France",
-      "KPMG Maroc"
-    ]
-  },
-  {
-    "name": "Rajaa Bacha",
-    "school": "ISCAE Casablanca",
-    "admissions": [
-      "PWC Maroc"
-    ]
-  },
-  {
-    "name": "Khaoula El Harhar",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Jannatte Mourchid",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Abdellah Moujtahid",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Hiba Korchi",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Wissal Barakat",
-    "school": "ENCG Settat",
-    "admissions": [
-      "PWC Maroc",
-      "KPMG Maroc"
-    ]
-  },
-  {
-    "name": "Mouna Boukhaffa",
-    "school": "Metz School of Management",
-    "admissions": [
-      "KPMG France"
-    ]
-  },
-  {
-    "name": "Imane Bounajra",
-    "school": "ENCG F�s",
-    "admissions": [
-      "BDO Maroc",
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Khouloud Nouari",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Fadwa Nafie",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Fatimaezzahra Amri",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Moore Stephens",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Meriem El Mir",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "AD Associ�s",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Kaltoum El Fadili",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Deloitte France",
-      "Hedge Consulting"
-    ]
-  },
-  {
-    "name": "Amjad Tarriko",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "E2B Consulting",
-      "Fizazi and Associ�s",
-      "CIH (Audit et Inspection)"
-    ]
-  },
-  {
-    "name": "Ihssane Ait El Madane",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Crowe Maroc"
-    ]
-  },
-  {
-    "name": "Imane Jabrane",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "EY Maroc",
-      "Expact Partners",
-      "Fidaroc Grant Thornton",
-      "Moore Stephens"
-    ]
-  },
-  {
-    "name": "Hamza Zouhri",
-    "school": "ENCG F�s",
-    "admissions": [
-      "BNP Paribas"
-    ]
-  },
-  {
-    "name": "Arwa Oudouche",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "PWC France"
-    ]
-  },
-  {
-    "name": "Fatima Zahra El Gharbali",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Fatima Ezzahra Ghanam",
-    "school": "ENCG El Jadida",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "AD Associ�s"
-    ]
-  },
-  {
-    "name": "Ilyass Elidrissi Essebtey",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Rihab Belqis",
-    "school": "ISCAE Rabat",
-    "admissions": [
-      "Mazars Maroc",
-      "AD Associ�s",
-      "PWC Rtm",
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Abderrahmane Khal",
-    "school": "ENCG El Jadida",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Zakariae El Azzouzi",
-    "school": "FSJES",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Hiba Darmich",
-    "school": "ENCG Settat",
-    "admissions": [
-      "KPMG Maroc",
-      "BDO Maroc",
-      "EY Maroc",
-      "KPMG France"
-    ]
-  },
-  {
-    "name": "Houda Derrabi",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Mazars France",
-      "KPMG France",
-      "EY Maroc"
-    ]
-  },
-  {
-    "name": "Yassamine Bahha",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "EY Maroc"
-    ]
-  },
-  {
-    "name": "Salma Chahbeddine",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte France",
-      "Cr�dit Du Maroc (Finance)",
-      "Soci�t� G�n�rale (Audit)"
-    ]
-  },
-  {
-    "name": "Nouhaila Bouzalmad",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Maroclear",
-      "RMA"
-    ]
-  },
-  {
-    "name": "Wissal El Idrissi",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Fatima Zahra El Bouzidi",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Mazars Maroc",
-      "BDO Maroc",
-      "AD Associ�s"
-    ]
-  },
-  {
-    "name": "Imane El Azzazi",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Douaa Zahi",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Othmane Fakhri",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Kawthar Bouhfid",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "KPMG Maroc",
-      "PWC Maroc"
-    ]
-  },
-  {
-    "name": "Youssef Kejji",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "PWC France"
-    ]
-  },
-  {
-    "name": "Hamza Naji",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Nouhaila Ezriouli",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "AD Associ�s",
-      "PWC France"
-    ]
-  },
-  {
-    "name": "Mariyem Doddouh",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Rime Sdiri",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Mazars Maroc",
-      "EY Maroc"
-    ]
-  },
-  {
-    "name": "Raouaa El Fikri",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "PWC Rtm",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Mohamed Amine Dghoughi",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Coopers and Lybrand",
-      "PWC Rtm"
-    ]
-  },
-  {
-    "name": "Hanaa Benlmekki",
-    "school": "ENCG Settat",
-    "admissions": [
-      "EY Maroc",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Wissal Benhamou",
-    "school": "ENCG Mekn�s",
-    "admissions": [
-      "Minist�re des Affaires Etrang�res"
-    ]
-  },
-  {
-    "name": "Salma Bakry",
-    "school": "ENCG F�s",
-    "admissions": [
-      "EY Maroc",
-      "PWC Maroc"
-    ]
-  },
-  {
-    "name": "Mohamed Amine Glioui",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Mazars France",
-      "KPMG France",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Amina Elassali",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "SM South Capital",
-      "Mazars France",
-      "Upsilon Consulting"
-    ]
-  },
-  {
-    "name": "Fatima Ezzahrae Bahra",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Akram Erraysse",
-    "school": "ENCG B�ni",
-    "admissions": [
-      "Mellal Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Mohamed Ayman Sarih",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte France",
-      "PWC France"
-    ]
-  },
-  {
-    "name": "Mariem Toufga",
-    "school": "ISCAE Casablanca",
-    "admissions": [
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Rania Eddassi",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Mazars France",
-      "KPMG France"
-    ]
-  },
-  {
-    "name": "Hiba El Ouardi",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "Deloitte France",
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Mehdi El Alami",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Mazars France",
-      "KPMG France",
-      "PWC Rtm",
-      "KPMG Maroc"
-    ]
-  },
-  {
-    "name": "Mohammed Sassioui",
-    "school": "ENCG F�s",
-    "admissions": [
-      "PWC France",
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Bilal El Merini",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Salma El Qacimy",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte Maroc",
-      "Mazars France",
-      "AD Associ�s",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Mohamed Gueroini",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Deloitte Maroc",
-      "PWC Rtm",
-      "Mazars Tax"
-    ]
-  },
-  {
-    "name": "Yasmine Jebli",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Safae Hammal",
-    "school": "ENCG F�s",
-    "admissions": [
-      "PWC Rtm",
-      "AD Associ�s",
-      "Fidaroc Grant Thornton",
-      "Deloitte France",
-      "PWC France"
-    ]
-  },
-  {
-    "name": "Oussama Chadli",
-    "school": "FSJES",
-    "admissions": [
-      "TY Consulting",
-      "Hdid and Associ�s"
-    ]
-  },
-  {
-    "name": "Ilham Sdoud",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte France",
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Chaime Ed-dane",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Imane Rguig",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Yassin Ouaraouch",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Khawla Echine",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "AD Associ�s"
-    ]
-  },
-  {
-    "name": "Kawtar Reggad",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Andersen Global",
-      "RSM Morocco",
-      "Hdid and Associ�s",
-      "Banque Populaire (Audit)",
-      "BDO Maroc"
-    ]
-  },
-  {
-    "name": "Wissal El Heloui",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "BDO Maroc",
-      "KPMG France"
-    ]
-  },
-  {
-    "name": "Aya Belhassan Alaoui",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Driss Aouina",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Mazars France",
-      "KPMG France"
-    ]
-  },
-  {
-    "name": "Kawtar El Houari",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Marwa Istiadad",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Coopers and Lybrand"
-    ]
-  },
-  {
-    "name": "Walid Rizek",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Hdid and Associ�s",
-      "AD Associ�s",
-      "Expact Partners",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Niama Firdaous",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Coopers and Lybrand"
-    ]
-  },
-  {
-    "name": "Nassima Lakim",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Imane Chetoui",
-    "school": "ENCG El Jadida",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Fatima Ezzahra Souhair",
-    "school": "ENCG Oujda",
-    "admissions": [
-      "KPMG France",
-      "Vinci Energy",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Ibtissam Sraidi",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "SM South Capital"
-    ]
-  },
-  {
-    "name": "Rania Areski",
-    "school": "ENCG Settat",
-    "admissions": [
-      "BDO Maroc",
-      "EY Maroc"
-    ]
-  },
-  {
-    "name": "Inas Aboulouafa",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Nihad Fouche",
-    "school": "ENCG Settat",
-    "admissions": [
-      "EY Maroc"
-    ]
-  },
-  {
-    "name": "Hiba Salouane",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Deloitte France",
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Majda Laglil",
-    "school": "ENCG Oujda",
-    "admissions": [
-      "Fizazi and Associ�s",
-      "PWC France"
-    ]
-  },
-  {
-    "name": "Nour El Houda Aboulayt",
-    "school": "ENCG Settat",
-    "admissions": [
-      "EY Maroc"
-    ]
-  },
-  {
-    "name": "Houda Khadir",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "PWC Maroc"
-    ]
-  },
-  {
-    "name": "Hind Ismaili Alaoui",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Noura Aboulkacem",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "AD Associ�s",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Mohamed Idhah",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Jalal Adili",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Coopers and Lybrand",
-      "Moore Stephens"
-    ]
-  },
-  {
-    "name": "Samia M�ghari",
-    "school": "ENCG Settat",
-    "admissions": [
-      "BDO Maroc"
-    ]
-  },
-  {
-    "name": "Maroua Lamlih",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Ahlam Wakrim",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte France",
-      "Fidaroc Grant Thornton",
-      "Coopers and Lybrand"
-    ]
-  },
-  {
-    "name": "Hajar Hammioui",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Khalil Fekkali",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Deloitte France",
-      "Mazars Luxembourg"
-    ]
-  },
-  {
-    "name": "Ghita El Jirari",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Deloitte France",
-      "Expact Partners"
-    ]
-  },
-  {
-    "name": "Houda Boukacha",
-    "school": "ENCG F�s",
-    "admissions": [
-      "PWC Rtm",
-      "BDO Maroc"
-    ]
-  },
-  {
-    "name": "Amine Dardikh",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Mazars France",
-      "Mazars Luxembourg"
-    ]
-  },
-  {
-    "name": "Hajar El Amri",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "BDO Maroc"
-    ]
-  },
-  {
-    "name": "Illias Benala",
-    "school": "ENCG Settat",
-    "admissions": [
-      "PWC Rtm"
-    ]
-  },
-  {
-    "name": "Hamza Kchit",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Deloitte Maroc"
-    ]
-  },
-  {
-    "name": "Sami Ed-damiri",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "KPMG France"
-    ]
-  },
-  {
-    "name": "Manal Skaita",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Maroua El Moualed",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Coopers and Lybrand"
-    ]
-  },
-  {
-    "name": "Issmail Maniyani",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Narimane Ahnin",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Coopers and Lybrand"
-    ]
-  },
-  {
-    "name": "Imane Bensalah",
-    "school": "ENCG Mekn�s",
-    "admissions": [
-      "KPMG France",
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Mehdi Zaidan",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Viseo (Consultant SAP FI/CO)"
-    ]
-  },
-  {
-    "name": "Hafsa Belabbes",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Manal Ottmani",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Fatima Ezzahra Tellabi",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Deloitte France",
-      "AD Associ�s",
-      "Hdid and Associ�s"
-    ]
-  },
-  {
-    "name": "Salah Eddine Enil",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Hiba Bouffi",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Wiam Ikhlafen",
-    "school": "ENCG Oujda",
-    "admissions": [
-      "PWC France"
-    ]
-  },
-  {
-    "name": "Yasmine Racifi",
-    "school": "ISCAE Rabat",
-    "admissions": [
-      "AD Associ�s",
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Ikram Agourar",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Coopers and Lybrand"
-    ]
-  },
-  {
-    "name": "Jihane Mrabbi",
-    "school": "FSJES",
-    "admissions": [
-      "ML Experts"
-    ]
-  },
-  {
-    "name": "Adam Idriss Zamzami",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Mazars Maroc",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Maroua Benslimane",
-    "school": "ENCG Mekn�s",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "KPMG Maroc"
-    ]
-  },
-  {
-    "name": "Yasmine Rezzouq",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Manal Bensalem",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Hatim Laasri",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "BDO Maroc"
-    ]
-  },
-  {
-    "name": "Zineb Masrour",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Moore Stephens",
-      "Cr�dit Du Maroc (Analyse Cr�dit)"
-    ]
-  },
-  {
-    "name": "Badre Merfouk",
-    "school": "ENCG El Jadida",
-    "admissions": [
-      "Maguiri and Associ�s",
-      "Upsilon Consulting"
-    ]
-  },
-  {
-    "name": "Hiba Ismaili Alaoui",
-    "school": "ENCG F�s",
-    "admissions": [
-      "PWC Maroc"
-    ]
-  },
-  {
-    "name": "Maha El Bourimi",
-    "school": "ENCG F�s",
-    "admissions": [
-      "KPMG Maroc"
-    ]
-  },
-  {
-    "name": "Fatine Lakhlifi",
-    "school": "ENCG Mekn�s",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Houda Blal",
-    "school": "ENCG Mekn�s",
-    "admissions": [
-      "Deloitte France",
-      "Fidaroc Grant Thornton",
-      "Upsilon Consulting",
-      "HLB Maroc Audit"
-    ]
-  },
-  {
-    "name": "Chaimae Barki",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Wiam Mnii",
-    "school": "ENCG Mekn�s",
-    "admissions": [
-      "Moore Stephens",
-      "Lotus Capital",
-      "Bank Of Africa (MandA)",
-      "AD Associ�s"
-    ]
-  },
-  {
-    "name": "Badr Bouaicha",
-    "school": "ENCG El Jadida",
-    "admissions": [
-      "BDO Maroc",
-      "PWC Maroc",
-      "Bank Of Africa (Audit)",
-      "Cr�dit Du Maroc (Inspection)"
-    ]
-  },
-  {
-    "name": "Hiba Boussakouma",
-    "school": "ENCG Tanger",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Raouane Bouhanni",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Sara Baouz",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Coopers and Lybrand"
-    ]
-  },
-  {
-    "name": "Rokia Mabrouk",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "Deloitte Maroc",
-      "Moore Stephens",
-      "Cr�dit Du Maroc (Finance)",
-      "Advance Group"
-    ]
-  },
-  {
-    "name": "Ghita Dahbi",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "AD Associ�s",
-      "Saaidi and Associ�s",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Barae Bentahir",
-    "school": "ENCG Settat",
-    "admissions": [
-      "EY Maroc (Consulting ACR)",
-      "Deloitte Maroc (TS)"
-    ]
-  },
-  {
-    "name": "Mohamed Ouchaib",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Mazars Tax"
-    ]
-  },
-  {
-    "name": "Abdelkader Benataya",
-    "school": "ENCG Oujda",
-    "admissions": [
-      "Deloitte France",
-      "AD Associ�s"
-    ]
-  },
-  {
-    "name": "Oumayma Chahid",
-    "school": "ENCG Settat",
-    "admissions": [
-      "SM South Capital",
-      "Hdid and Associ�s"
-    ]
-  },
-  {
-    "name": "Souad Harrach",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Imane Ait Taleb",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Haitam Mazhar",
-    "school": "ISCAE Rabat",
-    "admissions": [
-      "EY Maroc"
-    ]
-  },
-  {
-    "name": "Omar Seqqat",
-    "school": "ENCG F�s",
-    "admissions": [
-      "Fidaroc Grant Thornton",
-      "Mazars France",
-      "BDO Maroc",
-      "Baker Tilly International",
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Imane Alaoui",
-    "school": "ENCG Settat",
-    "admissions": [
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Hind Nmyes",
-    "school": "ENCG Mekn�s",
-    "admissions": [
-      "Mazars Maroc"
-    ]
-  },
-  {
-    "name": "Imane Rouigui",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "RMA Capital",
-      "Coopers and Lybrand"
-    ]
-  },
-  {
-    "name": "Asmae Bennis",
-    "school": "ENCG F�s",
-    "admissions": [
-      "PWC Rtm",
-      "Fidaroc Grant Thornton",
-      "Mazars France"
-    ]
-  },
-  {
-    "name": "Marwa Samari",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Mazars Maroc",
-      "Cr�dit Agricole du Maroc (Audit)"
-    ]
-  },
-  {
-    "name": "Ghita Bouzidi Idrissi",
-    "school": "ENCG F�s",
-    "admissions": [
-      "KPMG Maroc",
-      "EY Maroc",
-      "PWC France",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Meriem Jaloul",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "Coopers and Lybrand",
-      "KPMG Tax",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Maryame Bouazzaoui",
-    "school": "ENCG Agadir",
-    "admissions": [
-      "PWC Rtm",
-      "Deloitte France"
-    ]
-  },
-  {
-    "name": "Mohamed Amine El Ouafri",
-    "school": "ENCG Marrakech",
-    "admissions": [
-      "Deloitte France",
-      "Fidaroc Grant Thornton"
-    ]
-  },
-  {
-    "name": "Basma Berdaa",
-    "school": "ENCG K�nitra",
-    "admissions": [
-      "EY Maroc",
-      "Mazars France",
-      "Deloitte France"
-    ]
-  },
-  {
     "name": "Said Bouhwach",
-    "school": "ENCG F�s",
+    "school": "ENCG Fès",
     "admissions": [
       "EY Maroc"
-    ]
-  },
-  {
-    "name": "Asmae Adnane",
-    "school": "ENCG Settat",
-    "admissions": [
-      "PWC France"
     ]
   },
   {
@@ -2001,50 +666,381 @@ export const SUCCESS_STORIES: SuccessStory[] = [
     ]
   },
   {
-    "name": "Mohamed Elkhmissi",
-    "school": "Univer. Mohammed V de Rabat",
+    "name": "Salma Sefiani",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Mohamed Amine Belasri",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton (TS)"
+    ]
+  },
+  {
+    "name": "Fidaroc Grant Thornton \tImane Bounajra",
+    "school": "ENCG Fès",
+    "admissions": [
+      "BDO Maroc",
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Abdelhafid El Hassani",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte France",
+      "RSM Morocco",
+      "Hdid & Associés"
+    ]
+  },
+  {
+    "name": "Abdelkader Benataya",
+    "school": "ENCG Oujda",
+    "admissions": [
+      "Deloitte France",
+      "AD Associés"
+    ]
+  },
+  {
+    "name": "Wiam Mokhtari",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Mahmoud Jadil",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "SM South Capital"
+    ]
+  },
+  {
+    "name": "Marwa Istiadad",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Coopers & Lybrand"
+    ]
+  },
+  {
+    "name": "Farouk Houssaini",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Mazars France",
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Wissal Barakat",
+    "school": "ENCG Settat",
+    "admissions": [
+      "PWC Maroc",
+      "KPMG Maroc"
+    ]
+  },
+  {
+    "name": "Fatima Zahra El Gharbali",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Kenza Benkirane",
+    "school": "ENCG Fès",
+    "admissions": [
+      "EY Maroc",
+      "CDG Invest"
+    ]
+  },
+  {
+    "name": "Hajar Hammioui",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Illias Benala",
+    "school": "ENCG Settat",
+    "admissions": [
+      "PWC Rtm"
+    ]
+  },
+  {
+    "name": "Rania Areski",
+    "school": "ENCG Settat",
+    "admissions": [
+      "BDO Maroc",
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Laila Bouali",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Ayoub Ouakrine",
+    "school": "ENCG Settat",
+    "admissions": [
+      "EY Maroc",
+      "Deloitte Maroc",
+      "Fidaroc Grant Thornton",
+      "AD Associés"
+    ]
+  },
+  {
+    "name": "Nada Hani",
+    "school": "ISCAE Casablanca",
+    "admissions": [
+      "Mazars France",
+      "AD Associés",
+      "EY Maroc",
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Walid Rizek",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Hdid & Associés",
+      "AD Associés",
+      "Expact Partners",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Hamza Naji",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Deloitte Maroc"
+    ]
+  },
+  {
+    "name": "Hiba Korchi",
+    "school": "ENCG Casablanca",
     "admissions": [
       "Fidaroc Grant Thornton"
     ]
   },
   {
-    "name": "Nisrine Daghouti",
-    "school": "ENCG Settat",
+    "name": "Mouna Boukhaffa",
+    "school": "Metz School of Management",
     "admissions": [
-      "PWC Maroc",
-      "Fidaroc Grant Thornton",
-      "PWC France",
-      "Deloitte Maroc",
-      "Mazars Maroc"
+      "Management KPMG France"
     ]
   },
   {
-    "name": "Maroua Benali",
-    "school": "ENCG K�nitra",
+    "name": "Arwa Oudouche",
+    "school": "ENCG Agadir",
     "admissions": [
-      "PKF Arsilon Luxembourg"
+      "PWC France"
     ]
   },
   {
-    "name": "Soufiane Elkaddouri",
-    "school": "FSJES",
+    "name": "Siham Elansi",
+    "school": "ENCG Casablanca",
     "admissions": [
+      "Deloitte France",
+      "Mazars Maroc",
+      "AD Associés",
+      "Bank Of Africa (Audit)",
+      "Société Générale (Finance)"
+    ]
+  },
+  {
+    "name": "Salma Chahbeddine",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte France",
+      "Crédit Du Maroc (Finance)",
+      "Société Générale (Audit)"
+    ]
+  },
+  {
+    "name": "Houda Boukacha",
+    "school": "ENCG Fès",
+    "admissions": [
+      "PWC Rtm",
       "BDO Maroc"
     ]
   },
   {
-    "name": "Farouk Houssaini",
-    "school": "ENCG K�nitra",
+    "name": "Adam Idriss Zamzami",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Mazars Maroc",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Hamza Zouhri",
+    "school": "ENCG Fès",
+    "admissions": [
+      "BNP Paribas"
+    ]
+  },
+  {
+    "name": "Mariyem Doddouh",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Amina Abbassi",
+    "school": "ISCAE Rabat",
     "admissions": [
       "Mazars France",
+      "KPMG Tax",
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Kenza Chajidy",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Driss Aouina",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Mazars France",
+      "KPMG France"
+    ]
+  },
+  {
+    "name": "Fatima Ouahi",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "PWC Rtm"
+    ]
+  },
+  {
+    "name": "Fatima Ezzahra Souhair",
+    "school": "ENCG Oujda",
+    "admissions": [
+      "KPMG France",
+      "Vinci Energy",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Ghita Dahbi",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "AD Associés",
+      "Saaidi & Associés",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Anas Belkharraz",
+    "school": "ENCG El Jadida",
+    "admissions": [
+      "Hdid & Associés",
+      "Fizazi & Associés"
+    ]
+  },
+  {
+    "name": "Hamza Kchit",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Deloitte Maroc"
+    ]
+  },
+  {
+    "name": "Ikrame Chouki",
+    "school": "ENCG Settat",
+    "admissions": [
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Jannatte Mourchid",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Hiba Bouffi",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Ikram Hilali",
+    "school": "ENCG Agadir",
+    "admissions": [
+      "Deloitte France",
+      "KPMG Maroc"
+    ]
+  },
+  {
+    "name": "Hiba Salouane",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Deloitte France",
       "Mazars Maroc"
     ]
   },
   {
-    "name": "Botaina Chaoui",
-    "school": "ENCG F�s",
+    "name": "Aya Abou-El-Khebra",
+    "school": "ENCG Fès",
+    "admissions": [
+      "PWC Rtm"
+    ]
+  },
+  {
+    "name": "Nouhaila Bouzalmad",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Maroclear",
+      "RMA"
+    ]
+  },
+  {
+    "name": "Kawtar Reggad",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Andersen Global",
+      "RSM Morocco",
+      "Hdid & Associés",
+      "Banque Populaire (Audit)"
+    ]
+  },
+  {
+    "name": "Imane Ahannach",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Coopers & Lybrand"
+    ]
+  },
+  {
+    "name": "Houda Derrabi",
+    "school": "ENCG Casablanca",
     "admissions": [
       "Mazars France",
+      "KPMG France",
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Ilham Sdoud",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte France",
       "Deloitte Maroc"
     ]
   },
@@ -2057,60 +1053,375 @@ export const SUCCESS_STORIES: SuccessStory[] = [
     ]
   },
   {
-    "name": "Ayoub Ouakrine",
-    "school": "ENCG Settat",
+    "name": "Nirmine Berrada",
+    "school": "ENCG Fès",
     "admissions": [
-      "EY Maroc",
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Bilal Oubouaziz",
+    "school": "ENCG Fès",
+    "admissions": [
       "Deloitte Maroc",
+      "PWC Rtm",
+      "AD Associés"
+    ]
+  },
+  {
+    "name": "Chaimae Barki",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Hatim Laasri",
+    "school": "ENCG Fès",
+    "admissions": [
       "Fidaroc Grant Thornton",
-      "AD Associ�s"
+      "BDO Maroc"
     ]
   },
   {
-    "name": "Fatima Ouahi",
-    "school": "ENCG K�nitra",
+    "name": "Hafsa Belabbes",
+    "school": "ENCG Kénitra",
     "admissions": [
-      "PWC Rtm"
-    ]
-  },
-  {
-    "name": "Wiam Karim",
-    "school": "ENCG Casablanca",
-    "admissions": [
-      "PWC France",
       "Deloitte France"
     ]
   },
   {
-    "name": "Meryem Tagnaouti Moumnani",
-    "school": "ENCG F�s",
+    "name": "Mehdi Zaidan",
+    "school": "ENCG Tanger",
     "admissions": [
-      "Deloitte Maroc",
-      "Deloitte France",
-      "Pricewaterhouse"
+      "Viseo (Consultant SAP FI/CO)"
     ]
   },
   {
-    "name": "Zeid Nagbi",
+    "name": "Nihad Fouche",
+    "school": "ENCG Settat",
+    "admissions": [
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Inas Aboulouafa",
     "school": "ENCG Casablanca",
     "admissions": [
-      "Deloitte Maroc",
-      "AD Associ�s"
+      "Deloitte Maroc"
     ]
   },
   {
-    "name": "Salma Sefiani",
-    "school": "ENCG K�nitra",
+    "name": "Mohamed Amine El Ouafri",
+    "school": "ENCG Marrakech",
+    "admissions": [
+      "Deloitte France",
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Abdellah Moujtahid",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Deloitte Maroc"
+    ]
+  },
+  {
+    "name": "Maroua Benali",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "PKF Arsilon Luxembourg"
+    ]
+  },
+  {
+    "name": "Yassamine Bahha",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Rihab Belqis",
+    "school": "ISCAE Rabat",
+    "admissions": [
+      "Mazars Maroc",
+      "AD Associés",
+      "PWC Rtm",
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Manal Bensalem",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Fatima Ezzahrae Bahra",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Fatine Lakhlifi",
+    "school": "ENCG Meknès",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Mohamed Ouchaib",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Vidaroc Grant Thornton",
+      "Mazars Tax"
+    ]
+  },
+  {
+    "name": "Ikram Agourar",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Coopers & Lybrand"
+    ]
+  },
+  {
+    "name": "Nada Harchi",
+    "school": "ENCG Béni Mellal",
+    "admissions": [
+      "KPMG Maroc"
+    ]
+  },
+  {
+    "name": "Hind Ismaili Alaoui",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Badre Merfouk",
+    "school": "ENCG El Jadida",
+    "admissions": [
+      "Maguiri & Associés",
+      "Upsilon Consulting"
+    ]
+  },
+  {
+    "name": "Fatimaezzahra Amri",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Moore Stephens",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Mohamed Moncef Akra",
+    "school": "ISCAE Rabat",
     "admissions": [
       "Mazars Maroc"
     ]
   },
   {
-    "name": "Yousra Abouniaamane",
-    "school": "ENCG Tanger",
+    "name": "Wiam Ajuin",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "PWC Rtm",
+      "KPMG France"
+    ]
+  },
+  {
+    "name": "Nohaila Lakhdar",
+    "school": "ENCG Agadir",
+    "admissions": [
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Ikram Lakhoitri",
+    "school": "ENCG Settat",
+    "admissions": [
+      "AD Associés",
+      "Mazars Maroc",
+      "KPMG Tax"
+    ]
+  },
+  {
+    "name": "Hind Nmyes",
+    "school": "ENCG Meknès",
+    "admissions": [
+      "Mazars Maroc",
+      "Houda Blal ENCG Mekn8s Deloitte France",
+      "Fidaroc Grant Thornton",
+      "Upsilon Consulting",
+      "HLB Maroc Audit"
+    ]
+  },
+  {
+    "name": "Ayman Halal",
+    "school": "ENCG Fès",
     "admissions": [
       "KPMG France",
+      "Mazars France",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Rania Eddassi",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Mazars France",
+      "KPMG France"
+    ]
+  },
+  {
+    "name": "Asmae Bennis",
+    "school": "ENCG Fès",
+    "admissions": [
+      "PWC Rtm",
+      "Fidaroc Grant Thornton",
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Manal Skaita",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Imane Ait Taleb",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Deloitte France\tImane Alaoui ENCG Settat Fidaroc Grant Thornton\tImane Bensalah ENCG Mekn8s KPMG France"
+    ]
+  },
+  {
+    "name": "Oussama Chadli",
+    "school": "FSJES",
+    "admissions": [
+      "TY Consulting",
+      "Hdid & Associés"
+    ]
+  },
+  {
+    "name": "Ghita Touati",
+    "school": "ENCG Settat",
+    "admissions": [
+      "KPMG Maroc"
+    ]
+  },
+  {
+    "name": "Majda Laglil",
+    "school": "ENCG Oujda",
+    "admissions": [
+      "Fizazi & Associés",
+      "PWC France"
+    ]
+  },
+  {
+    "name": "Mohammed Erramdani",
+    "school": "ENCG Fès",
+    "admissions": [
+      "KPMG Maroc"
+    ]
+  },
+  {
+    "name": "Haitam Mazhar",
+    "school": "ISCAE Rabat",
+    "admissions": [
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Fatima Zahra El Bouzidi",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Mazars Maroc",
+      "BDO Maroc",
+      "AD Associés"
+    ]
+  },
+  {
+    "name": "Hafsa Sekkouri",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Wissal Benhamou",
+    "school": "ENCG Meknès",
+    "admissions": [
+      "Ministère des Affaires Etrangères"
+    ]
+  },
+  {
+    "name": "Hajar El Amri",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "BDO Maroc"
+    ]
+  },
+  {
+    "name": "Maryame Bouazzaoui",
+    "school": "ENCG Agadir",
+    "admissions": [
+      "PWC Rtm",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Khalil Fekkali",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Deloitte France",
+      "Mazars Luxembourg"
+    ]
+  },
+  {
+    "name": "Meriem Jaloul",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Coopers & Lybrand",
+      "KPMG Tax",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Hafsa Bessam",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Jalal Adili",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Coopers & Lybrand",
+      "Moore Stephens"
+    ]
+  },
+  {
+    "name": "Imane Mehdaoui",
+    "school": "ENCG Fès",
+    "admissions": [
+      "PWC Rtm",
       "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Ahlam Wakrim",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte France",
+      "Fidaroc Grant Thornton",
+      "Coopers & Lybrand"
     ]
   },
   {
@@ -2125,13 +1436,409 @@ export const SUCCESS_STORIES: SuccessStory[] = [
     ]
   },
   {
+    "name": "Coopers & Lybrand \tImrane Houmou",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Coopers & Lybrand",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Abderrahmane Khal",
+    "school": "ENCG El Jadida",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Imane Chetoui",
+    "school": "ENCG El Jadida",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Akram Erraysse",
+    "school": "ENCG Béni Mellal",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Fadwa Nafie",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Raouaa El Fikri",
+    "school": "ENCG Agadir",
+    "admissions": [
+      "PWC Rtm",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Alae Ajdid",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte Maroc (Tax)",
+      "Maphar (Contrôle de gestion)"
+    ]
+  },
+  {
+    "name": "Badr Bouaicha",
+    "school": "ENCG El Jadida",
+    "admissions": [
+      "BDO Maroc",
+      "PWC Maroc",
+      "Bank Of Africa (Audit)",
+      "Crédit Du Maroc (Inspection)"
+    ]
+  },
+  {
+    "name": "Yassin Ouaraouch",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Hamza Bendriss",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Asmae Adnane",
+    "school": "ENCG Settat",
+    "admissions": [
+      "PWC France"
+    ]
+  },
+  {
+    "name": "Mohamed Ayman Sarih",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte France",
+      "PWC France"
+    ]
+  },
+  {
+    "name": "Maha El Bourimi",
+    "school": "ENCG Fès",
+    "admissions": [
+      "KPMG Maroc"
+    ]
+  },
+  {
+    "name": "Mohammed Sassioui",
+    "school": "ENCG Fès",
+    "admissions": [
+      "PWC France",
+      "Fidaroc Grant Thornton",
+      "Mosaab Bendahhou ENCG Mekn8s Vidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Amine Dardikh",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Mazars France",
+      "Mazars Luxembourg"
+    ]
+  },
+  {
+    "name": "Fatima Ezzahra Ghanam",
+    "school": "ENCG El Jadida",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "AD Associés"
+    ]
+  },
+  {
+    "name": "Hiba Fadel",
+    "school": "ENCG Settat",
+    "admissions": [
+      "\u0013azars Luxembourg",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Maroua El Moualed",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Coopers & Lybrand"
+    ]
+  },
+  {
+    "name": "Maryame El Omari",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Marwa Samari",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Mazars Maroc",
+      "Crédit Agricole du Maroc (Audit)"
+    ]
+  },
+  {
+    "name": "Bilal El Merini",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Deloitte Maroc"
+    ]
+  },
+  {
+    "name": "Mariem Toufga",
+    "school": "ISCAE Casablanca",
+    "admissions": [
+      "Deloitte Maroc"
+    ]
+  },
+  {
+    "name": "Chaimae Ibn Adelmoula Slimani",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "PWC Rtm"
+    ]
+  },
+  {
+    "name": "Imane Jabrane",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "EY Maroc",
+      "Expact Partners",
+      "Fidaroc Grant Thornton",
+      "Moore Stephens"
+    ]
+  },
+  {
+    "name": "Oumayma Chahid",
+    "school": "ENCG Settat",
+    "admissions": [
+      "SM South Capital",
+      "Hdid & Associés"
+    ]
+  },
+  {
+    "name": "Nisrine Daghouti",
+    "school": "ENCG Settat",
+    "admissions": [
+      "PWC Maroc",
+      "Fidaroc Grant Thornton",
+      "PWC France",
+      "Deloitte Maroc",
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Hedge Consulting Kawtar El Houari",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Ismail Azzouzi",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Deloitte Maroc"
+    ]
+  },
+  {
+    "name": "Rime Sdiri",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Mazars Maroc",
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Ayat Chattioui",
+    "school": "HEC Paris",
+    "admissions": [
+      "Crowe Maroc"
+    ]
+  },
+  {
+    "name": "Fatima Ezzahra Tellabi",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Deloitte France",
+      "AD Associés",
+      "Hdid & Associés"
+    ]
+  },
+  {
+    "name": "Soufiane Elkaddouri",
+    "school": "FSJES",
+    "admissions": [
+      "BDO Maroc"
+    ]
+  },
+  {
+    "name": "Imane Lamkadmi",
+    "school": "ISCAE Casablanca",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Mohamed Gueroinii",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Deloitte Maroc",
+      "PWC Rtm",
+      "Mazars Tax"
+    ]
+  },
+  {
     "name": "Achraf Hakim",
     "school": "ENCG El Jadida",
     "admissions": [
       "PWC Rtm",
       "Accor (Audit Interne)",
-      "Cr�dit Du Maroc (Audit)",
-      "Airbus (Contr�le de gestion)"
+      "Crédit Du Maroc (Audit)",
+      "Airbus (Contrôle de gestion)"
+    ]
+  },
+  {
+    "name": "Salma Doutar",
+    "school": "ENCG Marrakech",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Issmail Maniyani",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Amjad Tarriko",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "E2B Consulting",
+      "Fizazi & Associés",
+      "CIH (Audit et Inspection)"
+    ]
+  },
+  {
+    "name": "Chaime Ed-dane",
+    "school": "ENCG Agadir",
+    "admissions": [
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "BDO Maroc Kawthar Bouhfid",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "KPMG Maroc",
+      "PWC Maroc"
+    ]
+  },
+  {
+    "name": "Amine Dahmoun",
+    "school": "ENCG Settat",
+    "admissions": [
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Ghita Bouzidi Idrissi",
+    "school": "ENCG Fès",
+    "admissions": [
+      "KPMG Maroc",
+      "EY Maroc",
+      "PWC France",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Niama Jidar",
+    "school": "ENCG Marrakech",
+    "admissions": [
+      "PWC France",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Zineb Mhaouri",
+    "school": "ENCG Fès",
+    "admissions": [
+      "BDO Maroc"
+    ]
+  },
+  {
+    "name": "Nour El Houda Aboulayt",
+    "school": "ENCG Settat",
+    "admissions": [
+      "EY Maroc"
+    ]
+  },
+  {
+    "name": "Mehdi El Alami",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Mazars France",
+      "KPMG France",
+      "PWC Rtm",
+      "KPMG Maroc"
+    ]
+  },
+  {
+    "name": "Meryeme El Houdaibi",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Mazars France",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Aya Belhassan Alaoui",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Barae Bentahir",
+    "school": "ENCG Settat",
+    "admissions": [
+      "EY Maroc (Consulting ACR)",
+      "Deloitte Maroc (TS)"
+    ]
+  },
+  {
+    "name": "Hiba El Ouardi",
+    "school": "ENCG Agadir",
+    "admissions": [
+      "Deloitte France",
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Ghita El Jirari",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Deloitte France",
+      "Expact Partners"
     ]
   },
   {
@@ -2143,42 +1850,64 @@ export const SUCCESS_STORIES: SuccessStory[] = [
     ]
   },
   {
-    "name": "Chahd Bizi",
-    "school": "ENCG Settat",
+    "name": "Manal Ottmani",
+    "school": "ENCG Fès",
     "admissions": [
-      "PWC Rtm"
+      "Mazars Maroc"
     ]
   },
   {
-    "name": "Zineb Mhaouri",
-    "school": "ENCG F�s",
+    "name": "Narimane Ahnin",
+    "school": "ENCG Casablanca",
     "admissions": [
-      "BDO Maroc"
+      "Coopers & Lybrand"
     ]
   },
   {
-    "name": "Ayat Chattioui",
-    "school": "HEC Paris",
+    "name": "IhssaneAit El Madane",
+    "school": "ENCG Tanger",
     "admissions": [
       "Crowe Maroc"
     ]
   },
   {
-    "name": "Oumaima Soussi",
-    "school": "ENCG Settat",
+    "name": "Souad Harrach",
+    "school": "ENCG Kénitra",
     "admissions": [
-      "Fidaroc Grant Thornton",
-      "Mazars France",
-      "Hdid and Associ�s",
-      "PWC Rtm",
-      "Mazars Maroc"
+      "Mazars France"
     ]
   },
   {
-    "name": "Hafsa Sekkouri",
-    "school": "ENCG Tanger",
+    "name": "Salma El Qacimy",
+    "school": "ENCG Casablanca",
     "admissions": [
-      "Mazars Maroc"
+      "Deloitte Maroc",
+      "Mazars France",
+      "AD Associés",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Hanaa Benlmekki",
+    "school": "ENCG Settat",
+    "admissions": [
+      "EY Maroc",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Wissal El Heloui",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "BDO Maroc",
+      "KPMG France"
+    ]
+  },
+  {
+    "name": "Douaa Zahi",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton"
     ]
   },
   {
@@ -2186,17 +1915,76 @@ export const SUCCESS_STORIES: SuccessStory[] = [
     "school": "ENCG Casablanca",
     "admissions": [
       "Deloitte Maroc",
-      "Coopers and Lybrand",
-      "AD Associ�s",
+      "Coopers & Lybrand",
+      "AD Associés",
       "Pricewaterhouse",
       "Mazars France"
     ]
   },
   {
-    "name": "Amine Dahmoun",
+    "name": "Nassima Lakim",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Wissal El Idrissi",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Imane Rguig",
     "school": "ENCG Settat",
     "admissions": [
-      "EY Maroc"
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Hiba Boussakouma",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Amina Elassali",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "SM South Capital",
+      "Mazars France",
+      "Upsilon Consulting"
+    ]
+  },
+  {
+    "name": "Mohamed Elkhmissi",
+    "school": "Univer. Mohammed V de Rabat",
+    "admissions": [
+      "Rabat Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Samia M’ghari",
+    "school": "ENCG Settat",
+    "admissions": [
+      "BDO Maroc"
+    ]
+  },
+  {
+    "name": "Othmane Fakhri",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Deloitte Maroc"
+    ]
+  },
+  {
+    "name": "Imane El Azzazi",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Fidaroc Grant Thornton"
     ]
   },
   {
@@ -2204,44 +1992,222 @@ export const SUCCESS_STORIES: SuccessStory[] = [
     "school": "ENCG Casablanca",
     "admissions": [
       "Mazars Luxembourg",
-      "Hdid and Associ�s",
+      "Hdid & Associés",
       "Deloitte France"
     ]
   },
   {
-    "name": "Amina Abbassi",
+    "name": "Ilyass Elidrissi Essebtey",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Yasmine Racifi",
     "school": "ISCAE Rabat",
     "admissions": [
-      "Mazars France",
-      "KPMG Tax",
-      "Fidaroc Grant Thornton"
+      "AD Associés",
+      "Mazars Maroc"
     ]
   },
   {
-    "name": "Abdelhafid El Hassani",
-    "school": "ENCG Casablanca",
+    "name": "Chahd Bizi",
+    "school": "ENCG Settat",
     "admissions": [
-      "Deloitte France",
-      "RSM Morocco",
-      "Hdid and Associ�s"
+      "PWC Rtm"
     ]
   },
   {
-    "name": "Wiam Ajuin",
-    "school": "ENCG Casablanca",
+    "name": "Zakariae El Azzouzi",
+    "school": "FSJES",
     "admissions": [
-      "PWC Rtm",
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Mohamed Amine Dghoughi",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Coopers & Lybrand",
+      "PWC Rtm"
+    ]
+  },
+  {
+    "name": "Salma Bakry",
+    "school": "ENCG Fès",
+    "admissions": [
+      "EY Maroc",
+      "PWC Maroc"
+    ]
+  },
+  {
+    "name": "Raouane Bouhanni",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Khawla Echine",
+    "school": "ENCG Agadir",
+    "admissions": [
+      "Fidaroc Grant Thornton",
+      "AD Associés"
+    ]
+  },
+  {
+    "name": "Hiba Darmich",
+    "school": "ENCG Settat",
+    "admissions": [
+      "KPMG Maroc",
+      "BDO Maroc",
+      "EY Maroc",
       "KPMG France"
     ]
   },
   {
-    "name": "Ghita Touati",
+    "name": "Botaina Chaoui",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Mazars France",
+      "Deloitte Maroc"
+    ]
+  },
+  {
+    "name": "Houda Khadir",
     "school": "ENCG Settat",
     "admissions": [
+      "Fidaroc Grant Thornton",
+      "PWC Maroc"
+    ]
+  },
+  {
+    "name": "Maroua Lamlih",
+    "school": "ENCG Settat",
+    "admissions": [
+      "Mazars France"
+    ]
+  },
+  {
+    "name": "Ibtissam Sraidi",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "SM South Capital"
+    ]
+  },
+  {
+    "name": "Khaoula El Harhar",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Zineb Masrour",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Moore Stephens",
+      "Crédit Du Maroc (Analyse Crédit)"
+    ]
+  },
+  {
+    "name": "Kaltoum El Fadili",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Mohamed Idhah",
+    "school": "ENCG Agadir",
+    "admissions": [
+      "Fidaroc Grant Thornton"
+    ]
+  },
+  {
+    "name": "Yasmine Jebli",
+    "school": "ENCG Tanger",
+    "admissions": [
+      "Mazars Maroc"
+    ]
+  },
+  {
+    "name": "Sara Baouz",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Coopers & Lybrand"
+    ]
+  },
+  {
+    "name": "Imane Rouigui",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "RMA Capital"
+    ]
+  },
+  {
+    "name": "Mohamed Amine Glioui",
+    "school": "ENCG Fès",
+    "admissions": [
+      "Mazars France",
+      "KPMG France",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Basma Berdaa",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "EY Maroc",
+      "Mazars France",
+      "Deloitte France"
+    ]
+  },
+  {
+    "name": "Maroua Benslimane",
+    "school": "ENCG Meknès",
+    "admissions": [
+      "Fidaroc Grant Thornton",
       "KPMG Maroc"
+    ]
+  },
+  {
+    "name": "Jihane Mrabbi",
+    "school": "FSJES",
+    "admissions": [
+      "ML Experts"
+    ]
+  },
+  {
+    "name": "Nisrine Benbihi",
+    "school": "ENCG Kénitra",
+    "admissions": [
+      "Mazars Maroc",
+      "PWC Maroc"
+    ]
+  },
+  {
+    "name": "Hiba Ismaili Alaoui",
+    "school": "ENCG Fès",
+    "admissions": [
+      "PWC Maroc"
+    ]
+  },
+  {
+    "name": "Rokia Mabrouk",
+    "school": "ENCG Casablanca",
+    "admissions": [
+      "Deloitte Maroc",
+      "Moore Stephens",
+      "Crédit Du Maroc (Finance)",
+      "Advance Group"
     ]
   }
 ];
+
+
 
 
 /* ===== Employer sectors (generic categories, no real logos) ===== */
