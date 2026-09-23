@@ -21,9 +21,13 @@ const FloatingEmoji = ({ emoji, className, delay = 0, duration = 4 }: { emoji: s
 
 export function SuccessStories() {
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const total = SUCCESS_STORIES.length;
 
-  const go = (dir: number) => setIndex((p) => (p + dir + total) % total);
+  const go = (dir: number) => {
+    setDirection(dir);
+    setIndex((p) => (p + dir + total) % total);
+  };
   const active = SUCCESS_STORIES[index];
 
   return (
