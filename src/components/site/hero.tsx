@@ -54,9 +54,14 @@ export function Hero() {
           </motion.h1>
 
           {/* Vision */}
-          <motion.div variants={item} className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 font-bold text-xl sm:text-2xl text-navy">
-            <Sparkles className="size-6 text-gold shrink-0" />
-            <p>Notre vision : Réussir votre carrière professionnelle, bien au-delà des entretiens PFE et Embauche.</p>
+          <motion.div variants={item} className="mt-7 sm:mt-8 flex flex-col items-center justify-center text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-sm sm:text-base font-bold text-gold">
+              <Sparkles className="size-4 sm:size-5 text-gold shrink-0" />
+              <span>Notre vision</span>
+            </div>
+            <p className="mt-3.5 max-w-2xl text-lg sm:text-xl font-bold leading-snug text-navy">
+              Réussir votre carrière professionnelle, bien au-delà des entretiens PFE et Embauche.
+            </p>
           </motion.div>
 
           {/* Bullet points with hyphens */}
