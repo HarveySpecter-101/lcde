@@ -92,12 +92,18 @@ export function SuccessStories() {
             </button>
 
             <div className="relative min-h-[22rem] sm:min-h-[20rem]">
-              <AnimatePresence mode="wait" initial={false}>
+              <AnimatePresence mode="wait" custom={direction} initial={false}>
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: 50, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -50, scale: 0.95 }}
+                  custom={direction}
+                  variants={{
+                    initial: (d) => ({ opacity: 0, x: d > 0 ? 50 : -50, scale: 0.95 }),
+                    animate: { opacity: 1, x: 0, scale: 1 },
+                    exit: (d) => ({ opacity: 0, x: d > 0 ? -50 : 50, scale: 0.95 })
+                  }}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   className="relative mx-auto max-w-lg rounded-[2rem] border-2 border-gold/40 bg-white p-8 shadow-2xl md:p-10"
                 >
