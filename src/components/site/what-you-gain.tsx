@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import { SectionDecor } from "@/components/site/section-decor";
 
-import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import {
   CreditCard,
   Target,
@@ -14,10 +12,6 @@ import {
   Award,
   GraduationCap,
   Laptop,
-  CheckCircle2,
-  Sparkles,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 
@@ -123,46 +117,7 @@ const GAIN_ITEMS = [
   },
 ];
 
-const slideVariants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 300 : -300,
-    opacity: 0,
-  }),
-  center: { x: 0, opacity: 1 },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -300 : 300,
-    opacity: 0,
-  }),
-};
-
-const SWIPE_THRESHOLD = 50;
-
 export function WhatYouGain() {
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
-
-  const total = GAIN_ITEMS.length;
-
-  const paginate = useCallback(
-    (dir: number) => {
-      setDirection(dir);
-      setCurrent((prev) => {
-        let next = prev + dir;
-        if (next < 0) next = total - 1;
-        if (next >= total) next = 0;
-        return next;
-      });
-    },
-    [total]
-  );
-
-  const handleDragEnd = (_: unknown, info: PanInfo) => {
-    if (info.offset.x < -SWIPE_THRESHOLD) paginate(1);
-    else if (info.offset.x > SWIPE_THRESHOLD) paginate(-1);
-  };
-
-  const currentItem = GAIN_ITEMS[current];
-
   return (
     <section
       id="ce-que-vous-gagnez"
@@ -201,7 +156,7 @@ export function WhatYouGain() {
         {/* Header */}
         <Reveal className="mx-auto max-w-3xl text-center">
           <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Ce que vous <span className="text-gold-gradient">gagnez aussi</span>
+            Ce que vous <span className="text-gold-gradient">gagnez</span>
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-white/75 sm:text-base">
             Bien plus qu'un programme de cours : découvrez vos avantages exclusifs et votre accompagnement
@@ -209,108 +164,28 @@ export function WhatYouGain() {
           </p>
         </Reveal>
 
-        {/* ═══════════ SLIDER / CAROUSEL ═══════════ */}
+        {/* Vertical list: every benefit is visible without a carousel interaction. */}
         <Reveal delay={0.15} className="mt-8 sm:mt-10">
-          <div
-            className="relative mx-auto max-w-3xl"
-          >
-            {/* ← Previous button */}
-            <button
-              type="button"
-              onClick={() => paginate(-1)}
-              aria-label="Avantage précédent"
-              className="absolute -left-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-left-16 hover:scale-110 active:scale-95"
-            >
-              <ChevronLeft className="size-6" />
-            </button>
-
-            {/* Next button → */}
-            <button
-              type="button"
-              onClick={() => paginate(1)}
-              aria-label="Avantage suivant"
-              className="absolute -right-4 top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/10 bg-white text-navy shadow-premium transition-all hover:bg-navy hover:text-white sm:-right-16 hover:scale-110 active:scale-95"
-            >
-              <ChevronRight className="size-6" />
-            </button>
-
-            {/* Slide container */}
-            <div className="overflow-hidden rounded-3xl">
-              <AnimatePresence mode="wait" custom={direction} initial={false}>
-                <motion.div
-                  key={current}
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.12}
-                  onDragEnd={handleDragEnd}
-                  className="cursor-grab active:cursor-grabbing"
-                >
-                  <div className="relative overflow-hidden rounded-3xl border border-navy/10 bg-white p-6 sm:p-8 md:p-10 shadow-premium">
-                    {/* Gold accent top bar */}
-                    <span className="absolute inset-x-0 top-0 h-1.5 bg-gold" />
-
-                    {/* Header of slide */}
-                    <div className="relative z-10 flex items-start gap-4 sm:gap-6">
-                      <span
-                        style={{ animation: 'wobble 5s ease-in-out infinite' }}
-                        className="flex size-14 sm:size-16 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow"
-                      >
-                        <currentItem.icon className="size-7 sm:size-8" strokeWidth={1.9} />
-                      </span>
-                      <div className="flex-1 pr-8 sm:pr-14">
-                        <h3 className="font-serif text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-navy">
-                          {currentItem.title}
-                        </h3>
-                        <p className="mt-1 text-xs sm:text-sm md:text-base font-semibold text-gold font-sans">
-                          {currentItem.sub}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Bullet Points */}
-                    <div className="mt-5 sm:mt-6 border-t border-navy/8 pt-5">
-                      <ul className="space-y-2.5 sm:space-y-3">
-                        {currentItem.points.map((pt, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-3 text-xs sm:text-sm md:text-base leading-relaxed text-anthracite/85"
-                          >
-                            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
-                              <CheckCircle2 className="size-4" />
-                            </span>
-                            <span>{pt}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Pagination dots */}
-            <div className="mt-6 flex items-center justify-center gap-2">
-              {GAIN_ITEMS.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => {
-                    setDirection(i > current ? 1 : -1);
-                    setCurrent(i);
-                  }}
-                  aria-label={`Aller à l'avantage ${i + 1}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    i === current ? "w-8 bg-gold shadow-gold-glow" : "w-2.5 bg-white/20 hover:bg-white/40"
-                  }`}
-                />
-              ))}
-            </div>
+          <div className="mx-auto max-w-4xl divide-y divide-white/15 rounded-3xl border border-white/15 bg-white/[0.04] px-5 sm:px-8">
+            {GAIN_ITEMS.map((item) => (
+              <div key={item.id} className="flex gap-4 py-5 sm:gap-6 sm:py-6">
+                <span className="mt-0.5 flex size-11 shrink-0 items-center justify-center rounded-xl bg-gold-gradient text-navy shadow-gold-glow">
+                  <item.icon className="size-5" strokeWidth={2} />
+                </span>
+                <div className="min-w-0">
+                  <h3 className="font-serif text-lg font-bold leading-tight text-white sm:text-xl">{item.title}</h3>
+                  <p className="mt-1 text-xs font-semibold text-gold sm:text-sm">{item.sub}</p>
+                  <ul className="mt-2 space-y-1">
+                    {item.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2 text-xs leading-relaxed text-white/75 sm:text-sm">
+                        <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-gold" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
           </div>
         </Reveal>
       </div>

@@ -10,8 +10,6 @@ import {
   ShieldAlert,
   GitMerge,
   FileCheck2,
-  Monitor,
-  MonitorSmartphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -48,7 +46,7 @@ export const STATS = [
   { value: 8, suffix: "ᵉ édition", label: "2027", sub: "En cours" },
 ] as const;
 
-/* ===== 13 Métiers ===== */
+/* ===== 11 Métiers ===== */
 export type Metier = {
   id: number;
   icon: LucideIcon;
@@ -244,15 +242,15 @@ export const METIERS: Metier[] = [
   {
     id: 10,
     icon: SearchCheck,
-    title: "Consultant Financier",
-    short: "Analyses financières, M&A et ingénierie financière.",
+    title: "Consultant en Transaction Services et M&A",
+    short: "Due diligence, valorisation et ingénierie financière.",
     bullets: [
       "Due Diligence financière (vendeur / acheteur)",
       "Quality of Earnings (QoE)",
       "Valorisation (DCF, comparables)",
       "Financial modeling & structuration M&A"
     ],
-    description: "Le sommet de l'ingénierie financière. Due diligence financière (vendeur/acheteur), Quality of Earnings, valorisation d'entreprises (DCF, comparables), structuration M&A, financial modeling et pitching auprès d'investisseurs.",
+    description: "Le métier des transactions financières : due diligence financière, Quality of Earnings, valorisation d'entreprises, financial modeling et accompagnement des opérations de M&A.",
     skills: [
       "Due Diligence",
       "QoE",
@@ -263,56 +261,16 @@ export const METIERS: Metier[] = [
   },
   {
     id: 11,
-    icon: Monitor,
-    title: "Consultant SAP FI/CO",
-    short: "Paramétrage et consulting sur le module Finance de SAP.",
-    bullets: [
-      "Paramétrage SAP FI (Financial Accounting)",
-      "Paramétrage SAP CO (Controlling)",
-      "Centres de coûts et comptabilité analytique",
-      "Intégration inter-modules"
-    ],
-    description: "La maîtrise du module SAP FI/CO, le plus demandé sur le marché. Vous apprenez le paramétrage des modules Financial Accounting (FI) et Controlling (CO), la gestion des centres de coûts, la comptabilité analytique SAP, et l'intégration avec les autres modules.",
-    skills: [
-      "SAP FI",
-      "SAP CO",
-      "Centres de coûts",
-      "Intégration ERP"
-    ],
-    duration: "5 semaines",
-  },
-  {
-    id: 12,
-    icon: MonitorSmartphone,
-    title: "Auditeur IT",
-    short: "Audit des systèmes d'information et cybersécurité.",
-    bullets: [
-      "Contrôles IT généraux (ITGC)",
-      "Audit de la sécurité des SI",
-      "Référentiels COBIT & ISO 27001",
-      "Évaluation des risques cyber"
-    ],
-    description: "L'audit des systèmes d'information. Vous apprenez à évaluer les contrôles IT généraux (ITGC), auditer la sécurité des SI, évaluer les risques cyber, et mener des missions d'audit IT selon les référentiels COBIT et ISO 27001.",
-    skills: [
-      "ITGC",
-      "Sécurité SI",
-      "COBIT",
-      "ISO 27001"
-    ],
-    duration: "4 semaines",
-  },
-  {
-    id: 13,
     icon: ClipboardCheck,
-    title: "Contrôleur de gestion",
+    title: "Contrôleur de Gestion Senior",
     short: "Pilotage de la performance et contrôle budgétaire.",
     bullets: [
       "Contrôle budgétaire et analyse des écarts",
       "Tableaux de bord et reporting",
-      "Calcul des coûts (ABC, coûts complets)",
-      "Power BI et Excel/VBA pour le pilotage"
+      "Calcul des coûts et pilotage de la performance",
+      "Power BI et Excel/VBA"
     ],
-    description: "Le pilotage de l'entreprise par la performance. Vous apprenez le contrôle budgétaire, la construction de tableaux de bord, l'analyse des écarts, le calcul des coûts (ABC, coûts complets), et l'utilisation d'outils BI (Power BI, Excel/VBA) pour le reporting de gestion.",
+    description: "Le pilotage de l'entreprise par la performance : contrôle budgétaire, construction de tableaux de bord, analyse des écarts, calcul des coûts et utilisation de Power BI et Excel/VBA.",
     skills: [
       "Contrôle budgétaire",
       "Tableaux de bord",
@@ -365,7 +323,7 @@ export const INTERVENANTS: Intervenant[] = [
   {
     name: "Mr. Mehdi Zaher",
     company: "Forvis Mazars",
-    experience: "+12 ans d'expérience",
+    experience: "+15 ans d'expérience",
     role: "Senior Manager Transaction Services",
     specialties: [
       "Audit d'Acquisition",
@@ -377,7 +335,7 @@ export const INTERVENANTS: Intervenant[] = [
   {
     name: "Mme. Sarah Dchieche",
     company: "Deloitte Maroc",
-    experience: "+12 ans d'expérience",
+    experience: "+15 ans d'expérience",
     role: "Directrice Tax",
     specialties: [
       "Fiscalité Internationale",
@@ -390,13 +348,39 @@ export const INTERVENANTS: Intervenant[] = [
   {
     name: "Mr. Reda Latrach",
     company: "Auditus",
-    experience: "+8 ans d'expérience",
+    experience: "+15 ans d'expérience",
     role: "Founding Partner, Commissaire aux comptes et Expert comptable",
     specialties: [
       "Spécialiste en Fiscalité",
       "Consultant en Finance Islamique & Audit Sharia",
     ],
     initials: "RL",
+  },
+  {
+    name: "Rida Moutik",
+    company: "Le Club Des Experts",
+    experience: "+15 ans d'expérience",
+    role: "Fondateur, Expert-Comptable et Manager Audit & Financial Advisory",
+    specialties: [
+      "Due Diligence financière, fiscale, sociale et juridique",
+      "Audit et conseil financier",
+      "Accompagnement des candidats et des professionnels",
+    ],
+    initials: "RM",
+    photo: "/founders/rida-moutik.jpg",
+  },
+  {
+    name: "Rachad Ghali",
+    company: "Le Club Des Experts",
+    experience: "+15 ans d'expérience",
+    role: "Fondateur, Manager Audit & Financial Advisory",
+    specialties: [
+      "Audit et conseil du secteur bancaire",
+      "Audit financier et contrôle interne",
+      "Accompagnement vers les métiers de haut calibre",
+    ],
+    initials: "RG",
+    photo: "/founders/rachad-ghali.jpg",
   },
 ];
 

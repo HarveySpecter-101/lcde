@@ -1,6 +1,5 @@
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
-import { Stats } from "@/components/site/stats";
 import { HiringCompanies } from "@/components/site/hiring-companies";
 import { Modules } from "@/components/site/modules";
 import { WhatYouGain } from "@/components/site/what-you-gain";
@@ -29,7 +28,6 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
-        <Stats />
         <HiringCompanies />
         <SectionDivider variant="light-to-navy" />
         <Modules />
@@ -39,7 +37,6 @@ export default function Home() {
         <WhatYouGain />
         <SectionDivider variant="navy-to-light" />
         <BeforeAfter />
-        <SectionDivider variant="light-to-soft" />
         <SuccessStories />
         <SectionDivider variant="light-to-navy" />
         <Founders />

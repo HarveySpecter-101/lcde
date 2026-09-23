@@ -61,7 +61,7 @@ export function SuccessStories() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 z-10">
         <Reveal className="mx-auto max-w-3xl text-center">
           <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
-            Où travaillent <span className="text-gold">nos lauréats</span> actuellement ?
+            Où sont les participants des <span className="text-gold">anciennes éditions</span> ?
           </h2>
           <p className="mt-3 text-lg text-anthracite/80 font-medium">
             Résultats de quelques ex-participants
