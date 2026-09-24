@@ -44,7 +44,7 @@ export default function Home() {
         <SectionDivider variant="light-to-soft" />
         <BeforeAfter />
         <SuccessStories />
-        <SectionDivider variant="light-to-navy" />
+        <SectionDivider variant="stories-to-navy" />
         <Contact />
       </main>
       <Footer />

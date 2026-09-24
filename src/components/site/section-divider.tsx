@@ -1,13 +1,21 @@
 "use client";
 
 type Props = {
-  variant?: "light-to-navy" | "navy-to-light" | "light-to-soft" | "soft-to-light" | "soft-to-navy" | "navy-to-soft";
+  variant?:
+    | "light-to-navy"
+    | "navy-to-light"
+    | "light-to-soft"
+    | "soft-to-light"
+    | "soft-to-navy"
+    | "navy-to-soft"
+    | "stories-to-navy"
+    | "pink-to-navy";
   className?: string;
 };
 
 /**
  * Subtle SVG wave divider between sections for premium transitions.
- * Adapts to the brand palette (#f6f4ef soft beige, #ffffff white, #000000 navy/black).
+ * Adapts to the brand palette (#f6f4ef soft beige, #ffffff white, #000000 navy/black, #ffebf0 pink).
  */
 export function SectionDivider({ variant = "light-to-soft", className }: Props) {
   let colorClasses = "";
@@ -24,6 +32,11 @@ export function SectionDivider({ variant = "light-to-soft", className }: Props) 
     case "light-to-navy":
       // top is white, bottom wave fill is black/navy
       colorClasses = "bg-white text-[#000000]";
+      break;
+    case "stories-to-navy":
+    case "pink-to-navy":
+      // top is pink (#ffebf0), bottom wave fill is black/navy
+      colorClasses = "bg-[#ffebf0] text-[#000000]";
       break;
     case "soft-to-navy":
       // top is soft beige, bottom wave fill is black/navy
