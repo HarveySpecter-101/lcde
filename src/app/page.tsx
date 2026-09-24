@@ -6,7 +6,6 @@ import { PracticeSection } from "@/components/site/practice-section";
 import { Modules } from "@/components/site/modules";
 import { WhatYouGain } from "@/components/site/what-you-gain";
 import { Intervenants } from "@/components/site/intervenants";
-import { Founders } from "@/components/site/founders";
 import { BeforeAfter } from "@/components/site/before-after";
 import { SuccessStories } from "@/components/site/success-stories";
 import { Contact } from "@/components/site/contact";
@@ -46,7 +45,6 @@ export default function Home() {
         <BeforeAfter />
         <SuccessStories />
         <SectionDivider variant="light-to-navy" />
-        <Founders />
         <Contact />
       </main>
       <Footer />
