@@ -595,7 +595,7 @@ export const INTERVENANTS: Intervenant[] = [
       "Fiscalité Locale"
     ],
     initials: "SD",
-    logo: "/images/intervenants/deloitte.png"
+    photo: "/images/intervenants/sarah.jpg"
   },
   {
     name: "Mr. Reda Latrach",
@@ -666,7 +666,7 @@ export const INTERVENANTS: Intervenant[] = [
       "Financial Advisory"
     ],
     initials: "RM",
-    photo: "/images/intervenants/4.jpg"
+    photo: "/founders/rida-moutik.jpg"
   },
   {
     name: "Rachad Ghali",
@@ -676,7 +676,7 @@ export const INTERVENANTS: Intervenant[] = [
       "Auditeur et Consultant Spécialisé dans le Secteur Bancaire"
     ],
     initials: "RG",
-    photo: "/images/intervenants/5.jpg"
+    photo: "/founders/rachad-ghali.jpg"
   }
 ];
 
