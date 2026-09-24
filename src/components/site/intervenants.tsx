@@ -6,12 +6,12 @@ import { SectionDecor } from "@/components/site/section-decor";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Users, Briefcase, Award, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
-import { INTERVENANTS, ANONYMOUS_INTERVENANTS } from "@/lib/site-data";
+import { INTERVENANTS } from "@/lib/site-data";
 
 export function Intervenants() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
-  const totalSlides = INTERVENANTS.length + 1; // +1 for the "et bien d'autre" slide
+  const totalSlides = INTERVENANTS.length; // +1 for the "et bien d'autre" slide
   
 
   
@@ -56,9 +56,7 @@ export function Intervenants() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-navy mb-3">
               +10 intervenants experts avec minimum <span className="text-gold-gradient">15 ans d'expérience</span>
             </h2>
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-              Des praticiens issus des Big Four, des experts-comptables et des directeurs financiers qui partagent leur expérience concrète et leurs méthodes de travail au quotidien.
-            </p>
+            
           </Reveal>
         </div>
 
@@ -91,74 +89,63 @@ export function Intervenants() {
                 }}
                 className="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full px-4 sm:px-12 cursor-grab active:cursor-grabbing"
               >
-                {current < INTERVENANTS.length ? (
-                  <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-premium max-w-2xl mx-auto relative">
-                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-8">
-                      <div className="flex-shrink-0">
-                        {INTERVENANTS[current].photo ? (
+                <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-premium max-w-2xl mx-auto relative">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-8">
+                    <div className="flex-shrink-0">
+                      {INTERVENANTS[current].photo ? (
+                        <Image 
+                          src={INTERVENANTS[current].photo} 
+                          alt={INTERVENANTS[current].name}
+                          width={128}
+                          height={128}
+                          loading="eager"
+                          className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-soft shadow-md"
+                        />
+                      ) : INTERVENANTS[current].logo ? (
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl bg-white border border-gray-100 flex items-center justify-center shadow-sm p-4">
                           <Image 
-                            src={INTERVENANTS[current].photo} 
-                            alt={INTERVENANTS[current].name}
+                            src={INTERVENANTS[current].logo} 
+                            alt={INTERVENANTS[current].company || INTERVENANTS[current].name}
                             width={128}
                             height={128}
                             loading="eager"
-                            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-soft shadow-md"
+                            className="w-full h-full object-contain"
                           />
-                        ) : (
-                          <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gold-gradient flex items-center justify-center text-white text-3xl sm:text-4xl font-serif font-bold shadow-lg">
-                            {INTERVENANTS[current].initials}
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div className="flex-grow text-center sm:text-left">
-                        <h3 className="text-xl sm:text-2xl font-serif font-bold text-navy mb-1">{INTERVENANTS[current].name}</h3>
-                        {INTERVENANTS[current].company && (
-                          <p className="text-gray-500 font-medium text-sm sm:text-base mb-3">{INTERVENANTS[current].company}</p>
-                        )}
-                        
-                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 mb-4">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft text-xs sm:text-sm font-medium text-navy">
-                            <Briefcase className="w-3.5 h-3.5 text-gold" />
-                            {INTERVENANTS[current].role}
-                          </span>
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft text-xs sm:text-sm font-medium text-navy">
-                            <Award className="w-3.5 h-3.5 text-gold" />
-                            {INTERVENANTS[current].experience}
-                          </span>
                         </div>
-                        
-                        <ul className="space-y-1.5 sm:space-y-2 text-left">
-                          {INTERVENANTS[current].specialties.map((spec, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-gray-700">
-                              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-gold flex-shrink-0 mt-0.5" />
-                              <span className="text-xs sm:text-sm md:text-base">{spec}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="bg-white rounded-3xl p-5 sm:p-7 md:p-8 border border-gray-100 shadow-premium max-w-4xl mx-auto relative">
-                    <div className="text-center mb-5 sm:mb-6">
-                      <h3 className="text-xl sm:text-2xl font-serif font-bold text-navy mb-1">Et bien d'autres...</h3>
-                      <p className="text-gray-600 font-medium text-xs sm:text-sm">Et bien d'autres praticiens avec minimum 15 ans d'expérience</p>
+                      ) : (
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gold-gradient flex items-center justify-center text-white text-3xl sm:text-4xl font-serif font-bold shadow-lg">
+                          {INTERVENANTS[current].initials}
+                        </div>
+                      )}
                     </div>
                     
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3.5">
-                      {ANONYMOUS_INTERVENANTS.map((anon, idx) => (
-                        <div key={idx} className="bg-soft/80 hover:bg-soft rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center border border-navy/5 transition-colors">
-                          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center mb-2 shadow-xs">
-                            <Users className="w-4 h-4 text-gold" />
+                    <div className="flex-1 text-center sm:text-left">
+                      <div className="mb-4">
+                        <h3 className="text-xl sm:text-2xl font-bold text-navy mb-1">{INTERVENANTS[current].name}</h3>
+                        <p className="text-gold font-medium text-sm sm:text-base mb-2">{INTERVENANTS[current].role}</p>
+                        {INTERVENANTS[current].company && (
+                          <div className="flex items-center justify-center sm:justify-start gap-1.5 text-gray-500 mb-2">
+                            <Briefcase className="w-4 h-4" />
+                            <span className="text-xs sm:text-sm">{INTERVENANTS[current].company}</span>
                           </div>
-                          <h4 className="font-bold text-navy text-xs sm:text-sm mb-1 line-clamp-2 leading-tight">{anon.role}</h4>
-                          <span className="text-[11px] font-semibold text-gold">{anon.experience}</span>
-                        </div>
-                      ))}
+                        )}
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft text-xs sm:text-sm font-medium text-navy">
+                          <Award className="w-3.5 h-3.5 text-gold" />
+                          {INTERVENANTS[current].experience}
+                        </span>
+                      </div>
+                      
+                      <ul className="space-y-1.5 sm:space-y-2 text-left">
+                        {INTERVENANTS[current].specialties.map((spec, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-gray-700">
+                            <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-gold flex-shrink-0 mt-0.5" />
+                            <span className="text-xs sm:text-sm md:text-base">{spec}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                )}
+                </div>
               </motion.div>
             </AnimatePresence>
 

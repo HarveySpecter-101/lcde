@@ -547,101 +547,137 @@ export type Intervenant = {
   specialties: string[];
   initials: string;
   photo?: string;
+  logo?: string;
 };
 
 export const INTERVENANTS: Intervenant[] = [
   {
     name: "Mr. Amine Hassanain",
-    company: "Topium Advisory",
+    role: "Founding Partner, Commissaire aux Comptes, Expert-Comptable",
     experience: "+15 ans d'expérience",
-    role: "Founding Partner, Commissaire aux comptes et Expert comptable",
     specialties: [
       "Membre du Conseil National de la Comptabilité",
       "Consultant en Normes IFRS (INTEC Paris)",
       "Consultant en Consolidation des Comptes",
-      "Consultant en Dissolution et Liquidation",
+      "Consultant en Dissolution et Liquidation des Sociétés",
       "Docteur en Sciences de Gestion",
-      "Enseignant MBA et Cycle d'Expertise Comptable",
+      "Enseignant du programme MBA et du Cycle d’Expertise Comptable"
     ],
     initials: "AH",
+    photo: "/images/intervenants/1.jpg"
   },
   {
     name: "Mr. Mehdi Zaher",
-    company: "Forvis Mazars",
+    role: "Senior Manager en Transaction Services",
     experience: "+15 ans d'expérience",
-    role: "Senior Manager Transaction Services",
+    company: "Mazars",
     specialties: [
-      "Audit d'Acquisition",
+      "Consultant Spécialisé en Audit d’Acquisition",
       "Due Diligence Financière",
       "Valorisation des Entreprises",
+      "Modélisation Financière"
     ],
     initials: "MZ",
+    photo: "/images/intervenants/2.jpg"
   },
   {
     name: "Mme. Sarah Dchieche",
-    company: "Deloitte Maroc",
-    experience: "+15 ans d'expérience",
     role: "Directrice Tax",
+    experience: "+15 ans d'expérience",
+    company: "Deloitte Maroc",
     specialties: [
+      "Consultante Spécialisée en Fiscalité Marocaine",
       "Fiscalité Internationale",
       "Due Diligence Fiscale et Juridique",
       "Contrôle Fiscal",
       "Optimisation Fiscale",
+      "Droits d’Enregistrements",
+      "Fiscalité Locale"
     ],
     initials: "SD",
+    logo: "/images/intervenants/deloitte.png"
   },
   {
     name: "Mr. Reda Latrach",
-    company: "Auditus",
+    role: "Founding Partner, Commissaire aux Comptes, Expert-Comptable",
     experience: "+15 ans d'expérience",
-    role: "Founding Partner, Commissaire aux comptes et Expert comptable",
     specialties: [
-      "Spécialiste en Fiscalité",
-      "Consultant en Finance Islamique & Audit Sharia",
+      "Consultant Spécialisé en Fiscalité",
+      "Consultant Spécialisé en Finance Islamique",
+      "Consultant Spécialisé en Audit de la Sharia"
     ],
     initials: "RL",
+    photo: "/images/intervenants/3.jpg"
+  },
+  {
+    name: "Consultante Senior",
+    role: "Spécialisée en Transaction Services et M&A",
+    experience: "+15 ans d'expérience",
+    company: "EY Maroc",
+    specialties: [
+      "Transaction Services",
+      "M&A (Mergers and Acquisitions)"
+    ],
+    initials: "CS",
+    logo: "/images/intervenants/ey.png"
+  },
+  {
+    name: "Auditeur Senior",
+    role: "Expert-Comptable, Auditeur et Consultant Spécialisé dans le secteur des Assurances",
+    experience: "+15 ans d'expérience",
+    company: "KPMG Maroc",
+    specialties: [
+      "Expertise Comptable",
+      "Audit secteur des Assurances"
+    ],
+    initials: "AS",
+    logo: "/images/intervenants/kpmg.png"
+  },
+  {
+    name: "Auditrice Senior",
+    role: "Expert-Comptable, Auditrice et Consultante",
+    experience: "+15 ans d'expérience",
+    company: "Fidaroc Grant Thornton",
+    specialties: [
+      "Consolidation des Comptes",
+      "Normes Comptables Internationales (IFRS)"
+    ],
+    initials: "AS",
+    logo: "/images/intervenants/fidaroc.png"
+  },
+  {
+    name: "HR Business Partner",
+    role: "Spécialisé en Recrutement et Acquisition des Talents",
+    experience: "+15 ans d'expérience",
+    company: "OCP",
+    specialties: [
+      "Recrutement",
+      "Acquisition des Talents"
+    ],
+    initials: "HR",
+    logo: "/images/intervenants/ocp.png"
   },
   {
     name: "Rida Moutik",
-    company: "Le Club Des Experts",
+    role: "Fondateur, Expert-Comptable, Manager Audit & Financial Advisory",
     experience: "+15 ans d'expérience",
-    role: "Fondateur, Expert-Comptable et Manager Audit & Financial Advisory",
     specialties: [
-      "Due Diligence financière, fiscale, sociale et juridique",
-      "Audit et conseil financier",
-      "Accompagnement des candidats et des professionnels",
+      "Audit",
+      "Financial Advisory"
     ],
     initials: "RM",
-    photo: "/founders/rida-moutik.jpg",
+    photo: "/images/intervenants/4.jpg"
   },
   {
     name: "Rachad Ghali",
-    company: "Le Club Des Experts",
-    experience: "+15 ans d'expérience",
     role: "Fondateur, Manager Audit & Financial Advisory",
+    experience: "+15 ans d'expérience",
     specialties: [
-      "Audit et conseil du secteur bancaire",
-      "Audit financier et contrôle interne",
-      "Accompagnement vers les métiers de haut calibre",
+      "Auditeur et Consultant Spécialisé dans le Secteur Bancaire"
     ],
     initials: "RG",
-    photo: "/founders/rachad-ghali.jpg",
-  },
-];
-
-export type AnonymousIntervenant = {
-  role: string;
-  experience: string;
-  specialty: string;
-};
-
-export const ANONYMOUS_INTERVENANTS: AnonymousIntervenant[] = [
-  { role: "Contrôleur de Gestion Senior Industriel (Multinationale Pharmaceutique)", experience: "+8 ans", specialty: "Consultant en Finance Informatique & Data Analytics (SAP FI/CO, Microsoft Office, Power BI, VBA, SQL, SPSS, ...)" },
-  { role: "Auditrice Senior IT & Cybersécurité (Cabinet Big4)", experience: "+5 ans", specialty: "Diplômée de l'Université Sorbonne Paris Nord" },
-  { role: "HR Business Partner (Multinationale)", experience: "+5 ans", specialty: "Consultant en Talent Acquisition" },
-  { role: "Auditeur Senior (Cabinet Big4)", experience: "+5 ans", specialty: "Expert Comptable en Formation, Auditeur et Consultant spécialisé dans le métier du secteur des Assurances" },
-  { role: "Auditrice Senior (Cabinet Big4)", experience: "+7 ans", specialty: "spécialisée en Consolidation des Comptes et Normes IFRS, Expert Comptable Mémorialiste" },
-  { role: "Consultante Senior (Cabinet Big4)", experience: "+5 ans", specialty: "Consultante en Transaction Services et M&A" },
+    photo: "/images/intervenants/5.jpg"
+  }
 ];
 
 /* ===== Founders data ===== */
