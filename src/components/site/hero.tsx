@@ -65,13 +65,22 @@ export function Hero() {
           </motion.div>
 
           {/* Bullet points with hyphens */}
-          <motion.div variants={item} className="mt-8 flex flex-col items-start gap-4 text-left mx-auto max-w-3xl">
-            <p className="text-[15px] sm:text-[17px] font-medium leading-relaxed text-anthracite/90">
-              - +700 personnes formées et accompagnées Chaque Année depuis notre création en 2020.
-            </p>
-            <p className="text-[15px] sm:text-[17px] font-medium leading-relaxed text-anthracite/90">
-              - +95% de nos lauréats occupent des postes à haute responsabilité, et touchent des salaires 10-15.000 MAD dès la sortie d'école.
-            </p>
+          <motion.div variants={item} className="mt-8 flex flex-col items-start gap-3.5 text-left mx-auto max-w-3xl">
+            <div className="flex items-start gap-3 text-[15px] sm:text-[17px] font-normal leading-relaxed text-anthracite">
+              <span className="select-none font-bold text-navy shrink-0">-</span>
+              <p>
+                <strong className="font-bold text-navy">+700</strong> personnes formées et accompagnées{" "}
+                <strong className="font-bold text-navy">Chaque Année</strong> depuis notre création en 2020.
+              </p>
+            </div>
+            <div className="flex items-start gap-3 text-[15px] sm:text-[17px] font-normal leading-relaxed text-anthracite">
+              <span className="select-none font-bold text-navy shrink-0">-</span>
+              <p>
+                <strong className="font-bold text-navy">+95%</strong> de nos lauréats occupent des{" "}
+                <strong className="font-bold text-navy">postes à haute responsabilité</strong>, et touchent des salaires{" "}
+                <strong className="font-bold text-navy">10-15.000 MAD</strong> dès la sortie d’école.
+              </p>
+            </div>
           </motion.div>
 
           {/* CTA button */}
