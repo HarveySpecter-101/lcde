@@ -100,6 +100,9 @@ export function Modules() {
 
         {/* ═══════════ CAROUSEL ═══════════ */}
         <Reveal delay={0.15} className="mt-10 sm:mt-12">
+          <h3 className="font-serif text-2xl font-bold tracking-tight text-white sm:text-3xl uppercase mb-8 text-center">
+            Présentation des Métiers.
+          </h3>
           <div
             className="relative mx-auto max-w-2xl"
           >
@@ -143,32 +146,24 @@ export function Modules() {
                   <div className="relative flex flex-col overflow-hidden rounded-3xl border border-navy/10 bg-soft shadow-premium">
                     <div className="p-6 sm:p-8">
                       {/* Icon + title */}
-                      <div className="relative z-10 flex items-start gap-4">
+                      <div className="relative z-10 flex items-start sm:items-center gap-4">
                         <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-navy-gradient text-gold shadow-navy-glow">
                           <m.icon className="size-7" strokeWidth={1.9} />
                         </span>
                         <div className="flex-1">
-                          <p className="font-serif text-xl font-bold leading-snug text-gold sm:text-2xl">
-                            Métier {String(m.id).padStart(2, "0")}
-                          </p>
-                          <h3 className="mt-1 font-serif text-xl font-bold leading-snug text-navy sm:text-2xl">
-                            {m.title}
+                          <h3 className="font-serif text-xl font-bold leading-snug text-navy sm:text-2xl">
+                            <span className="text-gold">Métier {String(m.id).padStart(2, "0")} :</span> {m.title}
                           </h3>
                         </div>
                       </div>
 
-                      {/* Short description / Summary */}
-                      <p className="mt-4 text-sm leading-relaxed text-anthracite/70 sm:text-base line-clamp-4">
-                        {m.description}
-                      </p>
-
-                      {/* "En savoir plus" button → opens popup */}
+                      {/* Button → opens popup */}
                       <button
                         type="button"
                         onClick={() => setPopupIndex(current)}
                         className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gold/10 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold/20"
                       >
-                        En savoir plus
+                        Découvrir le programme détaillé
                         <ArrowUpRight className="size-4" />
                       </button>
                     </div>
