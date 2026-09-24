@@ -136,7 +136,7 @@ export function Modules() {
                   onDragEnd={handleDragEnd}
                   className="cursor-grab active:cursor-grabbing"
                 >
-                  <div className="relative flex flex-col overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-premium">
+                  <div className="relative flex flex-col overflow-hidden rounded-3xl border border-navy/10 bg-soft shadow-premium">
                     <div className="p-6 sm:p-8">
                       {/* Icon + title */}
                       <div className="relative z-10 flex items-start gap-4">
