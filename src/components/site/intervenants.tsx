@@ -129,10 +129,7 @@ export function Intervenants() {
                             <span className="text-xs sm:text-sm">{INTERVENANTS[current].company}</span>
                           </div>
                         )}
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-soft text-xs sm:text-sm font-medium text-navy">
-                          <Award className="w-3.5 h-3.5 text-gold" />
-                          {INTERVENANTS[current].experience}
-                        </span>
+                        
                       </div>
                       
                       <ul className="space-y-1.5 sm:space-y-2 text-left">
