@@ -84,11 +84,8 @@ export function Modules() {
         {/* ───────── Header ───────── */}
         <Reveal className="mx-auto max-w-4xl text-center">
           <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2">
-            Formation 100% pratique
+            Formation 100% Pratique en 11 Métiers
           </h2>
-          <h3 className="mt-1 font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            11 métiers en 1 formation
-          </h3>
           <p className="mt-4 text-base font-medium leading-relaxed text-white/80 sm:text-xl">
             Des simulations de missions et de problématiques réelles, avec exploitation de documents professionnels, données et chiffres du terrain.
           </p>
