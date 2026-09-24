@@ -19,7 +19,7 @@ const SECTORS = [
   },
   {
     icon: Landmark,
-    title: "DIRECTION GÉNÉRALE DES IMPÔTS, CNSS, MINISTÈRES, COUR DES COMPTES, ...",
+    title: "Secteur Public : Direction Générale des Impôts, Cour des comptes, Ministères, CNSS, …",
   },
 ];
 
@@ -34,9 +34,6 @@ export function HiringCompanies() {
           <h2 className="font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
             Où vous serez <span className="text-gold font-extrabold">embauchés</span>&nbsp;?
           </h2>
-          <p className="mt-3 text-sm font-medium leading-relaxed text-anthracite/75 sm:text-base">
-            Des opportunités d'insertion et de carrière auprès des structures les plus prestigieuses.
-          </p>
         </Reveal>
 
         {/* Premium Sectors Grid */}
