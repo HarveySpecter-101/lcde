@@ -643,7 +643,7 @@ export const INTERVENANTS: Intervenant[] = [
       "Normes Comptables Internationales (IFRS)"
     ],
     initials: "AS",
-    logo: "/images/intervenants/fidaroc.png"
+    logo: "/images/intervenants/fidaroc.jpg"
   },
   {
     name: "HR Business Partner",
