@@ -763,10 +763,17 @@ export const SUCCESS_STORIES: SuccessStory[] = [
     "admissions": [
       "PWC France",
       "Deloitte France",
-      "Wiam Mnii ENCG Mekn8s Moore Stephens",
+      
       "Lotus Capital",
       "Bank Of Africa (M&A)",
       "AD Associés"
+    ]
+  },
+  {
+    "name": "Wiam Mnii",
+    "school": "ENCG Meknès",
+    "admissions": [
+      "Moore Stephens"
     ]
   },
   {
