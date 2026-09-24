@@ -86,9 +86,16 @@ export function Modules() {
           <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2">
             Formation 100% Pratique en 11 Métiers
           </h2>
-          <p className="mt-4 text-base font-medium leading-relaxed text-white/80 sm:text-xl">
-            Des simulations de missions et de problématiques réelles, avec exploitation de documents professionnels, données et chiffres du terrain.
-          </p>
+          <div className="mt-6 flex flex-col items-start sm:items-center justify-center gap-3 text-base font-medium leading-relaxed text-white/90 sm:text-lg">
+            <div className="flex items-start gap-3 text-left">
+              <CheckCircle2 className="mt-1 size-5 shrink-0 text-gold" />
+              <span>Simulations de missions et de problématiques telles qu'elles sont traitées sur le terrain.</span>
+            </div>
+            <div className="flex items-start gap-3 text-left">
+              <CheckCircle2 className="mt-1 size-5 shrink-0 text-gold" />
+              <span>Exploitation et analyse de documents professionnels, des données et chiffres réels ;</span>
+            </div>
+          </div>
         </Reveal>
 
         {/* ═══════════ CAROUSEL ═══════════ */}
