@@ -607,7 +607,7 @@ export const INTERVENANTS: Intervenant[] = [
       "Consultant Spécialisé en Audit de la Sharia"
     ],
     initials: "RL",
-    photo: "/images/intervenants/3.jpg"
+    photo: "/images/intervenants/reda.jpg"
   },
   {
     name: "Consultante Senior",
