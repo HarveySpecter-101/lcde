@@ -38,11 +38,11 @@ export default function Home() {
         <PracticeSection />
         <SectionDivider variant="light-to-navy" />
         <Modules />
-        <SectionDivider variant="navy-to-light" />
-        <Intervenants />
-        <SectionDivider variant="light-to-navy" />
+        <SectionDivider variant="navy-to-soft" />
         <WhatYouGain />
-        <SectionDivider variant="navy-to-light" />
+        <SectionDivider variant="soft-to-light" />
+        <Intervenants />
+        <SectionDivider variant="light-to-soft" />
         <BeforeAfter />
         <SuccessStories />
         <SectionDivider variant="light-to-navy" />

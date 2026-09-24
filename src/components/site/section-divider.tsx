@@ -1,7 +1,7 @@
 "use client";
 
 type Props = {
-  variant?: "light-to-navy" | "navy-to-light" | "light-to-soft" | "soft-to-light" | "soft-to-navy";
+  variant?: "light-to-navy" | "navy-to-light" | "light-to-soft" | "soft-to-light" | "soft-to-navy" | "navy-to-soft";
   className?: string;
 };
 
@@ -32,6 +32,10 @@ export function SectionDivider({ variant = "light-to-soft", className }: Props) 
     case "navy-to-light":
       // top is black/navy, bottom wave fill is white
       colorClasses = "bg-[#000000] text-white";
+      break;
+    case "navy-to-soft":
+      // top is black/navy, bottom wave fill is soft beige
+      colorClasses = "bg-[#000000] text-[#f6f4ef]";
       break;
   }
 
