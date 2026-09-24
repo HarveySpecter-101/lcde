@@ -30,14 +30,17 @@ export function CertifiedPartners() {
       {/* Background decoration */}
       <SectionDecor variant="light" pos="A" />
 
-      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:max-w-5xl lg:px-8 xl:max-w-6xl">
         <Reveal>
-          <h2 className="font-serif text-3xl font-bold leading-[1.2] tracking-tight text-navy sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+          <h2 className="font-serif text-3xl font-bold leading-[1.25] tracking-tight text-navy sm:text-4xl md:text-5xl lg:text-[2.6rem] xl:text-[2.85rem]">
             Formations{" "}
             <span className="text-gold-gradient font-extrabold drop-shadow-sm">
               certifiées et reconnues
             </span>{" "}
-            auprès de nos partenaires professionnels sur le marché d'emploi marocain et international.
+            <br className="hidden md:inline" />
+            auprès de nos partenaires professionnels{" "}
+            <br className="hidden md:inline" />
+            sur le marché d'emploi marocain et international.
           </h2>
         </Reveal>
       </div>
