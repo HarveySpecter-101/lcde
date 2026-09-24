@@ -283,103 +283,33 @@ export function Modules() {
               {/* Scrollable body */}
               {/* Added pb-12 so the content doesn't end up covered by the popup container edge or padding */}
               <div className="overflow-y-auto px-5 py-5 sm:px-6 sm:py-6 pb-12" style={{ maxHeight: "calc(100% - 140px)" }}>
-                {/* Présentation */}
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gold">
-                    Présentation
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-anthracite/80 px-2 sm:px-4">
-                    {popupModule.description}
-                  </p>
-                </div>
-
-                {/* Au programme */}
-                <div className="mt-6 px-2 sm:px-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gold">
-                    Au programme
-                  </p>
-                  <ul className="mt-3 space-y-2.5">
-                    {popupModule.bullets.map((b) => (
-                      <li
-                        key={b}
-                        className="flex items-start gap-2.5 text-sm text-anthracite/80"
-                      >
-                        <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-brand" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Compétences acquises */}
-                <div className="mt-6 px-2 sm:px-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gold">
-                    Compétences acquises
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {popupModule.skills.map((s) => (
-                      <span
-                        key={s}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-navy/10 bg-soft px-3 py-1.5 text-xs font-medium text-navy"
-                      >
-                        <Sparkles className="size-3 text-gold" />
-                        {s}
-                      </span>
-                    ))}
+                {popupModule.details?.map((section, idx) => (
+                  <div key={idx} className="mt-6 first:mt-0 px-2 sm:px-4">
+                    {section.heading && (
+                      <p className="text-xs font-semibold uppercase tracking-wider text-gold mb-3">
+                        {section.heading}
+                      </p>
+                    )}
+                    {section.text && (
+                      <p className="text-sm leading-relaxed text-anthracite/80 mb-3">
+                        {section.text}
+                      </p>
+                    )}
+                    {section.items && section.items.length > 0 && (
+                      <ul className="space-y-2.5">
+                        {section.items.map((item, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start gap-2.5 text-sm text-anthracite/80"
+                          >
+                            <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-brand" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                </div>
-
-                {/* Objectifs pédagogiques — extra detailed content */}
-                <div className="mt-6 px-2 sm:px-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gold">
-                    Objectifs pédagogiques
-                  </p>
-                  <ul className="mt-3 space-y-2">
-                    <li className="flex items-start gap-2.5 text-sm text-anthracite/80">
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-gold" />
-                      Acquérir les compétences opérationnelles nécessaires pour exercer ce métier dès le premier jour en cabinet ou en entreprise.
-                    </li>
-                    <li className="flex items-start gap-2.5 text-sm text-anthracite/80">
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-gold" />
-                      Maîtriser les outils, référentiels et méthodologies utilisés par les professionnels du secteur.
-                    </li>
-                    <li className="flex items-start gap-2.5 text-sm text-anthracite/80">
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-gold" />
-                      Développer une capacité d'analyse et de synthèse à travers des simulations de cas réels issus du terrain.
-                    </li>
-                    <li className="flex items-start gap-2.5 text-sm text-anthracite/80">
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-gold" />
-                      Être capable de rédiger des livrables professionnels conformes aux normes en vigueur.
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Méthodologie */}
-                <div className="mt-6 px-2 sm:px-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gold">
-                    Méthodologie
-                  </p>
-                  <div className="mt-3 space-y-3">
-                    <div className="rounded-2xl border border-navy/10 bg-soft p-4">
-                      <p className="text-sm font-semibold text-navy">📋 Cas pratiques réels</p>
-                      <p className="mt-1 text-xs leading-relaxed text-anthracite/70">
-                        Chaque séance s'appuie sur des cas issus de missions réelles menées par nos intervenants dans les cabinets Big Four et les multinationales.
-                      </p>
-                    </div>
-                    <div className="rounded-2xl border border-navy/10 bg-soft p-4">
-                      <p className="text-sm font-semibold text-navy">🎯 Simulations en conditions réelles</p>
-                      <p className="mt-1 text-xs leading-relaxed text-anthracite/70">
-                        Vous êtes mis en situation comme si vous étiez en mission. Dossiers de travail, rapports, interactions clients — tout y est.
-                      </p>
-                    </div>
-                    <div className="rounded-2xl border border-navy/10 bg-soft p-4">
-                      <p className="text-sm font-semibold text-navy">💻 100 % à distance, en direct</p>
-                      <p className="mt-1 text-xs leading-relaxed text-anthracite/70">
-                        Les séances sont tenues en direct et enregistrées pour vous permettre de rattraper et revoir le contenu à votre rythme.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </motion.div>
           </>

@@ -46,163 +46,487 @@ export const STATS = [
   { value: 8, suffix: "ᵉ édition", label: "2027", sub: "En cours" },
 ] as const;
 
-/* ===== 11 Métiers ===== */
+/* ===== 13 Métiers ===== */
 export type Metier = {
   id: number;
   icon: LucideIcon;
   title: string;
-  short: string;
-  bullets: string[];
-  description: string;
-  skills: string[];
-  duration: string;
+  details: {
+    heading?: string;
+    text?: string;
+    items?: string[];
+  }[];
 };
 
 export const METIERS: Metier[] = [
   {
     id: 1,
     icon: BookOpenCheck,
-    title: "Consultant en Expertise comptable",
-    short: "Tenue, clôture et révision des comptes selon les normes marocaines.",
-    bullets: [
-      "Tenue et clôture des comptes",
-      "Travaux d'inventaire et provisions",
-      "Révision des comptes et production des états financiers",
-      "Déclarations fiscales (IS, IR, TVA)"
-    ],
-    description: "Le socle du métier d'expert-comptable. Vous apprenez la tenue courante, les travaux d'inventaire, la révision des comptes, la déclaration fiscale, et la production d'états financiers conformes au CGNC. Des cas pratiques issus de dossiers réels de cabinets d'expertise comptable.",
-    skills: [
-      "Comptabilité générale",
-      "Révision comptable",
-      "États financiers CGNC",
-      "Déclarations fiscales"
-    ],
-    duration: "6 semaines",
+    title: "Consultant en Expertise Comptable",
+    details: [
+      {
+        heading: "l’analyse et la maitrise du cadre légal de la comptabilité au Maroc :",
+        items: [
+          "les lois en vigueur relatives aux obligations comptables des commerçants, le code général de normalisation comptable, les avis du conseil national de la comptabilité, et les notes circulaires relatives au code général des impôts au Maroc."
+        ]
+      },
+      {
+        heading: "la simulation des dossiers réels dans tous ses aspects :",
+        items: [
+          "le processus entier de création des sociétés au Maroc ;",
+          "la tenue des livres comptables obligatoires (via Sage, SAP et Odoo), des déclarations fiscales (via le portail SIMPL de la DGI), des déclarations de personnel (via le portail DAMANCOM de la CNSS), et des déclarations juridiques (via le portail MAHAKIM du Ministère de la Justice) ;",
+          "le processus d’établissement et de dépôt, ainsi que les formalités juridiques incombant la liasse comptable et fiscale ;",
+          "l’établissement des états de synthèse dans le cas de dissolution et liquidation des sociétés ;",
+          "les contrôles de cohérence nécessaires avant le dépôt des états de synthèse ;",
+          "la gestion des délais de paiement conformément à la loi 69/21."
+        ]
+      },
+      {
+        text: "le traitement comptable, fiscal, audit et juridique de plusieurs opérations quotidiennes de l’entreprise (les contrats à long terme, les engagements hors bilan, les immobilisations, les subventions, l’emprunt bancaire et obligataire, les titres, les opérations libellées en devises, les amortissements, les provisions, la régularisation des charges et produits, le stock, la taxe sur la valeur ajoutée, l’impôt sur les sociétés, la contribution sociale de solidarité, le redressement fiscal, etc)."
+      },
+      {
+        text: "le traitement des exercices du concours d'accès et des examens du cycle d'expertise comptable."
+      }
+    ]
   },
   {
     id: 2,
     icon: Landmark,
-    title: "Consultant en Tax",
-    short: "Tax advisory : du CGI aux conventions fiscales internationales.",
-    bullets: [
-      "IS, IR, TVA et retenues à la source",
-      "Contrôle & contentieux fiscal",
-      "Fiscalité internationale & prix de transfert",
-      "Optimisation fiscale et due diligence fiscale"
-    ],
-    description: "Le pôle Tax Advisory complet. Vous maîtrisez l'IS, l'IR et la TVA au Maroc, gérez un contrôle fiscal, et structurez des opérations internationales en maîtrisant les conventions fiscales et les prix de transfert. Simulation de contrôles fiscaux et cas de contentieux.",
-    skills: [
-      "IS / IR / TVA",
-      "Contrôle fiscal",
-      "Prix de transfert",
-      "Due diligence fiscale"
-    ],
-    duration: "6 semaines",
+    title: "Consultant en Tax (contrôle fiscal, prix de transfert, ...)",
+    details: [
+      {
+        heading: "l’analyse et la maitrise du cadre légal de la fiscalité marocaine :",
+        items: [
+          "le code général des impôts ;",
+          "les notes circulaires et de services de la DGI ;",
+          "l’analyse des spécificités, apports et évolution des lois de finances ;",
+          "l’analyse des réformes de la loi de finances 2023 en matière de l’impôt sur les sociétés ;",
+          "l’analyse des réformes de la loi de finances 2024 en matière de la taxe sur la valeur ajoutée ;",
+          "l’analyse des nouveautés de la loi de finances 2025 en matière de l’impôt sur le revenu ;",
+          "l’analyse de la loi de finances 2026 et du projet de loi de finances 2027."
+        ]
+      },
+      {
+        heading: "le traitement fiscal, comptable, audit et juridique :",
+        items: [
+          "la taxe sur la valeur ajoutée (le champ d’application de la TVA, la retenue à la source en matière de TVA, la TVA non apparente, la TVA à l’importation, le régime suspensif, le dossier de remboursement de la TVA, la TVA exigible, la TVA déductible, la TVA sur les opérations réalisées avec les non résidents, le crédit de TVA, la TVA due, ...).",
+          "l’impôt sur les sociétés (le champ d’application de l’IS, l’évolution des taux d’imposition IS de 2023 à 2026, la retenue à la source en matière d’IS, l’imposition des produits et la déductibilité des charges, le report du déficit fiscal, le calcul du résultat fiscal, la cotisation minimale, le calcul de l’impôt sur les sociétés, ...).",
+          "l’impôt sur le revenu (l’analyse détaillée des nouveautés de la loi de finances 2025).",
+          "les droits d’enregistrement (l’analyse détaillée des formalités, et des actes et conventions passibles de ces droits)."
+        ]
+      },
+      {
+        heading: "la méthodologie complète de traitement d'une consultation fiscale :",
+        items: [
+          "l’analyse du contexte, l’identification des risques fiscaux, la recherche de la base légale (CGI, circulaires, jurisprudence), la formulation de la position fiscale et la rédaction de la note de consultation professionnelle."
+        ]
+      },
+      {
+        heading: "les cas pratiques et réels en contrôle fiscal et audit fiscal :",
+        items: [
+          "le déroulement d’un contrôle fiscal de A à Z, l’analyse des notifications, la préparation des réponses, la gestion des redressements, la négociation avec l’administration fiscale et la sécurisation de la position du client."
+        ]
+      },
+      {
+        text: "le traitement des exercices du concours d'accès et des examens du cycle d'expertise comptable."
+      }
+    ]
   },
   {
     id: 3,
     icon: Scale,
     title: "Consultant Juridique",
-    short: "Cadre juridique de l'entreprise, contrats et restructurations.",
-    bullets: [
-      "Droit des sociétés (SA, SARL, SCA)",
-      "Contrats commerciaux & sûretés",
-      "Fusions, scissions et transformations",
-      "Due diligence juridique"
-    ],
-    description: "Le cadre juridique indispensable à tout praticien. Vous comprenez les statuts juridiques (SA, SARL, SCA), rédigez et analysez des contrats commerciaux, et maîtrisez les opérations de restructuration (fusions, scissions, apports partiels d'actifs).",
-    skills: [
-      "Droit des sociétés",
-      "Contrats commerciaux",
-      "Sûretés & garanties",
-      "Restructurations"
-    ],
-    duration: "4 semaines",
+    details: [
+      {
+        heading: "l’analyse et la maitrise du cadre légal des commerçants au Maroc :",
+        items: [
+          "les lois en vigueur incombant les commerçants (la loi 5/96, la loi 17/95, la loi 15/95, la loi 15/89, la loi 103/12, la loi 69/21, ...) ;",
+          "les spécificités et réglementations relatives à la société à responsabilité limitée ;",
+          "les spécificités et réglementations relatives à la société anonyme ;",
+          "les spécificités et réglementations relatives à la société par actions simplifiée ;",
+          "la présentation légale et juridique de la profession d’expertise comptable."
+        ]
+      },
+      {
+        heading: "le traitement juridique, fiscal, comptable et audit relatif à :",
+        items: [
+          "l’augmentation du capital ;",
+          "la réduction du capital."
+        ]
+      },
+      {
+        heading: "la dissolution et la liquidation des sociétés :",
+        items: [
+          "les causes de dissolution anticipée ;",
+          "le traitement du dossier d'une société depuis la prise de décision de dissolution jusqu'à sa radiation du registre du commerce ;",
+          "le suivi juridique et la tenue du dossier sous ses aspects comptable, fiscal et légal ;",
+          "la mesure de l'impact de la dissolution anticipée de la société sur sa gouvernance, son activité et les relations avec les partenaires et les tiers ;",
+          "l’organisation du dossier comptable, les obligations déclaratives, la préparation des comptes de liquidation ;",
+          "la répartition du boni / mali de liquidation."
+        ]
+      }
+    ]
   },
   {
     id: 4,
     icon: ShieldCheck,
-    title: "Auditeur Financier des états de synthèse",
-    short: "Démarche d'audit et certification des comptes individuels.",
-    bullets: [
-      "Planification & risques d'audit",
-      "Tests de procédures & substantifs",
-      "Rapport d'audit (CNCC / ISA)",
-      "Mission de Certification des comptes"
-    ],
-    description: "Le cœur du métier d'auditeur. Planification, identification et évaluation des risques, tests de procédures et substantifs, et rédaction d'un rapport d'audit conforme aux normes ISA et CNCC. Simulation complète d'une mission de commissariat aux comptes.",
-    skills: [
-      "Planification d'audit",
-      "Évaluation des risques",
-      "Tests de procédures",
-      "Certification ISA/CNCC"
-    ],
-    duration: "6 semaines",
+    title: "Auditeur Financier des états de synthèse (Commissariat aux comptes / Audit légal)",
+    details: [
+      {
+        heading: "l’analyse et la maitrise du cadre légal en audit :",
+        items: [
+          "la présentation et l’analyse du manuel des normes d’audit au Maroc ;",
+          "la présentation et l’analyse des normes ISA (International Standards on Auditing) ;",
+          "la maitrise A à Z de la démarche des missions : de compilation, d’examen limité, d’audit des états financiers, d’audit contractuel et d’audit légal (commissariat aux comptes)."
+        ]
+      },
+      {
+        heading: "l’audit de tous les cycles d’audit :",
+        items: [
+          "les capitaux propres, les dettes de financement, les immobilisations, les titres de placement, les titres et valeurs de placement, les clients, les fournisseurs, le personnel, les comptes Etat, la trésorerie, les achats et charges externes, le résultat financier, le stock, le chiffre d’affaires, le résultat non courant, ...",
+          "la maitrise d’Excel et VBA lors d’une mission d’audit."
+        ]
+      },
+      {
+        heading: "les vérifications spécifiques :",
+        items: [
+          "les conventions réglementées, le rapport de gestion, les documents adressés aux actionnaires, les actions de garantie, l'égalité entre les actionnaires, l'acquisition d'une filiale et la prise de participation et de contrôle."
+        ]
+      },
+      {
+        heading: "la finalisation de la mission de commissariat aux comptes :",
+        items: [
+          "les événements postérieurs à la date de clôture ;",
+          "la procédure de prévention interne ;",
+          "la norme 3570 relative à la continuité d’exploitation ;",
+          "la norme 3580 relative à la déclaration de direction ;",
+          "les autres principales normes du nouveau manuel des normes d’audit au Maroc ;",
+          "la préparation du projet du rapport d'audit conformément au nouveau manuel des normes d’audit."
+        ]
+      }
+    ]
   },
   {
     id: 5,
     icon: Building2,
     title: "Auditeur Financier spécialisé dans le secteur Bancaire",
-    short: "Audit et contrôle spécifiques aux établissements bancaires.",
-    bullets: [
-      "Comptabilité bancaire et PCEC",
-      "Réglementation prudentielle (Bâle III/IV)",
-      "Audit des opérations de crédit et de marché",
-      "Contrôle interne des établissements bancaires"
-    ],
-    description: "L'audit financier appliqué au secteur bancaire. Vous maîtrisez les spécificités comptables des établissements de crédit, le contrôle interne bancaire, la réglementation prudentielle (Bâle III/IV), et l'audit des opérations de crédit, de marché et de trésorerie.",
-    skills: [
-      "PCEC",
-      "Réglementation Bâle",
-      "Audit bancaire",
-      "Contrôle interne"
-    ],
-    duration: "5 semaines",
+    details: [
+      {
+        text: "En complément du programme du commissariat aux comptes, l’audit légal du secteur bancaire intègre également les volets suivants :"
+      },
+      {
+        heading: "l’analyse et la maitrise du cadre légal en audit du secteur bancaire :",
+        items: [
+          "la présentation du jargon et des spécificités du métier de la banque ;",
+          "la présentation et l’analyse du Plan Comptable des Etablissements de Crédits (PCEC) ;",
+          "la présentation et l’analyse de la loi 103/12 relative aux établissements de crédit et organismes assimilés ;",
+          "la présentation et l’analyse des notes circulaires de Bank Al Maghrib ;",
+          "la présentation du cadre fiscal application au secteur bancaire."
+        ]
+      },
+      {
+        heading: "le traitement des spécificités d’une mission d’audit du secteur bancaire :",
+        items: [
+          "l’audit des créances sur les établissements de crédit, créances sur la clientèle, et créances acquises par affacturage ;",
+          "l’audit des titres de transaction, titres de placement, titres d’investissement, et titres de créances émis ;",
+          "l’audit des dépôts de la clientèle, dépôts envers les établissements de crédit, et dépôts d’investissement ;",
+          "l’audit du produit net bancaire ;",
+          "la finalisation de la mission d’audit du secteur bancaire ;",
+          "la préparation du projet du rapport d’audit conformément aux réglementations en vigueur."
+        ]
+      }
+    ]
   },
   {
     id: 6,
     icon: ShieldAlert,
     title: "Auditeur Financier spécialisé dans le secteur des Assurances",
-    short: "Audit et contrôle des compagnies d'assurance et de réassurance.",
-    bullets: [
-      "Comptabilité des assurances",
-      "Provisionnement technique",
-      "Réglementation Solvabilité II",
-      "Audit des engagements et réassurance"
-    ],
-    description: "L'audit financier du secteur assurantiel. Vous apprenez les spécificités comptables des compagnies d'assurance, le provisionnement technique, la réglementation Solvabilité II, et l'audit des engagements techniques et de la réassurance.",
-    skills: [
-      "Comptabilité assurance",
-      "Provisions techniques",
-      "Solvabilité II",
-      "Audit engagements"
-    ],
-    duration: "4 semaines",
+    details: [
+      {
+        text: "En complément du programme du commissariat aux comptes, l’audit légal du secteur des assurances intègre également les volets suivants :"
+      },
+      {
+        heading: "l’analyse et la maitrise du cadre légal en audit du secteur des assurances :",
+        items: [
+          "la présentation du jargon et des spécificités du métier des assurances ;",
+          "la présentation et l’analyse du Plan Comptable des Assurances (PCA) ;",
+          "la présentation et l’analyse de la loi 17/99 (Code des Assurances) ;",
+          "la présentation et l’analyse des notes circulaires de l’ACAPS ;",
+          "la présentation du cadre fiscal application au secteur des assurances."
+        ]
+      },
+      {
+        heading: "le traitement des spécificités d’une mission d’audit des assurances :",
+        items: [
+          "l’audit des placements des compagnies d’assurances ;",
+          "l’audit des provisions techniques (engagements futurs des compagnies d’assurances) ;",
+          "l’audit des prestations et frais des assurances ,",
+          "l’audit des primes d’assurances ;",
+          "la finalisation de la mission d’audit du secteur des assurances ;",
+          "la préparation du projet du rapport d’audit conformément aux réglementations en vigueur."
+        ]
+      }
+    ]
   },
   {
     id: 7,
     icon: FileBarChart,
     title: "Consultant spécialisé en Normes Comptables IFRS",
-    short: "Référentiel international des états financiers.",
-    bullets: [
-      "IFRS 15 (revenus)",
-      "IFRS 16 (contrats de location)",
-      "IFRS 9 (instruments financiers)",
-      "Présentation de l'IFRS consolidé"
-    ],
-    description: "Maîtrisez le référentiel IFRS utilisé par les groupes cotés et les multinationales. Écritures complexes (IFRS 15 revenus, IFRS 16 contrats de location, IFRS 9 instruments financiers) et présentation d'états financiers IFRS consolidés.",
-    skills: [
-      "IFRS 15 — revenus",
-      "IFRS 16 — contrats de location",
-      "IFRS 9 — instruments financiers",
-      "Présentation IFRS consolidé"
-    ],
-    duration: "5 semaines",
+    details: [
+      {
+        heading: "la maitrise du cadre conceptuel des normes comptables internationales IFRS :",
+        items: [
+          "la présentation approfondie des objectifs des normes internationales ;",
+          "l’analyse des référentiels et des principales normes IFRS appliquées en pratique ;",
+          "la lecture et l’interprétation des normes à partir de situations concrètes rencontrées en entreprise et en cabinet."
+        ]
+      },
+      {
+        heading: "l’analyse comparative des référentiels comptables marocains et normes IFRS :",
+        items: [
+          "l’identification des divergences majeures entre le CGNC et le référentiel IFRS ;",
+          "l’étude des différences en matière de méthodes d’évaluation, de reconnaissance des actifs et passifs, et de présentation des états financiers IFRS."
+        ]
+      },
+      {
+        heading: "l’impact des normes IFRS au niveau “social” :",
+        items: [
+          "l’identification des ajustements nécessaires lors du passage des comptes sociaux vers les normes IFRS",
+          "l’étude des impacts sur les résultats, les capitaux propres, les indicateurs financiers et la communication financière ;",
+          "la compréhension des enjeux fiscaux et réglementaires liés aux retraitements IFRS."
+        ]
+      },
+      {
+        text: "la validation des retraitements IFRS lors d’une mission d’audit."
+      }
+    ]
   },
   {
     id: 8,
     icon: GitMerge,
     title: "Consultant spécialisé en Consolidation des Comptes",
+    details: [
+      {
+        heading: "les convergences et divergences entre les normes marocaines et les normes IFRS :",
+        items: [
+          "l’analyse approfondie de la consolidation des comptes selon le référentiel marocain (notamment à travers l’avis n°5 du CNC) et selon les normes IFRS ;",
+          "l’identification des impacts des divergences sur la structure des comptes consolidés, les méthodes de consolidation et la présentation de l’information financière."
+        ]
+      },
+      {
+        heading: "la démarche de consolidation des comptes :",
+        items: [
+          "la délimitation précise du périmètre de consolidation en fonction des critères de contrôle, d’influence notable ou de contrôle conjoint ;",
+          "l’application des méthodes et modalités de consolidation appropriées (l’intégration globale, l’intégration proportionnelle et la mise en équivalence) ;",
+          "le calcul et l’analyse des pourcentages de contrôle et d’intérêt pour chaque entité consolidée ;",
+          "les retraitements de consolidation et l’élimination des opérations intragroupes ;",
+          "l’application des règles de conversion des comptes des filiales étrangères selon les normes IFRS ;",
+          "le calcul du goodwill lors d’une prise de contrôle et le traitement comptable des écarts de conversion."
+        ]
+      },
+      {
+        heading: "la présentation des états financiers consolidés :",
+        items: [
+          "l’élaboration du bilan consolidé, du compte de résultat consolidé, du tableau des flux de trésorerie et de l’état de variation des capitaux propres ;",
+          "la rédaction des annexes consolidées conformément aux exigences réglementaires."
+        ]
+      }
+    ]
+  },
+  {
+    id: 9,
+    icon: FileCheck2,
+    title: "Audit des états financiers Consolidés en Normes IFRS",
+    details: [
+      {
+        text: "En complément des programmes du commissariat aux comptes, des normes comptables IFRS et de la consolidation des comptes, l’audit des états financiers consolidés intègre également les volets suivants :"
+      },
+      {
+        heading: "l’audit des états consolidés et annexes :",
+        items: [
+          "l’audit du bilan consolidé ;",
+          "l’audit du compte de résultat consolidé ;",
+          "l’audit du tableau des flux de trésorerie ;",
+          "les informations à fournir (jugements significatifs, estimations critiques, parties liées, ...)."
+        ]
+      },
+      {
+        heading: "les risques et fraudes spécifiques à la consolidation :",
+        items: [
+          "les risques majeurs dans les groupes ;",
+          "les manipulations fréquentes en consolidation ;",
+          "l’utilisation de data analytics et revue des écritures d’ajustement."
+        ]
+      },
+      {
+        heading: "la coordination avec les auditeurs des filiales :",
+        items: [
+          "les instructions groupe ;",
+          "la circularisation des commissaires aux comptes ;",
+          "la revue critique des travaux des auditeurs des filiales ;",
+          "la synthèse au niveau groupe."
+        ]
+      },
+      {
+        heading: "la finalisation de la mission d’audit consolidé :",
+        items: [
+          "les événements postérieurs à la clôture ;",
+          "la préparation du projet de rapport d’audit consolidé ;",
+          "la communication avec la direction et le comité d’audit."
+        ]
+      }
+    ]
+  },
+  {
+    id: 10,
+    icon: SearchCheck,
+    title: "Consultant Financier (Transaction Services, Due Diligence Financière, Valorisation des entreprises, Modélisation financière, Etablissement des Business Plan, ...)",
+    details: [
+      {
+        heading: "l’analyse et la maitrise du cadre général du consulting financier :",
+        items: [
+          "les fondamentaux du conseil financier ;",
+          "l’aperçu général des métiers de la due diligence financière, la fusion et acquisition, l’évaluation des entreprises, la modélisation financière , ...",
+          "le focus sur les rôles, les enjeux, outils et spécificités du métier ;",
+          "la présentation détaillée du processus de la due diligence financière et ses objectifs pour l’acheteur et le vendeur ;",
+          "l’analyse des risques à caractère comptable, fiscal, réglementaire, social et financier ;",
+          "la préparation de la data room et la lecture critique des états financiers."
+        ]
+      },
+      {
+        heading: "le traitement des différentes missions du “financial advisory” :",
+        items: [
+          "la présentation et l’analyse de la notion de la performance historique ;",
+          "l’analyse et la lecture approfondie des KPI financiers ;",
+          "la présentation des travaux de normalisation ;",
+          "la présentation et la sélection des règles et méthodes de valorisation des entreprises ;",
+          "le passage de l’EBITDA comptable à l’EBITDA normatif ;",
+          "le passage de l’ANC à l’ANC ajusté ;",
+          "le calcul de la dette nette ajustée ;",
+          "le passage du BFR comptable au BFR normatif ;",
+          "la revue qualité des résultats “quality of earnings” ;",
+          "la négociation financière, l’analyse des synergies et les impacts post-acquisition ;",
+          "la rédaction et la communication des livrables."
+        ]
+      }
+    ]
+  },
+  {
+    id: 11,
+    icon: ClipboardCheck,
+    title: "Consultant SAP Fi/Co",
+    details: [
+      {
+        heading: "l’introduction générale à SAP Fi/Co :",
+        items: [
+          "la présentation des ERP et SAP ;",
+          "l’architecture et navigation dans SAP ;",
+          "les notions de modules intégrés (FI, CO, MM, SD, ...) ;",
+          "le rôle du module Fi/Co (Finance & Controlling)."
+        ]
+      },
+      {
+        heading: "le paramétrage de base en comptabilité générale :",
+        items: [
+          "la modélisation de la structure de l’entreprise dans SAP ;",
+          "le plan comptable et groupes de comptes ;",
+          "la création des comptes généraux, les journaux comptables et les tranches de numération ;",
+          "la saisie d’écritures simples et complexes ;",
+          "la gestion des taxes et écritures automatiques ;",
+          "le lettrage manuel et automatique."
+        ]
+      },
+      {
+        heading: "le traitement opérationnel et le suivi comptable :",
+        items: [
+          "la comptabilité bancaire (la gestion des fiches de banque, le traitement des extraits de comptes, le rapprochement bancaire et la gestion de la caisse) ;",
+          "la comptabilité fournisseurs (la saisie des factures et avoirs, les paiements automatiques, le reporting fournisseurs) ;",
+          "la comptabilité clients (la gestion des encaissements, le rapprochement client, le reporting clients) ;",
+          "la comptabilité immobilisations (les plans d’évaluation, les catégories d’immobilisations, l’acquisition et la comptabilisation des immobilisations, le programme d’amortissement, la cession d’immobilisations)."
+        ]
+      },
+      {
+        text: "la production des états de synthèse et les rapports SAP Fi/Co."
+      }
+    ]
+  },
+  {
+    id: 12,
+    icon: ShieldCheck,
+    title: "Auditeur IT",
+    details: [
+      {
+        heading: "l’analyse et la maitrise du cadre général de l’audit IT :",
+        items: [
+          "les objectifs et le périmètre d’une mission d’audit IT ;",
+          "le rôle de l’audit IT dans la gouvernance d’entreprise ;",
+          "l’éthique, l’indépendance et la déontologie de l’auditeur IT ;",
+          "la différence entre audit financier, audit interne et audit IT."
+        ]
+      },
+      {
+        heading: "le déroulement réel d’une mission d’audit IT de A à Z :",
+        items: [
+          "l’identification des applications et systèmes critiques ;",
+          "la présentation et l’analyse des référentiels de l’audit IT ;",
+          "l’identification des risques liés aux systèmes d’information ;",
+          "la mise en place de la cartographie des risques IT ;",
+          "l’évaluation des dispositifs de contrôle existants ;",
+          "l’élaboration du programme de travail d’audit IT ;",
+          "la revue des contrôles généraux informatiques (ITGC) ;",
+          "l’audit des interfaces et des flux automatisés ;",
+          "l’utilisation des techniques d’audit assisté par ordinateur (CAATs) ;",
+          "l’analyse des constats et l’évaluation des impacts IT ;",
+          "la finalisation de la mission d’audit IT, la rédaction et la communication des livrables aux directions IT et générale."
+        ]
+      }
+    ]
+  },
+  {
+    id: 13,
+    icon: FileBarChart,
+    title: "Contrôleur de gestion",
+    details: [
+      {
+        heading: "l’introduction au contrôle de gestion :",
+        items: [
+          "la définition du contrôle de gestion et de ses missions clés dans l’entreprise ;",
+          "le rôle stratégique du contrôleur de gestion dans le pilotage de la performance ;",
+          "les différences fondamentales entre le contrôle de gestion, la comptabilité générale et la comptabilité analytique ;",
+          "la présentation des principaux types de contrôle de gestion (industriel, commercial, par projets) ;",
+          "le panorama des outils du contrôleur de gestion (budgets, tableaux de bord, comptabilité analytique)."
+        ]
+      },
+      {
+        heading: "le processus budgétaire :",
+        items: [
+          "la maitrise du budget comme outil central de pilotage ;",
+          "les objectifs et l’utilité du budget dans la prise de décision ;",
+          "les grandes étapes du processus budgétaire (élaboration, arbitrage et validation, suivi et révisions) ;",
+          "la responsabilités des différents acteurs (direction générale, responsables opérationnels, département finance) ;",
+          "l’analyse des écarts entre le budget prévu et le réalisé ;",
+          "l’interprétation des écarts et actions correctives à mettre en place."
+        ]
+      },
+      {
+        heading: "les tableaux de bord et le pilotage de la performance :",
+        items: [
+          "la transformation des chiffres en outils de décision ;",
+          "l’identification et la sélection des indicateurs clés de performance (KPI) financiers et opérationnels ;",
+          "la méthodologie de conception d’un tableau de bord efficace."
+        ]
+      },
+      {
+        heading: "l’utilisation des outils de modélisation, d’automatisation et de synthèse :",
+        items: [
+          "Excel, VBA, Power Bi, et SAP Contrôle de Gestion."
+        ]
+      }
+    ]
+  }
+];
+
+export const MODULES = METIERS;
     short: "Du bilan individuel aux comptes consolidés de groupe.",
     bullets: [
       "Périmètre de consolidation",
