@@ -1,5 +1,6 @@
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
+import { CertifiedPartners } from "@/components/site/certified-partners";
 import { HiringCompanies } from "@/components/site/hiring-companies";
 import { Modules } from "@/components/site/modules";
 import { WhatYouGain } from "@/components/site/what-you-gain";
@@ -28,8 +29,11 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <SectionDivider variant="soft-to-light" />
+        <CertifiedPartners />
+        <SectionDivider variant="light-to-soft" />
         <HiringCompanies />
-        <SectionDivider variant="light-to-navy" />
+        <SectionDivider variant="soft-to-navy" />
         <Modules />
         <SectionDivider variant="navy-to-light" />
         <Intervenants />
