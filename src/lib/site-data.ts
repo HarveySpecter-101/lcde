@@ -655,7 +655,7 @@ export const INTERVENANTS: Intervenant[] = [
       "Acquisition des Talents"
     ],
     initials: "HR",
-    logo: "/images/intervenants/ocp.png"
+    logo: "/images/intervenants/ocp.jpg"
   },
   {
     name: "Rida Moutik",
