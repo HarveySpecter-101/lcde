@@ -63,9 +63,6 @@ export function SuccessStories() {
           <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
             Où sont les participants des <span className="text-gold">anciennes éditions</span> ?
           </h2>
-          <p className="mt-3 text-lg text-anthracite/80 font-medium">
-            Résultats de quelques ex-participants
-          </p>
           <div className="mt-4 flex items-center justify-center gap-2">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="size-6 sm:size-7 fill-gold text-gold drop-shadow-sm" />
