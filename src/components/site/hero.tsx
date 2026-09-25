@@ -64,17 +64,15 @@ export function Hero() {
             </p>
           </motion.div>
 
-          {/* Bullet points with hyphens */}
+          {/* Bullet points without hyphens */}
           <motion.div variants={item} className="mt-8 flex flex-col items-start gap-3.5 text-left mx-auto max-w-3xl">
             <div className="flex items-start gap-3 text-[15px] sm:text-[17px] font-normal leading-relaxed text-anthracite">
-              <span className="select-none font-bold text-navy shrink-0">-</span>
               <p>
                 <strong className="font-bold text-navy">+700</strong> personnes formées et accompagnées{" "}
                 <strong className="font-bold text-navy">Chaque Année</strong> depuis notre création en 2020.
               </p>
             </div>
             <div className="flex items-start gap-3 text-[15px] sm:text-[17px] font-normal leading-relaxed text-anthracite">
-              <span className="select-none font-bold text-navy shrink-0">-</span>
               <p>
                 <strong className="font-bold text-navy">+95%</strong> de nos lauréats occupent des{" "}
                 <strong className="font-bold text-navy">postes à haute responsabilité</strong>, et touchent des salaires{" "}
