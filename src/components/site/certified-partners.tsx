@@ -114,7 +114,7 @@ export function CertifiedPartners() {
                   alt={logo.name}
                   fill
                   loading="eager"
-                  className="object-contain"
+                  className="object-contain mix-blend-multiply"
                 />
               </div>
             </div>
