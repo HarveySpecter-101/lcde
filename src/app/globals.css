@@ -243,7 +243,7 @@
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: lcde-marquee 40s linear infinite;
+  animation: lcde-marquee 80s linear infinite;
 }
 
 /* Floating animation for WhatsApp button */
