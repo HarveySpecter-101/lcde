@@ -14,7 +14,11 @@ import {
   buildConfirmationEmailText,
 } from "./email-templates";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient(): Resend | null {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
+  return new Resend(key);
+}
 
 const FROM_ADDRESS =
   process.env.EMAIL_FROM ?? "LCDE <onboarding@resend.dev>";
@@ -53,6 +57,15 @@ export async function sendContactEmails(data: ContactData): Promise<SendResult> 
     CONFIRM_SUBJECTS[sourceKey] ?? "✅ Votre demande LCDE est bien reçue";
 
   const errors: string[] = [];
+  const resend = getResendClient();
+
+  if (!resend) {
+    return {
+      supportOk: false,
+      confirmOk: false,
+      errors: ["RESEND_API_KEY non configuré"],
+    };
+  }
 
   const [supportResult, confirmResult] = await Promise.allSettled([
     // 1. Support notification
