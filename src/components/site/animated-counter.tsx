@@ -23,6 +23,7 @@ export function AnimatedCounter({
 
   useEffect(() => {
     if (hasAnimated) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHasAnimated(true);
     let raf = 0;
     const start = performance.now();
