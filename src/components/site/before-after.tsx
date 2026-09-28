@@ -28,7 +28,7 @@ export function BeforeAfter() {
             Votre nouveau profil
           </h2>
           <p className="mt-5 text-base leading-relaxed text-green-900/75 sm:text-lg">
-            Un programme exclusif pour vous former au vrai terrain et vous faire vivre le quotidien des grands cabinets d'audit et de conseil, des banques et des multinationales.
+            Un programme exclusif que vous ne trouvez nulle part ailleurs, ni dans des ouvrages, ni sur Internet. On vous forme au vrai terrain et vous fait vivre le quotidien des grands cabinets d'audit/de conseil, des banques et des multinationales.
           </p>
         </Reveal>
 
