@@ -106,16 +106,16 @@ export function CertifiedPartners() {
           {[...LOGOS, ...LOGOS].map((logo, i) => (
             <div
               key={i}
-              className="flex h-20 w-[208px] shrink-0 items-center justify-center px-6 sm:px-10"
+              className="flex h-28 w-[288px] shrink-0 items-center justify-center px-6 sm:px-10"
             >
               {/* Fixed frame: every logo gets the same visual area while keeping its proportions. */}
-              <div className="relative h-14 w-40 overflow-hidden transition-transform duration-300 hover:scale-110 sm:h-16 sm:w-44">
+              <div className="relative h-20 w-56 transition-transform duration-300 hover:scale-110 sm:h-24 sm:w-64">
                 <Image
                   src={logo.src}
                   alt={logo.name}
                   fill
                   loading="eager"
-                  sizes="(min-width: 640px) 176px, 160px"
+                  sizes="(min-width: 640px) 256px, 224px"
                   className="object-contain mix-blend-multiply"
                 />
               </div>
