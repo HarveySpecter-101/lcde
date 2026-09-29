@@ -14,16 +14,40 @@ import {
 } from "lucide-react";
 
 const GAIN_ITEMS = [
+  // Pair 1: Medium text
   {
     icon: Target,
     title: "Maitrise des Compétences et Connaissances Réellement Opérationnelles",
     desc: " dans les métiers les plus demandés et recherchés, avec des salaires attirants dans des postes de haut calibre."
   },
   {
+    icon: Briefcase,
+    title: "Réseautage, Recommandations et Aide aux Stages et Embauche :",
+    desc: " Priorité absolue auprès de nos partenaires professionnels + Aide aux stages rémunérés et emplois."
+  },
+  // Pair 2: Short text
+  {
     icon: Laptop,
     title: "Maitrise des Outils et Logiciels Informatiques :",
     desc: " Sage, SAP, Power Bi, Excel, VBA, …"
   },
+  {
+    icon: HeartHandshake,
+    title: "Accompagnement A Vie :",
+    desc: " Soutien continu même après la fin de la formation."
+  },
+  // Pair 3: Long text
+  {
+    icon: Video,
+    title: "Formation Live + Replays :",
+    desc: " Séances tenues 100% en Direct, et qui seront enregistrées afin de vous permettre de rattraper et les regarder convenablement à votre rythme et sans pression."
+  },
+  {
+    icon: FileText,
+    title: "Préparation Complète au Marché de l’Emploi :",
+    desc: " Rédaction et optimisation du CV Classique & ATS, Simulations d’entretiens professionnels, Méthodes exclusives pour postuler intelligemment, Accès à une base de données exclusives d’adresses mails vérifiées."
+  },
+  // Pair 4: Points/Lists
   {
     icon: Users,
     title: "Intervenants Experts de Haut Niveau",
@@ -32,26 +56,6 @@ const GAIN_ITEMS = [
       "Chaque métier est animé par un spécialiste.",
       "Vous bénéficiez de leurs conseils, astuces et leurs expériences professionnelles."
     ]
-  },
-  {
-    icon: HeartHandshake,
-    title: "Accompagnement A Vie :",
-    desc: " Soutien continu même après la fin de la formation."
-  },
-  {
-    icon: FileText,
-    title: "Préparation Complète au Marché de l’Emploi :",
-    desc: " Rédaction et optimisation du CV Classique & ATS, Simulations d’entretiens professionnels, Méthodes exclusives pour postuler intelligemment, Accès à une base de données exclusives d’adresses mails vérifiées."
-  },
-  {
-    icon: Briefcase,
-    title: "Réseautage, Recommandations et Aide aux Stages et Embauche :",
-    desc: " Priorité absolue auprès de nos partenaires professionnels + Aide aux stages rémunérés et emplois."
-  },
-  {
-    icon: Video,
-    title: "Formation Live + Replays :",
-    desc: " Séances tenues 100% en Direct, et qui seront enregistrées afin de vous permettre de rattraper et les regarder convenablement à votre rythme et sans pression."
   },
   {
     icon: CreditCard,
@@ -82,7 +86,7 @@ export function WhatYouGain() {
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2">
             {GAIN_ITEMS.map((item, idx) => {
               return (
-                <div key={idx} className="flex flex-col gap-2 rounded-xl bg-white p-3.5 sm:p-4 shadow-sm border border-navy/10 hover:border-gold/30 hover:shadow-gold-glow transition-all">
+                <div key={idx} className="flex h-full flex-col gap-2 rounded-xl bg-white p-3.5 sm:p-4 shadow-sm border border-navy/10 hover:border-gold/30 hover:shadow-gold-glow transition-all">
                   <div className="flex items-start gap-3">
                     <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-soft text-gold border border-navy/5">
                       <item.icon className="size-3.5" strokeWidth={2.5} />
