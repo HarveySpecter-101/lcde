@@ -22,6 +22,7 @@ import { Reveal } from "@/components/site/reveal";
 import { MODULES, TOOLS, type Module } from "@/lib/site-data";
 import { PricingModal } from "@/components/site/pricing-modal";
 import { SectionDecor } from "@/components/site/section-decor";
+import { SectionDivider } from "@/components/site/section-divider";
 
 /* ------------------------------------------------------------------ */
 /*  Slide transition variants                                         */
@@ -85,7 +86,7 @@ export function Modules() {
   return (
     <section
       id="formations"
-      className="relative scroll-mt-20 overflow-hidden bg-navy py-12 md:py-18"
+      className="relative scroll-mt-20 overflow-hidden bg-navy pt-12 md:pt-18 pb-0"
     >
       {/* Animated background decoration */}
       <SectionDecor variant="dark" pos="C" />
@@ -210,41 +211,44 @@ export function Modules() {
             </div>
           </div>
         </Reveal>
+      </div>
 
-        {/* ═══════════ REALITY & RECRUITERS ═══════════ */}
-        <Reveal delay={0.2} className="mt-12 sm:mt-16">
+      <SectionDivider variant="navy-to-light" />
+
+      <div className="bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* ═══════════ REALITY & RECRUITERS ═══════════ */}
+          <Reveal delay={0.2}>
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Reality Block */}
-            <div className="h-full flex flex-col rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm sm:p-8 md:p-10 relative overflow-hidden backdrop-blur-md">
+            <div className="h-full flex flex-col rounded-3xl border border-red-200 bg-red-50 p-6 shadow-sm sm:p-8 md:p-10 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none">
-                <AlertCircle className="size-32 text-white" />
+                <AlertCircle className="size-32 text-red-600" />
               </div>
-              <div className="relative z-10 flex items-start gap-4 border-b border-white/10 pb-5 sm:pb-6">
-                <span className="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-gold shadow-lg">
+              <div className="relative z-10 flex items-center gap-4 border-b border-red-200 pb-5 sm:pb-6">
+                <span className="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-red-600 text-white shadow-lg">
                   <XCircle className="size-6 sm:size-7" />
                 </span>
-                <div className="flex items-center">
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
-                    La réalité du marché
-                  </h3>
-                </div>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-red-950 m-0">
+                  La réalité du marché
+                </h3>
               </div>
               
               <ul className="mt-6 sm:mt-7 space-y-4 flex-1">
-                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-red-950/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
                     <XCircle className="size-3.5" strokeWidth={2.5} />
                   </span>
                   <span>Les bonnes notes à l'école ou une mention “Très Bien” ne suffisent pas pour décrocher les meilleures opportunités ;</span>
                 </li>
-                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-red-950/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
                     <XCircle className="size-3.5" strokeWidth={2.5} />
                   </span>
                   <span><strong>La vérité que personne ne dit :</strong> les recruteurs ne s'intéressent pas uniquement à ta filière, et exigent, par ailleurs, des compétences de haut calibre, qui ne sont généralement pas abordées à l'école ;</span>
                 </li>
-                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-red-950/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
                     <XCircle className="size-3.5" strokeWidth={2.5} />
                   </span>
                   <span>Les recruteurs n'évaluent pas tes connaissances académiques ;</span>
@@ -253,46 +257,44 @@ export function Modules() {
             </div>
 
             {/* Recruiters Block */}
-            <div className="h-full flex flex-col rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm sm:p-8 md:p-10 relative overflow-hidden backdrop-blur-md">
+            <div className="h-full flex flex-col rounded-3xl border border-green-200 bg-green-50 p-6 shadow-sm sm:p-8 md:p-10 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none">
-                <Target className="size-32 text-white" />
+                <Target className="size-32 text-green-600" />
               </div>
-              <div className="relative z-10 flex items-start gap-4 border-b border-white/10 pb-5 sm:pb-6">
-                <span className="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-gold shadow-lg">
+              <div className="relative z-10 flex items-center gap-4 border-b border-green-200 pb-5 sm:pb-6">
+                <span className="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-green-600 text-white shadow-lg">
                   <CheckCircle2 className="size-6 sm:size-7" />
                 </span>
-                <div className="flex items-center">
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
-                    Ce que recherchent les recruteurs
-                  </h3>
-                </div>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-green-950 m-0">
+                  Ce que recherchent les recruteurs
+                </h3>
               </div>
 
-              <div className="mt-6 sm:mt-7 text-sm font-medium leading-relaxed text-white/90 sm:text-base mb-4 relative z-10">
+              <div className="mt-6 sm:mt-7 text-sm font-medium leading-relaxed text-green-900/90 sm:text-base mb-4 relative z-10">
                 Le marché de travail cherche des praticiens rares capables de créer de la valeur dès le premier jour.
               </div>
               
               <ul className="space-y-4 relative z-10 flex-1">
-                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
                   <span>Développer des réflexes professionnels avancés et faire preuve d’un niveau d’analyse et de raisonnement supérieur.</span>
                 </li>
-                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
                   <span>Détecter les risques, en évaluer les niveaux et en mesurer les impacts.</span>
                 </li>
-                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
                   <span>Proposer des solutions concrètes, pertinentes et efficaces.</span>
                 </li>
-                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
                   <span>Résoudre des problématiques réelles et complexes.</span>
@@ -301,6 +303,7 @@ export function Modules() {
             </div>
           </div>
         </Reveal>
+        </div>
       </div>
 
       {/* ═══════════ MODULE DETAIL POPUP ═══════════ */}
