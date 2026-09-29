@@ -34,7 +34,6 @@ export default function Home() {
         <HiringCompanies />
         <SectionDivider variant="soft-to-navy" />
         <Modules />
-        <SectionDivider variant="navy-to-light" />
         <Intervenants />
         <SectionDivider variant="light-to-soft" />
         <WhatYouGain />

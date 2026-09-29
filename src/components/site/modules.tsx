@@ -215,8 +215,9 @@ export function Modules() {
 
       <SectionDivider variant="navy-to-light" />
 
-      <div className="bg-white py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative overflow-hidden bg-white py-12 sm:py-16">
+        <SectionDecor variant="light" pos="C" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* ═══════════ REALITY & RECRUITERS ═══════════ */}
           <Reveal delay={0.2}>
           <div className="grid gap-8 lg:grid-cols-2">
