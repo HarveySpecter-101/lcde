@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import {
   ArrowUpRight,
@@ -46,6 +46,13 @@ export function Modules() {
   /* ----- popup state ----- */
   const [popupIndex, setPopupIndex] = useState<number | null>(null);
   const popupModule = popupIndex !== null ? MODULES[popupIndex] : null;
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [popupIndex]);
 
   /* ----- pricing modal ----- */
   const [pricingOpen, setPricingOpen] = useState(false);
@@ -282,7 +289,7 @@ export function Modules() {
 
               {/* Scrollable body */}
               {/* Added pb-12 so the content doesn't end up covered by the popup container edge or padding */}
-              <div key={popupModule.id} className="overflow-y-auto px-5 py-5 sm:px-6 sm:py-6 pb-12" style={{ maxHeight: "calc(100% - 140px)" }}>
+              <div ref={scrollRef} className="overflow-y-auto px-5 py-5 sm:px-6 sm:py-6 pb-12" style={{ maxHeight: "calc(100% - 140px)" }}>
                 {popupModule.details?.map((section, idx) => (
                   <div key={idx} className="mt-6 first:mt-0 px-2 sm:px-4">
                     {section.heading && (
