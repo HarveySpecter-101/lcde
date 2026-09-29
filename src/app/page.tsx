@@ -37,11 +37,11 @@ export default function Home() {
         <PracticeSection />
         <SectionDivider variant="light-to-navy" />
         <Modules />
-        <SectionDivider variant="navy-to-soft" />
-        <WhatYouGain />
-        <SectionDivider variant="soft-to-light" />
+        <SectionDivider variant="navy-to-light" />
         <Intervenants />
         <SectionDivider variant="light-to-soft" />
+        <WhatYouGain />
+        <SectionDivider variant="soft-to-light" />
         <BeforeAfter />
         <SuccessStories />
         <SectionDivider variant="stories-to-navy" />
