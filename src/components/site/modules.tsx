@@ -107,9 +107,6 @@ export function Modules() {
 
         {/* ═══════════ CAROUSEL ═══════════ */}
         <Reveal delay={0.15} className="mt-10 sm:mt-12">
-          <h3 className="font-serif text-2xl font-bold tracking-tight text-white sm:text-3xl uppercase mb-8 text-center">
-            Présentation des Métiers.
-          </h3>
           <div
             className="relative mx-auto max-w-2xl"
           >
@@ -187,11 +184,8 @@ export function Modules() {
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md">
             <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
               <div className="text-center md:text-left">
-                <p className="text-xs font-semibold uppercase tracking-wider text-gold">
-                  Outils & logiciels enseignés
-                </p>
                 <h3 className="mt-1 font-serif text-xl font-bold text-white">
-                  Maîtrisez les outils réellement utilisés en cabinet
+                  Maîtrisez les outils réellement utilisés
                 </h3>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-3">
