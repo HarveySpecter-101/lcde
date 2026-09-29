@@ -106,9 +106,9 @@ export function CertifiedPartners() {
       <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:max-w-5xl lg:px-8 xl:max-w-6xl">
         <Reveal>
           <h2 className="font-serif text-3xl font-bold leading-[1.25] tracking-tight text-navy sm:text-4xl md:text-5xl lg:text-[2.6rem] xl:text-[2.85rem]">
-            Formations{" "}
+            Formation{" "}
             <span className="text-gold-gradient font-extrabold drop-shadow-sm">
-              certifiées et reconnues
+              certifiée et reconnue
             </span>{" "}
             <br className="hidden md:inline" />
             auprès de nos partenaires professionnels{" "}
