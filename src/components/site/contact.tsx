@@ -153,7 +153,7 @@ export function Contact() {
             Contact & <span className="text-gold-gradient">Inscription</span>
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-white/70 sm:text-base max-w-2xl mx-auto">
-            Laissez vos coordonnées, un conseiller LCDE vous recontacte sous 24h pour lancer la démarche d'inscription.
+            Laissez vos coordonnées, un conseiller LCDE vous recontacte sous 24h.
           </p>
         </Reveal>
 
@@ -295,3 +295,5 @@ export function Contact() {
     </section>
   );
 }
+
+

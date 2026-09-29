@@ -380,7 +380,7 @@ export const METIERS: Metier[] = [
   {
     id: 10,
     icon: SearchCheck,
-    title: "Consultant Financier (Transaction Services, Due Diligence Financière, Valorisation des entreprises, Modélisation financière, Etablissement des Business Plan, ...)",
+    title: "Consultant Financier",
     details: [
       {
         heading: "l’analyse et la maitrise du cadre général du consulting financier :",
@@ -2529,3 +2529,4 @@ export const NAV_LINKS = [
   { href: "#resultats", label: "Résultats" },
   { href: "#contact", label: "Contact" },
 ];
+
