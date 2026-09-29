@@ -26,7 +26,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="accueil"
-      className="relative overflow-hidden bg-soft pt-28 pb-20 md:pt-36 md:pb-28"
+      className="relative overflow-hidden bg-soft pt-16 pb-4 md:pt-20 md:pb-6"
     >
       {/* ══════════════════════════════════════════════
           INTERACTIVE BACKGROUND — all 4 layers
@@ -54,7 +54,7 @@ export function Hero() {
           </motion.h1>
 
                     {/* Vision Block */}
-          <motion.div variants={item} className="mt-12 w-full max-w-4xl rounded-[2rem] bg-white p-8 sm:p-12 shadow-xl border-2 border-gold relative overflow-hidden flex flex-col items-center">
+          <motion.div variants={item} className="mt-6 w-full max-w-4xl rounded-[2rem] bg-white p-8 sm:p-12 shadow-xl border-2 border-gold relative overflow-hidden flex flex-col items-center">
             <div className="absolute -top-12 -right-12 p-8 opacity-5 pointer-events-none">
               <Sparkles className="size-64 text-gold" />
             </div>
@@ -72,7 +72,7 @@ export function Hero() {
             </div>
 
             {/* Stats blocks */}
-            <div className="relative z-10 mt-10 grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="relative z-10 mt-6 grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex items-start gap-4 rounded-xl border border-navy/10 bg-soft/30 p-4 sm:p-5 text-left shadow-sm hover:shadow-md transition-shadow">
                 <span className="mt-0.5 flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-xl bg-gold/10 text-gold border border-gold/20 shadow-sm">
                   <TrendingUp className="size-5 sm:size-6" strokeWidth={2.5} />
@@ -92,7 +92,7 @@ export function Hero() {
             </div>
 
             {/* CTA button */}
-            <div className="relative z-10 mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="relative z-10 mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
                 asChild
                 size="lg"

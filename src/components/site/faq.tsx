@@ -14,7 +14,7 @@ import { SectionDecor } from "@/components/site/section-decor";
 
 export function Faq() {
   return (
-    <section id="faq" className="relative scroll-mt-20 overflow-hidden bg-white py-14 md:py-20">
+    <section id="faq" className="relative scroll-mt-6 overflow-hidden bg-white py-4 md:py-6">
       {/* Background animated geometric elements */}
       <SectionDecor variant="light" pos="D" />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -27,7 +27,7 @@ export function Faq() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10">
+        <Reveal delay={0.1} className="mt-6">
           <div className="rounded-3xl border border-navy/10 bg-soft p-2 shadow-premium">
             <Accordion type="single" collapsible className="w-full">
               {FAQ.map((item, i) => (

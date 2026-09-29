@@ -97,7 +97,7 @@ const colorMap = {
 
 export function ProgramTimeline() {
   return (
-    <section id="programme" className="relative scroll-mt-20 overflow-hidden bg-soft py-20 md:py-28">
+    <section id="programme" className="relative scroll-mt-6 overflow-hidden bg-soft py-4 md:py-6">
       <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.05]" aria-hidden />
       <div className="pointer-events-none absolute -right-24 top-10 size-80 rounded-full bg-gold/10 blur-3xl" aria-hidden />
 
@@ -113,7 +113,7 @@ export function ProgramTimeline() {
         </Reveal>
 
         {/* Months ruler */}
-        <Reveal delay={0.1} className="mt-12">
+        <Reveal delay={0.1} className="mt-6">
           <div className="mb-2 flex justify-between px-1">
             {MONTHS.map((m, i) => (
               <motion.span
@@ -152,7 +152,7 @@ export function ProgramTimeline() {
         </Reveal>
 
         {/* Phases grid */}
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {PHASES.map((p, i) => {
             const c = colorMap[p.color];
             return (
@@ -204,7 +204,7 @@ export function ProgramTimeline() {
         </div>
 
         {/* Bottom note */}
-        <Reveal delay={0.2} className="mt-10">
+        <Reveal delay={0.2} className="mt-6">
           <p className="text-center text-xs text-anthracite/50">
             Calendrier indicatif — le planning détaillé de chaque édition est communiqué sur demande.
             <a href="#contact" className="ml-1 font-semibold text-gold underline-offset-2 hover:underline">

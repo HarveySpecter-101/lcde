@@ -20,7 +20,7 @@ const FOUNDERS = [
 
 export function Founders() {
   return (
-    <section id="fondateurs" className="relative scroll-mt-20 overflow-hidden bg-[#000000] py-14 md:py-24">
+    <section id="fondateurs" className="relative scroll-mt-6 overflow-hidden bg-[#000000] py-4 md:py-6">
       <SectionDecor variant="dark" pos="A" />
 
       {/* Animated floating background ambient orbs */}
@@ -56,7 +56,7 @@ export function Founders() {
           </p>
         </Reveal>
 
-        <div className="mt-10 sm:mt-16 grid gap-6 sm:gap-8 md:grid-cols-2">
+        <div className="mt-6 sm:mt-8 grid gap-6 sm:gap-8 md:grid-cols-2">
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.name} delay={i * 0.15} direction={i === 0 ? "right" : "left"}>
               <article

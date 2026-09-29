@@ -86,7 +86,7 @@ export function Modules() {
   return (
     <section
       id="formations"
-      className="relative scroll-mt-20 overflow-hidden bg-navy pt-12 md:pt-18 pb-0"
+      className="relative scroll-mt-6 overflow-hidden bg-navy pt-4 md:pt-6 pb-0"
     >
       {/* Animated background decoration */}
       <SectionDecor variant="dark" pos="C" />
@@ -110,7 +110,7 @@ export function Modules() {
         </Reveal>
 
         {/* ═══════════ CAROUSEL ═══════════ */}
-        <Reveal delay={0.15} className="mt-10 sm:mt-12">
+        <Reveal delay={0.15} className="mt-6 sm:mt-6">
           <div
             className="relative mx-auto max-w-2xl"
           >
@@ -184,7 +184,7 @@ export function Modules() {
 
 
         {/* ───────── Tools band ───────── */}
-        <Reveal className="mt-10 sm:mt-12">
+        <Reveal className="mt-6 sm:mt-6">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md">
             <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
               <div className="text-center md:text-left">
@@ -215,7 +215,7 @@ export function Modules() {
 
       <SectionDivider variant="navy-to-light" />
 
-      <div className="relative overflow-hidden bg-white py-12 sm:py-16">
+      <div className="relative overflow-hidden bg-white py-4 sm:py-6">
         <SectionDecor variant="light" pos="C" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* ═══════════ REALITY & RECRUITERS ═══════════ */}

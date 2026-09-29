@@ -16,7 +16,7 @@ const PROFILE_POINTS = [
 
 export function BeforeAfter() {
   return (
-    <section id="avant-apres" className="relative overflow-hidden bg-green-50 py-16 md:py-24">
+    <section id="avant-apres" className="relative overflow-hidden bg-green-50 py-4 md:py-6">
       <SectionDecor variant="light" pos="B" />
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -32,7 +32,7 @@ export function BeforeAfter() {
           </p>
         </Reveal>
 
-        <Reveal className="mt-10 sm:mt-14">
+        <Reveal className="mt-6 sm:mt-8">
           <div className="rounded-3xl border border-green-200 bg-white/75 p-6 shadow-sm backdrop-blur-sm md:p-10">
             <div className="flex items-start gap-4 border-b border-green-200 pb-6">
               <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-green-600 text-white shadow-lg">

@@ -33,7 +33,7 @@ export function SuccessStories() {
   return (
     <section
       id="resultats"
-      className="relative scroll-mt-20 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-12 md:py-18"
+      className="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-4 md:py-6"
     >
       <style>{`
         @keyframes float-emoji {
@@ -70,7 +70,7 @@ export function SuccessStories() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-8 sm:mt-10">
+        <Reveal delay={0.15} className="mt-8 sm:mt-6">
           <div className="relative mx-auto max-w-2xl">
             {/* Side Navigation Button: Left */}
             <button
@@ -127,7 +127,7 @@ export function SuccessStories() {
                         ))}
                       </ul>
                     </div>
-                    <p className="mt-10 font-bold text-xl text-navy">Bonne continuation !</p>
+                    <p className="mt-6 font-bold text-xl text-navy">Bonne continuation !</p>
                   </div>
                 </motion.div>
               </AnimatePresence>

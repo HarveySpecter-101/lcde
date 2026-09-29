@@ -70,7 +70,7 @@ export function WhatYouGain() {
   return (
     <section
       id="ce-que-vous-gagnez"
-      className="relative overflow-hidden bg-soft py-14 md:py-22"
+      className="relative overflow-hidden bg-soft py-4 md:py-6"
     >
       <SectionDecor variant="light" pos="C" />
 
@@ -82,7 +82,7 @@ export function WhatYouGain() {
           </h2>
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-8 sm:mt-12">
+        <Reveal delay={0.15} className="mt-8 sm:mt-6">
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2">
             {GAIN_ITEMS.map((item, idx) => {
               return (

@@ -25,7 +25,7 @@ const SECTORS = [
 
 export function HiringCompanies() {
   return (
-    <section id="entreprises" className="relative overflow-hidden bg-soft py-12 sm:py-16 md:py-20">
+    <section id="entreprises" className="relative overflow-hidden bg-soft py-4 md:py-6">
       {/* Background animated geometric elements */}
       <SectionDecor variant="light" pos="B" />
 
@@ -37,7 +37,7 @@ export function HiringCompanies() {
         </Reveal>
 
         {/* Premium Sectors Grid */}
-        <div className="mt-8 sm:mt-10 grid grid-cols-1 gap-3 sm:gap-4">
+        <div className="mt-8 sm:mt-6 grid grid-cols-1 gap-3 sm:gap-4">
           {SECTORS.map((sector, i) => (
             <Reveal key={i} delay={i * 0.08}>
               <div className="relative flex items-center gap-4 rounded-2xl border border-navy/10 bg-white px-4 py-3.5 sm:px-6 sm:py-4 shadow-sm backdrop-blur-sm transition-all hover:border-gold/30 hover:shadow-gold-glow">

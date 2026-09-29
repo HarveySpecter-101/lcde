@@ -48,7 +48,7 @@ export function Intervenants() {
   };
 
   return (
-    <section id="intervenants" className="py-12 sm:py-16 md:py-18 bg-white relative overflow-hidden">
+    <section id="intervenants" className="py-4 md:py-6 bg-white relative overflow-hidden">
       <SectionDecor variant="light" pos="D" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">

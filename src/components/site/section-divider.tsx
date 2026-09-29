@@ -70,7 +70,7 @@ export function SectionDivider({ variant = "light-to-soft", className }: Props) 
       <svg
         viewBox="0 0 1440 64"
         preserveAspectRatio="none"
-        className="block h-[36px] w-full sm:h-[48px] md:h-[60px]"
+        className="block h-[24px] w-full sm:h-[32px] md:h-[40px]"
         fill="currentColor"
       >
         <path d="M0,32 C240,64 480,0 720,16 C960,32 1200,64 1440,24 L1440,64 L0,64 Z" />

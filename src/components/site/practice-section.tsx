@@ -6,7 +6,7 @@ import { XCircle, CheckCircle2, AlertCircle, Target } from "lucide-react";
 
 export function PracticeSection() {
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-24">
+    <section className="relative overflow-hidden bg-white py-4 md:py-6">
       <SectionDecor variant="light" pos="A" />
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -16,7 +16,7 @@ export function PracticeSection() {
           </h2>
         </Reveal>
 
-        <div className="mt-12 sm:mt-16 grid gap-8 lg:grid-cols-2">
+        <div className="mt-6 sm:mt-8 grid gap-8 lg:grid-cols-2">
           {/* Red Block */}
           <Reveal delay={0.1}>
             <div className="h-full flex flex-col rounded-3xl border border-red-200 bg-red-50 p-6 shadow-sm sm:p-8 md:p-10 relative overflow-hidden">

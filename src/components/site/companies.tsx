@@ -29,9 +29,9 @@ const B2B_OFFERS = [
 export function Companies() {
   const [pricingOpen, setPricingOpen] = useState(false);
   return (
-    <section id="entreprises" className="relative scroll-mt-20 overflow-hidden bg-white py-20 md:py-28">
+    <section id="entreprises" className="relative scroll-mt-6 overflow-hidden bg-white py-4 md:py-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-8">
           {/* Left */}
           <Reveal direction="right">
             <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-navy sm:text-5xl md:text-6xl">
@@ -59,7 +59,7 @@ export function Companies() {
             </div>
 
             {/* Sector badges */}
-            <div className="mt-10">
+            <div className="mt-6">
               <p className="text-xs font-semibold uppercase tracking-wider text-anthracite/50">
                 Secteurs visés par nos diplômés
               </p>

@@ -25,7 +25,7 @@ const REASONS = [
 
 export function Trainers() {
   return (
-    <section id="formateurs" className="relative scroll-mt-20 overflow-hidden bg-navy-gradient py-20 text-white md:py-28">
+    <section id="formateurs" className="relative scroll-mt-6 overflow-hidden bg-navy-gradient py-4 text-white md:py-6">
       {/* Decorative */}
       <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.08]" aria-hidden />
       <div className="pointer-events-none absolute -left-24 top-10 size-72 rounded-full bg-gold/15 blur-3xl" aria-hidden />
@@ -46,7 +46,7 @@ export function Trainers() {
         </Reveal>
 
         {/* Reasons */}
-        <div className="mt-12 grid gap-4 sm:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {REASONS.map((r, i) => (
             <Reveal key={r.title} delay={i * 0.08}>
               <motion.div
@@ -66,7 +66,7 @@ export function Trainers() {
         </div>
 
         {/* Trainer profile cards */}
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {TRAINERS.map((t, i) => (
             <Reveal key={t.name} delay={i * 0.08} direction="up">
               <motion.article
@@ -98,7 +98,7 @@ export function Trainers() {
         </div>
 
         {/* Quote */}
-        <Reveal delay={0.15} className="mt-14">
+        <Reveal delay={0.15} className="mt-8">
           <blockquote className="relative mx-auto max-w-3xl rounded-3xl border border-white/10 bg-white/[0.04] p-8 text-center backdrop-blur-sm md:p-10">
             <Quote className="mx-auto size-8 text-gold" />
             <p className="mt-4 font-serif text-xl font-medium leading-relaxed text-white md:text-2xl">

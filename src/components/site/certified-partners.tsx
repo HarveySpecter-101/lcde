@@ -99,7 +99,7 @@ const ENLARGED_LOGO_SRCS = new Set([
 
 export function CertifiedPartners() {
   return (
-    <section id="certifications" className="relative overflow-hidden bg-white pt-10 pb-12 sm:pt-14 sm:pb-16 md:pt-16 md:pb-20">
+    <section id="certifications" className="relative overflow-hidden bg-white py-4 md:py-6">
       {/* Background decoration */}
       <SectionDecor variant="light" pos="A" />
 
@@ -119,7 +119,7 @@ export function CertifiedPartners() {
       </div>
 
       {/* Logos Marquee Ribbon */}
-      <div className="mt-8 sm:mt-12 overflow-hidden bg-soft/60 py-6 sm:py-8 border-y border-navy/5 relative max-w-[100vw]">
+      <div className="mt-8 sm:mt-6 overflow-hidden bg-soft/60 py-6 sm:py-8 border-y border-navy/5 relative max-w-[100vw]">
         {/* Gradients to fade edges */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-10 sm:w-28" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-10 sm:w-28" />

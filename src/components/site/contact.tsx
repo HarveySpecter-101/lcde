@@ -121,7 +121,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-14 sm:scroll-mt-20 overflow-hidden bg-navy-gradient py-12 sm:py-18 md:py-24 text-white"
+      className="relative scroll-mt-8 sm:scroll-mt-6 overflow-hidden bg-navy-gradient py-4 md:py-6 text-white"
     >
       <div className="pointer-events-none absolute inset-0 bg-dots opacity-[0.08]" aria-hidden />
       

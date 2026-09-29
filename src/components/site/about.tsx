@@ -38,7 +38,7 @@ const MILESTONES: {
 
 export function About() {
   return (
-    <section id="apropos" className="relative scroll-mt-20 overflow-hidden bg-soft py-20 md:py-28">
+    <section id="apropos" className="relative scroll-mt-6 overflow-hidden bg-soft py-4 md:py-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <Reveal className="mx-auto max-w-3xl text-center">
@@ -57,7 +57,7 @@ export function About() {
         </Reveal>
 
         {/* Milestones */}
-        <Reveal delay={0.1} className="mt-12">
+        <Reveal delay={0.1} className="mt-6">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {MILESTONES.map((m) => (
               <motion.div
@@ -84,7 +84,7 @@ export function About() {
         </Reveal>
 
         {/* Mission + Values */}
-        <div className="mt-16 grid gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="mt-8 grid gap-6 lg:grid-cols-2 lg:gap-8">
           <Reveal direction="right">
             <div className="relative h-full overflow-hidden rounded-3xl bg-navy-gradient p-8 text-white shadow-navy-glow md:p-10">
               <div className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-gold/20 blur-3xl" />
