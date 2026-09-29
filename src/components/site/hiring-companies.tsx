@@ -19,7 +19,7 @@ const SECTORS = [
   },
   {
     icon: Landmark,
-    title: "Secteur Public : Direction Générale des Impôts, Cour des comptes, Ministères, CNSS, …",
+    title: "DIRECTION GÉNÉRALE DES IMPÔTS, COUR DES COMPTES, MINISTÈRES, CNSS, …",
   },
 ];
 
