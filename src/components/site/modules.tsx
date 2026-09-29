@@ -282,7 +282,7 @@ export function Modules() {
 
               {/* Scrollable body */}
               {/* Added pb-12 so the content doesn't end up covered by the popup container edge or padding */}
-              <div className="overflow-y-auto px-5 py-5 sm:px-6 sm:py-6 pb-12" style={{ maxHeight: "calc(100% - 140px)" }}>
+              <div key={popupModule.id} className="overflow-y-auto px-5 py-5 sm:px-6 sm:py-6 pb-12" style={{ maxHeight: "calc(100% - 140px)" }}>
                 {popupModule.details?.map((section, idx) => (
                   <div key={idx} className="mt-6 first:mt-0 px-2 sm:px-4">
                     {section.heading && (
