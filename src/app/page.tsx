@@ -37,8 +37,9 @@ export default function Home() {
         <Intervenants />
         <SectionDivider variant="light-to-soft" />
         <WhatYouGain />
-        <SectionDivider variant="soft-to-light" />
+        <SectionDivider variant="soft-to-green" />
         <BeforeAfter />
+        <SectionDivider variant="green-to-blue" />
         <SuccessStories />
         <SectionDivider variant="stories-to-navy" />
         <Contact />

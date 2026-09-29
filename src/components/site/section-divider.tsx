@@ -9,7 +9,9 @@ type Props = {
     | "soft-to-navy"
     | "navy-to-soft"
     | "stories-to-navy"
-    | "pink-to-navy";
+    | "pink-to-navy"
+    | "soft-to-green"
+    | "green-to-blue";
   className?: string;
 };
 
@@ -28,6 +30,14 @@ export function SectionDivider({ variant = "light-to-soft", className }: Props) 
     case "soft-to-light":
       // top is soft beige, bottom wave fill is white
       colorClasses = "bg-[#f6f4ef] text-white";
+      break;
+    case "soft-to-green":
+      // top is soft beige, bottom wave fill is green-50
+      colorClasses = "bg-[#f6f4ef] text-[#f0fdf4]";
+      break;
+    case "green-to-blue":
+      // top is green-50, bottom wave fill is blue gradient start (#e6f2ff)
+      colorClasses = "bg-[#f0fdf4] text-[#e6f2ff]";
       break;
     case "light-to-navy":
       // top is white, bottom wave fill is black/navy
