@@ -72,30 +72,42 @@ export function WhatYouGain() {
           </h2>
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-10 sm:mt-12">
-          <div className="mx-auto max-w-4xl space-y-6 sm:space-y-8">
-            {GAIN_ITEMS.map((item, idx) => (
-              <div key={idx} className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-                <span className="mt-0.5 flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-xl bg-soft text-gold shadow-sm border border-navy/5">
-                  <item.icon className="size-5 sm:size-6" strokeWidth={2} />
-                </span>
-                <div className="flex-1 mt-1">
-                  <p className="font-semibold leading-relaxed text-navy text-sm sm:text-base">
-                    {item.title}
-                  </p>
-                  {item.points && item.points.length > 0 && (
-                    <ul className="mt-3 space-y-2.5">
-                      {item.points.map((point, pIdx) => (
-                        <li key={pIdx} className="flex items-start gap-2.5 text-sm leading-relaxed text-anthracite/80">
-                          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-gold" />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+        <Reveal delay={0.15} className="mt-8 sm:mt-12">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2">
+            {GAIN_ITEMS.map((item, idx) => {
+              const parts = item.title.split(":");
+              return (
+                <div key={idx} className="flex flex-col gap-2 rounded-xl bg-white p-3.5 sm:p-4 shadow-sm border border-navy/10 hover:border-gold/30 hover:shadow-gold-glow transition-all">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-soft text-gold border border-navy/5">
+                      <item.icon className="size-3.5" strokeWidth={2.5} />
+                    </span>
+                    <div className="flex-1">
+                      <p className="text-[13px] sm:text-[14px] leading-relaxed text-anthracite/90">
+                        {parts.length > 1 ? (
+                          <>
+                            <strong className="font-bold text-navy">{parts[0]} :</strong>
+                            {parts.slice(1).join(":")}
+                          </>
+                        ) : (
+                          <strong className="font-bold text-navy">{item.title}</strong>
+                        )}
+                      </p>
+                      {item.points && item.points.length > 0 && (
+                        <ul className="mt-2 space-y-1.5">
+                          {item.points.map((point, pIdx) => (
+                            <li key={pIdx} className="flex items-start gap-2 text-[12px] sm:text-[13px] leading-relaxed text-anthracite/80">
+                              <span className="mt-1.5 size-1 shrink-0 rounded-full bg-gold" />
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Reveal>
       </div>

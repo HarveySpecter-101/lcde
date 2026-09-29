@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroCanvas } from "@/components/site/hero-canvas";
 const container = {
@@ -64,16 +64,22 @@ export function Hero() {
             </p>
           </motion.div>
 
-          {/* Bullet points without hyphens */}
-          <motion.div variants={item} className="mt-8 flex flex-col items-start gap-3.5 text-left mx-auto max-w-3xl">
-            <div className="flex items-start gap-3 text-[15px] sm:text-[17px] font-normal leading-relaxed text-anthracite">
-              <p>
+          {/* Stats blocks */}
+          <motion.div variants={item} className="mt-8 grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="flex items-start gap-3 rounded-xl border border-navy/10 bg-white p-3.5 text-left shadow-sm">
+              <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-soft text-gold border border-navy/5">
+                <Users className="size-3.5" strokeWidth={2.5} />
+              </span>
+              <p className="text-[13px] sm:text-[14px] leading-relaxed text-anthracite/90">
                 <strong className="font-bold text-navy">+700</strong> personnes formées et accompagnées{" "}
                 <strong className="font-bold text-navy">Chaque Année</strong> depuis notre création en 2020.
               </p>
             </div>
-            <div className="flex items-start gap-3 text-[15px] sm:text-[17px] font-normal leading-relaxed text-anthracite">
-              <p>
+            <div className="flex items-start gap-3 rounded-xl border border-navy/10 bg-white p-3.5 text-left shadow-sm">
+              <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-soft text-gold border border-navy/5">
+                <Briefcase className="size-3.5" strokeWidth={2.5} />
+              </span>
+              <p className="text-[13px] sm:text-[14px] leading-relaxed text-anthracite/90">
                 <strong className="font-bold text-navy">+95%</strong> de nos lauréats occupent des{" "}
                 <strong className="font-bold text-navy">postes à haute responsabilité</strong>, et touchent des salaires{" "}
                 <strong className="font-bold text-navy">10-15.000 MAD</strong> dès la sortie d’école.
