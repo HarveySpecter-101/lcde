@@ -19,7 +19,7 @@ const SECTORS = [
   },
   {
     icon: Landmark,
-    title: "DIRECTION GÉNÉRALE DES IMPÔTS, COUR DES COMPTES, MINISTÈRES, CNSS, …",
+    title: "DIRECTION GÉNÉRALE DES IMPÔTS, COUR DES COMPTES, MINISTÈRES, CNSS",
   },
 ];
 
