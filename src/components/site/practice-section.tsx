@@ -89,7 +89,7 @@ export function PracticeSection() {
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Détecter les risques, relever les anomalies significatives et en mesurer les impacts.</span>
+                  <span>Détecter les risques, en évaluer les niveaux et en mesurer les impacts.</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
