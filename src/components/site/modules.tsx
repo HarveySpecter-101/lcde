@@ -13,6 +13,9 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
+  XCircle,
+  AlertCircle,
+  Target,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 
@@ -204,6 +207,97 @@ export function Modules() {
                   </motion.span>
                 ))}
               </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* ═══════════ REALITY & RECRUITERS ═══════════ */}
+        <Reveal delay={0.2} className="mt-12 sm:mt-16">
+          <div className="grid gap-8 lg:grid-cols-2">
+            {/* Reality Block */}
+            <div className="h-full flex flex-col rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm sm:p-8 md:p-10 relative overflow-hidden backdrop-blur-md">
+              <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none">
+                <AlertCircle className="size-32 text-white" />
+              </div>
+              <div className="relative z-10 flex items-start gap-4 border-b border-white/10 pb-5 sm:pb-6">
+                <span className="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-gold shadow-lg">
+                  <XCircle className="size-6 sm:size-7" />
+                </span>
+                <div className="flex items-center">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
+                    La réalité du marché
+                  </h3>
+                </div>
+              </div>
+              
+              <ul className="mt-6 sm:mt-7 space-y-4 flex-1">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                    <XCircle className="size-3.5" strokeWidth={2.5} />
+                  </span>
+                  <span>Les bonnes notes à l'école ou une mention “Très Bien” ne suffisent pas pour décrocher les meilleures opportunités ;</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                    <XCircle className="size-3.5" strokeWidth={2.5} />
+                  </span>
+                  <span><strong>La vérité que personne ne dit :</strong> les recruteurs ne s'intéressent pas uniquement à ta filière, et exigent, par ailleurs, des compétences de haut calibre, qui ne sont généralement pas abordées à l'école ;</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                    <XCircle className="size-3.5" strokeWidth={2.5} />
+                  </span>
+                  <span>Les recruteurs n'évaluent pas tes connaissances académiques ;</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Recruiters Block */}
+            <div className="h-full flex flex-col rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm sm:p-8 md:p-10 relative overflow-hidden backdrop-blur-md">
+              <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none">
+                <Target className="size-32 text-white" />
+              </div>
+              <div className="relative z-10 flex items-start gap-4 border-b border-white/10 pb-5 sm:pb-6">
+                <span className="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-gold shadow-lg">
+                  <CheckCircle2 className="size-6 sm:size-7" />
+                </span>
+                <div className="flex items-center">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
+                    Ce que recherchent les recruteurs
+                  </h3>
+                </div>
+              </div>
+
+              <div className="mt-6 sm:mt-7 text-sm font-medium leading-relaxed text-white/90 sm:text-base mb-4 relative z-10">
+                Le marché de travail cherche des praticiens rares capables de créer de la valeur dès le premier jour.
+              </div>
+              
+              <ul className="space-y-4 relative z-10 flex-1">
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                    <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
+                  </span>
+                  <span>Développer des réflexes professionnels avancés et faire preuve d’un niveau d’analyse et de raisonnement supérieur.</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                    <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
+                  </span>
+                  <span>Détecter les risques, en évaluer les niveaux et en mesurer les impacts.</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                    <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
+                  </span>
+                  <span>Proposer des solutions concrètes, pertinentes et efficaces.</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                    <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
+                  </span>
+                  <span>Résoudre des problématiques réelles et complexes.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </Reveal>

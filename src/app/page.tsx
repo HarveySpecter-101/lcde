@@ -2,7 +2,6 @@ import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
 import { CertifiedPartners } from "@/components/site/certified-partners";
 import { HiringCompanies } from "@/components/site/hiring-companies";
-import { PracticeSection } from "@/components/site/practice-section";
 import { Modules } from "@/components/site/modules";
 import { WhatYouGain } from "@/components/site/what-you-gain";
 import { Intervenants } from "@/components/site/intervenants";
@@ -33,9 +32,7 @@ export default function Home() {
         <CertifiedPartners />
         <SectionDivider variant="light-to-soft" />
         <HiringCompanies />
-        <SectionDivider variant="soft-to-light" />
-        <PracticeSection />
-        <SectionDivider variant="light-to-navy" />
+        <SectionDivider variant="soft-to-navy" />
         <Modules />
         <SectionDivider variant="navy-to-light" />
         <Intervenants />
