@@ -16,11 +16,13 @@ import {
 const GAIN_ITEMS = [
   {
     icon: Target,
-    title: "Maitrise des Compétences et Connaissances Réellement Opérationnelles dans les métiers les plus demandés et recherchés, avec des salaires attirants dans des postes de haut calibre."
+    title: "Maitrise des Compétences et Connaissances Réellement Opérationnelles",
+    desc: " dans les métiers les plus demandés et recherchés, avec des salaires attirants dans des postes de haut calibre."
   },
   {
     icon: Laptop,
-    title: "Maitrise des Outils et Logiciels Informatiques : Sage, SAP, Power Bi, Excel, VBA, …"
+    title: "Maitrise des Outils et Logiciels Informatiques :",
+    desc: " Sage, SAP, Power Bi, Excel, VBA, …"
   },
   {
     icon: Users,
@@ -33,19 +35,23 @@ const GAIN_ITEMS = [
   },
   {
     icon: HeartHandshake,
-    title: "Accompagnement A Vie : Soutien continu même après la fin de la formation."
+    title: "Accompagnement A Vie :",
+    desc: " Soutien continu même après la fin de la formation."
   },
   {
     icon: FileText,
-    title: "Préparation Complète au Marché de l’Emploi : Rédaction et optimisation du CV Classique & ATS, Simulations d’entretiens professionnels, Méthodes exclusives pour postuler intelligemment, Accès à une base de données exclusives d’adresses mails vérifiées."
+    title: "Préparation Complète au Marché de l’Emploi :",
+    desc: " Rédaction et optimisation du CV Classique & ATS, Simulations d’entretiens professionnels, Méthodes exclusives pour postuler intelligemment, Accès à une base de données exclusives d’adresses mails vérifiées."
   },
   {
     icon: Briefcase,
-    title: "Réseautage, Recommandations et Aide aux Stages et Embauche : Priorité absolue auprès de nos partenaires professionnels + Aide aux stages rémunérés et emplois."
+    title: "Réseautage, Recommandations et Aide aux Stages et Embauche :",
+    desc: " Priorité absolue auprès de nos partenaires professionnels + Aide aux stages rémunérés et emplois."
   },
   {
     icon: Video,
-    title: "Formation Live + Replays : Séances tenues 100% en Direct, et qui seront enregistrées afin de vous permettre de rattraper et les regarder convenablement à votre rythme et sans pression."
+    title: "Formation Live + Replays :",
+    desc: " Séances tenues 100% en Direct, et qui seront enregistrées afin de vous permettre de rattraper et les regarder convenablement à votre rythme et sans pression."
   },
   {
     icon: CreditCard,
@@ -75,7 +81,6 @@ export function WhatYouGain() {
         <Reveal delay={0.15} className="mt-8 sm:mt-12">
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2">
             {GAIN_ITEMS.map((item, idx) => {
-              const parts = item.title.split(":");
               return (
                 <div key={idx} className="flex flex-col gap-2 rounded-xl bg-white p-3.5 sm:p-4 shadow-sm border border-navy/10 hover:border-gold/30 hover:shadow-gold-glow transition-all">
                   <div className="flex items-start gap-3">
@@ -84,14 +89,8 @@ export function WhatYouGain() {
                     </span>
                     <div className="flex-1">
                       <p className="text-[13px] sm:text-[14px] leading-relaxed text-anthracite/90">
-                        {parts.length > 1 ? (
-                          <>
-                            <strong className="font-bold text-navy">{parts[0]} :</strong>
-                            {parts.slice(1).join(":")}
-                          </>
-                        ) : (
-                          <strong className="font-bold text-navy">{item.title}</strong>
-                        )}
+                        <strong className="font-bold text-navy">{item.title}</strong>
+                        {item.desc && <span>{item.desc}</span>}
                       </p>
                       {item.points && item.points.length > 0 && (
                         <ul className="mt-2 space-y-1.5">
