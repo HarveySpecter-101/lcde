@@ -21,6 +21,7 @@ type Props = {
  */
 export function SectionDivider({ variant = "light-to-soft", className }: Props) {
   let colorClasses = "";
+  let flipY = false;
 
   switch (variant) {
     case "light-to-soft":
@@ -28,8 +29,9 @@ export function SectionDivider({ variant = "light-to-soft", className }: Props) 
       colorClasses = "bg-white text-[#f6f4ef]";
       break;
     case "soft-to-light":
-      // top is soft beige, bottom wave fill is white
-      colorClasses = "bg-[#f6f4ef] text-white";
+      // top is soft beige, bottom wave fill is white, but flipped so beige waves down
+      colorClasses = "bg-white text-[#f6f4ef]";
+      flipY = true;
       break;
     case "soft-to-green":
       // top is soft beige, bottom wave fill is green-50
@@ -70,7 +72,7 @@ export function SectionDivider({ variant = "light-to-soft", className }: Props) 
       <svg
         viewBox="0 0 1440 64"
         preserveAspectRatio="none"
-        className="block h-[24px] w-full sm:h-[32px] md:h-[40px]"
+        className={`block h-[24px] w-full sm:h-[32px] md:h-[40px] ${flipY ? "scale-y-[-1]" : ""}`}
         fill="currentColor"
       >
         <path d="M0,32 C240,64 480,0 720,16 C960,32 1200,64 1440,24 L1440,64 L0,64 Z" />

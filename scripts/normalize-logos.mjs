@@ -37,7 +37,9 @@ function outputPathFor(sourcePath) {
 
 await fs.mkdir(outputDir, { recursive: true });
 
-for (const sourcePath of await getLogoSources()) {
+const sources = await getLogoSources();
+
+for (const sourcePath of sources) {
   const outputPath = outputPathFor(sourcePath);
   await sharp(sourcePath)
     // Remove the source image's empty border before sizing the actual logo.
@@ -48,4 +50,4 @@ for (const sourcePath of await getLogoSources()) {
     .toFile(outputPath);
 }
 
-console.log(`Normalized ${ (await getLogoSources()).length } logos into ${path.relative(process.cwd(), outputDir)}`);
+console.log(`Normalized ${sources.length} logos into ${path.relative(process.cwd(), outputDir)}`);
