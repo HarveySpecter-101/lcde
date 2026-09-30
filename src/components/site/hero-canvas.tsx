@@ -290,7 +290,6 @@ export function HeroCanvas({ sectionRef }: HeroCanvasProps) {
           <line x1="94%" y1="0" x2="66%" y2="100%" stroke="rgba(10,38,71,0.06)" strokeWidth="1" />
           <line x1="4%" y1="62%" x2="96%" y2="62%" stroke="url(#hg)" strokeWidth="1" />
           <line x1="0" y1="0" x2="100%" y2="0" stroke="rgba(196,169,98,0.12)" strokeWidth="1" />
-          <line x1="0" y1="100%" x2="100%" y2="100%" stroke="rgba(196,169,98,0.20)" strokeWidth="1" />
         </svg>
 
         <div className="absolute top-16 right-6 sm:right-20" style={{ backgroundImage: "radial-gradient(rgba(196,169,98,0.55) 1.8px, transparent 1.8px)", backgroundSize: "16px 16px", width: 112, height: 112, opacity: 0.65 }} />

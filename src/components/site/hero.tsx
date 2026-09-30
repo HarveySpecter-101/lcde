@@ -26,7 +26,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="accueil"
-      className="relative overflow-hidden bg-soft pt-16 pb-4 md:pt-20 md:pb-6"
+      className="relative overflow-hidden bg-soft pt-16 pb-10 sm:pb-12 md:pt-20 md:pb-16"
     >
       {/* ══════════════════════════════════════════════
           INTERACTIVE BACKGROUND — all 4 layers

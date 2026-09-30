@@ -22,51 +22,46 @@ type Props = {
 export function SectionDivider({ variant = "light-to-soft", className }: Props) {
   let colorClasses = "";
   let flipY = false;
+  let customMargin = "-mt-1 -mb-1";
 
   switch (variant) {
     case "light-to-soft":
-      // top is white, bottom wave fill is soft beige
       colorClasses = "bg-white text-[#f6f4ef]";
       break;
     case "soft-to-light":
-      // top is soft beige, bottom wave fill is white, but flipped so beige waves down
-      colorClasses = "bg-white text-[#f6f4ef]";
-      flipY = true;
+      // Transparent background so the complex HeroCanvas shows through.
+      // We pull it up by exactly its height so it overlaps the Hero section.
+      colorClasses = "bg-transparent text-white";
+      customMargin = "-mt-[24px] sm:-mt-[32px] md:-mt-[40px] mb-0";
+      flipY = false;
       break;
     case "soft-to-green":
-      // top is soft beige, bottom wave fill is green-50
       colorClasses = "bg-[#f6f4ef] text-[#f0fdf4]";
       break;
     case "green-to-blue":
-      // top is green-50, bottom wave fill is blue gradient start (#e6f2ff)
       colorClasses = "bg-[#f0fdf4] text-[#e6f2ff]";
       break;
     case "light-to-navy":
-      // top is white, bottom wave fill is black/navy
       colorClasses = "bg-white text-[#000000]";
       break;
     case "stories-to-navy":
     case "pink-to-navy":
-      // top is pink (#ffebf0), bottom wave fill is black/navy
       colorClasses = "bg-[#ffebf0] text-[#000000]";
       break;
     case "soft-to-navy":
-      // top is soft beige, bottom wave fill is black/navy
       colorClasses = "bg-[#f6f4ef] text-[#000000]";
       break;
     case "navy-to-light":
-      // top is black/navy, bottom wave fill is white
       colorClasses = "bg-[#000000] text-white";
       break;
     case "navy-to-soft":
-      // top is black/navy, bottom wave fill is soft beige
       colorClasses = "bg-[#000000] text-[#f6f4ef]";
       break;
   }
 
   return (
     <div
-      className={`pointer-events-none w-full leading-none relative z-10 -mt-1 -mb-1 ${colorClasses} ${className ?? ""}`}
+      className={`pointer-events-none w-full leading-none relative z-10 ${customMargin} ${colorClasses} ${className ?? ""}`}
       aria-hidden
     >
       <svg
