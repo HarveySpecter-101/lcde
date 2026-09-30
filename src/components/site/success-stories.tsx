@@ -33,7 +33,7 @@ export function SuccessStories() {
   return (
     <section
       id="resultats"
-      className="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-12 md:py-20"
+      className="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-[#e6f2ff] to-[#ffebf0] py-4 md:py-6"
     >
       <style>{`
         @keyframes float-emoji {
@@ -43,10 +43,10 @@ export function SuccessStories() {
           100% { opacity: 0; transform: translate(0, -60px); }
         }
       `}</style>
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center opacity-10 z-0" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center -space-y-4 sm:-space-y-8 md:-space-y-12 opacity-10 z-0" aria-hidden>
         <div className="font-sans text-7xl sm:text-8xl md:text-[9rem] lg:text-[11rem] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12">CONGRATS</div>
-        <div className="font-sans text-7xl sm:text-8xl md:text-[9rem] lg:text-[11rem] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12 mt-2">CONGRATS</div>
-        <div className="font-sans text-7xl sm:text-8xl md:text-[9rem] lg:text-[11rem] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12 mt-2">CONGRATS</div>
+        <div className="font-sans text-7xl sm:text-8xl md:text-[9rem] lg:text-[11rem] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12">CONGRATS</div>
+        <div className="font-sans text-7xl sm:text-8xl md:text-[9rem] lg:text-[11rem] font-black uppercase italic tracking-tighter text-gold leading-none transform -skew-x-12">CONGRATS</div>
       </div>
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>

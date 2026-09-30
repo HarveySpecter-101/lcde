@@ -75,27 +75,10 @@ const LOGOS = [
   { name: "Viseo", src: "/logos/entreprises/Viseo.png" },
 ];
 
-const ENLARGED_LOGO_SRCS = new Set([
-  "/logos/entreprises/gbsdg.jpg", // TAQA
-  "/logos/entreprises/hgv.jpg", // Crowe
-  "/logos/entreprises/images.png", // Bontaz
-  "/logos/entreprises/jknfvx.jpg", // Moore
-  "/logos/entreprises/jnhf.jpg", // OmniPact
-  "/logos/entreprises/kjfv.jpg", // Vivo Energy
-  "/logos/entreprises/kjhfv.png", // Baker Tilly
-  "/logos/entreprises/kuhflqs.png", // Maghreb Steel
-  "/logos/entreprises/ndhn.png", // BMCE / Bank of Africa
-  "/logos/entreprises/Viseo.png",
-  "/logos/entreprises/,;b.png", // CIH
-  "/logos/entreprises/bgfgn.png", // BMCI
-  "/logos/entreprises/djhs.jpg", // SM South Capital
-  "/logos/entreprises/j.png", // SGTM
-  "/logos/entreprises/jghk.png", // Coopers Audit
-  "/logos/entreprises/hvn;.jpg", // Valoris
-  "/logos/entreprises/download.png", // Nestlé
-  "/logos/entreprises/khcd.jpg", // Eurodefi
-  "/logos/entreprises/kjsfvsldvnk.jpg", // Hdid
-]);
+function normalizedLogoSrc(src: string) {
+  const withoutExtension = src.replace(/\.[^.]+$/, "");
+  return `/logos/normalized/${withoutExtension.replace(/^\//, "").replaceAll("/", "-")}.webp`;
+}
 
 export function CertifiedPartners() {
   return (
@@ -132,15 +115,13 @@ export function CertifiedPartners() {
             >
               {/* Fixed frame: every logo gets the same visual area while keeping its proportions. */}
               <div className="relative h-20 w-56 transition-transform duration-300 hover:scale-110 sm:h-24 sm:w-64">
-                <Image
-                  src={logo.src}
+                  <Image
+                  src={normalizedLogoSrc(logo.src)}
                   alt={logo.name}
                   fill
                   loading="eager"
                   sizes="(min-width: 640px) 256px, 224px"
-                  className={`object-contain mix-blend-multiply ${
-                    ENLARGED_LOGO_SRCS.has(logo.src) ? "scale-[1.55]" : ""
-                  }`}
+                  className="object-contain mix-blend-multiply"
                 />
               </div>
             </div>
