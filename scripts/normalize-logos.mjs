@@ -6,9 +6,11 @@ const publicDir = path.resolve("public");
 const sourceDirs = [
   path.join(publicDir, "logos"),
   path.join(publicDir, "logos", "entreprises"),
+  path.join(publicDir, "logos", "companieslogo"),
+  path.join(publicDir, "logos", "user-partners"),
 ];
 const outputDir = path.join(publicDir, "logos", "normalized");
-const supportedExtensions = new Set([".png", ".jpg", ".jpeg", ".svg"]);
+const supportedExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".svg"]);
 
 async function getLogoSources() {
   const sources = [];

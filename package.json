@@ -12,7 +12,9 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma migrate reset",
-    "logos:normalize": "node scripts/normalize-logos.mjs"
+    "logos:normalize": "node scripts/normalize-logos.mjs",
+    "logos:import-companieslogo": "node scripts/import-companieslogo.mjs && node scripts/normalize-logos.mjs",
+    "logos:import-user": "node scripts/import-user-logos.mjs && node scripts/normalize-logos.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
