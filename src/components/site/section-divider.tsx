@@ -64,7 +64,7 @@ export function SectionDivider({ variant = "light-to-soft", className }: Props) 
 
   return (
     <div
-      className={`pointer-events-none -mt-px -mb-px w-full leading-none ${colorClasses} ${className ?? ""}`}
+      className={`pointer-events-none w-full leading-none relative z-10 -mt-1 -mb-1 ${colorClasses} ${className ?? ""}`}
       aria-hidden
     >
       <svg
