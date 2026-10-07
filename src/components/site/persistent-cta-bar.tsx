@@ -41,32 +41,29 @@ export function PersistentCtaBar() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-x-0 bottom-0 z-50"
+          className="fixed bottom-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
           style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
         >
-          <div className="border-t border-navy/10 bg-white/95 backdrop-blur-lg shadow-[0_-8px_24px_-8px_rgba(10,38,71,0.18)]">
-            <div className="mx-auto flex max-w-7xl items-center gap-2 px-3 py-2.5 md:px-6">
-              {/* WhatsApp button */}
-              <a
-                href={WHATSAPP_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Contacter LCDE sur WhatsApp"
-                className="flex h-11 flex-1 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#25D366] text-sm font-semibold text-white shadow-sm transition-transform active:scale-95 hover:scale-105 cta-pulse-whatsapp"
-              >
-                <MessageCircle className="size-5" strokeWidth={2.2} />
-                WhatsApp
-              </a>
+          <div className="flex w-full max-w-[800px] items-center gap-3 pointer-events-auto">
+            {/* Main CTA button */}
+            <a
+              href="#contact"
+              className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[#0A2647] border border-[#D4AF37]/50 text-sm font-semibold tracking-wide text-white shadow-lg transition-transform active:scale-[0.98] hover:scale-[1.01] hover:bg-[#0A2647]/90"
+            >
+              Je souhaite m'inscrire
+              <ArrowRight className="size-4" />
+            </a>
 
-              {/* Main CTA button */}
-              <a
-                href="#contact"
-                className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gold-gradient text-sm font-semibold text-navy shadow-gold-glow transition-transform active:scale-[0.98] hover:scale-[1.01] cta-pulse-gold"
-              >
-                Je souhaite m'inscrire
-                <ArrowRight className="size-4" />
-              </a>
-            </div>
+            {/* WhatsApp button */}
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contacter LCDE sur WhatsApp"
+              className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#25D366] border border-white/20 text-white shadow-lg transition-transform active:scale-95 hover:scale-105 hover:bg-[#20b858]"
+            >
+              <MessageCircle className="size-6" strokeWidth={2.2} />
+            </a>
           </div>
         </motion.div>
       )}
