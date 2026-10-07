@@ -320,12 +320,12 @@ export function Modules() {
                   <CheckCircle2 className="size-6 sm:size-7" />
                 </span>
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-green-950 m-0">
-                  Ce que recherchent les recruteurs
+                  Ce que réellement recherchent les recruteurs
                 </h3>
               </div>
 
               <div className="mt-6 sm:mt-7 text-sm font-medium leading-relaxed text-green-900/90 sm:text-base mb-4 relative z-10">
-                Le marché de travail cherche des praticiens rares capables de créer de la valeur dès le premier jour.
+                Le marché de travail cherche des praticiens rares capables de créer de la valeur dès le premier jour :
               </div>
               
               <ul className="space-y-4 relative z-10 flex-1">
@@ -333,19 +333,19 @@ export function Modules() {
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Développer des réflexes professionnels avancés et faire preuve d’un niveau d’analyse et de raisonnement supérieur ;</span>
+                  <span>Développer des réflexes professionnels avancés et faire preuve d’un niveau d’analyse et de raisonnement supérieur.</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Détecter les risques, en évaluer les niveaux et en mesurer les impacts ;</span>
+                  <span>Détecter les risques, en évaluer les niveaux et en mesurer les impacts.</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Proposer des solutions concrètes, pertinentes et efficaces ;</span>
+                  <span>Proposer des solutions concrètes, pertinentes et efficaces.</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
