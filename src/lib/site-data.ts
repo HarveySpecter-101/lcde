@@ -612,15 +612,16 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Consultante Senior",
-    role: "Spécialisée en Transaction Services et M&A",
+    role: "Consultante senior en M&A",
     experience: "+15 ans d'expérience",
-    company: "EY Maroc",
+    company: "",
     specialties: [
-      "Transaction Services",
-      "M&A (Mergers and Acquisitions)"
+      "Audit d'acquisition",
+      "Due Diligence financière",
+      "Valorisation d'entreprise",
+      "Modélisation financière"
     ],
-    initials: "CS",
-    logo: "/images/intervenants/ey.png"
+    initials: "CS"
   },
   {
     name: "Auditeur Senior",
