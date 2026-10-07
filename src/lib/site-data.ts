@@ -587,7 +587,7 @@ export const INTERVENANTS: Intervenant[] = [
     experience: "+15 ans d'expérience",
     company: "",
     specialties: [
-      "Consultante Spécialisée en Fiscalité Marocaine",
+      "Fiscalité Marocaine",
       "Fiscalité Internationale",
       "Due Diligence Fiscale et Juridique",
       "Contrôle Fiscal",
