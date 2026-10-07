@@ -621,7 +621,8 @@ export const INTERVENANTS: Intervenant[] = [
       "Valorisation d'entreprise",
       "Modélisation financière"
     ],
-    initials: "CS"
+    initials: "CS",
+    logo: "/logo-lcde.png"
   },
   {
     name: "Auditeur Senior",
@@ -629,7 +630,8 @@ export const INTERVENANTS: Intervenant[] = [
     experience: "+15 ans d'expérience",
     company: "",
     specialties: [],
-    initials: "AS"
+    initials: "AS",
+    logo: "/images/intervenants/kpmg.png"
   },
   {
     name: "Auditrice Senior",
@@ -640,7 +642,8 @@ export const INTERVENANTS: Intervenant[] = [
       "Consolidation des Comptes",
       "Normes Comptables Internationales (IFRS)"
     ],
-    initials: "AS"
+    initials: "AS",
+    logo: "/logos/fidaroc-uploaded.jpg"
   },
   {
     name: "HR Business Partner",
