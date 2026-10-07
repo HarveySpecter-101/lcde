@@ -97,7 +97,7 @@ export function Modules() {
           <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2 leading-tight">
             Formation 100% Pratique
             <br />
-            <span className="mt-3 inline-block rounded-xl bg-white px-4 py-1.5 text-navy shadow-lg">
+            <span className="mt-3 inline-block rounded-xl bg-white px-4 py-1.5 text-gold shadow-lg">
               11 Métiers
             </span>
           </h2>
