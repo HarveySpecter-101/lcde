@@ -646,11 +646,8 @@ export const INTERVENANTS: Intervenant[] = [
     name: "HR Business Partner",
     role: "Spécialisé en Recrutement et Acquisition des Talents",
     experience: "+15 ans d'expérience",
-    company: "OCP",
-    specialties: [
-      "Recrutement",
-      "Acquisition des Talents"
-    ],
+    company: "",
+    specialties: [],
     initials: "HR",
     logo: "/images/intervenants/ocp.jpg"
   },
