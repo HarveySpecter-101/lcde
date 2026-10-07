@@ -52,10 +52,59 @@ export function Modules() {
   const popupModule = popupIndex !== null ? MODULES[popupIndex] : null;
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // Lock body scroll and prevent background scroll when popup is open
+  useEffect(() => {
+    if (popupIndex !== null) {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const originalOverflow = document.body.style.overflow;
+      const originalPaddingRight = document.body.style.paddingRight;
+
+      document.body.style.overflow = "hidden";
+      if (scrollBarWidth > 0) {
+        document.body.style.paddingRight = `${scrollBarWidth}px`;
+      }
+
+      const onKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setPopupIndex(null);
+        }
+      };
+      window.addEventListener("keydown", onKeyDown);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        document.body.style.paddingRight = originalPaddingRight;
+        window.removeEventListener("keydown", onKeyDown);
+      };
+    }
+  }, [popupIndex !== null]);
+
+  // Reset scroll position on module change
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;
     }
+  }, [popupIndex]);
+
+  // Prevent wheel scroll bleed / chaining to the parent document when reaching bounds
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || popupIndex === null) return;
+
+    const onWheel = (e: WheelEvent) => {
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      const isAtTop = scrollTop <= 0;
+      const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 1;
+
+      if ((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom)) {
+        e.preventDefault();
+      }
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+    };
   }, [popupIndex]);
 
   /* ----- pricing modal ----- */
@@ -104,11 +153,11 @@ export function Modules() {
           <div className="mt-6 flex flex-col items-start sm:items-center justify-center gap-3 text-base font-medium leading-relaxed text-white/90 sm:text-lg">
             <div className="flex items-start gap-3 text-left">
               <CheckCircle2 className="mt-1 size-5 shrink-0 text-gold" />
-              <span>Simulations de missions et problématiques telles qu'elles sont traitées sur terrain</span>
+              <span>Simulations de missions et problématiques telles qu'elles sont traitées sur terrain ;</span>
             </div>
             <div className="flex items-start gap-3 text-left">
               <CheckCircle2 className="mt-1 size-5 shrink-0 text-gold" />
-              <span>documents professionnels, données et chiffres réels</span>
+              <span>documents professionnels, données et chiffres réels.</span>
             </div>
           </div>
         </Reveal>
@@ -322,8 +371,9 @@ export function Modules() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm"
+              className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm touch-none overscroll-none"
               onClick={() => setPopupIndex(null)}
+              onTouchMove={(e) => e.preventDefault()}
               aria-hidden
             />
 
@@ -333,7 +383,7 @@ export function Modules() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-x-4 top-[8%] bottom-[8%] z-[60] mx-auto max-w-xl overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-2xl sm:inset-x-0 sm:w-full"
+              className="fixed inset-x-4 top-[8%] bottom-[8%] z-[60] mx-auto max-w-xl overflow-hidden rounded-3xl border border-navy/10 bg-white shadow-2xl overscroll-contain sm:inset-x-0 sm:w-full"
             >
               {/* Left Arrow (Absolute to Card) */}
               <button
@@ -385,7 +435,11 @@ export function Modules() {
 
               {/* Scrollable body */}
               {/* Added pb-12 so the content doesn't end up covered by the popup container edge or padding */}
-              <div ref={scrollRef} className="overflow-y-auto px-5 py-5 sm:px-6 sm:py-6 pb-12" style={{ maxHeight: "calc(100% - 140px)" }}>
+              <div
+                ref={scrollRef}
+                className="overflow-y-auto overscroll-contain px-5 py-5 sm:px-6 sm:py-6 pb-12"
+                style={{ maxHeight: "calc(100% - 140px)", overscrollBehavior: "contain" }}
+              >
                 {popupModule.details?.map((section, idx) => (
                   <div key={idx} className="mt-6 first:mt-0 px-2 sm:px-4">
                     {section.heading && (
