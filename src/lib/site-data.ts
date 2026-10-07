@@ -633,15 +633,14 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Auditrice Senior",
-    role: "Expert-Comptable, Auditrice et Consultante",
+    role: "Expert-comptable spécialisée en consolidation et normes IFRS",
     experience: "+15 ans d'expérience",
-    company: "Fidaroc Grant Thornton",
+    company: "",
     specialties: [
       "Consolidation des Comptes",
       "Normes Comptables Internationales (IFRS)"
     ],
-    initials: "AS",
-    logo: "/images/intervenants/fidaroc.jpg"
+    initials: "AS"
   },
   {
     name: "HR Business Partner",
