@@ -94,8 +94,12 @@ export function Modules() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ───────── Header ───────── */}
         <Reveal className="mx-auto max-w-4xl text-center">
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2">
-            Formation 100% Pratique en 11 Métiers
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-gold sm:text-4xl md:text-5xl uppercase mb-2 leading-tight">
+            Formation 100% Pratique
+            <br />
+            <span className="mt-3 inline-block rounded-xl bg-white px-4 py-1.5 text-navy shadow-lg">
+              11 Métiers
+            </span>
           </h2>
           <div className="mt-6 flex flex-col items-start sm:items-center justify-center gap-3 text-base font-medium leading-relaxed text-white/90 sm:text-lg">
             <div className="flex items-start gap-3 text-left">
