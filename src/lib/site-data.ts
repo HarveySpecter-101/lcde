@@ -625,15 +625,11 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Auditeur Senior",
-    role: "Expert-Comptable, Auditeur et Consultant Spécialisé dans le secteur des Assurances",
+    role: "Expert-comptable spécialisé dans le secteur des assurances",
     experience: "+15 ans d'expérience",
-    company: "KPMG Maroc",
-    specialties: [
-      "Expertise Comptable",
-      "Audit secteur des Assurances"
-    ],
-    initials: "AS",
-    logo: "/images/intervenants/kpmg.png"
+    company: "",
+    specialties: [],
+    initials: "AS"
   },
   {
     name: "Auditrice Senior",
