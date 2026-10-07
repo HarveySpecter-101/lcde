@@ -108,7 +108,7 @@ export function Modules() {
             </div>
             <div className="flex items-start gap-3 text-left">
               <CheckCircle2 className="mt-1 size-5 shrink-0 text-gold" />
-              <span>documents professionnels, des données et chiffres réels</span>
+              <span>documents professionnels, données et chiffres réels</span>
             </div>
           </div>
         </Reveal>
