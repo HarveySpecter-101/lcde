@@ -104,11 +104,11 @@ export function Modules() {
           <div className="mt-6 flex flex-col items-start sm:items-center justify-center gap-3 text-base font-medium leading-relaxed text-white/90 sm:text-lg">
             <div className="flex items-start gap-3 text-left">
               <CheckCircle2 className="mt-1 size-5 shrink-0 text-gold" />
-              <span>Simulations de missions et de problématiques telles qu'elles sont traitées sur le terrain.</span>
+              <span>Simulations de missions et problématiques telles qu'elles sont traitées sur terrain</span>
             </div>
             <div className="flex items-start gap-3 text-left">
               <CheckCircle2 className="mt-1 size-5 shrink-0 text-gold" />
-              <span>Exploitation et analyse de documents professionnels, des données et chiffres réels ;</span>
+              <span>documents professionnels, des données et chiffres réels</span>
             </div>
           </div>
         </Reveal>
@@ -244,19 +244,19 @@ export function Modules() {
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
                     <XCircle className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Les bonnes notes à l'école ou une mention “Très Bien” ne suffisent pas pour décrocher les meilleures opportunités ;</span>
+                  <span>Les bonnes notes à l'école ou une mention “Très Bien” ne suffisent pas pour décrocher les meilleures opportunités.</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-red-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
                     <XCircle className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span><strong>La vérité que personne ne dit :</strong> les recruteurs ne s'intéressent pas uniquement à ta filière, et exigent, par ailleurs, des compétences de haut calibre, qui ne sont généralement pas abordées à l'école ;</span>
+                  <span><strong>La vérité que personne ne dit :</strong> les recruteurs ne s'intéressent pas uniquement à ta filière, et exigent, par ailleurs, des compétences de haut calibre, qui ne sont généralement pas abordées à l'école.</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-red-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
                     <XCircle className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Les recruteurs n'évaluent pas tes connaissances académiques ;</span>
+                  <span>Les recruteurs n'évaluent pas tes connaissances académiques.</span>
                 </li>
               </ul>
             </div>
@@ -284,19 +284,19 @@ export function Modules() {
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Développer des réflexes professionnels avancés et faire preuve d’un niveau d’analyse et de raisonnement supérieur.</span>
+                  <span>Développer des réflexes professionnels avancés et faire preuve d’un niveau d’analyse et de raisonnement supérieur ;</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Détecter les risques, en évaluer les niveaux et en mesurer les impacts.</span>
+                  <span>Détecter les risques, en évaluer les niveaux et en mesurer les impacts ;</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
                     <CheckCircle2 className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Proposer des solutions concrètes, pertinentes et efficaces.</span>
+                  <span>Proposer des solutions concrètes, pertinentes et efficaces ;</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-green-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-green-200 text-green-700">
@@ -424,3 +424,5 @@ export function Modules() {
     </section>
   );
 }
+
+
