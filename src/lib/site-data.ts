@@ -568,17 +568,18 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Mr. Mehdi Zaher",
-    role: "Senior Manager en Transaction Services",
+    role: "Senior manager en transaction services (TS) et Mergers and acquisitions (M&A)",
     experience: "+15 ans d'expérience",
-    company: "Mazars",
+    company: "",
     specialties: [
-      "Consultant Spécialisé en Audit d’Acquisition",
+      "Spécialisé en Audit d’Acquisition",
       "Due Diligence Financière",
       "Valorisation des Entreprises",
       "Modélisation Financière"
     ],
     initials: "MZ",
-    photo: "/images/intervenants/2.jpg"
+    photo: "/images/intervenants/2.jpg",
+    logo: "/logos/forvis-mazars.png"
   },
   {
     name: "Mme. Sarah Dchieche",

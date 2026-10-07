@@ -91,7 +91,7 @@ export function Intervenants() {
               >
                 <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-premium max-w-2xl mx-auto relative">
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-8">
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 flex flex-col items-center gap-4">
                       {INTERVENANTS[current].photo ? (
                         <Image 
                           src={INTERVENANTS[current].photo} 
@@ -115,6 +115,18 @@ export function Intervenants() {
                       ) : (
                         <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gold-gradient flex items-center justify-center text-white text-3xl sm:text-4xl font-serif font-bold shadow-lg">
                           {INTERVENANTS[current].initials}
+                        </div>
+                      )}
+                      
+                      {INTERVENANTS[current].photo && INTERVENANTS[current].logo && (
+                        <div className="w-24 sm:w-28 md:w-32 bg-white flex items-center justify-center p-2 rounded-xl">
+                          <Image 
+                            src={INTERVENANTS[current].logo} 
+                            alt={`${INTERVENANTS[current].company || 'Company'} logo`}
+                            width={100}
+                            height={40}
+                            className="object-contain max-h-10 w-auto"
+                          />
                         </div>
                       )}
                     </div>
