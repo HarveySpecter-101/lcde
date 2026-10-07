@@ -568,7 +568,7 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Mr. Mehdi Zaher",
-    role: "Senior manager en transaction services (TS) et Mergers and acquisitions (M&A)",
+    role: "Senior manager en transaction services (TS) et Mergers and acquisitions (M&A), specialisé en:",
     experience: "+15 ans d'expérience",
     company: "",
     specialties: [
