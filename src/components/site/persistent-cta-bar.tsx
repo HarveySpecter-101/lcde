@@ -48,7 +48,7 @@ export function PersistentCtaBar() {
             {/* Main CTA button */}
             <a
               href="#contact"
-              className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[#0A2647] border border-[#D4AF37]/50 text-sm font-semibold tracking-wide text-white shadow-lg transition-transform active:scale-[0.98] hover:scale-[1.01] hover:bg-[#0A2647]/90"
+              className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-gold-gradient text-sm font-semibold tracking-wide text-navy shadow-gold-glow transition-transform active:scale-[0.98] hover:scale-[1.01] cta-pulse-gold"
             >
               Je souhaite m'inscrire
               <ArrowRight className="size-4" />
