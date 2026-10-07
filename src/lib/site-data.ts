@@ -583,9 +583,9 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Mme. Sarah Dchieche",
-    role: "Directrice Tax",
+    role: "Directrice Tax, specialisée en:",
     experience: "+15 ans d'expérience",
-    company: "Deloitte Maroc",
+    company: "",
     specialties: [
       "Consultante Spécialisée en Fiscalité Marocaine",
       "Fiscalité Internationale",
@@ -596,7 +596,7 @@ export const INTERVENANTS: Intervenant[] = [
       "Fiscalité Locale"
     ],
     initials: "SD",
-    photo: "/images/intervenants/sarah.jpg"
+    logo: "/logos/deloitte.svg"
   },
   {
     name: "Mr. Reda Latrach",
