@@ -284,7 +284,7 @@ export function Modules() {
                   <XCircle className="size-6 sm:size-7" />
                 </span>
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-red-950 m-0">
-                  La réalité du marché
+                  La réalité du marché que personne ne dit
                 </h3>
               </div>
               
@@ -293,19 +293,19 @@ export function Modules() {
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
                     <XCircle className="size-3.5" strokeWidth={2.5} />
                   </span>
-                  <span>Les bonnes notes à l'école ou une mention “Très Bien” ne suffisent pas pour décrocher les meilleures opportunités.</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm leading-relaxed text-red-950/85 sm:text-base">
-                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
-                    <XCircle className="size-3.5" strokeWidth={2.5} />
-                  </span>
-                  <span><strong>La vérité que personne ne dit :</strong> les recruteurs ne s'intéressent pas uniquement à ta filière, et exigent, par ailleurs, des compétences de haut calibre, qui ne sont généralement pas abordées à l'école.</span>
+                  <span>les recruteurs ne s'intéressent pas uniquement à ta filière, et exigent, par ailleurs, des compétences de haut calibre, qui ne sont généralement pas abordées à l'école.</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm leading-relaxed text-red-950/85 sm:text-base">
                   <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
                     <XCircle className="size-3.5" strokeWidth={2.5} />
                   </span>
                   <span>Les recruteurs n'évaluent pas tes connaissances académiques.</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm leading-relaxed text-red-950/85 sm:text-base">
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-200 text-red-700">
+                    <XCircle className="size-3.5" strokeWidth={2.5} />
+                  </span>
+                  <span>Les bonnes notes à l'école ou une mention “Très Bien” ne suffisent pas pour décrocher les meilleures opportunités.</span>
                 </li>
               </ul>
             </div>
