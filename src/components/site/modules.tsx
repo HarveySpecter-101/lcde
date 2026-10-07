@@ -238,11 +238,11 @@ export function Modules() {
 
         {/* ───────── Tools band ───────── */}
         <Reveal className="mt-6 sm:mt-6">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md">
+          <div className="rounded-3xl border border-gray-300 bg-gradient-to-br from-gray-100 to-gray-300 p-6 md:p-8 shadow-inner">
             <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
               <div className="text-center md:text-left">
-                <h3 className="mt-1 font-serif text-xl font-bold text-white">
-                  Maîtrisez les outils réellement utilisés
+                <h3 className="mt-1 font-serif text-xl font-bold text-navy">
+                  Maîtrisez les outils utilisés
                 </h3>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-3">
