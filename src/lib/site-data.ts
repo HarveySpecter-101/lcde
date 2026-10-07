@@ -638,10 +638,7 @@ export const INTERVENANTS: Intervenant[] = [
     role: "Expert-comptable spécialisée en consolidation et normes IFRS",
     experience: "+15 ans d'expérience",
     company: "",
-    specialties: [
-      "Consolidation des Comptes",
-      "Normes Comptables Internationales (IFRS)"
-    ],
+    specialties: [],
     initials: "AS",
     logo: "/logos/fidaroc-uploaded.jpg"
   },
