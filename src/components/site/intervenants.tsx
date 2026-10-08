@@ -119,13 +119,13 @@ export function Intervenants() {
                       )}
                       
                       {INTERVENANTS[current].photo && INTERVENANTS[current].logo && (
-                        <div className="w-24 sm:w-28 md:w-32 bg-white flex items-center justify-center p-2 rounded-xl">
+                        <div className="absolute top-6 right-6 sm:static w-20 sm:w-28 md:w-32 bg-white flex items-center justify-center p-1.5 sm:p-2 rounded-lg sm:rounded-xl">
                           <Image 
                             src={INTERVENANTS[current].logo} 
                             alt={`${INTERVENANTS[current].company || 'Company'} logo`}
                             width={100}
                             height={40}
-                            className="object-contain max-h-10 w-auto"
+                            className="object-contain max-h-8 sm:max-h-10 w-auto"
                           />
                         </div>
                       )}

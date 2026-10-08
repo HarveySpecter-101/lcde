@@ -568,7 +568,7 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Mr. Mehdi Zaher",
-    role: "Senior manager en transaction services (TS) et Mergers and acquisitions (M&A), specialisé en:",
+    role: "Senior manager en transaction services (TS) et Mergers and acquisitions (M&A), spécialisé en:",
     experience: "+15 ans d'expérience",
     company: "",
     specialties: [
@@ -583,7 +583,7 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Mme. Sarah Dchieche",
-    role: "Directrice Tax, specialisée en:",
+    role: "Directrice Tax, spécialisée en:",
     experience: "+15 ans d'expérience",
     company: "",
     specialties: [
