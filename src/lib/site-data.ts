@@ -653,22 +653,17 @@ export const INTERVENANTS: Intervenant[] = [
   },
   {
     name: "Rida Moutik",
-    role: "Fondateur, Expert-Comptable, Manager Audit & Financial Advisory",
+    role: "Fondateur, Expert-Comptable, Senior Manager Audit & Financial Advisory",
     experience: "+15 ans d'expérience",
-    specialties: [
-      "Audit",
-      "Financial Advisory"
-    ],
+    specialties: [],
     initials: "RM",
     photo: "/founders/rida-moutik.jpg"
   },
   {
     name: "Rachad Ghali",
-    role: "Fondateur, Manager Audit & Financial Advisory",
+    role: "Fondateur, senior manager audit & financial advisory spécialisé dans le secteur bancaire",
     experience: "+15 ans d'expérience",
-    specialties: [
-      "Auditeur et Consultant Spécialisé dans le Secteur Bancaire"
-    ],
+    specialties: [],
     initials: "RG",
     photo: "/founders/rachad-ghali.jpg"
   }
