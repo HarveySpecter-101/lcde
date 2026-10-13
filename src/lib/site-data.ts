@@ -572,7 +572,7 @@ export const INTERVENANTS: Intervenant[] = [
     experience: "+15 ans d'expérience",
     company: "",
     specialties: [
-      "Spécialisé en Audit d’Acquisition",
+      "Audit d’Acquisition",
       "Due Diligence Financière",
       "Valorisation des Entreprises",
       "Modélisation Financière"
