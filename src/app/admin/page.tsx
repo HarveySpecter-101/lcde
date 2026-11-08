@@ -117,6 +117,8 @@ type SiteVisit = {
   browser: string | null;
   os: string | null;
   device: string | null;
+  fingerprintId: string | null;
+  fingerprintData: { confidence?: number; components?: Record<string, unknown> } | null;
   screenWidth: number | null;
   screenHeight: number | null;
   referrer: string | null;
@@ -537,6 +539,12 @@ function SessionTimeline({ visit }: { visit: SiteVisit }) {
               </div>
             )}
           </div>
+              <div className="flex justify-between items-center gap-3">
+                <span className="text-white/50">Fingerprint</span>
+                <span className="font-mono truncate max-w-[220px]" title={visit.fingerprintId || undefined}>
+                  {visit.fingerprintId || "Non disponible"}
+                </span>
+              </div>
 
           {/* Parcours du candidat (événements simples et narratifs avec fortes accentuations) */}
           <div>

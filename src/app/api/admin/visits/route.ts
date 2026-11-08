@@ -34,6 +34,8 @@ export async function GET(req: Request) {
         browser: v.browser,
         os: v.os,
         device: v.device,
+        fingerprintId: v.fingerprintId,
+        fingerprintData: v.fingerprintData,
         screenWidth: v.screenWidth,
         screenHeight: v.screenHeight,
         referrer: v.referrer,

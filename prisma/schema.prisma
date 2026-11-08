@@ -53,6 +53,8 @@ model SiteVisit {
   browser          String?
   os               String?
   device           String?
+  fingerprintId    String?
+  fingerprintData  Json?
   screenWidth      Int?
   screenHeight     Int?
   referrer         String?

@@ -1,6 +1,32 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+
+type FingerprintData = {
+  visitorId: string;
+  confidence?: number;
+  components?: Record<string, unknown>;
+};
+
+async function getFingerprint(): Promise<FingerprintData | null> {
+  try {
+    const agent = await FingerprintJS.load();
+    const result = await agent.get();
+    return {
+      visitorId: result.visitorId,
+      confidence: result.confidence?.score,
+      components: Object.fromEntries(
+        Object.entries(result.components).map(([key, component]) => [
+          key,
+          "value" in component ? component.value : { error: String(component.error) },
+        ])
+      ),
+    };
+  } catch {
+    return null;
+  }
+}
 
 function generateSessionId(): string {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
@@ -308,6 +334,22 @@ export function SiteTracker() {
     trafficSourceRef.current = trafficSource;
 
     const { browser, os, device } = getBrowserInfo();
+
+    void getFingerprint().then((fingerprint) => {
+      if (!fingerprint) return;
+      fetch("/api/tracking/init", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId: sessionIdRef.current,
+          fingerprintId: fingerprint.visitorId,
+          fingerprintData: {
+            confidence: fingerprint.confidence,
+            components: fingerprint.components,
+          },
+        }),
+      }).catch(() => {});
+    });
 
     // Événement initial : Arrivée sur le site
     eventsRef.current.push({

@@ -29,6 +29,18 @@ export async function POST(req: Request) {
     });
 
     if (existing) {
+      if (typeof body.fingerprintId === "string") {
+        await db.siteVisit.update({
+          where: { sessionId: body.sessionId },
+          data: {
+            fingerprintId: body.fingerprintId.slice(0, 128),
+            fingerprintData:
+              body.fingerprintData && typeof body.fingerprintData === "object"
+                ? body.fingerprintData
+                : undefined,
+          },
+        });
+      }
       return NextResponse.json({ ok: true, id: existing.id });
     }
 
@@ -40,6 +52,8 @@ export async function POST(req: Request) {
         browser: body.browser || null,
         os: body.os || null,
         device: body.device || null,
+        fingerprintId: typeof body.fingerprintId === "string" ? body.fingerprintId.slice(0, 128) : null,
+        fingerprintData: body.fingerprintData && typeof body.fingerprintData === "object" ? body.fingerprintData : undefined,
         screenWidth: body.screenWidth || null,
         screenHeight: body.screenHeight || null,
         referrer: body.referrer || null,
