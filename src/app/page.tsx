@@ -8,6 +8,7 @@ import { Intervenants } from "@/components/site/intervenants";
 import { BeforeAfter } from "@/components/site/before-after";
 import { SuccessStories } from "@/components/site/success-stories";
 import { Contact } from "@/components/site/contact";
+import { PublicLessonPreview } from "@/components/site/public-lesson-preview";
 import { Footer } from "@/components/site/footer";
 import { ScrollProgress } from "@/components/site/scroll-progress";
 import { SectionDivider } from "@/components/site/section-divider";
@@ -43,6 +44,7 @@ export default function Home() {
         <SuccessStories />
         <SectionDivider variant="stories-to-navy" />
         <Contact />
+        <PublicLessonPreview />
       </main>
       <Footer />
       <PersistentCtaBar />
