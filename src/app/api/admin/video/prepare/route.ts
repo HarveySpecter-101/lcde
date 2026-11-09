@@ -9,7 +9,12 @@ import { DRIVE_REFRESH_COOKIE, downloadDriveFile, refreshGoogleAccessToken } fro
 export const maxDuration = 300;
 
 export async function POST() {
-  if (!(await isUserAdmin())) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+  if (!(await isUserAdmin())) {
+    return NextResponse.json(
+      { error: "Session administrateur requise.", code: "ADMIN_AUTH_REQUIRED" },
+      { status: 401 },
+    );
+  }
   const refreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN || (await cookies()).get(DRIVE_REFRESH_COOKIE)?.value;
   if (!refreshToken) return NextResponse.json({ error: "La vidéo n'est pas encore configurée côté serveur." }, { status: 503 });
 
@@ -20,6 +25,15 @@ export async function POST() {
       body: JSON.stringify({ refreshToken }),
     });
     const data = await response.json().catch(() => ({ error: "Réponse invalide du service vidéo" }));
+    if (response.status === 401) {
+      return NextResponse.json(
+        {
+          error: "Le service vidéo Cloud Run a refusé la requête. Vérifie que VIDEO_WORKER_SECRET a exactement la même valeur dans Vercel et Cloud Run, puis redéploie les deux services.",
+          code: "VIDEO_WORKER_AUTH_FAILED",
+        },
+        { status: 502 },
+      );
+    }
     return NextResponse.json(data, { status: response.status });
   }
 

@@ -38,7 +38,7 @@ export function AdminVideoPanel() {
     try {
       const response = await fetch("/api/admin/video/prepare", { method: "POST", credentials: "same-origin" });
       const data = await response.json().catch(() => ({}));
-      if (response.status === 401) {
+      if (response.status === 401 && data.code === "ADMIN_AUTH_REQUIRED") {
         setNeedsAdminLogin(true);
         setStatus("Connecte-toi avec ton compte administrateur pour lancer le test vidéo.");
         return;
