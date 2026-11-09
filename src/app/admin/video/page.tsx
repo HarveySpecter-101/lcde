@@ -28,18 +28,10 @@ export default function AdminVideoPage() {
     return () => hls.destroy();
   }, [manifest]);
 
-  async function connectDrive() {
-    window.location.href = "/api/admin/video/oauth/start";
-  }
-
   async function prepareVideo() {
-    setStatus("Téléchargement depuis Drive et conversion HLS en cours...");
+    setStatus("Préparation de la séance en cours...");
     const response = await fetch("/api/admin/video/prepare", { method: "POST" });
     const data = await response.json();
-    if (data.connect) {
-      setStatus("Connexion Google Drive requise.");
-      return;
-    }
     if (!response.ok) {
       setStatus(data.error || "La vidéo n'a pas pu être préparée.");
       return;
@@ -57,10 +49,7 @@ export default function AdminVideoPage() {
           <p className="mt-2 text-white/60">La vidéo est récupérée depuis Google Drive côté serveur puis convertie en HLS.</p>
         </div>
         <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-5">
-          <div className="flex flex-wrap gap-3">
-            <button onClick={connectDrive} className="rounded-xl bg-white/10 px-4 py-2 font-semibold hover:bg-white/20">Connecter Google Drive</button>
-            <button onClick={prepareVideo} className="rounded-xl bg-purple-600 px-4 py-2 font-semibold hover:bg-purple-500">Préparer la vidéo</button>
-          </div>
+          <button onClick={prepareVideo} className="rounded-xl bg-purple-600 px-4 py-2 font-semibold hover:bg-purple-500">Regarder la séance</button>
           <p className="mt-4 text-sm text-white/60">{status}</p>
         </div>
         {manifest && <video ref={videoRef} controls playsInline className="aspect-video w-full rounded-2xl bg-black shadow-2xl" />}

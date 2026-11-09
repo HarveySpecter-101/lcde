@@ -35,7 +35,7 @@ app.get("/health", (_req, res) => res.json({ ok: true }));
 
 app.post("/prepare", async (req, res) => {
   if (!authorized(req)) return res.status(401).json({ error: "Non autorisé" });
-  const refreshToken = req.body?.refreshToken;
+  const refreshToken = req.body?.refreshToken || process.env.GOOGLE_DRIVE_REFRESH_TOKEN;
   if (!refreshToken) return res.status(400).json({ error: "Jeton Google Drive manquant" });
   const job = crypto.randomUUID();
   const temp = await fs.mkdtemp(path.join(os.tmpdir(), "lcde-video-"));

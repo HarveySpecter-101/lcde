@@ -10,8 +10,8 @@ export const maxDuration = 300;
 
 export async function POST() {
   if (!(await isUserAdmin())) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-  const refreshToken = (await cookies()).get(DRIVE_REFRESH_COOKIE)?.value;
-  if (!refreshToken) return NextResponse.json({ error: "Connexion Google Drive requise", connect: true }, { status: 401 });
+  const refreshToken = process.env.GOOGLE_DRIVE_REFRESH_TOKEN || (await cookies()).get(DRIVE_REFRESH_COOKIE)?.value;
+  if (!refreshToken) return NextResponse.json({ error: "La vidéo n'est pas encore configurée côté serveur." }, { status: 503 });
 
   if (process.env.VIDEO_WORKER_URL) {
     const response = await fetch(`${process.env.VIDEO_WORKER_URL.replace(/\/$/, "")}/prepare`, {
