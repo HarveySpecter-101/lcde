@@ -13,6 +13,16 @@ export async function POST() {
   const refreshToken = (await cookies()).get(DRIVE_REFRESH_COOKIE)?.value;
   if (!refreshToken) return NextResponse.json({ error: "Connexion Google Drive requise", connect: true }, { status: 401 });
 
+  if (process.env.VIDEO_WORKER_URL) {
+    const response = await fetch(`${process.env.VIDEO_WORKER_URL.replace(/\/$/, "")}/prepare`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-worker-secret": process.env.VIDEO_WORKER_SECRET || "" },
+      body: JSON.stringify({ refreshToken }),
+    });
+    const data = await response.json().catch(() => ({ error: "Réponse invalide du service vidéo" }));
+    return NextResponse.json(data, { status: response.status });
+  }
+
   const root = path.join(process.cwd(), ".cache", "lcde-hls");
   const output = path.join(root, "test-video");
   const source = path.join(root, "source-video");

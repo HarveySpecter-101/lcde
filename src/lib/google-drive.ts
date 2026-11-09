@@ -12,7 +12,7 @@ export const DRIVE_REFRESH_COOKIE = "lcde_drive_refresh_token";
 export const DRIVE_STATE_COOKIE = "lcde_drive_oauth_state";
 
 export async function getGoogleOAuthClient() {
-  const raw = await readFile(path.resolve(process.cwd(), OAUTH_FILE), "utf8");
+  const raw = process.env.GOOGLE_OAUTH_CLIENT_JSON || await readFile(path.resolve(process.cwd(), OAUTH_FILE), "utf8");
   const config = JSON.parse(raw) as OAuthClient;
   const client = config.web || config.installed;
   if (!client?.client_id || !client.client_secret) {
@@ -22,7 +22,7 @@ export async function getGoogleOAuthClient() {
 }
 
 export function getGoogleRedirectUri() {
-  return process.env.GOOGLE_OAUTH_REDIRECT_URI || "http://localhost:3000/api/admin/video/oauth/callback";
+  return process.env.GOOGLE_OAUTH_REDIRECT_URI || "https://le-club-des-experts.vercel.app/api/admin/video/oauth/callback";
 }
 
 export async function refreshGoogleAccessToken(refreshToken: string) {
