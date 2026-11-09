@@ -35,11 +35,13 @@ import {
   Share2,
   Compass,
   Trash2,
+  Video,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
+import { AdminVideoPanel } from "@/components/admin-video-panel";
 import {
   XAxis,
   YAxis,
@@ -132,7 +134,7 @@ type SiteVisit = {
   endedAt: string | null;
 };
 
-type Tab = "dashboard" | "submissions";
+type Tab = "dashboard" | "submissions" | "lessons";
 type PeriodFilter = "day" | "week" | "month" | "overall";
 
 /* ────────────────────────────────────────────────────────────── */
@@ -1070,6 +1072,7 @@ export default function AdminPage() {
   const tabs: { id: Tab; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
     { id: "dashboard", label: "Visiteurs", icon: BarChart3 },
     { id: "submissions", label: "Candidatures", icon: FileSpreadsheet },
+    { id: "lessons", label: "Séances", icon: Video },
   ];
 
   return (
@@ -1182,6 +1185,11 @@ export default function AdminPage() {
         {/* ── Content ── */}
         <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
           <AnimatePresence mode="wait">
+            {activeTab === "lessons" && (
+              <motion.div key="lessons" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                <AdminVideoPanel />
+              </motion.div>
+            )}
             {/* ========== DASHBOARD & TRAFFIC TAB ========== */}
             {activeTab === "dashboard" && (
               <motion.div
